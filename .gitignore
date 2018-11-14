@@ -1,0 +1,11 @@
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
+
+build/
+.gradle
+gradle-app.setting
+.gradletasknamecache
+!gradle-wrapper.jar
+
+out/
