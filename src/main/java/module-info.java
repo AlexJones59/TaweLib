@@ -1,4 +1,4 @@
-module serious {
+module com.tawelib.groupfive {
   requires javafx.base;
   requires javafx.graphics;
   requires javafx.web;
