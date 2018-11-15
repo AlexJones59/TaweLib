@@ -30,11 +30,13 @@ test:
   stage: test
   script:
     - ./gradlew check
+  only:
+    - master
 
 deploy:
   stage: deploy
   script:
-#    - ./deploy
+    #  - ./deploy
     - echo "The deployment would happen here, but is not set up."
   only:
     - master
