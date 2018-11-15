@@ -7,5 +7,5 @@ module com.tawelib.groupfive {
   requires javafx.media;
 
   exports com.tawelib.groupfive;
-  exports com.tawelib.groupfive.view;
+  exports com.tawelib.groupfive.view to javafx.graphics;
 }
