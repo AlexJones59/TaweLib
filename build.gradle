@@ -74,4 +74,19 @@ javadoc {
     options.addBooleanOption('html5', true)
 }
 
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion '8.14'
+    configFile file("config/checkstyle.xml")
+}
+
+checkstyleMain {
+    source ='src/main/java/com/tawelib/groupfive'
+}
+
+checkstyleTest {
+    source ='src/main/java/com/tawelib/groupfive'
+}
+
 mainClassName = 'com.tawelib.groupfive.Main'
