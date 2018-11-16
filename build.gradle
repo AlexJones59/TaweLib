@@ -66,4 +66,9 @@ jar {
     }
 }
 
+javadoc {
+    options.addStringOption('-module-path', classpath.asPath)
+    options.addBooleanOption('html5', true)
+}
+
 mainClassName = 'com.tawelib.groupfive.Main'
