@@ -64,6 +64,9 @@ jar {
             'Main-Class': 'com.tawelib.groupfive.Main'
         )
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 javadoc {
