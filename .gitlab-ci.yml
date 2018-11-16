@@ -30,16 +30,6 @@ test:
   stage: test
   script:
     - ./gradlew check
-  only:
-    - master
-
-deploy:
-  stage: deploy
-  script:
-    #  - ./deploy
-    - echo "The deployment would happen here, but is not set up."
-  only:
-    - master
 
 after_script:
   - echo "End CI"

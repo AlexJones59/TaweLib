@@ -64,11 +64,29 @@ jar {
             'Main-Class': 'com.tawelib.groupfive.Main'
         )
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 javadoc {
     options.addStringOption('-module-path', classpath.asPath)
     options.addBooleanOption('html5', true)
+}
+
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion '8.14'
+    configFile file("config/checkstyle.xml")
+}
+
+checkstyleMain {
+    source ='src/main/java/com/tawelib/groupfive'
+}
+
+checkstyleTest {
+    source ='src/main/java/com/tawelib/groupfive'
 }
 
 mainClassName = 'com.tawelib.groupfive.Main'
