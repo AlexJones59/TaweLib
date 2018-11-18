@@ -1,5 +1,5 @@
 package com.tawelib.groupfive.repository;
 
-abstract public class UserRepository extends BaseRepository {
+public abstract class UserRepository extends BaseRepository {
 
 }

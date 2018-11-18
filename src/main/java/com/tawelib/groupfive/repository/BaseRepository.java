@@ -1,5 +1,5 @@
 package com.tawelib.groupfive.repository;
 
-abstract public class BaseRepository {
+public abstract class BaseRepository {
 
 }
