@@ -1,24 +1,28 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entities.Customer;
-import com.tawelib.groupfive.entities.Request;
-import com.tawelib.groupfive.entities.Resource;
+import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
 
 public class RequestRepository extends BaseRepository {
-  public Request getResourceRequests(Customer customer){
+
+  public Request getResourceRequests(Customer customer) {
     return null;
   }
-  public Request getRequestingCustomers(Resource customer){
+
+  public Request getRequestingCustomers(Resource customer) {
     return null;
   }
-  public Resource getReservedResources(Customer customer){
+
+  public Resource getReservedResources(Customer customer) {
     return null;
   }
-  public Customer getReservingCustomer(Resource resource){
+
+  public Customer getReservingCustomer(Resource resource) {
     return null;
   }
-  public Request getEarliestResourceRequest(Resource recourse){
+
+  public Request getEarliestResourceRequest(Resource recourse) {
     return null;
   }
 }

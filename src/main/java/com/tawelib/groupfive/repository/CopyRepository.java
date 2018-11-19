@@ -5,22 +5,28 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
 
 public class CopyRepository extends BaseRepository {
-  private void generateId(Copy copy){
+
+  private void generateId(Copy copy) {
 
   }
-  public void getOldestCopyWithoutDueDate(Resource resource){
+
+  public void getOldestCopyWithoutDueDate(Resource resource) {
 
   }
-  public Copy getBorrowedCopies(Customer customer){
+
+  public Copy getBorrowedCopies(Customer customer) {
     return null;
   }
-  public Copy getRequestedCopies(Customer customer){
+
+  public Copy getRequestedCopies(Customer customer) {
     return null;
   }
-  public Copy getReservedCopies(Customer customer){
+
+  public Copy getReservedCopies(Customer customer) {
     return null;
   }
-  public Copy getOverdueCopies(){
+
+  public Copy getOverdueCopies() {
     return null;
   }
 }
