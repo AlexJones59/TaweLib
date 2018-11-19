@@ -3,7 +3,8 @@ package com.tawelib.groupfive.entity;
 import java.util.Date;
 
 /**
- * File Name: Librarian.java Librarian class stores personal information for the Librarian account.
+ * File Name: Librarian.java
+ *    Librarian class stores personal information for the Librarian account.
  *
  * @author Shree Desai
  * @version 0.2
