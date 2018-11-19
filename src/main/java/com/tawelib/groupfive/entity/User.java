@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
  */
 public abstract class User implements Serializable {
 
-  private String username ;
+  private String username;
   private String firstName;
   private String lastName;
   private String phoneNumber;

@@ -11,8 +11,8 @@ import java.util.Date;
  */
 public class Librarian extends User {
 
-  private final Date employmentDate ;
-  private final int staffNumber ;
+  private final Date employmentDate;
+  private final int staffNumber;
 
   /**
    * Instantiates a new Librarian.

@@ -11,7 +11,7 @@ public class Address {
   private String postCode;
 
   /**
-   * Creates new instance of the Address Class
+   * Creates new instance of the Address Class.
    */
   public Address(int houseNumber, String street, String city, String postCode) {
     this.houseNumber = houseNumber;

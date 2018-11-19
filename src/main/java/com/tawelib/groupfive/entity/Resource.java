@@ -15,6 +15,6 @@ public abstract class Resource implements Serializable {
   private String id;
   private String title;
   private int year;
-  private Image thumbnailImage ;
+  private Image thumbnailImage;
 
 }
