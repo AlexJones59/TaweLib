@@ -9,12 +9,7 @@ public class TransactionRepository implements BaseRepository<Transaction> {
   public Transaction getAllTransactions(Customer customer) {
     return null;
   }
-
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
+  
   @Override
   public List<Transaction> getAll() {
     return null;

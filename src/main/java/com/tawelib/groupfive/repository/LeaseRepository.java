@@ -9,12 +9,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
   public Lease getLeases(Copy copy) {
     return null;
   }
-
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
+  
   @Override
   public List<Lease> getAll() {
     return null;

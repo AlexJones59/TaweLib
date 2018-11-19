@@ -30,12 +30,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   public Copy getOverdueCopies() {
     return null;
   }
-
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
+  
   @Override
   public List<Copy> getAll() {
     return null;

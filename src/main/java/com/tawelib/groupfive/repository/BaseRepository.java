@@ -7,11 +7,6 @@ import java.util.List;
  */
 public interface BaseRepository<EntityT> {
 
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
   List<EntityT> getAll();
 
   /**

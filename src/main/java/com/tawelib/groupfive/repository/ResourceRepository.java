@@ -4,12 +4,7 @@ import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
 public class ResourceRepository implements BaseRepository<Resource> {
-
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
+  
   @Override
   public List<Resource> getAll() {
     return null;

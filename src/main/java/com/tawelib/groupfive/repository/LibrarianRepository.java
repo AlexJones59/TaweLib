@@ -13,12 +13,6 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     librarians = new ArrayList<>();
   }
 
-  /**
-   * This method returns a User with a given username.
-   *
-   * @param username Username
-   * @return User
-   */
   @Override
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
@@ -39,12 +33,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public void generateUsername(Librarian librarian) {
     //TODO: set the librarian's username to a generated one making sure it's unique.
   }
-
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
+  
   @Override
   public List<Librarian> getAll() {
     return librarians;

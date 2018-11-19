@@ -27,11 +27,6 @@ public class RequestRepository implements BaseRepository<Request> {
     return null;
   }
 
-  /**
-   * This method returns all entities held by the class.
-   *
-   * @return List of entities
-   */
   @Override
   public List<Request> getAll() {
     return null;
