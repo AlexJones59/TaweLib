@@ -3,11 +3,11 @@ package com.tawelib.groupfive.entity;
 import java.io.Serializable;
 
 /**
- * File Name -  User.java
- *
+ * File name: User.java
+ *    User class stores personal information for the account holder (either the Customer
+ *    or Librarian).
  * @author Shree Desai
- * @version 0.2  User class stores personal information for the account holder (either the Customer
- * or Librarian).
+ * @version 0.2
  */
 public abstract class User implements Serializable {
 
