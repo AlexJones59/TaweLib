@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
+import javafx.scene.image.Image;
 
 /**
  * File name: User.java
@@ -16,6 +17,7 @@ public abstract class User implements Serializable {
   private String lastName;
   private String phoneNumber;
   private Address address;
+  private Image profileImage;
 
   /**
    * Creates an instance of the User class.

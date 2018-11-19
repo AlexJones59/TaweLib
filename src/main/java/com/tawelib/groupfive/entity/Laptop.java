@@ -1,4 +1,4 @@
-package com.tawelib.groupfive.entities;
+package com.tawelib.groupfive.entity;
 
 public class Laptop {
 
