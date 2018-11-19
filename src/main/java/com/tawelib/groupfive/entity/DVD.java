@@ -1,5 +1,5 @@
 package com.tawelib.groupfive.entity;
 
-public class DVD {
+public class Dvd {
 
 }
