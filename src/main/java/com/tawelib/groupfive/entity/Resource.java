@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javafx.scene.image.Image;
 
 /**
- * File name: User.java
+ * File name: Resource.java
  *    User class stores personal information for the account holder (either the Customer
  *    or Librarian).
  * @author Shree Desai
@@ -17,4 +17,9 @@ public abstract class Resource implements Serializable {
   private int year;
   private Image thumbnailImage;
 
+  public Resource(String title, int year, Image thumbnailImage) {
+    this.title = title;
+    this.year = year;
+    this.thumbnailImage = thumbnailImage;
+  }
 }
