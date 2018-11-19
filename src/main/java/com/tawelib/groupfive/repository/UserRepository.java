@@ -1,14 +1,13 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.User;
+public interface UserRepository<UserT> extends BaseRepository<UserT> {
 
-public abstract class UserRepository extends BaseRepository {
+  UserT authenticate(String username);
 
-  public User authenticate(String username) {
-    return null;
-  }
-
-  private void generateUsername(User user) {
-
-  }
+  /**
+   * This method generates a username for a given user.
+   *
+   * @param user Customer or Librarian
+   */
+  void generateUsername(UserT user);
 }

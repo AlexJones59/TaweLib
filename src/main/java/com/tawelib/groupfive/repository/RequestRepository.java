@@ -3,8 +3,9 @@ package com.tawelib.groupfive.repository;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.List;
 
-public class RequestRepository extends BaseRepository {
+public class RequestRepository implements BaseRepository<Request> {
 
   public Request getResourceRequests(Customer customer) {
     return null;
@@ -24,5 +25,20 @@ public class RequestRepository extends BaseRepository {
 
   public Request getEarliestResourceRequest(Resource recourse) {
     return null;
+  }
+
+  @Override
+  public List<Request> getAll() {
+    return null;
+  }
+
+  /**
+   * This method persists an entity in the repository.
+   *
+   * @param entity Entity to be added
+   */
+  @Override
+  public void add(Request entity) {
+
   }
 }

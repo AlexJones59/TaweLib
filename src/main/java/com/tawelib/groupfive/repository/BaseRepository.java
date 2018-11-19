@@ -1,12 +1,18 @@
 package com.tawelib.groupfive.repository;
 
-public abstract class BaseRepository {
+import java.util.List;
 
-  public void getAll() {
+/**
+ * This interface defines all attributes and operations every repository needs to implement.
+ */
+public interface BaseRepository<EntityT> {
 
-  }
+  List<EntityT> getAll();
 
-  public void add() {
-
-  }
+  /**
+   * This method persists an entity in the repository.
+   *
+   * @param entity Entity to be added
+   */
+  void add(EntityT entity);
 }

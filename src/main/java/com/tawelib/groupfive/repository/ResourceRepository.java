@@ -1,33 +1,22 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
-import java.lang.reflect.Type;
+import java.util.List;
 
-public class ResourceRepository extends BaseRepository {
-
-  public Resource getById(String id) {
+public class ResourceRepository implements BaseRepository<Resource> {
+  
+  @Override
+  public List<Resource> getAll() {
     return null;
   }
 
-  public Book getBookByIsbn(String isbn) {
-    return null;
-  }
-
-  private void generateId(Resource resource) {
-
-  }
-
-  public void addRequests(Resource resource, Customer customer) {
-
-  }
-
-  public Resource searchResources(String query, Type types) {
-    return null;
-  }
-
-  public void listResources(Resource after, int limit, Type types) {
+  /**
+   * This method persists an entity in the repository.
+   *
+   * @param entity Entity to be added
+   */
+  @Override
+  public void add(Resource entity) {
 
   }
 }
