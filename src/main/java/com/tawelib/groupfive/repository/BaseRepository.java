@@ -3,27 +3,21 @@ package com.tawelib.groupfive.repository;
 import java.util.List;
 
 /**
- * This class is the superclass of all repository classes and acts as a template for storing
- * entities and performing basic operations on them.
+ * This interface defines all attributes and operations every repository needs to implement.
  */
-public abstract class BaseRepository {
-
-  /**
-   * This attribute holds all entities of the appropriate type.
-   */
-  protected List entities;
+public interface BaseRepository<EntityType> {
 
   /**
    * This method returns all entities held by the class.
    *
    * @return List of entities
    */
-  public abstract List getAll();
+  List<EntityType> getAll();
 
   /**
-   * This method persists an object in the repository.
+   * This method persists an entity in the repository.
    *
-   * @param o Object to be added
+   * @param entity Entity to be added
    */
-  public abstract void add(Object o);
+  void add(EntityType entity);
 }

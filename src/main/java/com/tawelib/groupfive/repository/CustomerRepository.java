@@ -1,27 +1,62 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.User;
+import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.exception.AuthenticationException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerRepository extends UserRepository {
+public class CustomerRepository implements UserRepository<Customer> {
 
-  @Override
-  public User authenticate(String username) {
-    return null;
+  private ArrayList<Customer> Customers;
+
+  public CustomerRepository() {
+    Customers = new ArrayList<>();
   }
 
+  /**
+   * This method returns a User with a given username.
+   *
+   * @param username Username
+   * @return User
+   */
   @Override
-  protected void generateUsername(User user) {
+  public Customer authenticate(String username) {
+    for (Customer Customer : Customers) {
+      if (true) { //TODO: check if the username is the one we are looking for.
+        return Customer;
+      }
+    }
 
+    throw new AuthenticationException();
   }
 
+  /**
+   * This method generates a username for a given user.
+   *
+   * @param Customer Customer or Customer
+   */
   @Override
-  public List getAll() {
-    return null;
+  public void generateUsername(Customer Customer) {
+    //TODO: set the Customer's username to a generated one making sure it's unique.
   }
 
+  /**
+   * This method returns all entities held by the class.
+   *
+   * @return List of entities
+   */
   @Override
-  public void add(Object o) {
+  public List<Customer> getAll() {
+    return Customers;
+  }
 
+  /**
+   * This method persists an entity in the repository.
+   *
+   * @param Customer Entity to be added
+   */
+  @Override
+  public void add(Customer Customer) {
+    Customers.add(Customer);
   }
 }
