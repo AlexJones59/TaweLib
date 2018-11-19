@@ -24,26 +24,16 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     throw new AuthenticationException();
   }
 
-  /**
-   * This method generates a username for a given user.
-   *
-   * @param librarian Customer or Librarian
-   */
   @Override
   public void generateUsername(Librarian librarian) {
     //TODO: set the librarian's username to a generated one making sure it's unique.
   }
-  
+
   @Override
   public List<Librarian> getAll() {
     return librarians;
   }
 
-  /**
-   * This method persists an entity in the repository.
-   *
-   * @param librarian Entity to be added
-   */
   @Override
   public void add(Librarian librarian) {
     librarians.add(librarian);

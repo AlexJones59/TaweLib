@@ -31,12 +31,7 @@ public class RequestRepository implements BaseRepository<Request> {
   public List<Request> getAll() {
     return null;
   }
-
-  /**
-   * This method persists an entity in the repository.
-   *
-   * @param entity Entity to be added
-   */
+  
   @Override
   public void add(Request entity) {
 

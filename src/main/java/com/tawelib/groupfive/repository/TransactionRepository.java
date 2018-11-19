@@ -9,17 +9,12 @@ public class TransactionRepository implements BaseRepository<Transaction> {
   public Transaction getAllTransactions(Customer customer) {
     return null;
   }
-  
+
   @Override
   public List<Transaction> getAll() {
     return null;
   }
 
-  /**
-   * This method persists an entity in the repository.
-   *
-   * @param entity Entity to be added
-   */
   @Override
   public void add(Transaction entity) {
 

@@ -7,10 +7,15 @@ import java.util.List;
  */
 public interface BaseRepository<EntityT> {
 
+  /**
+   * Returns all entities stored in the repository.
+   *
+   * @return List of entities
+   */
   List<EntityT> getAll();
 
   /**
-   * This method persists an entity in the repository.
+   * Persists an entity in the repository.
    *
    * @param entity Entity to be added
    */

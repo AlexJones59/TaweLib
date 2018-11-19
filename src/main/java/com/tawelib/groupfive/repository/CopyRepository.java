@@ -30,17 +30,12 @@ public class CopyRepository implements BaseRepository<Copy> {
   public Copy getOverdueCopies() {
     return null;
   }
-  
+
   @Override
   public List<Copy> getAll() {
     return null;
   }
 
-  /**
-   * This method persists an entity in the repository.
-   *
-   * @param entity Entity to be added
-   */
   @Override
   public void add(Copy entity) {
 
