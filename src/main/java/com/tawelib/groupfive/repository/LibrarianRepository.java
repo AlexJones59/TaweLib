@@ -1,5 +1,10 @@
 package com.tawelib.groupfive.repository;
 
-public class LibrarianRepository extends UserRepository {
+import com.tawelib.groupfive.entities.Librarian;
 
+public class LibrarianRepository extends UserRepository {
+  private Librarian generateStaffNumber(Librarian librarian){
+
+    return null;
+  }
 }
