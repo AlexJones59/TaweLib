@@ -31,7 +31,7 @@ public class RequestRepository implements BaseRepository<Request> {
   public List<Request> getAll() {
     return null;
   }
-  
+
   @Override
   public void add(Request entity) {
 
