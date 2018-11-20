@@ -15,6 +15,8 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   }
 
+  public Copy getSpecificCopy(String id) {return Copy}
+
   public Copy getBorrowedCopies(Customer customer) {
     return null;
   }
