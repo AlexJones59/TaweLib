@@ -38,6 +38,14 @@ public class FileSystemHelper {
     objectOutputStream.close();
   }
 
+  /**
+   * Returns a library read from the filesystem or new one.
+   *
+   * @param name Name of the library to load.
+   * @return Loaded library.
+   * @throws IOException Unable to access the file.
+   * @throws ClassNotFoundException Corrupted file.
+   */
   public static Library getLibrary(String name) throws IOException, ClassNotFoundException {
     Library library;
 
@@ -52,7 +60,6 @@ public class FileSystemHelper {
 
   /**
    * Reads a Library from the file system.
-   *
    * If the file path supplied is null a default path is used.
    *
    * @return Library loaded from the file system.
