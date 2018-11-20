@@ -12,8 +12,8 @@ public class Dvd {
 
   private String director;
   private int runtime;
-  private ArrayList <String> languages;
-  private ArrayList <String> subtitleLanguages;
+  private ArrayList<String> languages;
+  private ArrayList<String> subtitleLanguages;
 
   /**
    * Instantiates a new Dvd.

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public class Book extends Resource{
+public class Book extends Resource {
 
   private String author;
   private String publisher;

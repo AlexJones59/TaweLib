@@ -117,7 +117,7 @@ public abstract class Resource implements Serializable {
   /**
    * Gets number of copies of the specific Resource available.
    */
-  public int getNumberofCopiesAvailable () {
+  public int getNumberofCopiesAvailable() {
     //TODO: Once CopyRepository is made, need to call the method.
     return 0; //also needs to be changed.
   }
