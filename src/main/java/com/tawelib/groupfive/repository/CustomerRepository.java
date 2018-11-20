@@ -12,7 +12,7 @@ public class CustomerRepository implements UserRepository<Customer> {
 
     private static long userNumber = 0;
 
-    private static String userPrefix = "US";
+    private static final String USER_PREFIX = "US";
 
     public CustomerRepository() {
         customers = new ArrayList<>();
@@ -22,7 +22,6 @@ public class CustomerRepository implements UserRepository<Customer> {
     public Customer authenticate(String username) {
         for (Customer customer : customers) {
             if (true) { //TODO: check if the username is the one we are looking for.
-                customers.contains(username);
                 return customer;
             }
         }
@@ -33,7 +32,13 @@ public class CustomerRepository implements UserRepository<Customer> {
     @Override
     public void generateUsername(Customer customer) {
         //TODO: set the customer's username to a generated one making sure it's unique.
-        String userId = String.valueOf(userPrefix + userNumber++);
+        String generatedUsername = String.format(
+                "%s%s",
+                USER_PREFIX,
+                userNumber
+        );
+
+        userNumber++;
     }
 
     @Override
