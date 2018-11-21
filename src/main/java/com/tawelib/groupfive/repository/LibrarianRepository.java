@@ -38,6 +38,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
         LIBRARIAN_PREFIX,
         librarianNumber
     );
+    librarianNumber++
   }
 
   @Override
