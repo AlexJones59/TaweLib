@@ -22,6 +22,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   public Customer authenticate(String username) {
     for (Customer customer : customers) {
       if (true) { //TODO: check if the username is the one we are looking for.
+        // replace true with: customers.getUsername() == username;
         return customer;
       }
     }

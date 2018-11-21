@@ -12,7 +12,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private static long librarianNumber = 0;
 
-  private static String LibrarianPrefix = "LB";
+  private static final String LIBRARIAN_PREFIX = "LB";
 
   public LibrarianRepository() {
     librarians = new ArrayList<>();
@@ -22,7 +22,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
       if (true) { //TODO: check if the username is the one we are looking for.
-        librarians.contains(username);
+        // replace true with: librarians.getUsername() == username;
         return librarian;
       }
     }
@@ -33,7 +33,11 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   @Override
   public void generateUsername(Librarian librarian) {
     //TODO: set the librarian's username to a generated one making sure it's unique.
-    String librarianId = String.valueOf(LibrarianPrefix + librarianNumber++);
+    String librarianUsername = String.format(
+        "%s%s",
+        LIBRARIAN_PREFIX,
+        librarianNumber
+    );
   }
 
   @Override
