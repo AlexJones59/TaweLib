@@ -9,7 +9,7 @@ package com.tawelib.groupfive.entity;
  */
 public enum CopyStatus {
   /**
-   * When Copy is Available to be leased
+   * When Copy is Available to be leased.
    */
   AVAILABLE,
   /**

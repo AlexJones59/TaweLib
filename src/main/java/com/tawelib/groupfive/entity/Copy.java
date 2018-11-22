@@ -70,7 +70,7 @@ public class Copy {
   public List<Lease> getCurrentLease() {
     //allLeases = LeaseRepository.getLeases(this.id);
     return null; //TODO: Once CopyRepository has been implemented, finish this method.
-    //TODO: Write the logic for sorting through leases to find only the current lease pertaining to this copy
+    //TODO: Write logic for sorting through leases to find current lease pertaining to this copy
 
 
   }
