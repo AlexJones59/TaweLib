@@ -6,6 +6,6 @@ gradle-app.setting
 .gradletasknamecache
 !gradle-wrapper.jar
 
-libraries/
-
 out/
+
+libraries/
