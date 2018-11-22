@@ -3,7 +3,8 @@ package com.tawelib.groupfive.entity;
 import java.util.Date;
 
 /**
- * File Name - Transaction.java The ‘Transaction’ class is the class that records every time a
+ * File Name - Transaction.java
+ * The ‘Transaction’ class is the class that records every time a
  * customer pays funds to the Library to change their account balance.
  *
  * @author Shree Desai
