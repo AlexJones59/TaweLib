@@ -15,8 +15,8 @@ public class Lease {
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
-  private String borrowingCustomerID;
-  private String borrowedCopyID;
+  private String borrowingCustomerId;
+  private String borrowedCopyId;
   //private Fine overdueFine;
 
 
@@ -24,13 +24,13 @@ public class Lease {
    * Instantiates a new Lease.
    *
    * @param dateLeased the date leased
-   * @param borrowingCustomerID the borrowing customer id
-   * @param borrowedCopyID the borrowed copy id
+   * @param borrowingCustomerId the borrowing customer id
+   * @param borrowedCopyId the borrowed copy id
    */
-  public Lease(Date dateLeased, String borrowingCustomerID, String borrowedCopyID) {
+  public Lease(Date dateLeased, String borrowingCustomerId, String borrowedCopyId) {
     this.dateLeased = dateLeased;
-    this.borrowingCustomerID = borrowingCustomerID;
-    this.borrowedCopyID = borrowedCopyID;
+    this.borrowingCustomerId = borrowingCustomerId;
+    this.borrowedCopyId = borrowedCopyId;
   }
 
   /**
@@ -38,15 +38,15 @@ public class Lease {
    *
    * @param dateLeased the date leased
    * @param dueDate the due date
-   * @param borrowingCustomerID the borrowing customer id
-   * @param borrowedCopyID the borrowed copy id
+   * @param borrowingCustomerId the borrowing customer id
+   * @param borrowedCopyId the borrowed copy id
    */
-  public Lease(Date dateLeased, Date dueDate, String borrowingCustomerID,
-      String borrowedCopyID) {
+  public Lease(Date dateLeased, Date dueDate, String borrowingCustomerId,
+      String borrowedCopyId) {
     this.dateLeased = dateLeased;
     this.dueDate = dueDate;
-    this.borrowingCustomerID = borrowingCustomerID;
-    this.borrowedCopyID = borrowedCopyID;
+    this.borrowingCustomerId = borrowingCustomerId;
+    this.borrowedCopyId = borrowedCopyId;
   }
 
   /**

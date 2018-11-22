@@ -70,7 +70,7 @@ public class Fine {
     //TODO: optimise.
     Date currentDate = new Date();
     long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-    return (int)((((diffInMilli / 1000)/60)/60)/24);
+    return (int)((((diffInMilli / 1000) / 60) / 60) / 24);
 
   }
 
