@@ -15,19 +15,15 @@ public class CopyRepository implements BaseRepository<Copy> {
     return null;
   }
 
-  public Copy getBorrowedCopies(Customer customer) {
+  public List<Copy> getReservedCopies(String customerUsername) {
     return null;
   }
 
-  public Copy getRequestedCopies(Customer customer) {
+  public List<Copy> getBorrowedCopies(String customerUsername) {
     return null;
   }
 
-  public Copy getReservedCopies(Customer customer) {
-    return null;
-  }
-
-  public Copy getOverdueCopies() {
+  public List<Copy> getOverdueCopies() {
     return null;
   }
 

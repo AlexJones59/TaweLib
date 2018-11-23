@@ -9,7 +9,7 @@ import com.tawelib.groupfive.entity.Library;
  * @author Nayeem Mohammed
  * @version 0.2
  */
-public abstract class BaseController{
+public abstract class BaseController {
 
   /**
    * Instantiates a new Base controller.
