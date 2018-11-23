@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LeaseRepository implements BaseRepository<Lease> {
 
-  public Lease getLeases(Copy copy) {
+  public Lease getLeases(String copyId) {
     return null;
   }
 

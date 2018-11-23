@@ -7,12 +7,12 @@ import java.util.List;
 
 public class CopyRepository implements BaseRepository<Copy> {
 
-  private void generateId(Copy copy) {
+  private void generateId(Copy copy) {}
 
-  }
+  public void getOldestCopyWithoutDueDate(Resource resource) {}
 
-  public void getOldestCopyWithoutDueDate(Resource resource) {
-
+  public Copy getSpecificCopy(String id) {
+    return null;
   }
 
   public Copy getBorrowedCopies(Customer customer) {
