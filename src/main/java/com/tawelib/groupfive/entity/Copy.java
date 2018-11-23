@@ -4,8 +4,9 @@ package com.tawelib.groupfive.entity;
 import java.util.List;
 
 /**
- * Copy.java
- * The ‘Copy’ class is the class that stores information about a particular copy of a resource.
+ * File Name - Copy.java
+ * The ‘Copy’ class is the class that stores information about a particular copy of a
+ * resource.
  *
  * @author Shree Desai
  * @version 0.2
@@ -15,6 +16,7 @@ public class Copy {
   private String id;
   private CopyStatus status;
   private Resource resource;
+  private String borrowingCustomerId;
 
   /**
    * Instantiates a new Copy.
@@ -22,6 +24,7 @@ public class Copy {
    * @param resource the resource
    */
   public Copy(Resource resource) {
+    this.resource = resource;
     this.status = CopyStatus.AVAILABLE;
   }
 
@@ -50,6 +53,24 @@ public class Copy {
    */
   public void setStatus(CopyStatus status) {
     this.status = status;
+  }
+
+  /**
+   * Gets borrowing customer id.
+   *
+   * @return the borrowing customer id
+   */
+  public String getBorrowingCustomerId() {
+    return borrowingCustomerId;
+  }
+
+  /**
+   * Sets borrowing customer id.
+   *
+   * @param borrowingCustomerId the borrowing customer id
+   */
+  public void setBorrowingCustomerId(String borrowingCustomerId) {
+    this.borrowingCustomerId = borrowingCustomerId;
   }
 
   /**
