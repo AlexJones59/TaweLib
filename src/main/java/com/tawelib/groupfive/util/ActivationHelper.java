@@ -1,7 +1,9 @@
 package com.tawelib.groupfive.util;
 
+import com.tawelib.groupfive.exception.InvalidProductKeyException;
 import com.tawelib.groupfive.exception.UnsupportedSystemException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
  * Contains methods used to verify activation of the product and to activate it.
  *
  * @author Petr Hoffmann
- * @version 0.2
+ * @version 0.3
  */
 public class ActivationHelper {
 
@@ -42,7 +44,38 @@ public class ActivationHelper {
       return false;
     }
 
-    return isProductKeyHashPairValid(productKeyHashPair);
+    return isProductKeyHashPairValid(
+        productKeyHashPair.productKey,
+        productKeyHashPair.productKeyHash
+    );
+  }
+
+  /**
+   * Activates the product. Throws an exception when unable to.
+   *
+   * @param productKey Product key.
+   * @param controlHash Control hash.
+   * @throws InvalidProductKeyException When the given product key-hash pair is invalid.
+   * @throws UnsupportedSystemException When the activation fails.
+   */
+  public static void activate(String productKey, String controlHash)
+      throws InvalidProductKeyException {
+    if (!isProductKeyHashPairValid(productKey, controlHash)) {
+      throw new InvalidProductKeyException();
+    }
+
+    Properties properties;
+
+    try (FileWriter writer = new FileWriter(PROPERTIES_FILE_PATH)) {
+      properties = new Properties();
+
+      properties.setProperty(PRODUCT_KEY_PROPERTY_NAME, productKey);
+      properties.setProperty(PRODUCT_HASH_PROPERTY_NAME, controlHash);
+
+      properties.store(writer, null);
+    } catch (IOException e) {
+      throw new UnsupportedSystemException(e);
+    }
   }
 
   /**
@@ -74,18 +107,16 @@ public class ActivationHelper {
   /**
    * Returns true if the product key-hash pair is valid, false otherwise.
    *
-   * @param productKeyHashPair Product key-hash pair.
+   * @param productKey Product key.
+   * @param controlHash Control hash.
    * @return Whether the product key-hash pair is valid.
    */
-  private static boolean isProductKeyHashPairValid(ProductKeyHashPair productKeyHashPair) {
+  private static boolean isProductKeyHashPairValid(String productKey, String controlHash) {
     Pattern pattern = Pattern.compile(PRODUCT_KEY_PATTERN);
-    Matcher matcher = pattern.matcher(productKeyHashPair.productKey);
+    Matcher matcher = pattern.matcher(productKey);
     boolean matchesPattern = matcher.matches();
 
-    boolean isAuthorized = keyMatchesHash(
-        productKeyHashPair.productKey,
-        productKeyHashPair.productKeyHash
-    );
+    boolean isAuthorized = keyMatchesHash(productKey, controlHash);
 
     return matchesPattern && isAuthorized;
   }
@@ -106,6 +137,8 @@ public class ActivationHelper {
 
     productKeyHashPair.productKey = properties.getProperty(PRODUCT_KEY_PROPERTY_NAME);
     productKeyHashPair.productKeyHash = properties.getProperty(PRODUCT_HASH_PROPERTY_NAME);
+
+    reader.close();
 
     return productKeyHashPair;
   }
