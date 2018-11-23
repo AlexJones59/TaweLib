@@ -3,9 +3,9 @@ package com.tawelib.groupfive.util;
 import com.tawelib.groupfive.exception.UnsupportedSystemException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,9 +62,13 @@ public class ActivationHelper {
 
     String saltedContent = productKey + PRODUCT_KEY_HASH_SALT;
 
-    byte[] hash = messageDigest.digest(saltedContent.getBytes());
+    byte[] rawHash = messageDigest.digest(saltedContent.getBytes());
 
-    return Base64.getEncoder().encodeToString(hash).equals(controlHash);
+    BigInteger numericHash = new BigInteger(1, rawHash);
+
+    String calculatedHash = numericHash.toString(16);
+
+    return calculatedHash.equals(controlHash);
   }
 
   /**
