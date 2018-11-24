@@ -27,12 +27,14 @@ public class Book extends Resource {
    * @param publisher the publisher
    * @param genre the genre
    */
-  public Book(String title, int year, Image thumbnailImage,
-      ResourceType type, String author, String publisher, String genre) {
+  public Book(String title, int year, Image thumbnailImage, ResourceType type,
+      String author, String publisher, String genre, String isbn, String language) {
     super(title, year, thumbnailImage, type);
     this.author = author;
     this.publisher = publisher;
     this.genre = genre;
+    this.isbn = isbn;
+    this.language = language;
   }
 
   /**

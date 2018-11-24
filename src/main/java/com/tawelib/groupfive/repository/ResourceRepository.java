@@ -1,42 +1,71 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
-import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * File Name - ResourceRepository.java
+ * The Resource repository class handles all resources.
+ *
+ * @author Created by Themis, Modified by Nayeem Mohammed & Shree Desai
+ * @version 0.2
+ */
 public class ResourceRepository implements BaseRepository<Resource> {
 
-  public Resource getById(String id) {
+  /**
+   * Generates unique id as resource is persisted to repository.
+   *
+   * @param resource the new resource being persisted to repository
+   */
+  private void generateId(Resource resource) {}
+
+  /**
+   * Search through resources of type "Book"
+   *
+   * @param query the query
+   * @param searchAttribute the search attribute
+   * @return the list of resources fulfilling search query
+   */
+  public List<Book> searchBook(String query, String searchAttribute) {
     return null;
   }
 
-  public Book getBookByIsbn(String isbn) {
+  /**
+   * Search through resources of type "DVD"
+   *
+   * @param query the query
+   * @param searchAttribute the search attribute
+   * @return the list of resources fulfilling search query
+   */
+  public List<Dvd> searchDvd(String query, String searchAttribute) {
     return null;
   }
 
-  private void generateId(Resource resource) {
-
-  }
-
-  public void addRequests(Resource resource, Customer customer) {
-
-  }
-
-  public Resource searchResources(String query, Type types) {
+  /**
+   * Search through resources of type "Laptop"
+   *
+   * @param query the query
+   * @param searchAttribute the search attribute
+   * @return the list of resources fulfilling search query
+   */
+  public List<Laptop> searchLaptop(String query, String searchAttribute) {
     return null;
   }
 
-  public void listResources(Resource after, int limit, Type types) {
-
-  }
-
+  /**
+   * (@inheritDoc)
+   */
   @Override
   public List<Resource> getAll() {
     return null;
   }
 
+  /**
+   * (@inheritDoc)
+   */
   @Override
   public void add(Resource entity) {
 

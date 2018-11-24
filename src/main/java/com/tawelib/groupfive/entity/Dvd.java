@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.util.ArrayList;
+import javafx.scene.image.Image;
 
 /**
  * File name: Resource.java Dvd class saves all info pertaining to a Dvd.
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * @author Shree Desai
  * @version 0.2
  */
-public class Dvd {
+public class Dvd extends Resource{
 
   private String director;
   private int runtime;
@@ -21,7 +22,9 @@ public class Dvd {
    * @param director the director
    * @param runtime the runtime
    */
-  public Dvd(String director, int runtime) {
+  public Dvd(String title, int year, Image thumbnailImage, ResourceType type,
+      String director, int runtime) {
+    super(title, year, thumbnailImage, type);
     this.director = director;
     this.runtime = runtime;
   }
@@ -72,21 +75,13 @@ public class Dvd {
   }
 
   /**
-   * Sets languages.
+   * Adds languages.
    *
    * @param languages the languages
    */
-  public void setLanguages(ArrayList<String> languages) {
-    this.languages = languages;
-  }
-
-  /**
-   * Adds a language.
-   *
-   * @param language the language
-   */
-  public void addLanguage(String language) {
-    this.languages.add(language);
+  public void addLanguage(ArrayList<String> languages) {
+    //TODO: Write logic for this with array checking.
+    //this.languages.add(languages);
   }
 
   /**
@@ -99,20 +94,12 @@ public class Dvd {
   }
 
   /**
-   * Sets subtitle languages.
+   * Adds subtitle languages.
    *
-   * @param subtitleLanguages the subtitle languages
+   * @param subtitlelanguages the languages
    */
-  public void setSubtitleLanguages(ArrayList<String> subtitleLanguages) {
-    this.subtitleLanguages = subtitleLanguages;
-  }
-
-  /**
-   * Add a subtitle language.
-   *
-   * @param subtitleLanguage the subtitle language
-   */
-  public void addSubtitleLanguage(String subtitleLanguage) {
-    this.languages.add(subtitleLanguage);
+  public void addSubtitleLanguages(ArrayList<String> subtitleLanguages) {
+    //TODO: Write logic for this with array checking.
+    //this.subtitleLanguages.add(subtitleLanguages);
   }
 }
