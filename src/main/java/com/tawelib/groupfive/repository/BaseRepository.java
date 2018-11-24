@@ -3,23 +3,25 @@ package com.tawelib.groupfive.repository;
 import java.util.List;
 
 /**
- * This interface defines all attributes and operations every repository needs to implement.
- * @author Petr Hoffman
+ * Defines all attributes and operations every repository needs to implement.
+ *
+ * @param <T> Entity class.
+ * @author Petr Hoffmann
  * @version 0.1
  */
-public interface BaseRepository<EntityT> {
+public interface BaseRepository<T> {
 
   /**
    * Returns all entities stored in the repository.
    *
-   * @return List of entities
+   * @return List of entities.
    */
-  List<EntityT> getAll();
+  List<T> getAll();
 
   /**
    * Persists an entity in the repository.
    *
    * @param entity Entity to be added
    */
-  void add(EntityT entity);
+  void add(T entity);
 }
