@@ -4,6 +4,8 @@ import java.util.List;
 
 /**
  * This interface defines all attributes and operations every repository needs to implement.
+ * @author Petr Hoffman
+ * @version 0.1
  */
 public interface BaseRepository<EntityT> {
 
