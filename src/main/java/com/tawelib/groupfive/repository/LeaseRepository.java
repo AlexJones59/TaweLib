@@ -40,7 +40,5 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   @Override
-  public void add(Lease entity) {
-
-  }
+  public void add(Lease entity) {}
 }
