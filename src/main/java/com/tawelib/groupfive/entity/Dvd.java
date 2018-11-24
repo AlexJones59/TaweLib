@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public class Dvd extends Resource{
+public class Dvd extends Resource {
 
   private String director;
   private int runtime;
@@ -96,7 +96,7 @@ public class Dvd extends Resource{
   /**
    * Adds subtitle languages.
    *
-   * @param subtitlelanguages the languages
+   * @param subtitleLanguages the languages
    */
   public void addSubtitleLanguages(ArrayList<String> subtitleLanguages) {
     //TODO: Write logic for this with array checking.

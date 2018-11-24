@@ -23,7 +23,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   private void generateId(Resource resource) {}
 
   /**
-   * Search through resources of type "Book"
+   * Search through resources of type "Book".
    *
    * @param query the query
    * @param searchAttribute the search attribute
@@ -34,7 +34,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
-   * Search through resources of type "DVD"
+   * Search through resources of type "DVD".
    *
    * @param query the query
    * @param searchAttribute the search attribute
@@ -45,7 +45,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
-   * Search through resources of type "Laptop"
+   * Search through resources of type "Laptop".
    *
    * @param query the query
    * @param searchAttribute the search attribute
@@ -56,7 +56,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
-   * (@inheritDoc)
+   * {@inheritDoc}
    */
   @Override
   public List<Resource> getAll() {
@@ -64,7 +64,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
-   * (@inheritDoc)
+   * {@inheritDoc}
    */
   @Override
   public void add(Resource entity) {

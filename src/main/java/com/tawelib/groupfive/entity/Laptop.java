@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public class Laptop extends Resource{
+public class Laptop extends Resource {
 
   private String manufacturer;
   private String model;

@@ -42,7 +42,7 @@ public class ResourceController {
    * @param subtitleLanguages the subtitle languages
    */
   public void createDvd(String title, int year, Image thumbnailImage, String director,
-      int runtime, ArrayList<String>languages, ArrayList<String> subtitleLanguages) {}
+       int runtime, ArrayList<String> languages, ArrayList<String> subtitleLanguages) {}
 
   /**
    * Create laptop.
@@ -76,7 +76,8 @@ public class ResourceController {
    * @param searchAttribute the search attribute
    * @return the list
    */
-  public List<Resource> searchResources(String query, ArrayList<ResourceType> types, String searchAttribute) {
+  public List<Resource> searchResources(String query, ArrayList<ResourceType> types,
+      String searchAttribute) {
     return null;
   }
 
