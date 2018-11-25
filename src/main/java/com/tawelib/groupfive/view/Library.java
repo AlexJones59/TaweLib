@@ -31,7 +31,8 @@ public class Library extends Application {
     try {
       FileSystemHelper.saveLibraryToFile(library);
     } catch (IOException e) {
-      //TODO: Announce that the library could not be saved.
+      //TODO: deal with this situation in a better way?
+      e.printStackTrace();
     }
   }
 }

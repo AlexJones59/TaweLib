@@ -1,13 +1,27 @@
 package com.tawelib.groupfive.repository;
 
-public interface UserRepository<UserT> extends BaseRepository<UserT> {
+/**
+ * Defines all operations user repositories needs to implement.
+ *
+ * @param <T> Entity class.
+ * @author Petr Hoffmann
+ * @version 0.2
+ */
+public interface UserRepository<T> extends BaseRepository<T> {
 
-  UserT authenticate(String username);
+  /**
+   * Authenticates a user and returns the User subclass. Throws an exception when the user isn't
+   * found.
+   *
+   * @param username Username.
+   * @return T User subclass.
+   */
+  T authenticate(String username);
 
   /**
    * Generates a username for a given user.
    *
    * @param user Customer or Librarian
    */
-  void generateUsername(UserT user);
+  void generateUsername(T user);
 }

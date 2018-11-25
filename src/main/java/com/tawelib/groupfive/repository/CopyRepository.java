@@ -25,19 +25,19 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   }
 
-  public Copy getBorrowedCopies(Customer customer) {
+  public Copy getSpecificCopy(String id) {
     return null;
   }
 
-  public Copy getRequestedCopies(Customer customer) {
+  public List<Copy> getReservedCopies(String customerUsername) {
     return null;
   }
 
-  public Copy getReservedCopies(Customer customer) {
+  public List<Copy> getBorrowedCopies(String customerUsername) {
     return null;
   }
 
-  public Copy getOverdueCopies() {
+  public List<Copy> getOverdueCopies() {
     return null;
   }
 

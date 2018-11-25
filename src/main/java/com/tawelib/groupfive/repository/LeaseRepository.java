@@ -6,7 +6,31 @@ import java.util.List;
 
 public class LeaseRepository implements BaseRepository<Lease> {
 
-  public Lease getLeases(Copy copy) {
+  public List<Lease> getCopyLeases(String copyId) {
+    return null;
+  }
+
+  public List<Lease> getCopyLeaseHistory(String copyId) {
+    return null;
+  }
+
+  public List<Lease> getCopyCurrentLease(String copyId) {
+    return null;
+  }
+
+  public List<Lease> getRequestedLeases(String customerUsername) {
+    return null;
+  }
+
+  public List<Lease> getCurrentLeases(String customerUsername) {
+    return null;
+  }
+
+  public List<Lease> getOverdueLeases(String customerUsername) {
+    return null;
+  }
+
+  public List<Lease> getOverdueLeases() {
     return null;
   }
 
@@ -16,7 +40,5 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   @Override
-  public void add(Lease entity) {
-
-  }
+  public void add(Lease entity) {}
 }

@@ -5,33 +5,65 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
+/**
+ * File Name - RequestRepository.java
+ * The Request repository class handles all instances of requests.
+ *
+ * @author Themis Mouyiasis, Modified by Nayeem Mohammed & Shree Desai.
+ */
 public class RequestRepository implements BaseRepository<Request> {
 
-  public Request getResourceRequests(Customer customer) {
+  /**
+   * Gets all open customer requests.
+   *
+   * @param customerId the customer id
+   * @return open customer requests
+   */
+  public List<Request> getCustomerRequests(String customerId) {
     return null;
   }
 
-  public Request getRequestingCustomers(Resource customer) {
+  /**
+   * Gets all requests for a specific resource.
+   *
+   * @param requestedResource the requested resource
+   * @return the resource request
+   */
+  public List<Request> getResourceRequests(Resource requestedResource) {
     return null;
   }
 
-  public Resource getReservedResources(Customer customer) {
+  /**
+   * Gets all requests, where status has been changed to Reserved, for a specific customer.
+   *
+   * @param customerId the customer id
+   * @return all reserved requests from specific customer
+   */
+  public List<Request> getCustomerReserved(String customerId) {
     return null;
   }
 
-  public Customer getReservingCustomer(Resource resource) {
+  /**
+   * Gets earliest resource request.
+   *
+   * @param resource the resource
+   * @return the earliest resource request
+   */
+  public Request getEarliestResourceRequest(Resource resource) {
     return null;
   }
 
-  public Request getEarliestResourceRequest(Resource recourse) {
-    return null;
-  }
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Request> getAll() {
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void add(Request entity) {
 
