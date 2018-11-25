@@ -7,8 +7,18 @@ import java.util.List;
 
 public class CopyRepository implements BaseRepository<Copy> {
 
-  private void generateId(Copy copy) {
+  private static long copyNumber = 0;
 
+  private static final String COPY_PREFIX = "C";
+
+  private void generateId(Copy copy) {
+    String generatedUsername = String.format(
+        "%s%s",
+        COPY_PREFIX,
+        copyNumber
+    );
+
+    copyNumber++;
   }
 
   public void getOldestCopyWithoutDueDate(Resource resource) {
