@@ -41,6 +41,11 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   }
 
+  /**
+   * Search for a copy in the list
+   *
+   * @return the copy
+   */
   public Copy getSpecificCopy(String id) {
     for (Copy copy : copies) {
       if (copy.getId() == id) {
