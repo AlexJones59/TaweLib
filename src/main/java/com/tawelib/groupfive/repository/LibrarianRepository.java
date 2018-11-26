@@ -50,7 +50,6 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   @Override
   public void generateUsername(Librarian librarian) {
-    //TODO: set the librarian's username to a generated one making sure it's unique.
     String librarianUsername = String.format(
         "%s%s",
         LIBRARIAN_PREFIX,
