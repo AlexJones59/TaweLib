@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -15,6 +16,9 @@ import java.util.List;
  */
 public class ResourceRepository implements BaseRepository<Resource> {
 
+  private static ArrayList<Resource> resources;
+
+
   private static Hashtable<String, Resource> LeaseTable = new Hashtable<String, Resource>();
 
   /**
@@ -22,7 +26,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
    *
    * @param resource the new resource being persisted to repository
    */
-  private void generateId(Resource resource) {}
+  private void generateId(Resource resource) {
+  }
 
   /**
    * Search through resources of type "Book".
@@ -62,14 +67,14 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   @Override
   public List<Resource> getAll() {
-    return null;
+    return resources;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void add(Resource entity) {
-
+  public void add(Resource resource) {
+    resources.add(resource);
   }
 }
