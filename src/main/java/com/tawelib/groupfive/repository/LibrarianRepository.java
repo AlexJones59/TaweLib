@@ -6,6 +6,12 @@ import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * File Name - LibrarianRepository.java The Librarian repository class hadles librarian details.
+ *
+ * @author Created by Themis
+ * @version 0.2
+ */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
   private ArrayList<Librarian> librarians;
@@ -18,6 +24,12 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     librarians = new ArrayList<>();
   }
 
+  /**
+   * Checks if a librarian is in the list by its username.
+   *
+   * @param username Username.
+   * @return the librarian
+   */
   @Override
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
@@ -30,6 +42,9 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Generates a unique username for librarian.
+   */
   @Override
   public void generateUsername(Librarian librarian) {
     //TODO: set the librarian's username to a generated one making sure it's unique.

@@ -1,9 +1,14 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Lease;
 import java.util.List;
 
+/**
+ * File Name - LeaseRepository.java The Lease repository class hadles lease details.
+ *
+ * @author Created by Themis
+ * @version 0.1
+ */
 public class LeaseRepository implements BaseRepository<Lease> {
 
   public List<Lease> getCopyLeases(String copyId) {
@@ -40,5 +45,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   @Override
-  public void add(Lease entity) {}
+  public void add(Lease entity) {
+  }
 }

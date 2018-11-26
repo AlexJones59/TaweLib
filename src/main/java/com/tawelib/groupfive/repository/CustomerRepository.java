@@ -6,6 +6,12 @@ import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * File Name - CustomerRepository.java The Customer repository class hadles customer details.
+ *
+ * @author Created by Themis
+ * @version 0.2
+ */
 public class CustomerRepository implements UserRepository<Customer> {
 
   private ArrayList<Customer> customers;
@@ -18,6 +24,12 @@ public class CustomerRepository implements UserRepository<Customer> {
     customers = new ArrayList<>();
   }
 
+  /**
+   * Checks if the customer is in the list y its username.
+   *
+   * @param username Username.
+   * @return the customer
+   */
   @Override
   public Customer authenticate(String username) {
     for (Customer customer : customers) {
@@ -30,6 +42,9 @@ public class CustomerRepository implements UserRepository<Customer> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Generates a customer unique username.
+   */
   @Override
   public void generateUsername(Customer customer) {
     //TODO: set the customer's username to a generated one making sure it's unique.
@@ -42,11 +57,17 @@ public class CustomerRepository implements UserRepository<Customer> {
     userNumber++;
   }
 
+  /**
+   * @return the list of the customers.
+   */
   @Override
   public List<Customer> getAll() {
     return customers;
   }
 
+  /**
+   * Add a customer in a customers list.
+   */
   @Override
   public void add(Customer customer) {
     customers.add(customer);

@@ -4,12 +4,21 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
+/**
+ * File Name - CopyRepository.java The Copy repository class hadles copy details.
+ *
+ * @author Created by Themis
+ * @version 0.2
+ */
 public class CopyRepository implements BaseRepository<Copy> {
 
   private static long copyNumber = 0;
 
   private static final String COPY_PREFIX = "C";
 
+  /**
+   * Generates a unique id for copies.
+   */
   private void generateId(Copy copy) {
     String generatedCopyId = String.format(
         "%s%s",

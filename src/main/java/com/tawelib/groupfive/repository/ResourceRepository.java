@@ -7,8 +7,7 @@ import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
 /**
- * File Name - ResourceRepository.java
- * The Resource repository class handles all resources.
+ * File Name - ResourceRepository.java The Resource repository class handles all resources.
  *
  * @author Created by Themis, Modified by Nayeem Mohammed & Shree Desai
  * @version 0.2
