@@ -1,13 +1,12 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
 /**
- * File Name - RequestRepository.java
- * The Request repository class handles all instances of requests.
+ * File Name - RequestRepository.java The Request repository class handles all instances of
+ * requests.
  *
  * @author Themis Mouyiasis, Modified by Nayeem Mohammed & Shree Desai.
  */
