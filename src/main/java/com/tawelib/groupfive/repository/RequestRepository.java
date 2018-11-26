@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -11,6 +12,8 @@ import java.util.List;
  * @author Themis Mouyiasis, Modified by Nayeem Mohammed & Shree Desai.
  */
 public class RequestRepository implements BaseRepository<Request> {
+
+  private static Hashtable<String, Request> LeaseTable = new Hashtable<String, Request>();
 
   /**
    * Gets all open customer requests.

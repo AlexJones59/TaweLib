@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -13,6 +14,8 @@ import java.util.List;
  * @version 0.2
  */
 public class ResourceRepository implements BaseRepository<Resource> {
+
+  private static Hashtable<String, Resource> LeaseTable = new Hashtable<String, Resource>();
 
   /**
    * Generates unique id as resource is persisted to repository.

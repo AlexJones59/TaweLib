@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.exception.AuthenticationException;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -19,6 +20,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   private static long librarianNumber = 0;
 
   private static final String LIBRARIAN_PREFIX = "LB";
+
+  private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
 
   public LibrarianRepository() {
     librarians = new ArrayList<>();
