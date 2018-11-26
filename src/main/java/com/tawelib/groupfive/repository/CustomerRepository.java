@@ -58,7 +58,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
-   * @return the list of the customers.
+   * {@inheritDoc}
    */
   @Override
   public List<Customer> getAll() {
@@ -66,7 +66,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
-   * Add a customer in a customers list.
+   * {@inheritDoc}
    */
   @Override
   public void add(Customer customer) {

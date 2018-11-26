@@ -55,6 +55,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     );
     librarianNumber++;
   }
+
   /**
    * {@inheritDoc}
    */
@@ -62,6 +63,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public List<Librarian> getAll() {
     return librarians;
   }
+
   /**
    * {@inheritDoc}
    */
