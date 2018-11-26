@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
-  private ArrayList<Librarian> librarians;
+  private static ArrayList<Librarian> librarians;
 
   private static long librarianNumber = 0;
 
@@ -36,8 +36,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   @Override
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
-      if (true) { //TODO: check if the username is the one we are looking for.
-        // replace true with: librarians.getUsername() == username;
+      if (librarian.getUsername()
+          == username) { //TODO: check if the username is the one we are looking for.
         return librarian;
       }
     }
