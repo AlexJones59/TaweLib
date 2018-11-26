@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -41,7 +42,12 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   public Copy getSpecificCopy(String id) {
-    return null;
+    for (Copy copy : copies) {
+      if (copy.getId() == id) {
+        return copy;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   public List<Copy> getReservedCopies(String customerUsername) {
