@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Copy;
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   private static final String COPY_PREFIX = "C";
 
   private void generateId(Copy copy) {
-    String generatedUsername = String.format(
+    String generatedCopyId = String.format(
         "%s%s",
         COPY_PREFIX,
         copyNumber
