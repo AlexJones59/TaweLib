@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * @author Themis Mouyiasis, Modified by Nayeem Mohammed & Shree Desai.
  */
 public class RequestRepository implements BaseRepository<Request> {
+
+  private static ArrayList<Request> requests;
 
   private static Hashtable<String, Request> RequestTable = new Hashtable<String, Request>();
 
@@ -60,14 +63,15 @@ public class RequestRepository implements BaseRepository<Request> {
    */
   @Override
   public List<Request> getAll() {
-    return null;
+    return requests;
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
-  public void add(Request entity) {
+  public void add(Request request) {
+    requests.add(request);
 
   }
 }

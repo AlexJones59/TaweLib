@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Transaction;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public class TransactionRepository implements BaseRepository<Transaction> {
 
+  private static ArrayList<Transaction> transactions;
+
   private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
 
   public Transaction getAllTransactions(Customer customer) {
@@ -22,11 +25,11 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   @Override
   public List<Transaction> getAll() {
-    return null;
+    return transactions;
   }
 
   @Override
-  public void add(Transaction entity) {
-
+  public void add(Transaction transaction) {
+    transactions.add(transaction);
   }
 }

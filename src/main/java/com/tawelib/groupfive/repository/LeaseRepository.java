@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  * @version 0.1
  */
 public class LeaseRepository implements BaseRepository<Lease> {
+
+  private static ArrayList<Lease> leases;
 
   private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
 
@@ -45,10 +48,11 @@ public class LeaseRepository implements BaseRepository<Lease> {
 
   @Override
   public List<Lease> getAll() {
-    return null;
+    return leases;
   }
 
   @Override
-  public void add(Lease entity) {
+  public void add(Lease lease) {
+    leases.add(lease);
   }
 }

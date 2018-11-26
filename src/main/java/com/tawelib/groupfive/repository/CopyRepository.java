@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -13,8 +14,10 @@ import java.util.List;
  */
 public class CopyRepository implements BaseRepository<Copy> {
 
-  private static Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
 
+  private static ArrayList<Copy> copies;
+
+  private static Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
 
   private static long copyNumber = 0;
 
@@ -55,11 +58,12 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   @Override
   public List<Copy> getAll() {
-    return null;
+    return copies;
   }
 
   @Override
-  public void add(Copy entity) {
+  public void add(Copy copy) {
+    copies.add(copy);
 
   }
 }
