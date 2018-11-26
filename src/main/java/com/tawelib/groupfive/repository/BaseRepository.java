@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author Petr Hoffmann
  * @version 0.1
  */
-public interface BaseRepository<T> {
+public interface BaseRepository<T> extends Serializable {
 
   /**
    * Returns all entities stored in the repository.
