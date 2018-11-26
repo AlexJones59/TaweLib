@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class RequestRepository implements BaseRepository<Request> {
 
-  private static Hashtable<String, Request> LeaseTable = new Hashtable<String, Request>();
+  private static Hashtable<String, Request> RequestTable = new Hashtable<String, Request>();
 
   /**
    * Gets all open customer requests.

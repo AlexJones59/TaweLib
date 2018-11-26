@@ -13,7 +13,8 @@ import java.util.List;
  */
 public class CopyRepository implements BaseRepository<Copy> {
 
-  private static Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
+  Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
+
 
   private static long copyNumber = 0;
 

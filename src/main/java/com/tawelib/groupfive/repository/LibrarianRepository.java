@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
-  private ArrayList<Librarian> librarians;
+  private static ArrayList<Librarian> librarians;
 
   private static long librarianNumber = 0;
 
