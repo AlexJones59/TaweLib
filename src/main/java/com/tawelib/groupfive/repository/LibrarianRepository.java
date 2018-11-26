@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - LibrarianRepository.java The Librarian repository class hadles librarian details.
+ * File Name - LibrarianRepository.java The Librarian repository class handles librarian details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -55,12 +55,16 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     );
     librarianNumber++;
   }
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Librarian> getAll() {
     return librarians;
   }
-
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void add(Librarian librarian) {
     librarians.add(librarian);
