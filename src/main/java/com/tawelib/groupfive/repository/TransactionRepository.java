@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Transaction;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ import java.util.List;
  * @version 0.1
  */
 public class TransactionRepository implements BaseRepository<Transaction> {
+
+  private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
 
   public Transaction getAllTransactions(Customer customer) {
     return null;

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -10,6 +11,8 @@ import java.util.List;
  * @version 0.1
  */
 public class LeaseRepository implements BaseRepository<Lease> {
+
+  private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
 
   public List<Lease> getCopyLeases(String copyId) {
     return null;
@@ -38,6 +41,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
   public List<Lease> getOverdueLeases() {
     return null;
   }
+
 
   @Override
   public List<Lease> getAll() {
