@@ -42,7 +42,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * Search for a copy in the list
+   * Search for a copy in the list.
    *
    * @return the copy
    */
