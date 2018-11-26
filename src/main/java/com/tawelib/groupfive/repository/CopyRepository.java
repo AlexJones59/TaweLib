@@ -55,8 +55,18 @@ public class CopyRepository implements BaseRepository<Copy> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Search for the reserved copies by a customer username.
+   *
+   * @return the list of reserved copies
+   */
   public List<Copy> getReservedCopies(String customerUsername) {
-    return null;
+    for (Copy reserved : copies) {
+      if (reserved.getBorrowingCustomerId() == customerUsername) {
+        return (List<Copy>) reserved;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   public List<Copy> getBorrowedCopies(String customerUsername) {
