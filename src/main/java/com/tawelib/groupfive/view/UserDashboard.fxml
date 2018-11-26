@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
+This screen works differently depending on what kind of user is logged on. If the user is a
+Customer, it disables certain boxes and vice-versa.
+-->
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
