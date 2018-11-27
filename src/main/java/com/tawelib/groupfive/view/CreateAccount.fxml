@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <children>
+        <BorderPane layoutX="0.0" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0"
+                    prefWidth="450.0" snapToPixel="true">
+            <center>
+                <Pane prefHeight="339.951171875" prefWidth="236.0">
+                    <children>
+                        <RadioButton layoutX="-15.0" layoutY="10.0" mnemonicParsing="false" text="Customer"/>
+                        <RadioButton layoutX="120.0" layoutY="10.0" mnemonicParsing="false" text="Librarian"/>
+                        <TextField layoutX="-15.0" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                                   prefHeight="20.0" prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="70.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="100.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="130.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="160.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="190.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="220.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="250.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="280.0" maxHeight="-Infinity" prefHeight="20.0"
+                                   prefWidth="200.0"/>
+                        <TextField layoutX="-15.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="-1.0"
+                                   prefHeight="20.0" prefWidth="200.0"/>
+                        <Button layoutX="202.0" layoutY="367.0" mnemonicParsing="false" text="Create"/>
+                    </children>
+                </Pane>
+            </center>
+            <left>
+                <Pane prefHeight="400.0" prefWidth="163.0">
+                    <children>
+                        <Label layoutX="20.0" layoutY="10.0" prefWidth="135.0" text="Type of Account:"/>
+                        <Label layoutX="20.0" layoutY="280.0" text="Employment Date:"/>
+                        <Label layoutX="20.0" layoutY="130.0" text="Phone No:"/>
+                        <Label layoutX="20.0" layoutY="40.0" text="Username:"/>
+                        <Label layoutX="20.0" layoutY="70.0" text="First name:"/>
+                        <Label layoutX="20.0" layoutY="160.0" text="Address Line 1:"/>
+                        <Label layoutX="20.0" layoutY="100.0" text="Surname:"/>
+                        <Label layoutX="20.0" layoutY="190.0" text="Address Line 2:"/>
+                        <Label layoutX="20.0" layoutY="220.0" text="City:"/>
+                        <Label layoutX="20.0" layoutY="250.0" text="Postcode:"/>
+                        <Label layoutX="20.0" layoutY="310.0" text="Staff No:"/>
+                    </children>
+                </Pane>
+            </left>
+            <top>
+                <Pane prefHeight="100.0" prefWidth="700.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="69.0" layoutY="33.0"
+                               prefHeight="52.0" prefWidth="301.0" text="Create an Account" textAlignment="CENTER"
+                               underline="false" wrapText="false">
+                            <font>
+                                <Font size="35.0"/>
+                            </font>
+                        </Label>
+                        <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="37.951171875"
+                                prefWidth="41.0" text="&lt;"/>
+                    </children>
+                </Pane>
+            </top>
+        </BorderPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="200.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Label layoutX="141.0" layoutY="14.0" text="Copy Error">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="65.0" layoutY="56.0" text="Error: The copy is not available">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="95.0" layoutY="100.0" mnemonicParsing="false" prefHeight="34.951171875"
+                        prefWidth="62.0" text="OK"/>
+                <Button layoutX="200.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.251953125"
+                        text="Request Copy"/>
+            </children>
+        </Pane>
+    </center>
+</BorderPane>
