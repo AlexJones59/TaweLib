@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is one of the more complex screens in terms of event handlers as it needs to "remake" the
+table and change it's schema depending on what Resource Type is selected.
+-->
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="730.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1">
+  <center>
+    <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label layoutX="19.0" layoutY="126.0" prefHeight="36.0" prefWidth="78.0" text="Search"/>
+        <Text layoutX="322.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Resources">
+          <font>
+            <Font size="48.0"/>
+          </font>
+        </Text>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="125.0"
+          pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fitHeight="135.0" fitWidth="161.0" layoutX="49.0" layoutY="174.0"
+          pickOnBounds="true" preserveRatio="true"/>
+        <TextField layoutX="113.0" layoutY="125.0"/>
+        <Button layoutX="707.0" layoutY="51.0" mnemonicParsing="false" prefHeight="39.0"
+          prefWidth="81.0" text="Info"/>
+        <MenuButton layoutX="429.0" layoutY="123.0" mnemonicParsing="false" prefHeight="39.0"
+          prefWidth="160.0" text="Search by">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Action 1"/>
+            <MenuItem mnemonicParsing="false" text="Action 2"/>
+          </items>
+        </MenuButton>
+        <MenuButton layoutX="656.0" layoutY="123.0" mnemonicParsing="false" text="Resource type">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Action 1"/>
+            <MenuItem mnemonicParsing="false" text="Action 2"/>
+          </items>
+        </MenuButton>
+        <BorderPane layoutX="17.0" layoutY="190.0" prefHeight="526.0" prefWidth="821.0">
+          <center>
+            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="75.0" text="ID"/>
+                <TableColumn prefWidth="75.0" text="Title"/>
+                <TableColumn prefWidth="55.0" text="Year"/>
+                <TableColumn prefWidth="82.0" text="Type"/>
+                <TableColumn prefWidth="88.0" text="Image" visible="false"/>
+                <TableColumn prefWidth="75.0" text="Author" visible="false"/>
+                <TableColumn prefWidth="107.0" text="Publisher" visible="false"/>
+                <TableColumn prefWidth="90.0" text="Genre" visible="false"/>
+                <TableColumn minWidth="0.0" prefWidth="66.0" text="ISBN" visible="false"/>
+                <TableColumn prefWidth="107.0" text="Language" visible="false"/>
+              </columns>
+            </TableView>
+          </center>
+        </BorderPane>
+      </children>
+    </Pane>
+  </center>
+</BorderPane>
