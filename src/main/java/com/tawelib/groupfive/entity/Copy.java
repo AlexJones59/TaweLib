@@ -66,7 +66,7 @@ public class Copy {
   }
 
   /**
-   * Sets borrowing customer id.
+   * Sets borrowing customer username.
    *
    * @param borrowingCustomerUsername the borrowing customer username
    */

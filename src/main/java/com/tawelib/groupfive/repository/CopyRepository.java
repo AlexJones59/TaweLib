@@ -62,7 +62,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    */
   public List<Copy> getReservedCopies(String customerUsername) {
     for (Copy reserved : copies) {
-      if (reserved.getBorrowingCustomerId() == customerUsername) {
+      if (reserved.getBorrowingCustomerUsername() == customerUsername) {
         return (List<Copy>) reserved;
       }
     }
