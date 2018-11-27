@@ -1,12 +1,12 @@
 package com.tawelib.groupfive.entity;
 
 //import com.tawelib.groupfive.repository.LeaseRepository;
+
 import java.util.List;
 
 /**
- * File Name - Copy.java
- * The ‘Copy’ class is the class that stores information about a particular copy of a
- * resource.
+ * File Name - Copy.java The ‘Copy’ class is the class that stores information about a particular
+ * copy of a resource.
  *
  * @author Shree Desai
  * @version 0.2
@@ -16,7 +16,8 @@ public class Copy {
   private String id;
   private CopyStatus status;
   private Resource resource;
-  private String borrowingCustomerId;
+  private String borrowingCustomerUsername;
+
 
   /**
    * Instantiates a new Copy.
@@ -56,43 +57,32 @@ public class Copy {
   }
 
   /**
-   * Gets borrowing customer id.
+   * Gets borrowing customer username.
    *
-   * @return the borrowing customer id
+   * @return the borrowing customer username
    */
-  public String getBorrowingCustomerId() {
-    return borrowingCustomerId;
+  public String getBorrowingCustomerUsername() {
+    return borrowingCustomerUsername;
   }
 
   /**
    * Sets borrowing customer id.
    *
-   * @param borrowingCustomerId the borrowing customer id
+   * @param borrowingCustomerUsername the borrowing customer username
    */
-  public void setBorrowingCustomerId(String borrowingCustomerId) {
-    this.borrowingCustomerId = borrowingCustomerId;
+  public void setBorrowingCustomerUsername(String borrowingCustomerUsername) {
+    this.borrowingCustomerUsername = borrowingCustomerUsername;
   }
 
   /**
-   * Gets lease history.
+   * Gets resource.
    *
-   * @return list of leases of this copy
+   * @return the resource
    */
-  public List<Lease> getLeaseHistory() {
-    //return LeaseRepository.getLeases(this.id);
-    return null; //TODO: Once CopyRepository has been implemented, uncomment above line.
-  }
-
-  /**
-   * Gets current lease.
-   *
-   * @return the current lease
-   */
-  public List<Lease> getCurrentLease() {
-    //allLeases = LeaseRepository.getLeases(this.id);
-    return null; //TODO: Once CopyRepository has been implemented, finish this method.
-    //TODO: Write logic for sorting through leases to find current lease pertaining to this copy
-
-
+  public Resource getResource() {
+    return resource;
   }
 }
+
+
+

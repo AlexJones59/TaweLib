@@ -23,28 +23,11 @@ public class Lease {
   /**
    * Instantiates a new Lease.
    *
-   * @param dateLeased the date leased
    * @param borrowingCustomerId the borrowing customer id
    * @param borrowedCopyId the borrowed copy id
    */
-  public Lease(Date dateLeased, String borrowingCustomerId, String borrowedCopyId) {
-    this.dateLeased = dateLeased;
-    this.borrowingCustomerId = borrowingCustomerId;
-    this.borrowedCopyId = borrowedCopyId;
-  }
-
-  /**
-   * Instantiates a new Lease with a specific due date.
-   *
-   * @param dateLeased the date leased
-   * @param dueDate the due date
-   * @param borrowingCustomerId the borrowing customer id
-   * @param borrowedCopyId the borrowed copy id
-   */
-  public Lease(Date dateLeased, Date dueDate, String borrowingCustomerId,
-      String borrowedCopyId) {
-    this.dateLeased = dateLeased;
-    this.dueDate = dueDate;
+  public Lease(String borrowingCustomerId, String borrowedCopyId) {
+    this.dateLeased = new Date();
     this.borrowingCustomerId = borrowingCustomerId;
     this.borrowedCopyId = borrowedCopyId;
   }

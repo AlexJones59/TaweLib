@@ -4,8 +4,7 @@ import java.io.Serializable;
 import javafx.scene.image.Image;
 
 /**
- * File name: Resource.java
- * Resource class saves all  info pertaining to a resource.
+ * File name: Resource.java Resource class saves all  info pertaining to a resource.
  *
  * @author Shree Desai
  * @version 0.2

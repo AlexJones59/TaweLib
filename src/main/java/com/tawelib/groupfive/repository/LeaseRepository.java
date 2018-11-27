@@ -6,10 +6,10 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - LeaseRepository.java The Lease repository class hadles lease details.
+ * File Name - LeaseRepository.java The Lease repository class handles lease details.
  *
  * @author Created by Themis
- * @version 0.1
+ * @version 0.4
  */
 public class LeaseRepository implements BaseRepository<Lease> {
 
