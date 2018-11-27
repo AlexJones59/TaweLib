@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="217.0" layoutY="38.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="420.0" layoutY="38.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+            </children>
+        </Pane>
+    </center>
+    <top>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="&lt;"/>
+                <Label layoutX="167.0" layoutY="28.0" text="Choose Resource Image" textAlignment="CENTER">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                </Label>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="15.0" layoutY="88.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="196.0" layoutY="88.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <ImageView fitHeight="124.5" fitWidth="166.0" layoutX="412.0" layoutY="88.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+            </children>
+        </Pane>
+    </top>
+</BorderPane>

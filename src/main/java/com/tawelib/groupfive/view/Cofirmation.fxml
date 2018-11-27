@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="270.0" prefWidth="303.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <children>
+        <Pane layoutX="103.0" layoutY="33.0" prefHeight="204.0" prefWidth="210.0">
+            <children>
+                <Label layoutX="-46.0" layoutY="-6.0" text="Confirmation">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </Label>
+                <Label alignment="CENTER" layoutX="-70.0" layoutY="54.0" text="Please confirm the action"
+                       textAlignment="CENTER">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+                <Button layoutX="-79.0" layoutY="120.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="101.0"
+                        text="Yes"/>
+                <Button layoutX="71.0" layoutY="120.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="101.0"
+                        text="No"/>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
