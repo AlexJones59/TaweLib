@@ -22,7 +22,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
    *
    * @param resource the new resource being persisted to repository
    */
-  private void generateId(Resource resource) {}
+  private void generateId(Resource resource) {
+  }
 
   /**
    * Search through resources of type "Book".

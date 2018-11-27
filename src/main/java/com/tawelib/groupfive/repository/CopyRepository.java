@@ -6,7 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - CopyRepository.java The Copy repository class hadles copy details.
+ * File Name - CopyRepository.java The Copy repository class handles copy details.
  *
  * @author Created by Themis
  * @version 0.2
