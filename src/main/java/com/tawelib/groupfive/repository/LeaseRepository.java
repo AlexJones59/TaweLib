@@ -2,7 +2,6 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -14,8 +13,6 @@ import java.util.List;
 public class LeaseRepository implements BaseRepository<Lease> {
 
   private static ArrayList<Lease> leases;
-
-  private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
 
   public List<Lease> getCopyLeases(String copyId) {
     //Todo checks for leases.

@@ -4,7 +4,6 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -16,8 +15,6 @@ import java.util.List;
 public class RequestRepository implements BaseRepository<Request> {
 
   private static ArrayList<Request> requests;
-
-  private static Hashtable<String, Request> RequestTable = new Hashtable<String, Request>();
 
   /**
    * Gets all open customer requests.
