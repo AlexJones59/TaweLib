@@ -17,11 +17,4 @@ public interface UserRepository<T> extends BaseRepository<T> {
    * @return T User subclass.
    */
   T authenticate(String username);
-
-  /**
-   * Generates a username for a given user.
-   *
-   * @param user Customer or Librarian
-   */
-  void generateUsername(T user);
 }
