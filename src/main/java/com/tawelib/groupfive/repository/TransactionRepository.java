@@ -23,6 +23,10 @@ public class TransactionRepository implements BaseRepository<Transaction> {
     return null;
   }
 
+  public Transaction getSpecific(String transactionId) {
+    return null;
+  }
+
   @Override
   public List<Transaction> getAll() {
     return transactions;
@@ -33,11 +37,4 @@ public class TransactionRepository implements BaseRepository<Transaction> {
     transactions.add(transaction);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Transaction getSpecific(String transactionId) {
-    return null;
-  }
 }

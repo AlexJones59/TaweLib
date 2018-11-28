@@ -39,8 +39,9 @@ public class CustomerRepository implements UserRepository<Customer> {
   public Customer getSpecific(String customerUsername) {
     return null;
   }
+
   /**
-   * Checks if the customer is in the list y its username.
+   * Checks if the customer is in the list by its username.
    *
    * @param username Username.
    * @return the customer
@@ -64,7 +65,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   public void generateUsername(Customer customer) {
     //TODO: set the customer's username to a generated one making sure it's unique.
     String generatedUsername = String.format(
-        "%s%s", USER_PREFIX, userNumber );
+        "%s%s", USER_PREFIX, userNumber);
     userNumber++;
   }
 

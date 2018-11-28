@@ -32,9 +32,8 @@ public class ResourceController {
    * @param genre the genre
    */
   public void createBook(Library library,String title, int year,
-      Image thumbnailImage,
-      ResourceType type, String author, String publisher, String genre,
-      String isbn, String language) {
+      Image thumbnailImage, ResourceType type, String author, String publisher,
+      String genre, String isbn, String language) {
     Book newBook = new Book(title, year, thumbnailImage, type, author,
         publisher, genre, isbn, language);
     library.getResourceRepository().add(newBook);
@@ -54,7 +53,7 @@ public class ResourceController {
   public void createDvd(Library library,String title, int year,
       Image thumbnailImage, ResourceType type, String director, int runtime,
       ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
-    Dvd newDvd = new Dvd( title, year, thumbnailImage, type, director,runtime);
+    Dvd newDvd = new Dvd(title, year, thumbnailImage, type, director,runtime);
     newDvd.addLanguages(languages);
     newDvd.addSubtitleLanguages(subtitleLanguages);
     library.getResourceRepository().add(newDvd);
@@ -74,7 +73,7 @@ public class ResourceController {
   public void createLaptop(Library library, String title, int year,
       Image thumbnailImage, ResourceType type,
       String manufacturer, String model, String installedOperatingSystem) {
-    Laptop newLaptop = new Laptop( title, year, thumbnailImage, type,
+    Laptop newLaptop = new Laptop(title, year, thumbnailImage, type,
         manufacturer, model, installedOperatingSystem);
     library.getResourceRepository().add(newLaptop);
   }

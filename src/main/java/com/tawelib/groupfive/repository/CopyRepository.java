@@ -34,6 +34,11 @@ public class CopyRepository implements BaseRepository<Copy> {
     copyNumber++;
   }
 
+  /**
+   * Gets oldest copy without due date.
+   *
+   * @param resource the resource
+   */
   public void getOldestCopyWithoutDueDate(Resource resource) {
 
   }
@@ -42,6 +47,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   /**
    * Search for the reserved copies by a customer username.
    *
+   * @param customerUsername the customer username
    * @return the list of reserved copies
    */
   public List<Copy> getReservedCopies(String customerUsername) {
@@ -53,6 +59,12 @@ public class CopyRepository implements BaseRepository<Copy> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Gets specific.
+   *
+   * @param copyId the copy id
+   * @return the specific
+   */
   public Copy getSpecific(String copyId) {
     for (Copy copy : copies) {
       if (copy.getId() == copyId) {
@@ -62,10 +74,21 @@ public class CopyRepository implements BaseRepository<Copy> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Gets borrowed copies.
+   *
+   * @param customerUsername the customer username
+   * @return the borrowed copies
+   */
   public List<Copy> getBorrowedCopies(String customerUsername) {
     return null;
   }
 
+  /**
+   * Gets overdue copies.
+   *
+   * @return the overdue copies
+   */
   public List<Copy> getOverdueCopies() {
     return null;
   }

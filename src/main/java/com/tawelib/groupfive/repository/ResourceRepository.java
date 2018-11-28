@@ -64,15 +64,15 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return null;
   }
 
-  public Book getSpecificBook(String resourceId){
+  public Book getSpecificBook(String resourceId) {
     return null;
   }
 
-  public Dvd getSpecificDvd (String resourceId) {
+  public Dvd getSpecificDvd(String resourceId) {
     return null;
   }
 
-  public Laptop getSpecificLaptop (String resourceId) {
+  public Laptop getSpecificLaptop(String resourceId) {
     return null;
   }
 
