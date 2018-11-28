@@ -26,8 +26,9 @@ public class UserController {
    * @param postcode    the postcode
    */
   public void createCustomerAccount(String firstName, String lastName,
-                                    String phoneNumber,
-                                    String houseNumber, String street, String city, String postcode) {
+                                    String phoneNumber, String houseNumber,
+                                    String street, String city,
+                                    String postcode) {
   }
 
   /**

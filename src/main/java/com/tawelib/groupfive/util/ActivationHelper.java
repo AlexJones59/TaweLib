@@ -94,8 +94,8 @@ public class ActivationHelper {
     try {
       messageDigest = MessageDigest.getInstance("MD5");
     } catch (NoSuchAlgorithmException e) {
-      throw new UnsupportedSystemException("Activation cannot be verified " +
-          "on this system.");
+      throw new UnsupportedSystemException("Activation cannot be verified "
+          + "on this system.");
     }
 
     String saltedContent = productKey + PRODUCT_KEY_HASH_SALT;
