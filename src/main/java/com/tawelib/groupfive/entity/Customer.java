@@ -1,8 +1,9 @@
 package com.tawelib.groupfive.entity;
 
 /**
- * File Name: Customer.java
- *    Customer class stores personal information for the Customer account.
+ * File Name: Customer.java Customer class stores personal information for the
+ * Customer account.
+ *
  * @author Shree Desai
  * @version 0.2
  */
@@ -21,9 +22,10 @@ public class Customer extends User {
    * @param city the city
    * @param postCode the post code
    */
-  public Customer(String firstName, String lastName, String phoneNumber, int houseNumber,
-      String street, String city, String postCode) {
-    super(firstName, lastName, phoneNumber, houseNumber, street, city, postCode);
+  public Customer(String firstName, String lastName, String phoneNumber,
+      int houseNumber, String street, String city, String postCode) {
+    super(firstName, lastName, phoneNumber, houseNumber, street, city,
+        postCode);
   }
 
   /**

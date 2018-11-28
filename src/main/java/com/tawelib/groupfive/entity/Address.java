@@ -1,8 +1,8 @@
 package com.tawelib.groupfive.entity;
 
 /**
- * Address.java
- * This class stores all the elements needed for an address.
+ * Address.java This class stores all the elements needed for an address.
+ *
  * @author Shree Desai
  * @version 0.2
  */

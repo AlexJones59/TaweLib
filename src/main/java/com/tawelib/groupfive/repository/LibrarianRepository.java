@@ -8,7 +8,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - LibrarianRepository.java The Librarian repository class handles librarian details.
+ * File Name - LibrarianRepository.java The Librarian repository class handles
+ * librarian details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -50,11 +51,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   @Override
   public void generateUsername(Librarian librarian) {
-    String librarianUsername = String.format(
-        "%s%s",
-        LIBRARIAN_PREFIX,
-        librarianNumber
-    );
+    String librarianUsername = String
+        .format("%s%s", LIBRARIAN_PREFIX, librarianNumber);
     librarianNumber++;
   }
 

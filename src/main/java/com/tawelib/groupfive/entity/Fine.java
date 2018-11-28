@@ -3,9 +3,8 @@ package com.tawelib.groupfive.entity;
 import java.util.Date;
 
 /**
- * File Name - Fine.java
- * The ‘Fine’ class is the class that stores information regarding a fine,
- * which is created automatically when a copy is overdue.
+ * File Name - Fine.java The ‘Fine’ class is the class that stores information
+ * regarding a fine, which is created automatically when a copy is overdue.
  *
  * @author Shree Desai
  * @version 0.2
@@ -18,7 +17,6 @@ public class Fine {
 
   /**
    * Instantiates a new Fine for resources that overdue.
-   *
    */
   public Fine(Lease specificLease) {
     this.dateIssued = new Date();
@@ -26,7 +24,8 @@ public class Fine {
   }
 
   /**
-   * Instantiates a new Fine, for specific fines that the librarian can define straight away.
+   * Instantiates a new Fine, for specific fines that the librarian can define
+   * straight away.
    *
    * @param amount the amount
    */
@@ -56,7 +55,6 @@ public class Fine {
 
   /**
    * Gets instance of Lease that this fine is specific to.
-   *
    */
   public Lease getSpecificLease() {
     return specificLease;
@@ -64,13 +62,12 @@ public class Fine {
 
   /**
    * Gets days overdue.
-   *
    */
   public int getDaysOverdue() {
     //TODO: optimise.
     Date currentDate = new Date();
     long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-    return (int)((((diffInMilli / 1000) / 60) / 60) / 24);
+    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
 
   }
 

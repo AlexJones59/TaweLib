@@ -8,7 +8,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - CopyRepository.java The Copy repository class handles copy details.
+ * File Name - CopyRepository.java The Copy repository class handles copy
+ * details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -28,11 +29,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    * Generates a unique id for copies.
    */
   private void generateId(Copy copy) {
-    String generatedCopyId = String.format(
-        "%s%s",
-        COPY_PREFIX,
-        copyNumber
-    );
+    String generatedCopyId = String.format("%s%s", COPY_PREFIX, copyNumber);
 
     copyNumber++;
   }

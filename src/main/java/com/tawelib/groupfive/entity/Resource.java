@@ -4,7 +4,8 @@ import java.io.Serializable;
 import javafx.scene.image.Image;
 
 /**
- * File name: Resource.java Resource class saves all  info pertaining to a resource.
+ * File name: Resource.java Resource class saves all  info pertaining to a
+ * resource.
  *
  * @author Shree Desai
  * @version 0.2
@@ -25,7 +26,8 @@ public abstract class Resource implements Serializable {
    * @param thumbnailImage the thumbnail image
    * @param type the type
    */
-  public Resource(String title, int year, Image thumbnailImage, ResourceType type) {
+  public Resource(String title, int year, Image thumbnailImage,
+      ResourceType type) {
     this.title = title;
     this.year = year;
     this.thumbnailImage = thumbnailImage;

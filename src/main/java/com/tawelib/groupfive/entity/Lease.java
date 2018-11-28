@@ -4,8 +4,9 @@ import com.tawelib.groupfive.repository.CopyRepository;
 import java.util.Date;
 
 /**
- * Lease.java The ‘Lease’ class is the class that stores the information about every loan, linking
- * the relevant instance of the ‘Customer’ class and instance of the ‘Copy’ class.
+ * Lease.java The ‘Lease’ class is the class that stores the information about
+ * every loan, linking the relevant instance of the ‘Customer’ class and
+ * instance of the ‘Copy’ class.
  *
  * @author Shree Desai
  * @version 0.2
@@ -15,20 +16,20 @@ public class Lease {
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
-  private String borrowingCustomerId;
+  private String borrowingCustomerUsername;
   private String borrowedCopyId;
-  //private Fine overdueFine;
+
 
 
   /**
    * Instantiates a new Lease.
    *
-   * @param borrowingCustomerId the borrowing customer id
+   * @param borrowingCustomerUsername the borrowing customer username
    * @param borrowedCopyId the borrowed copy id
    */
-  public Lease(String borrowingCustomerId, String borrowedCopyId) {
+  public Lease(String borrowingCustomerUsername, String borrowedCopyId) {
     this.dateLeased = new Date();
-    this.borrowingCustomerId = borrowingCustomerId;
+    this.borrowingCustomerUsername = borrowingCustomerUsername;
     this.borrowedCopyId = borrowedCopyId;
   }
 
@@ -52,11 +53,9 @@ public class Lease {
 
   /**
    * Sets date returned.
-   *
-   * @param dateReturned the date returned
    */
-  public void setDateReturned(Date dateReturned) {
-    this.dateReturned = dateReturned;
+  public void setDateReturned() {
+    this.dateReturned = new Date();
   }
 
   /**
@@ -80,20 +79,19 @@ public class Lease {
   /**
    * Gets borrowing customer.
    *
-   * @return the borrowing customer
+   * @return the borrowing customer username
    */
-  public Customer getBorrowingCustomer() {
-    //TODO: after Repository class is done, needs to call searchCustomer function.
-    return null;
+  public String getBorrowingCustomerUsername() {
+    return borrowingCustomerUsername;
   }
 
   /**
    * Gets borrowed copy.
    *
-   * @return the borrowed copy
+   * @return the borrowed copy id
    */
-  public Copy getBorrowedCopy() {
-    //TODO: after Repository class is done, needs to call searchCopy function.
-    return null;
+  public String getBorrowedCopyId() {
+    return borrowedCopyId;
   }
+
 }

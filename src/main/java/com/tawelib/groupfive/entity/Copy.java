@@ -5,8 +5,8 @@ package com.tawelib.groupfive.entity;
 import java.util.List;
 
 /**
- * File Name - Copy.java The ‘Copy’ class is the class that stores information about a particular
- * copy of a resource.
+ * File Name - Copy.java The ‘Copy’ class is the class that stores information
+ * about a particular copy of a resource.
  *
  * @author Shree Desai
  * @version 0.2
