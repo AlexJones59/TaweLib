@@ -23,6 +23,9 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return open customer requests
    */
   public List<Request> getCustomerRequests(String customerId) {
+    for (Request request:requests){
+      
+    }
     return null;
   }
 

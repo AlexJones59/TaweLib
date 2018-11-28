@@ -34,7 +34,7 @@ public class CustomerRepository implements UserRepository<Customer> {
    */
   @Override
   public Customer authenticate(String username) {
-    Customer customer = getSpecificCustomer(username);
+    Customer customer = getSpecific(username);
     if (customer == null) {
       throw new AuthenticationException();
     } else {
@@ -47,7 +47,7 @@ public class CustomerRepository implements UserRepository<Customer> {
    *
    * @return the customer
    */
-  private Customer getSpecificCustomer(String username) {
+  public Customer getSpecific(String username) {
     for (Customer customer : customers) {
       if (customer.getUsername().equals(username)) {
         return customer;
@@ -68,7 +68,7 @@ public class CustomerRepository implements UserRepository<Customer> {
     int suffixBase = 1;
     String generatedUsername = baseUsername + usernameSuffix;
 
-    while (getSpecificCustomer(generatedUsername) != null) {
+    while (getSpecific(generatedUsername) != null) {
       usernameSuffix = String.format(".%d", suffixBase);
       generatedUsername = baseUsername + usernameSuffix;
       suffixBase++;

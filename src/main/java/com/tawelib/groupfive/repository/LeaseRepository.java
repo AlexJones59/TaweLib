@@ -6,8 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - LeaseRepository.java The Lease repository class handles lease
- * details.
+ * File Name - LeaseRepository.java The Lease repository class handles lease details.
  *
  * @author Created by Themis, Modified by Shree Desai
  * @version 0.4
@@ -94,6 +93,12 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the overdue leases
    */
   public List<Lease> getOverdueLeases() {
+    int currentDate = 0;
+    for (Lease lease :leases){
+      if (lease.getDueDate().equals(currentDate)){
+        return (List<Lease>) lease;
+      }
+    }
     return null;
   }
 
@@ -110,8 +115,11 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   @Override
   public void add(Lease lease) {
-    leases.add(lease);
+    if (!leases.contains(lease)) {
+      leases.add(lease);
+    }
   }
+
 
 }
 
