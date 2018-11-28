@@ -1,8 +1,8 @@
 package com.tawelib.groupfive.entity;
 
 /**
- * File Name - Request.java
- * The Request class is the  class that stores all the information pertaining to a request.
+ * File Name - Request.java The Request class is the  class that stores all the
+ * information pertaining to a request.
  *
  * @author Shree Desai
  * @version 0.2

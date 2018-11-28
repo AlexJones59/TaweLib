@@ -7,8 +7,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - TransactionRepository.java The Transaction repository class hadles transaction
- * details.
+ * File Name - TransactionRepository.java The Transaction repository class
+ * hadles transaction details.
  *
  * @author Created by Themis
  * @version 0.1

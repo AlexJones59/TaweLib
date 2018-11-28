@@ -10,8 +10,8 @@ package com.tawelib.groupfive.repository;
 public interface UserRepository<T> extends BaseRepository<T> {
 
   /**
-   * Authenticates a user and returns the User subclass. Throws an exception when the user isn't
-   * found.
+   * Authenticates a user and returns the User subclass. Throws an exception
+   * when the user isn't found.
    *
    * @param username Username.
    * @return T User subclass.
