@@ -12,7 +12,7 @@ import java.util.Date;
 public class Librarian extends User {
 
   private final Date employmentDate;
-  private final int staffNumber;
+  private int staffNumber;
 
   /**
    * Instantiates a new Librarian.
@@ -25,15 +25,13 @@ public class Librarian extends User {
    * @param city           the city
    * @param postCode       the post code
    * @param employmentDate the employment date
-   * @param staffNumber    the staff number
    */
   public Librarian(String firstName, String lastName, String phoneNumber,
                    int houseNumber, String street, String city,
-                   String postCode, Date employmentDate, int staffNumber) {
+                   String postCode, Date employmentDate) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
     this.employmentDate = employmentDate;
-    this.staffNumber = staffNumber;
   }
 
   /**
