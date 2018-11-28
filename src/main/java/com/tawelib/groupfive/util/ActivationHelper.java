@@ -2,6 +2,7 @@ package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.exception.InvalidProductKeyException;
 import com.tawelib.groupfive.exception.UnsupportedSystemException;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,14 +25,16 @@ public class ActivationHelper {
   private static final String PRODUCT_KEY_PROPERTY_NAME = "product_key";
   private static final String PRODUCT_HASH_PROPERTY_NAME = "product_key_hash";
   private static final String PRODUCT_KEY_HASH_SALT = "GO GROUP 5 GO!!!";
-  private static final String PRODUCT_KEY_PATTERN = "LPK\\-\\d{4}-(?:\\w|\\d){5}-\\w{4}-XXX";
+  private static final String PRODUCT_KEY_PATTERN =
+      "LPK\\-\\d{4}-(?:\\w|\\d){5}-\\w{4}-XXX";
 
   private ActivationHelper() {
     throw new IllegalStateException("Utility class");
   }
 
   /**
-   * Checks whether the product is activated. Returns true if so, false otherwise.
+   * Checks whether the product is activated. Returns true if so,
+   * false otherwise.
    *
    * @return Activated.
    */
@@ -53,9 +56,10 @@ public class ActivationHelper {
   /**
    * Activates the product. Throws an exception when unable to.
    *
-   * @param productKey Product key.
+   * @param productKey  Product key.
    * @param controlHash Control hash.
-   * @throws InvalidProductKeyException When the given product key-hash pair is invalid.
+   * @throws InvalidProductKeyException When the given product key-hash
+   *                                    pair is invalid.
    * @throws UnsupportedSystemException When the activation fails.
    */
   public static void activate(String productKey, String controlHash)
@@ -81,7 +85,7 @@ public class ActivationHelper {
   /**
    * Checks whether the product key matches the control hash.
    *
-   * @param productKey Product key.
+   * @param productKey  Product key.
    * @param controlHash Control hash.
    * @return Whether the product key matches the control hash.
    */
@@ -90,7 +94,8 @@ public class ActivationHelper {
     try {
       messageDigest = MessageDigest.getInstance("MD5");
     } catch (NoSuchAlgorithmException e) {
-      throw new UnsupportedSystemException("Activation cannot be verified on this system.");
+      throw new UnsupportedSystemException("Activation cannot be verified " +
+          "on this system.");
     }
 
     String saltedContent = productKey + PRODUCT_KEY_HASH_SALT;
@@ -107,11 +112,12 @@ public class ActivationHelper {
   /**
    * Returns true if the product key-hash pair is valid, false otherwise.
    *
-   * @param productKey Product key.
+   * @param productKey  Product key.
    * @param controlHash Control hash.
    * @return Whether the product key-hash pair is valid.
    */
-  private static boolean isProductKeyHashPairValid(String productKey, String controlHash) {
+  private static boolean isProductKeyHashPairValid(String productKey,
+                                                   String controlHash) {
     Pattern pattern = Pattern.compile(PRODUCT_KEY_PATTERN);
     Matcher matcher = pattern.matcher(productKey);
     boolean matchesPattern = matcher.matches();
@@ -127,7 +133,8 @@ public class ActivationHelper {
    * @return Product key-hash pair.
    * @throws IOException When unable to read the properties file.
    */
-  private static ProductKeyHashPair readProductKeyHashPair() throws IOException {
+  private static ProductKeyHashPair readProductKeyHashPair() throws
+      IOException {
     FileReader reader = new FileReader(PROPERTIES_FILE_PATH);
 
     Properties properties = new Properties();
@@ -135,8 +142,10 @@ public class ActivationHelper {
 
     ProductKeyHashPair productKeyHashPair = new ProductKeyHashPair();
 
-    productKeyHashPair.productKey = properties.getProperty(PRODUCT_KEY_PROPERTY_NAME);
-    productKeyHashPair.productKeyHash = properties.getProperty(PRODUCT_HASH_PROPERTY_NAME);
+    productKeyHashPair.productKey =
+        properties.getProperty(PRODUCT_KEY_PROPERTY_NAME);
+    productKeyHashPair.productKeyHash =
+        properties.getProperty(PRODUCT_HASH_PROPERTY_NAME);
 
     reader.close();
 

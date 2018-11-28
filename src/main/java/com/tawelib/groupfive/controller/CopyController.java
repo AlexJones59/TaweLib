@@ -12,6 +12,7 @@ import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.repository.CopyRepository;
 import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.RequestRepository;
+
 import java.util.Date;
 
 /**
@@ -33,12 +34,12 @@ public class CopyController {
   /**
    * Create resource copy.
    *
-   * @param library the library
+   * @param library  the library
    * @param resource the resource
-   * @param amount the amount
+   * @param amount   the amount
    */
   public void createResourceCopy(Library library, Resource resource,
-      int amount) {
+                                 int amount) {
     for (int i = 1; i <= amount; i++) {
       library.getCopyRepository().add(new Copy(resource));
     }
@@ -48,12 +49,12 @@ public class CopyController {
   /**
    * Borrow resource copy.
    *
-   * @param library the library
-   * @param copyId the copy id
+   * @param library          the library
+   * @param copyId           the copy id
    * @param customerUsername the customer username
    */
   public void borrowResourceCopy(Library library, String copyId,
-      String customerUsername) {
+                                 String customerUsername) {
     Copy borrowedCopy = library.getCopyRepository().getSpecificCopy(copyId);
     library.getCopyRepository().getSpecificCopy(copyId)
         .setStatus(CopyStatus.BORROWED);
@@ -88,7 +89,8 @@ public class CopyController {
     }
 
     Resource returnedResource = library.getCopyRepository()
-        .getSpecificCopy(currentLease.getBorrowedCopyId()).getResource();
+        .getSpecificCopy(currentLease.getBorrowedCopyId())
+        .getResource();
     if (library.getRequestRepository().getResourceRequests(returnedResource)
         .isEmpty() == true) {
       library.getCopyRepository()
@@ -105,16 +107,18 @@ public class CopyController {
           .getEarliestResourceRequest(returnedResource);
       library.getCopyRepository()
           .getSpecificCopy(currentLease.getBorrowedCopyId())
-          .setBorrowingCustomerUsername(reservingRequest.getCustomerUsername());
+          .setBorrowingCustomerUsername(reservingRequest
+              .getCustomerUsername());
       library.getRequestRepository()
-          .getEarliestResourceRequest(returnedResource).setStatus(RequestStatus.RESERVED);
+          .getEarliestResourceRequest(returnedResource)
+          .setStatus(RequestStatus.RESERVED);
     }
 
 
   }
 
   private static void generateDueDate(Lease newLease,
-      ResourceType resourceType) {
+                                      ResourceType resourceType) {
     long dueDateMilli =
         newLease.getDateLeased().getTime() + ((resourceType.getLoanDuration())
             * DAYTOMILLISECONDS);
