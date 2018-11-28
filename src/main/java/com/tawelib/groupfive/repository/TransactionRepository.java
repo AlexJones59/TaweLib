@@ -2,14 +2,13 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Transaction;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - TransactionRepository.java The Transaction repository class
- * hadles transaction details.
+ * File Name - TransactionRepository.java The Transaction repository class hadles transaction
+ * details.
  *
  * @author Created by Themis
  * @version 0.1
@@ -20,7 +19,7 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
 
-  public List<Transaction> getAllTransactions(Customer customer) {
+  public Transaction getAllTransactions(Customer customer) {
     return null;
   }
 
@@ -34,11 +33,8 @@ public class TransactionRepository implements BaseRepository<Transaction> {
     transactions.add(transaction);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Transaction getSpecific(String transactionId) {
+  public Transaction getSpecific(String entityId) {
     return null;
   }
 }

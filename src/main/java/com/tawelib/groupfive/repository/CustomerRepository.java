@@ -8,8 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - CustomerRepository.java The Customer repository class handles
- * customer details.
+ * File Name - CustomerRepository.java The Customer repository class hadles customer details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -51,8 +50,7 @@ public class CustomerRepository implements UserRepository<Customer> {
    */
   @Override
   public void generateUsername(Customer customer) {
-    //TODO: set the customer's username to a generated one making sure it's
-    // unique.
+    //TODO: set the customer's username to a generated one making sure it's unique.
     String generatedUsername = String.format(
         "%s%s",
         USER_PREFIX,
@@ -78,11 +76,10 @@ public class CustomerRepository implements UserRepository<Customer> {
     customers.add(customer);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Customer getSpecific(String cutomerUsername) {
+  public Customer getSpecific(String entityId) {
     return null;
   }
+
+
 }

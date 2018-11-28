@@ -4,14 +4,12 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - ResourceRepository.java The Resource repository class handles all
- * resources.
+ * File Name - ResourceRepository.java The Resource repository class handles all resources.
  *
  * @author Created by Themis, Modified by Nayeem Mohammed & Shree Desai
  * @version 0.2
@@ -34,7 +32,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "Book".
    *
-   * @param query           the query
+   * @param query the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
@@ -45,7 +43,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "DVD".
    *
-   * @param query           the query
+   * @param query the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
@@ -56,7 +54,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "Laptop".
    *
-   * @param query           the query
+   * @param query the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
@@ -80,11 +78,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
     resources.add(resource);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Resource getSpecific(String resourceId) {
+  public Resource getSpecific(String entityId) {
     return null;
   }
 }

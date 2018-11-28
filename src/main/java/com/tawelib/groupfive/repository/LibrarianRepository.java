@@ -8,8 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - LibrarianRepository.java The Librarian repository class handles
- * librarian details.
+ * File Name - LibrarianRepository.java The Librarian repository class handles librarian details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -22,8 +21,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private static final String LIBRARIAN_PREFIX = "LB";
 
-  private static Hashtable<String, Librarian> LibrarianTable =
-      new Hashtable<String, Librarian>();
+  private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
 
   public LibrarianRepository() {
     librarians = new ArrayList<>();
@@ -39,8 +37,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
       if (librarian.getUsername()
-          == username) { //TODO: check if the username is the one we are
-        // looking for.
+          == username) { //TODO: check if the username is the one we are looking for.
         return librarian;
       }
     }
@@ -53,8 +50,11 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   @Override
   public void generateUsername(Librarian librarian) {
-    String librarianUsername = String
-        .format("%s%s", LIBRARIAN_PREFIX, librarianNumber);
+    String librarianUsername = String.format(
+        "%s%s",
+        LIBRARIAN_PREFIX,
+        librarianNumber
+    );
     librarianNumber++;
   }
 
@@ -74,11 +74,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     librarians.add(librarian);
   }
 
-  /**
-   * {@inheritDoc}
-   */
   @Override
-  public Librarian getSpecific(String librarianUsername) {
+  public Librarian getSpecific(String entityId) {
     return null;
   }
 }
