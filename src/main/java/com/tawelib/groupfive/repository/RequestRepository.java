@@ -59,6 +59,16 @@ public class RequestRepository implements BaseRepository<Request> {
   }
 
   /**
+   * Gets specific.
+   *
+   * @param requestId the request id
+   * @return the specific
+   */
+  public Request getSpecific(String requestId) {
+    return null;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -75,8 +85,4 @@ public class RequestRepository implements BaseRepository<Request> {
 
   }
 
-  @Override
-  public Request getSpecific(String entityId) {
-    return null;
-  }
 }

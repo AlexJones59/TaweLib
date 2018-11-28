@@ -80,7 +80,7 @@ public class Dvd extends Resource {
    *
    * @param languages the languages
    */
-  public void addLanguage(ArrayList<String> languages) {
+  public void addLanguages(ArrayList<String> languages) {
     //TODO: Write logic for this with array checking.
     //this.languages.add(languages);
   }

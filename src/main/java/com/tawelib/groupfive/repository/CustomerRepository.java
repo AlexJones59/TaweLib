@@ -23,12 +23,25 @@ public class CustomerRepository implements UserRepository<Customer> {
 
   private static Hashtable<String, Customer> CustomerTable = new Hashtable<String, Customer>();
 
+  /**
+   * Instantiates a new Customer repository.
+   */
   public CustomerRepository() {
     customers = new ArrayList<>();
   }
 
   /**
-   * Checks if the customer is in the list y its username.
+   * Gets specific.
+   *
+   * @param customerUsername the customer username
+   * @return the specific
+   */
+  public Customer getSpecific(String customerUsername) {
+    return null;
+  }
+
+  /**
+   * Checks if the customer is in the list by its username.
    *
    * @param username Username.
    * @return the customer
@@ -52,11 +65,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   public void generateUsername(Customer customer) {
     //TODO: set the customer's username to a generated one making sure it's unique.
     String generatedUsername = String.format(
-        "%s%s",
-        USER_PREFIX,
-        userNumber
-    );
-
+        "%s%s", USER_PREFIX, userNumber);
     userNumber++;
   }
 
@@ -75,11 +84,5 @@ public class CustomerRepository implements UserRepository<Customer> {
   public void add(Customer customer) {
     customers.add(customer);
   }
-
-  @Override
-  public Customer getSpecific(String entityId) {
-    return null;
-  }
-
 
 }

@@ -23,8 +23,21 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
 
+  /**
+   * Instantiates a new Librarian repository.
+   */
   public LibrarianRepository() {
     librarians = new ArrayList<>();
+  }
+
+  /**
+   * Gets specific.
+   *
+   * @param librarianUsername the librarian username
+   * @return the specific
+   */
+  public Librarian getSpecific(String librarianUsername) {
+    return null;
   }
 
   /**
@@ -74,8 +87,5 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     librarians.add(librarian);
   }
 
-  @Override
-  public Librarian getSpecific(String entityId) {
-    return null;
-  }
+
 }

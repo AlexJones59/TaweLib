@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -62,6 +63,18 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return null;
   }
 
+  public Book getSpecificBook(String resourceId) {
+    return null;
+  }
+
+  public Dvd getSpecificDvd(String resourceId) {
+    return null;
+  }
+
+  public Laptop getSpecificLaptop(String resourceId) {
+    return null;
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -78,8 +91,6 @@ public class ResourceRepository implements BaseRepository<Resource> {
     resources.add(resource);
   }
 
-  @Override
-  public Resource getSpecific(String entityId) {
-    return null;
-  }
+
+
 }
