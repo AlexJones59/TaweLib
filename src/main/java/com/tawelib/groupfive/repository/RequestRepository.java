@@ -74,4 +74,9 @@ public class RequestRepository implements BaseRepository<Request> {
     requests.add(request);
 
   }
+
+  @Override
+  public Request getSpecific(String entityId) {
+    return null;
+  }
 }

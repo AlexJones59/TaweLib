@@ -73,4 +73,9 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public void add(Librarian librarian) {
     librarians.add(librarian);
   }
+
+  @Override
+  public Librarian getSpecific(String entityId) {
+    return null;
+  }
 }

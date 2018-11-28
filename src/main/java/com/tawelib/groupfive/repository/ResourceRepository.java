@@ -77,4 +77,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
   public void add(Resource resource) {
     resources.add(resource);
   }
+
+  @Override
+  public Resource getSpecific(String entityId) {
+    return null;
+  }
 }

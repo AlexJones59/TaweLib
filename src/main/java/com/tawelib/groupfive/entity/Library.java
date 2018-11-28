@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.entity;
 
 import com.tawelib.groupfive.repository.CopyRepository;
-import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.FineRepository;
 import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;

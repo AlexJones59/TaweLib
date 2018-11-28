@@ -32,4 +32,9 @@ public class TransactionRepository implements BaseRepository<Transaction> {
   public void add(Transaction transaction) {
     transactions.add(transaction);
   }
+
+  @Override
+  public Transaction getSpecific(String entityId) {
+    return null;
+  }
 }

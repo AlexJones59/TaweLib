@@ -76,5 +76,10 @@ public class CustomerRepository implements UserRepository<Customer> {
     customers.add(customer);
   }
 
+  @Override
+  public Customer getSpecific(String entityId) {
+    return null;
+  }
+
 
 }

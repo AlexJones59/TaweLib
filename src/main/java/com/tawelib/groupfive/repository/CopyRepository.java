@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - CopyRepository.java The Copy repository class handles copy
- * details.
+ * File Name - CopyRepository.java The Copy repository class handles copy details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -37,6 +36,20 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
+   * Search for a copy in the list.
+   *
+   * @return the copy
+   */
+  public Copy getSpecificCopy(String id) {
+    for (Copy copy : copies) {
+      if (copy.getId() == id) {
+        return copy;
+      }
+    }
+    throw new AuthenticationException();
+  }
+
+  /**
    * Search for the reserved copies by a customer username.
    *
    * @return the list of reserved copies
@@ -57,7 +70,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    */
   public List<Copy> getBorrowedCopies(String customerUsername) {
     for (Copy borrowed : copies) {
-      if (borrowed.getBorrowingCustomerId() == customerUsername) {
+      if (borrowed.getBorrowingCustomerUsername() == customerUsername) {
         return (List<Copy>) borrowed;
       }
     }
@@ -76,15 +89,11 @@ public class CopyRepository implements BaseRepository<Copy> {
   @Override
   public void add(Copy copy) {
     copies.add(copy);
+
   }
 
   @Override
-  public Copy getSpecific(String copyId) {
-    for (Copy copy : copies) {
-      if (copy.getId() == copyId) {
-        return copy;
-      }
-    }
-    throw new AuthenticationException();
+  public Copy getSpecific(String entityId) {
+    return null;
   }
 }
