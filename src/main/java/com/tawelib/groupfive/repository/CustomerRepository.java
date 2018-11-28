@@ -2,9 +2,8 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.exception.AuthenticationException;
-
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -17,11 +16,7 @@ public class CustomerRepository implements UserRepository<Customer> {
 
   private ArrayList<Customer> customers;
 
-  private static long userNumber = 0;
-
-  private static final String USER_PREFIX = "US";
-
-  private static Hashtable<String, Customer> CustomerTable = new Hashtable<String, Customer>();
+  private int lastCustomerNumber = 0;
 
   /**
    * Instantiates a new Customer repository.
@@ -30,15 +25,6 @@ public class CustomerRepository implements UserRepository<Customer> {
     customers = new ArrayList<>();
   }
 
-  /**
-   * Gets specific.
-   *
-   * @param customerUsername the customer username
-   * @return the specific
-   */
-  public Customer getSpecific(String customerUsername) {
-    return null;
-  }
 
   /**
    * Checks if the customer is in the list by its username.
@@ -48,24 +34,74 @@ public class CustomerRepository implements UserRepository<Customer> {
    */
   @Override
   public Customer authenticate(String username) {
+    Customer customer = getSpecific(username);
+    if (customer == null) {
+      throw new AuthenticationException();
+    } else {
+      return customer;
+    }
+  }
+
+  /**
+   * Gets a pecific customer.
+   * @param username
+   * @return the customer
+   */
+  private Customer getSpecific(String username) {
     for (Customer customer : customers) {
-      if (true) { //TODO: check if the username is the one we are looking for.
-        // replace true with: customers.getUsername() == username;
+      if (customer.getUsername().equals(username)) {
         return customer;
       }
     }
-
-    throw new AuthenticationException();
+    return null;
   }
 
   /**
    * Generates a customer unique username.
    */
   public void generateUsername(Customer customer) {
-    //TODO: set the customer's username to a generated one making sure it's unique.
-    String generatedUsername = String.format(
-        "%s%s", USER_PREFIX, userNumber);
-    userNumber++;
+    String baseUsername = String.format("%s.%s",
+        customer.getFirstName().toLowerCase(),
+        customer.getLastName().toLowerCase()
+    );
+    String usernameSuffix = "";
+    int suffixBase = 1;
+    String generatedUsername = baseUsername + usernameSuffix;
+
+    while (getSpecific(generatedUsername) != null) {
+      usernameSuffix = String.format(".%d", suffixBase);
+      generatedUsername = baseUsername + usernameSuffix;
+      suffixBase++;
+    }
+
+    try {
+      Field usernameField = customer.getClass().getSuperclass().getDeclaredField("username");
+      usernameField.setAccessible(true);
+      usernameField.set(customer, generatedUsername);
+      usernameField.setAccessible(false);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "Error message"
+      );
+    }
+  }
+
+  /**
+   * Generates a customer number.
+   * @param customer
+   */
+  private void generateCustomerNumber(Customer customer) {
+    try {
+      Field usernameField = customer.getClass().getDeclaredField("staffNumber");
+      usernameField.setAccessible(true);
+      usernameField.set(customer, lastCustomerNumber);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "Error message"
+      );
+    } finally {
+      lastCustomerNumber++;
+    }
   }
 
   /**
@@ -81,7 +117,11 @@ public class CustomerRepository implements UserRepository<Customer> {
    */
   @Override
   public void add(Customer customer) {
-    customers.add(customer);
+    if (!customers.contains(customer)) {
+      generateUsername(customer);
+      generateCustomerNumber(customer);
+      customers.add(customer);
+    }
   }
 
 }
