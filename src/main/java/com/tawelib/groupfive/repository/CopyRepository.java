@@ -40,20 +40,6 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * Search for a copy in the list.
-   *
-   * @return the copy
-   */
-  public Copy getSpecificCopy(String id) {
-    for (Copy copy : copies) {
-      if (copy.getId() == id) {
-        return copy;
-      }
-    }
-    throw new AuthenticationException();
-  }
-
-  /**
    * Search for the reserved copies by a customer username.
    *
    * @return the list of reserved copies
@@ -83,6 +69,15 @@ public class CopyRepository implements BaseRepository<Copy> {
   @Override
   public void add(Copy copy) {
     copies.add(copy);
+  }
 
+  @Override
+  public Copy getSpecific(String copyId) {
+    for (Copy copy : copies) {
+      if (copy.getId() == copyId) {
+        return copy;
+      }
+    }
+    throw new AuthenticationException();
   }
 }

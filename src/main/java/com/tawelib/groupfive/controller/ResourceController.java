@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.controller;
 
+import com.tawelib.groupfive.entity.Book;
+import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 
@@ -30,9 +32,13 @@ public class ResourceController {
    * @param publisher      the publisher
    * @param genre          the genre
    */
-  public void createBook(String title, int year, Image thumbnailImage,
-                         ResourceType type, String author, String publisher,
-                         String genre) {
+  public void createBook(Library library,String title, int year,
+      Image thumbnailImage,
+      ResourceType type, String author, String publisher, String genre,
+      String isbn, String language) {
+    Book newBook = new Book(title, year, thumbnailImage, type, author,
+        publisher, genre, isbn, language);
+    library.getResourceRepository().add(newBook);
   }
 
   /**
@@ -68,16 +74,53 @@ public class ResourceController {
                            String installedOperatingSystem) {
   }
 
-  //TODO: Discuss how resources will be updated
+  /**
+   * Update book.
+   *
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param type the type
+   * @param author the author
+   * @param publisher the publisher
+   * @param genre the genre
+   */
+  public void updateBook(Library libarary, String title, int year,
+      Image thumbnailImage, ResourceType type, String author, String publisher,
+      String genre, String isbn, String language) {
+
+  }
 
   /**
-   * Add resource request.
+   * Update dvd.
    *
-   * @param resource   the resource
-   * @param customerId the customer id
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param director the director
+   * @param runtime the runtime
+   * @param languages the languages
+   * @param subtitleLanguages the subtitle languages
    */
-  public void addResourceRequest(Resource resource, String customerId) {
-  }
+  public void updateDvd(String title, int year, Image thumbnailImage,
+      String director,
+      int runtime, ArrayList<String> languages, ArrayList<String> subtitleLanguages) {}
+
+  /**
+   * Update laptop.
+   *
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param type the type
+   * @param manufacturer the manufacturer
+   * @param model the model
+   * @param installedOperatingSystem the installed operating system
+   */
+  public void updateLaptop(String title, int year, Image thumbnailImage,
+      ResourceType type,
+      String manufacturer, String model, String installedOperatingSystem) {}
+
 
   /**
    * Search resources list.

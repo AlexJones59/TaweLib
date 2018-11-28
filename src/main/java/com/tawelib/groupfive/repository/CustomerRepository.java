@@ -29,16 +29,6 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
-   * Gets specific customer.
-   *
-   * @param customerUsername the customer username
-   * @return the specific customer
-   */
-  public Customer getSpecificCustomer(String customerUsername) {
-    return null;
-  }
-
-  /**
    * Checks if the customer is in the list y its username.
    *
    * @param username Username.
@@ -88,5 +78,11 @@ public class CustomerRepository implements UserRepository<Customer> {
     customers.add(customer);
   }
 
-
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Customer getSpecific(String cutomerUsername) {
+    return null;
+  }
 }

@@ -38,5 +38,11 @@ public class FineRepository implements BaseRepository<Fine> {
   public void add(Fine fine) {
   }
 
-
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Fine getSpecific(String fineId) {
+    return null;
+  }
 }

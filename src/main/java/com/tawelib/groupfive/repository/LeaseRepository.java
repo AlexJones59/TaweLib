@@ -102,4 +102,12 @@ public class LeaseRepository implements BaseRepository<Lease> {
   public void add(Lease lease) {
     leases.add(lease);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Lease getSpecific(String leaseId) {
+    return null;
+  }
 }

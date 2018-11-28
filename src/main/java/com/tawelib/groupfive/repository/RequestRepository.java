@@ -76,4 +76,12 @@ public class RequestRepository implements BaseRepository<Request> {
     requests.add(request);
 
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Request getSpecific(String requestId) {
+    return null;
+  }
 }
