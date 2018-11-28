@@ -94,8 +94,8 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   public List<Lease> getOverdueLeases() {
     int currentDate = 0;
-    for (Lease lease :leases){
-      if (lease.getDueDate().equals(currentDate)){
+    for (Lease lease : leases) {
+      if (lease.getDueDate().equals(currentDate)) {
         return (List<Lease>) lease;
       }
     }
