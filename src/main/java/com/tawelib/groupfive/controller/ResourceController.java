@@ -6,13 +6,16 @@ import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.scene.image.Image;
 
 /**
  * File Name - ResourceController.java
- * The resource controller class  handles controls data flow between the Resource Repository
+ * The resource controller class  handles controls data flow between the
+ * Resource Repository
  * and the GUI interfaces.
  *
  * @author Nayeem Mohammed, Shree Desai
@@ -23,13 +26,13 @@ public class ResourceController {
   /**
    * Create book.
    *
-   * @param title the title
-   * @param year the year
+   * @param title          the title
+   * @param year           the year
    * @param thumbnailImage the thumbnail image
-   * @param type the type
-   * @param author the author
-   * @param publisher the publisher
-   * @param genre the genre
+   * @param type           the type
+   * @param author         the author
+   * @param publisher      the publisher
+   * @param genre          the genre
    */
   public void createBook(Library library,String title, int year,
       Image thumbnailImage, ResourceType type, String author, String publisher,
@@ -42,12 +45,12 @@ public class ResourceController {
   /**
    * Create dvd.
    *
-   * @param title the title
-   * @param year the year
-   * @param thumbnailImage the thumbnail image
-   * @param director the director
-   * @param runtime the runtime
-   * @param languages the languages
+   * @param title             the title
+   * @param year              the year
+   * @param thumbnailImage    the thumbnail image
+   * @param director          the director
+   * @param runtime           the runtime
+   * @param languages         the languages
    * @param subtitleLanguages the subtitle languages
    */
   public void createDvd(Library library,String title, int year,
@@ -62,12 +65,12 @@ public class ResourceController {
   /**
    * Create laptop.
    *
-   * @param title the title
-   * @param year the year
-   * @param thumbnailImage the thumbnail image
-   * @param type the type
-   * @param manufacturer the manufacturer
-   * @param model the model
+   * @param title                    the title
+   * @param year                     the year
+   * @param thumbnailImage           the thumbnail image
+   * @param type                     the type
+   * @param manufacturer             the manufacturer
+   * @param model                    the model
    * @param installedOperatingSystem the installed operating system
    */
   public void createLaptop(Library library, String title, int year,

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.entity.Library;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -31,7 +32,8 @@ public class FileSystemHelper {
     String path = getLibraryPath(library.getName());
 
     FileOutputStream outputStream = new FileOutputStream(path);
-    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+    ObjectOutputStream objectOutputStream
+        = new ObjectOutputStream(outputStream);
 
     objectOutputStream.writeObject(library);
 
@@ -43,10 +45,11 @@ public class FileSystemHelper {
    *
    * @param name Name of the library to load.
    * @return Loaded library.
-   * @throws IOException Unable to access the file.
+   * @throws IOException            Unable to access the file.
    * @throws ClassNotFoundException Corrupted file.
    */
-  public static Library getLibrary(String name) throws IOException, ClassNotFoundException {
+  public static Library getLibrary(String name) throws IOException,
+      ClassNotFoundException {
     Library library;
 
     try {

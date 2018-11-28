@@ -1,7 +1,9 @@
 package com.tawelib.groupfive.view;
 
 import com.tawelib.groupfive.util.FileSystemHelper;
+
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 

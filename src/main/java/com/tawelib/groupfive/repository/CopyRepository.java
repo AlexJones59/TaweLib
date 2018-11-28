@@ -3,13 +3,12 @@ package com.tawelib.groupfive.repository;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.exception.AuthenticationException;
+
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - CopyRepository.java The Copy repository class handles copy
- * details.
+ * File Name - CopyRepository.java The Copy repository class handles copy details.
  *
  * @author Created by Themis
  * @version 0.2
@@ -18,8 +17,6 @@ public class CopyRepository implements BaseRepository<Copy> {
 
 
   private static ArrayList<Copy> copies;
-
-  private static Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
 
   private static long copyNumber = 0;
 
@@ -40,7 +37,21 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @param resource the resource
    */
   public void getOldestCopyWithoutDueDate(Resource resource) {
+    //Todo implement the method to get the oldest due date.
+  }
 
+  /**
+   * Search for a copy in the list.
+   *
+   * @return the copy
+   */
+  public Copy getSpecificCopy(String id) {
+    for (Copy copy : copies) {
+      if (copy.getId() == id) {
+        return copy;
+      }
+    }
+    throw new AuthenticationException();
   }
 
 
@@ -81,7 +92,12 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @return the borrowed copies
    */
   public List<Copy> getBorrowedCopies(String customerUsername) {
-    return null;
+    for (Copy borrowed : copies) {
+      if (borrowed.getBorrowingCustomerUsername() == customerUsername) {
+        return (List<Copy>) borrowed;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**
@@ -101,6 +117,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   @Override
   public void add(Copy copy) {
     copies.add(copy);
+
   }
 
 

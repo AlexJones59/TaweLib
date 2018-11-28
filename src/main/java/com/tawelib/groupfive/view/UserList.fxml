@@ -7,13 +7,17 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="475.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="475.0" prefWidth="600.0"
+            xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/2.2">
     <children>
-        <Pane layoutX="0.0" layoutY="0.0" maxHeight="-1.0" prefHeight="90.0" prefWidth="600.0">
+        <Pane layoutX="0.0" layoutY="0.0" maxHeight="-1.0" prefHeight="90.0"
+              prefWidth="600.0">
             <children>
-                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="&lt;"/>
+                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false"
+                        text="&lt;"/>
                 <Label layoutX="253.0" layoutY="25.0" text="User List">
                     <font>
                         <Font size="25.0"/>
@@ -25,15 +29,19 @@
                         <Font size="20.0"/>
                     </font>
                 </Label>
-                <TableView layoutX="25.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="260.0"
+                <TableView layoutX="25.0" layoutY="122.0" maxHeight="-Infinity"
+                           maxWidth="-Infinity" prefHeight="260.0"
                            prefWidth="550.0">
                     <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="292.0" text="Username"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="256.0" text="Name"/>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0"
+                                     prefWidth="292.0" text="Username"/>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0"
+                                     prefWidth="256.0" text="Name"/>
                     </columns>
                 </TableView>
             </children>
         </Pane>
-        <Button layoutX="491.0" layoutY="414.0" mnemonicParsing="false" text="Open"/>
+        <Button layoutX="491.0" layoutY="414.0" mnemonicParsing="false"
+                text="Open"/>
     </children>
 </AnchorPane>

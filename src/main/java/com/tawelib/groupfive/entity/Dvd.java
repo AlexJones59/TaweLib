@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.util.ArrayList;
+
 import javafx.scene.image.Image;
 
 /**
@@ -20,10 +21,10 @@ public class Dvd extends Resource {
    * Instantiates a new Dvd.
    *
    * @param director the director
-   * @param runtime the runtime
+   * @param runtime  the runtime
    */
   public Dvd(String title, int year, Image thumbnailImage, ResourceType type,
-      String director, int runtime) {
+             String director, int runtime) {
     super(title, year, thumbnailImage, type);
     this.director = director;
     this.runtime = runtime;

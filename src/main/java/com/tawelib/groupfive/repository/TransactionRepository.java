@@ -7,8 +7,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - TransactionRepository.java The Transaction repository class
- * hadles transaction details.
+ * File Name - TransactionRepository.java The Transaction repository class hadles transaction
+ * details.
  *
  * @author Created by Themis
  * @version 0.1
@@ -19,7 +19,7 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
 
-  public List<Transaction> getAllTransactions(Customer customer) {
+  public Transaction getAllTransactions(Customer customer) {
     return null;
   }
 

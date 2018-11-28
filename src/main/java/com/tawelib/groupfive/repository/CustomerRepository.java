@@ -8,7 +8,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - CustomerRepository.java The Customer repository class handles customer details.
+ * File Name - CustomerRepository.java The Customer repository class hadles customer details.
  *
  * @author Created by Themis
  * @version 0.2
