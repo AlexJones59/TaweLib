@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
-import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -19,12 +18,10 @@ public class LeaseRepository implements BaseRepository<Lease> {
   private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
 
   public List<Lease> getCopyLeases(String copyId) {
-    for (Lease copy : leases) {
-      //Todo checks for leases.
-      return null;
-    }
-    throw new AuthenticationException();
+    //Todo checks for leases.
+    return null;
   }
+
 
   public List<Lease> getCopyLeaseHistory(String copyId) {
     //Todo implement the least history.
