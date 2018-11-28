@@ -40,20 +40,6 @@ public class CopyRepository implements BaseRepository<Copy> {
     //Todo implement the method to get the oldest due date.
   }
 
-  /**
-   * Search for a copy in the list.
-   *
-   * @return the copy
-   */
-  public Copy getSpecificCopy(String id) {
-    for (Copy copy : copies) {
-      if (copy.getId() == id) {
-        return copy;
-      }
-    }
-    throw new AuthenticationException();
-  }
-
 
   /**
    * Search for the reserved copies by a customer username.
@@ -63,7 +49,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    */
   public List<Copy> getReservedCopies(String customerUsername) {
     for (Copy reserved : copies) {
-      if (reserved.getBorrowingCustomerUsername() == customerUsername) {
+      if (reserved.getBorrowingCustomerUsername().equals(customerUsername)) {
         return (List<Copy>) reserved;
       }
     }
@@ -78,7 +64,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    */
   public Copy getSpecific(String copyId) {
     for (Copy copy : copies) {
-      if (copy.getId() == copyId) {
+      if (copy.getId().equals(copyId)) {
         return copy;
       }
     }
@@ -93,7 +79,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    */
   public List<Copy> getBorrowedCopies(String customerUsername) {
     for (Copy borrowed : copies) {
-      if (borrowed.getBorrowingCustomerUsername() == customerUsername) {
+      if (borrowed.getBorrowingCustomerUsername().equals(customerUsername)) {
         return (List<Copy>) borrowed;
       }
     }
@@ -106,7 +92,12 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @return the overdue copies
    */
   public List<Copy> getOverdueCopies() {
-    return null;
+    for (Copy copy : copies) {
+      if (copy.getStatus().equals("Overdue")) {
+        return (List<Copy>) copy;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   @Override
@@ -116,9 +107,9 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   @Override
   public void add(Copy copy) {
-    copies.add(copy);
-
+    if (!copies.contains((copy))) {
+      generateId(copy);
+      copies.add(copy);
+    }
   }
-
-
 }
