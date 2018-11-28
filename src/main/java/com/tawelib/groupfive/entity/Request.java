@@ -16,7 +16,7 @@ public class Request {
   /**
    * Instantiates a new Request.
    *
-   * @param customerUsername the customer username
+   * @param customerUsername  the customer username
    * @param requestedResource the requested resource
    */
   public Request(String customerUsername, Resource requestedResource) {

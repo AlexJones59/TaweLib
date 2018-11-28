@@ -20,7 +20,7 @@ public class Transaction {
    * Instantiates a new Transaction.
    *
    * @param amount the amount
-   * @param payee the customer paying
+   * @param payee  the customer paying
    */
   public Transaction(int amount, Customer payee) {
     this.amount = amount;

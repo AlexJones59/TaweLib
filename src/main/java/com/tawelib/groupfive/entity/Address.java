@@ -17,11 +17,12 @@ public class Address {
    * Creates new instance of the Address Class.
    *
    * @param houseNumber the house number
-   * @param street the street
-   * @param city the city
-   * @param postCode the post code
+   * @param street      the street
+   * @param city        the city
+   * @param postCode    the post code
    */
-  public Address(int houseNumber, String street, String city, String postCode) {
+  public Address(int houseNumber, String street, String city,
+                 String postCode) {
     this.houseNumber = houseNumber;
     this.street = street;
     this.city = city;
