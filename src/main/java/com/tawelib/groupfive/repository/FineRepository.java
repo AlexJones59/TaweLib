@@ -23,6 +23,16 @@ public class FineRepository implements BaseRepository<Fine> {
   }
 
   /**
+   * Gets specific.
+   *
+   * @param fineId the fine id
+   * @return the specific
+   */
+  public Fine getSpecific(String fineId) {
+    return null;
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -37,11 +47,5 @@ public class FineRepository implements BaseRepository<Fine> {
   public void add(Fine fine) {
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Fine getSpecific(String fineId) {
-    return null;
-  }
+
 }

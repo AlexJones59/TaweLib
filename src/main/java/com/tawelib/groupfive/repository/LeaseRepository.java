@@ -18,6 +18,16 @@ public class LeaseRepository implements BaseRepository<Lease> {
   private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
 
   /**
+   * Gets specific.
+   *
+   * @param leaseId the lease id
+   * @return the specific
+   */
+  public Lease getSpecific(String leaseId) {
+    return null;
+  }
+
+  /**
    * Gets copy leases.
    *
    * @param copyId the copy id
@@ -102,11 +112,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
     leases.add(lease);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Lease getSpecific(String leaseId) {
-    return null;
-  }
 }
+
+
