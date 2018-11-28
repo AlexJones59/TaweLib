@@ -1,10 +1,8 @@
 package com.tawelib.groupfive.controller;
 
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
-import java.util.List;
 
 /**
  * File Name - RequestController.java The Request Controller class handles data flow between the

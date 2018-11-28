@@ -78,4 +78,12 @@ public class ResourceRepository implements BaseRepository<Resource> {
   public void add(Resource resource) {
     resources.add(resource);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Resource getSpecific(String resourceId) {
+    return null;
+  }
 }

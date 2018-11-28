@@ -71,4 +71,12 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public void add(Librarian librarian) {
     librarians.add(librarian);
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Librarian getSpecific(String librarianUsername) {
+    return null;
+  }
 }

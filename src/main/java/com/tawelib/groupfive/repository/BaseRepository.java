@@ -25,4 +25,11 @@ public interface BaseRepository<T> extends Serializable {
    * @param entity Entity to be added
    */
   void add(T entity);
+
+  /**
+   * Gets specific instance of Entity.
+   *
+   * @return the specific
+   */
+  T getSpecific(String entityId);
 }

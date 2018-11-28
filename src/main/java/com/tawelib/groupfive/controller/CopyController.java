@@ -54,8 +54,8 @@ public class CopyController {
    */
   public void borrowResourceCopy(Library library, String copyId,
       String customerUsername) {
-    Copy borrowedCopy = library.getCopyRepository().getSpecificCopy(copyId);
-    library.getCopyRepository().getSpecificCopy(copyId)
+    Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
+    library.getCopyRepository().getSpecific(copyId)
         .setStatus(CopyStatus.BORROWED);
     Lease newLease = new Lease(copyId, customerUsername);
     if (library.getRequestRepository()
@@ -83,28 +83,28 @@ public class CopyController {
       String returningCustomerUsername = currentLease
           .getBorrowingCustomerUsername();
       library.getCustomerRepository()
-          .getSpecificCustomer(returningCustomerUsername)
+          .getSpecific(returningCustomerUsername)
           .decreaseAccountBalance(newFine.getAmount());
     }
 
     Resource returnedResource = library.getCopyRepository()
-        .getSpecificCopy(currentLease.getBorrowedCopyId()).getResource();
+        .getSpecific(currentLease.getBorrowedCopyId()).getResource();
     if (library.getRequestRepository().getResourceRequests(returnedResource)
         .isEmpty() == true) {
       library.getCopyRepository()
-          .getSpecificCopy(currentLease.getBorrowedCopyId())
+          .getSpecific(currentLease.getBorrowedCopyId())
           .setStatus(CopyStatus.AVAILABLE);
       library.getCopyRepository()
-          .getSpecificCopy(currentLease.getBorrowedCopyId())
+          .getSpecific(currentLease.getBorrowedCopyId())
           .setBorrowingCustomerUsername(null);
     } else {
       library.getCopyRepository()
-          .getSpecificCopy(currentLease.getBorrowedCopyId())
+          .getSpecific(currentLease.getBorrowedCopyId())
           .setStatus(CopyStatus.RESERVED);
       Request reservingRequest = library.getRequestRepository()
           .getEarliestResourceRequest(returnedResource);
       library.getCopyRepository()
-          .getSpecificCopy(currentLease.getBorrowedCopyId())
+          .getSpecific(currentLease.getBorrowedCopyId())
           .setBorrowingCustomerUsername(reservingRequest.getCustomerUsername());
       library.getRequestRepository()
           .getEarliestResourceRequest(returnedResource).setStatus(RequestStatus.RESERVED);

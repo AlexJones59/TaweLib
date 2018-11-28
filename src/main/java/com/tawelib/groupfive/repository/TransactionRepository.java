@@ -19,7 +19,7 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
 
-  public Transaction getAllTransactions(Customer customer) {
+  public List<Transaction> getAllTransactions(Customer customer) {
     return null;
   }
 
@@ -31,5 +31,13 @@ public class TransactionRepository implements BaseRepository<Transaction> {
   @Override
   public void add(Transaction transaction) {
     transactions.add(transaction);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Transaction getSpecific(String transactionId) {
+    return null;
   }
 }
