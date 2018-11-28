@@ -2,73 +2,111 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.exception.AuthenticationException;
-
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
- * File Name - LibrarianRepository.java The Librarian repository class handles librarian details.
+ * The Librarian repository class holds the Librarians and performs manipulative operations on
+ * them.
  *
- * @author Created by Themis
- * @version 0.2
+ * @author Petr Hoffmann, Themis Mouyiasis
+ * @version 0.3
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
-  private static ArrayList<Librarian> librarians;
+  private ArrayList<Librarian> librarians;
 
-  private static long librarianNumber = 0;
+  private int lastLibrarianNumber = 0;
 
-  private static final String LIBRARIAN_PREFIX = "LB";
-
-  private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
-
-  /**
-   * Instantiates a new Librarian repository.
-   */
   public LibrarianRepository() {
     librarians = new ArrayList<>();
   }
 
   /**
-   * Gets specific.
-   *
-   * @param librarianUsername the librarian username
-   * @return the specific
-   */
-  public Librarian getSpecific(String librarianUsername) {
-    return null;
-  }
-
-  /**
-   * Checks if a librarian is in the list by its username.
+   * Returns a Librarian by their username. Throws an exception when unable to authenticate.
    *
    * @param username Username.
    * @return the librarian
    */
   @Override
   public Librarian authenticate(String username) {
+    Librarian librarian = getLibrarianByUsername(username);
+
+    if (librarian == null) {
+      throw new AuthenticationException();
+    } else {
+      return librarian;
+    }
+  }
+
+  /**
+   * Searches for a Librarian with a given username.
+   *
+   * @param username Librarian's username.
+   * @return Found Librarian or null.
+   */
+  private Librarian getLibrarianByUsername(String username) {
     for (Librarian librarian : librarians) {
-      if (librarian.getUsername()
-          == username) { //TODO: check if the username is the one we are looking for.
+      if (librarian.getUsername().equals(username)) {
         return librarian;
       }
     }
 
-    throw new AuthenticationException();
+    return null;
   }
 
   /**
-   * Generates a unique username for librarian.
+   * Generates a unique username for a librarian.
+   *
+   * @param librarian Librarian.
    */
-  @Override
-  public void generateUsername(Librarian librarian) {
-    String librarianUsername = String.format(
-        "%s%s",
-        LIBRARIAN_PREFIX,
-        librarianNumber
+  private void generateUsername(Librarian librarian) {
+    String baseUsername = String.format(
+        "%s.%s",
+        librarian.getFirstName().toLowerCase(),
+        librarian.getLastName().toLowerCase()
     );
-    librarianNumber++;
+
+    int suffixBase = 1;
+    String usernameSuffix = "";
+    String generatedUsername = baseUsername + usernameSuffix;
+
+    while (getLibrarianByUsername(generatedUsername) != null) {
+      usernameSuffix = String.format(".%d", suffixBase);
+      generatedUsername = baseUsername + usernameSuffix;
+      suffixBase++;
+    }
+
+    try {
+      Field usernameField = librarian.getClass().getSuperclass().getDeclaredField("username");
+      usernameField.setAccessible(true);
+      usernameField.set(librarian, generatedUsername);
+      usernameField.setAccessible(false);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "The universe is about to end!!! No, but the class reflection is broken..."
+      );
+    }
+  }
+
+  /**
+   * Generates a unique staff number for a librarian.
+   *
+   * @param librarian Librarian.
+   */
+  private void generateStaffNumber(Librarian librarian) {
+    try {
+      Field usernameField = librarian.getClass().getDeclaredField("staffNumber");
+      usernameField.setAccessible(true);
+      usernameField.set(librarian, lastLibrarianNumber);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "The universe is about to end!!! No, but the class reflection is broken..."
+      );
+    } finally {
+      lastLibrarianNumber++;
+    }
   }
 
   /**
@@ -84,8 +122,10 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   @Override
   public void add(Librarian librarian) {
-    librarians.add(librarian);
+    if (!librarians.contains(librarian)) {
+      generateUsername(librarian);
+      generateStaffNumber(librarian);
+      librarians.add(librarian);
+    }
   }
-
-
 }

@@ -61,7 +61,6 @@ public class CustomerRepository implements UserRepository<Customer> {
   /**
    * Generates a customer unique username.
    */
-  @Override
   public void generateUsername(Customer customer) {
     //TODO: set the customer's username to a generated one making sure it's unique.
     String generatedUsername = String.format(

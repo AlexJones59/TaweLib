@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
   private String username;
   private String firstName;
