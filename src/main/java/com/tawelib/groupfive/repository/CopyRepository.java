@@ -4,7 +4,6 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -17,8 +16,6 @@ public class CopyRepository implements BaseRepository<Copy> {
 
 
   private static ArrayList<Copy> copies;
-
-  private static Hashtable<String, Copy> CopyTable = new Hashtable<String, Copy>();
 
   private static long copyNumber = 0;
 
@@ -38,7 +35,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   public void getOldestCopyWithoutDueDate(Resource resource) {
-
+    //Todo implement the method to get the oldest due date.
   }
 
   /**
@@ -69,8 +66,18 @@ public class CopyRepository implements BaseRepository<Copy> {
     throw new AuthenticationException();
   }
 
+  /**
+   * Search for borrowed copies bi the customer username.
+   *
+   * @return the list of borrowed copies
+   */
   public List<Copy> getBorrowedCopies(String customerUsername) {
-    return null;
+    for (Copy borrowed : copies) {
+      if (borrowed.getBorrowingCustomerId() == customerUsername) {
+        return (List<Copy>) borrowed;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   public List<Copy> getOverdueCopies() {

@@ -4,8 +4,8 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -17,9 +17,6 @@ import java.util.List;
 public class ResourceRepository implements BaseRepository<Resource> {
 
   private static ArrayList<Resource> resources;
-
-
-  private static Hashtable<String, Resource> LeaseTable = new Hashtable<String, Resource>();
 
   /**
    * Generates unique id as resource is persisted to repository.
@@ -37,7 +34,12 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * @return the list of resources fulfilling search query
    */
   public List<Book> searchBook(String query, String searchAttribute) {
-    return null;
+    for (Resource searchB : resources) {
+      if (searchB.getTitle() == searchAttribute) {
+        return (List<Book>) searchB;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**
@@ -48,7 +50,12 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * @return the list of resources fulfilling search query
    */
   public List<Dvd> searchDvd(String query, String searchAttribute) {
-    return null;
+    for (Resource searchD : resources) {
+      if (searchD.getTitle() == searchAttribute) {
+        return (List<Dvd>) searchD;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**
@@ -59,7 +66,12 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * @return the list of resources fulfilling search query
    */
   public List<Laptop> searchLaptop(String query, String searchAttribute) {
-    return null;
+    for (Resource searchL : resources) {
+      if (searchL.getTitle() == searchAttribute) {
+        return (List<Laptop>) searchL;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**

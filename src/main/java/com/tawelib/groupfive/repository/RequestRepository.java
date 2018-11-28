@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -45,7 +46,12 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return all reserved requests from specific customer
    */
   public List<Request> getCustomerReserved(String customerId) {
-    return null;
+    for (Request searchCustomerReserved : requests) {
+      if (searchCustomerReserved.getCustomerUsername() == customerId) {
+        return (List<Request>) searchCustomerReserved;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**
@@ -55,6 +61,7 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return the earliest resource request
    */
   public Request getEarliestResourceRequest(Resource resource) {
+    //Todo implement for getting the earliest resource request
     return null;
   }
 
