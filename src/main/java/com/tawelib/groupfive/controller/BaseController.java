@@ -4,7 +4,8 @@ import com.tawelib.groupfive.entity.Library;
 
 /**
  * File Name - BaseController.java
- * The base controller class is the class that forms the basis for all controllers.
+ * The base controller class is the class that forms the basis for all
+ * controllers.
  *
  * @author Nayeem Mohammed
  * @version 0.2

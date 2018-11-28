@@ -22,7 +22,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private static final String LIBRARIAN_PREFIX = "LB";
 
-  private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
+  private static Hashtable<String, Librarian> LibrarianTable =
+      new Hashtable<String, Librarian>();
 
   public LibrarianRepository() {
     librarians = new ArrayList<>();
@@ -38,7 +39,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
       if (librarian.getUsername()
-          == username) { //TODO: check if the username is the one we are looking for.
+          == username) { //TODO: check if the username is the one we are
+        // looking for.
         return librarian;
       }
     }
