@@ -1,12 +1,13 @@
 package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
+
 import javafx.scene.image.Image;
 
 /**
- * File name: User.java
- *    User class stores personal information for the account holder (either the Customer
- *    or Librarian).
+ * File name: User.java User class stores personal information for the account
+ * holder (either the Customer or Librarian).
+ *
  * @author Shree Desai
  * @version 0.2
  */
@@ -22,16 +23,16 @@ public abstract class User implements Serializable {
   /**
    * Creates an instance of the User class.
    *
-   * @param firstName the first name
-   * @param lastName the last name
+   * @param firstName   the first name
+   * @param lastName    the last name
    * @param phoneNumber the phone number
    * @param houseNumber the house number
-   * @param street the street
-   * @param city the city
-   * @param postCode the post code
+   * @param street      the street
+   * @param city        the city
+   * @param postCode    the post code
    */
-  public User(String firstName, String lastName, String phoneNumber, int houseNumber, String street,
-      String city, String postCode) {
+  public User(String firstName, String lastName, String phoneNumber,
+              int houseNumber, String street, String city, String postCode) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = generateUsername();

@@ -3,8 +3,8 @@ package com.tawelib.groupfive.entity;
 import java.util.Date;
 
 /**
- * File Name: Librarian.java
- *    Librarian class stores personal information for the Librarian account.
+ * File Name: Librarian.java Librarian class stores personal information for
+ * the Librarian account.
  *
  * @author Shree Desai
  * @version 0.2
@@ -17,19 +17,21 @@ public class Librarian extends User {
   /**
    * Instantiates a new Librarian.
    *
-   * @param firstName the first name
-   * @param lastName the last name
-   * @param phoneNumber the phone number
-   * @param houseNumber the house number
-   * @param street the street
-   * @param city the city
-   * @param postCode the post code
+   * @param firstName      the first name
+   * @param lastName       the last name
+   * @param phoneNumber    the phone number
+   * @param houseNumber    the house number
+   * @param street         the street
+   * @param city           the city
+   * @param postCode       the post code
    * @param employmentDate the employment date
-   * @param staffNumber the staff number
+   * @param staffNumber    the staff number
    */
-  public Librarian(String firstName, String lastName, String phoneNumber, int houseNumber,
-      String street, String city, String postCode, Date employmentDate, int staffNumber) {
-    super(firstName, lastName, phoneNumber, houseNumber, street, city, postCode);
+  public Librarian(String firstName, String lastName, String phoneNumber,
+                   int houseNumber, String street, String city,
+                   String postCode, Date employmentDate, int staffNumber) {
+    super(firstName, lastName, phoneNumber, houseNumber, street, city,
+        postCode);
     this.employmentDate = employmentDate;
     this.staffNumber = staffNumber;
   }

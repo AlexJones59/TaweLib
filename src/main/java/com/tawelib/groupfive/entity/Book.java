@@ -3,7 +3,8 @@ package com.tawelib.groupfive.entity;
 import javafx.scene.image.Image;
 
 /**
- * File name: Book.java Book class saves all  info pertaining to a book resource.
+ * File name: Book.java Book class saves all  info pertaining to a book
+ * resource.
  *
  * @author Shree Desai
  * @version 0.2
@@ -19,16 +20,17 @@ public class Book extends Resource {
   /**
    * Instantiates a new Book.
    *
-   * @param title the title
-   * @param year the year
+   * @param title          the title
+   * @param year           the year
    * @param thumbnailImage the thumbnail image
-   * @param type the type
-   * @param author the author
-   * @param publisher the publisher
-   * @param genre the genre
+   * @param type           the type
+   * @param author         the author
+   * @param publisher      the publisher
+   * @param genre          the genre
    */
   public Book(String title, int year, Image thumbnailImage, ResourceType type,
-      String author, String publisher, String genre, String isbn, String language) {
+              String author, String publisher, String genre, String isbn,
+              String language) {
     super(title, year, thumbnailImage, type);
     this.author = author;
     this.publisher = publisher;

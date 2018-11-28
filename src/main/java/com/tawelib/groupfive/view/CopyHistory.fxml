@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2">
+    <center>
+        <TableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="317.0"
+                   prefWidth="600.0">
+            <columns>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0"
+                             text="Username"/>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0"
+                             text="Date Borrowed"/>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0"
+                             text="Date Returned"/>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0"
+                             text="Is Overdue"/>
+            </columns>
+        </TableView>
+    </center>
+    <top>
+        <Pane prefHeight="67.0" prefWidth="600.0">
+            <children>
+                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false"
+                        text="&lt;"/>
+                <Label layoutX="229.0" layoutY="22.0" text="Copy History">
+                    <font>
+                        <Font size="25.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </top>
+</BorderPane>

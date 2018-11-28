@@ -3,7 +3,8 @@ package com.tawelib.groupfive.entity;
 import javafx.scene.image.Image;
 
 /**
- * File name: Laptop.java Laptop class saves all  info pertaining to a Laptop resource.
+ * File name: Laptop.java Laptop class saves all  info pertaining to a Laptop
+ * resource.
  *
  * @author Shree Desai
  * @version 0.2
@@ -17,13 +18,14 @@ public class Laptop extends Resource {
   /**
    * Instantiates a new Laptop.
    *
-   * @param manufacturer the manufacturer
-   * @param model the model
+   * @param manufacturer             the manufacturer
+   * @param model                    the model
    * @param installedOperatingSystem the installed operating system
    */
 
-  public Laptop(String title, int year, Image thumbnailImage, ResourceType type,
-      String manufacturer, String model, String installedOperatingSystem) {
+  public Laptop(String title, int year, Image thumbnailImage,
+                ResourceType type, String manufacturer, String model,
+                String installedOperatingSystem) {
     super(title, year, thumbnailImage, type);
     this.manufacturer = manufacturer;
     this.model = model;

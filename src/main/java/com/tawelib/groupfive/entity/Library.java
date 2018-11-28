@@ -2,11 +2,13 @@ package com.tawelib.groupfive.entity;
 
 import com.tawelib.groupfive.repository.CopyRepository;
 import com.tawelib.groupfive.repository.CustomerRepository;
+import com.tawelib.groupfive.repository.FineRepository;
 import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 import com.tawelib.groupfive.repository.RequestRepository;
 import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.repository.TransactionRepository;
+
 import java.io.Serializable;
 
 public class Library implements Serializable {
@@ -52,10 +54,16 @@ public class Library implements Serializable {
   private LibrarianRepository librarianRepository;
 
   /**
+   * The fine repository.
+   */
+  private FineRepository fineRepository;
+
+  /**
    * Creates a new library with a given name.
    *
    * @param name The name of the library.
    */
+
   public Library(String name) {
     this.name = name;
     resourceRepository = new ResourceRepository();
@@ -65,6 +73,7 @@ public class Library implements Serializable {
     requestRepository = new RequestRepository();
     customerRepository = new CustomerRepository();
     librarianRepository = new LibrarianRepository();
+    fineRepository = new FineRepository();
   }
 
   /**
@@ -146,5 +155,14 @@ public class Library implements Serializable {
    */
   public LibrarianRepository getLibrarianRepository() {
     return librarianRepository;
+  }
+
+  /**
+   * Gets fine repository.
+   *
+   * @return the fine repository
+   */
+  public FineRepository getFineRepository() {
+    return fineRepository;
   }
 }

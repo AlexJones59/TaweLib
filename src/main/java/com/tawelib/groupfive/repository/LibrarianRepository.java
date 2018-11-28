@@ -2,7 +2,9 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.exception.AuthenticationException;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -19,6 +21,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private static final String LIBRARIAN_PREFIX = "LB";
 
+  private static Hashtable<String, Librarian> LibrarianTable = new Hashtable<String, Librarian>();
+
   public LibrarianRepository() {
     librarians = new ArrayList<>();
   }
@@ -33,7 +37,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   public Librarian authenticate(String username) {
     for (Librarian librarian : librarians) {
       if (librarian.getUsername()
-          == username) {
+          == username) { //TODO: check if the username is the one we are looking for.
         return librarian;
       }
     }
