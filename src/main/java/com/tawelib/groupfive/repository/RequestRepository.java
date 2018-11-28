@@ -3,7 +3,6 @@ package com.tawelib.groupfive.repository;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -16,7 +15,6 @@ public class RequestRepository implements BaseRepository<Request> {
 
   private static ArrayList<Request> requests;
 
-  private static Hashtable<String, Request> RequestTable = new Hashtable<String, Request>();
 
   /**
    * Gets all open customer requests.
@@ -65,6 +63,11 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return the specific
    */
   public Request getSpecific(String requestId) {
+    for (Request request : requests) {
+      if (request.getRequestedResource().equals(requestId)) {
+        return request;
+      }
+    }
     return null;
   }
 
@@ -81,7 +84,9 @@ public class RequestRepository implements BaseRepository<Request> {
    */
   @Override
   public void add(Request request) {
-    requests.add(request);
+    if (!requests.contains((request))) {
+      requests.add(request);
+    }
 
   }
 
