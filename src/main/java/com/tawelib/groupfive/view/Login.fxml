@@ -6,24 +6,32 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="730.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8"
-  xmlns:fx="http://javafx.com/fxml/1">
-  <center>
-    <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <children>
-        <TextField layoutX="397.0" layoutY="366.0"/>
-        <Label layoutX="302.0" layoutY="367.0" prefHeight="36.0" prefWidth="78.0" text="Label"/>
-        <CheckBox layoutX="302.0" layoutY="446.0" mnemonicParsing="false" text="Librarian"/>
-        <Text layoutX="370.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
-          <font>
-            <Font size="48.0"/>
-          </font>
-        </Text>
-        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="159.0"
-          pickOnBounds="true" preserveRatio="true"/>
-        <Button layoutX="543.0" layoutY="440.0" mnemonicParsing="false" text="Sign in"/>
-      </children>
-    </Pane>
-  </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="730.0" prefWidth="858.0"
+            xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Pane prefHeight="200.0" prefWidth="200.0"
+              BorderPane.alignment="CENTER">
+            <children>
+                <TextField layoutX="397.0" layoutY="366.0"/>
+                <Label layoutX="302.0" layoutY="367.0" prefHeight="36.0"
+                       prefWidth="78.0" text="Label"/>
+                <CheckBox layoutX="302.0" layoutY="446.0"
+                          mnemonicParsing="false" text="Librarian"/>
+                <Text layoutX="370.0" layoutY="254.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" text="Login">
+                    <font>
+                        <Font size="48.0"/>
+                    </font>
+                </Text>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0"
+                           layoutY="159.0"
+                           pickOnBounds="true" preserveRatio="true"/>
+                <Button layoutX="543.0" layoutY="440.0" mnemonicParsing="false"
+                        text="Sign in"/>
+            </children>
+        </Pane>
+    </center>
 </BorderPane>

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import com.tawelib.groupfive.repository.CopyRepository;
+
 import java.util.Date;
 
 /**
@@ -20,12 +21,11 @@ public class Lease {
   private String borrowedCopyId;
 
 
-
   /**
    * Instantiates a new Lease.
    *
    * @param borrowingCustomerUsername the borrowing customer username
-   * @param borrowedCopyId the borrowed copy id
+   * @param borrowedCopyId            the borrowed copy id
    */
   public Lease(String borrowingCustomerUsername, String borrowedCopyId) {
     this.dateLeased = new Date();

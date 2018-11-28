@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "Book".
    *
-   * @param query the query
+   * @param query           the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
@@ -44,7 +45,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "DVD".
    *
-   * @param query the query
+   * @param query           the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
@@ -55,7 +56,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "Laptop".
    *
-   * @param query the query
+   * @param query           the query
    * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
