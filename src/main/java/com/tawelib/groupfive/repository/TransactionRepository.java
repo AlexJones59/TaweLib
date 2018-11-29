@@ -1,9 +1,8 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -17,14 +16,18 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   private static ArrayList<Transaction> transactions;
 
-  private static Hashtable<String, Transaction> LeaseTable = new Hashtable<String, Transaction>();
-
-  public Transaction getAllTransactions(Customer customer) {
-    return null;
-  }
-
+  /**
+   * Checks for customer transaction.
+   *
+   * @return the trnsaction
+   */
   public Transaction getSpecific(String transactionId) {
-    return null;
+    for (Transaction transaction : transactions) {
+      if (transaction.equals(transactionId)) {
+        return transaction;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   @Override

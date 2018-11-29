@@ -4,7 +4,7 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -63,16 +63,47 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return null;
   }
 
+  /**
+   * Search the resources for a specific book.
+   *
+   * @return the specific book
+   */
   public Book getSpecificBook(String resourceId) {
-    return null;
+    for (Resource resource : resources) {
+      if (resource.getId().equals(resourceId)) {
+        return (Book) resource;
+      }
+    }
+    throw new AuthenticationException();
   }
 
+  /**
+   * Search resources for a specific dvd.
+   *
+   * @return the specific dvd
+   */
   public Dvd getSpecificDvd(String resourceId) {
-    return null;
+    for (Resource resource : resources) {
+      if (resource.getId().equals(resourceId)) {
+        return (Dvd) resource;
+      }
+    }
+    throw new AuthenticationException();
+
   }
 
+  /**
+   * Search for a specific laptop.
+   *
+   * @return the pecific laptop
+   */
   public Laptop getSpecificLaptop(String resourceId) {
-    return null;
+    for (Resource resource : resources) {
+      if (resource.getId().equals(resourceId)) {
+        return (Laptop) resource;
+      }
+    }
+    throw new AuthenticationException();
   }
 
   /**
@@ -88,9 +119,10 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   @Override
   public void add(Resource resource) {
-    resources.add(resource);
+    if (!resources.contains((resource))) {
+      resources.add(resource);
+    }
   }
-
 
 
 }
