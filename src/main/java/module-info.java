@@ -5,8 +5,10 @@ module com.tawelib.groupfive {
   requires javafx.graphics;
   requires javafx.media;
   requires javafx.web;
+  requires javafx.swing;
 
 
   exports com.tawelib.groupfive;
   exports com.tawelib.groupfive.view to javafx.graphics;
+  exports com.tawelib.groupfive.draw to javafx.graphics;
 }
