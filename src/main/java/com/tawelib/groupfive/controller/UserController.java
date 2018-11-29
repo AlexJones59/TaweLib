@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.controller;
 
+import com.tawelib.groupfive.entity.Address;
 import com.tawelib.groupfive.entity.Customer;
 
 import com.tawelib.groupfive.entity.Librarian;
@@ -55,6 +56,27 @@ public class UserController {
     Librarian newLibrarian = new Librarian(firstName,lastName,phoneNumber,
         houseNumber,street,city,postcode,employmentDate);
     library.getLibrarianRepository().add(newLibrarian);
+  }
+
+
+  public void updateCustomerAccount(Library library,
+      String username, String firstName, String lastName, String phoneNumber,
+      String houseNumber, String street, String city, String postcode ){
+    library.getCustomerRepository().getSpecific(username).setFirstName(firstName);
+    library.getCustomerRepository().getSpecific(username).setLastName(lastName);
+    library.getCustomerRepository().getSpecific(username).setPhoneNumber(phoneNumber);
+    Address newAddress = new Address(houseNumber,street,city,postcode);
+    library.getCustomerRepository().getSpecific(username).setAddress(newAddress);
+  }
+
+  public void updateLibrarianAccount(Library library,
+      String username, String firstName, String lastName, String phoneNumber,
+      String houseNumber, String street, String city, String postcode ){
+    library.getLibrarianRepository().getSpecific(username).setFirstName(firstName);
+    library.getLibrarianRepository().getSpecific(username).setLastName(lastName);
+    library.getLibrarianRepository().getSpecific(username).setPhoneNumber(phoneNumber);
+    Address newAddress = new Address(houseNumber,street,city,postcode);
+    library.getLibrarianRepository().getSpecific(username).setAddress(newAddress);
   }
 
   /**
