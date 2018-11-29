@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public class Fine {
 
+  private String fineId;
   private int amount;
   private Date dateIssued;
   private Lease specificLease;
@@ -33,6 +34,15 @@ public class Fine {
     this.amount = amount;
     this.dateIssued = new Date();
     this.specificLease = specificLease;
+  }
+
+  /**
+   * Gets fine id.
+   *
+   * @return the fine id
+   */
+  public String getFineId() {
+    return fineId;
   }
 
   /**

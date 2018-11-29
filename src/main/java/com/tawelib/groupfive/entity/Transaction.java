@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class Transaction {
 
+  private String transactionId;
   private int amount;
   private Date datePaid;
   private Customer payee;
@@ -26,6 +27,15 @@ public class Transaction {
     this.amount = amount;
     this.payee = payee;
     this.datePaid = new Date();
+  }
+
+  /**
+   * Gets transaction id.
+   *
+   * @return the transaction id
+   */
+  public String getTransactionId() {
+    return transactionId;
   }
 
   /**
