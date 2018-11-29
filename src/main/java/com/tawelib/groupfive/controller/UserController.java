@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.controller;
 
+import com.tawelib.groupfive.entity.Address;
 import com.tawelib.groupfive.entity.Customer;
 
 import com.tawelib.groupfive.entity.Librarian;
@@ -55,6 +56,53 @@ public class UserController {
     Librarian newLibrarian = new Librarian(firstName,lastName,phoneNumber,
         houseNumber,street,city,postcode,employmentDate);
     library.getLibrarianRepository().add(newLibrarian);
+  }
+
+
+  /**
+   * Update customer account.
+   *
+   * @param library the library
+   * @param username the username
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param phoneNumber the phone number
+   * @param houseNumber the house number
+   * @param street the street
+   * @param city the city
+   * @param postcode the postcode
+   */
+  public void updateCustomerAccount(Library library,
+      String username, String firstName, String lastName, String phoneNumber,
+      String houseNumber, String street, String city, String postcode) {
+    library.getCustomerRepository().getSpecific(username).setFirstName(firstName);
+    library.getCustomerRepository().getSpecific(username).setLastName(lastName);
+    library.getCustomerRepository().getSpecific(username).setPhoneNumber(phoneNumber);
+    Address newAddress = new Address(houseNumber,street,city,postcode);
+    library.getCustomerRepository().getSpecific(username).setAddress(newAddress);
+  }
+
+  /**
+   * Update librarian account.
+   *
+   * @param library the library
+   * @param username the username
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param phoneNumber the phone number
+   * @param houseNumber the house number
+   * @param street the street
+   * @param city the city
+   * @param postcode the postcode
+   */
+  public void updateLibrarianAccount(Library library,
+      String username, String firstName, String lastName, String phoneNumber,
+      String houseNumber, String street, String city, String postcode) {
+    library.getLibrarianRepository().getSpecific(username).setFirstName(firstName);
+    library.getLibrarianRepository().getSpecific(username).setLastName(lastName);
+    library.getLibrarianRepository().getSpecific(username).setPhoneNumber(phoneNumber);
+    Address newAddress = new Address(houseNumber,street,city,postcode);
+    library.getLibrarianRepository().getSpecific(username).setAddress(newAddress);
   }
 
   /**

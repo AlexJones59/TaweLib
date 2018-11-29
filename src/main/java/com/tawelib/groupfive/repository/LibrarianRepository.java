@@ -10,7 +10,7 @@ import java.util.List;
  * The Librarian repository class holds the Librarians and performs manipulative operations on
  * them.
  *
- * @author Petr Hoffmann, Themis Mouyiasis
+ * @author Themis Mouyiasis, Modified by Petr Hoffmann
  * @version 0.3
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
@@ -31,7 +31,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   @Override
   public Librarian authenticate(String username) {
-    Librarian librarian = getLibrarianByUsername(username);
+    Librarian librarian = getSpecific(username);
 
     if (librarian == null) {
       throw new AuthenticationException();
@@ -46,7 +46,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    * @param username Librarian's username.
    * @return Found Librarian or null.
    */
-  private Librarian getLibrarianByUsername(String username) {
+  public Librarian getSpecific(String username) {
     for (Librarian librarian : librarians) {
       if (librarian.getUsername().equals(username)) {
         return librarian;
@@ -72,7 +72,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     String usernameSuffix = "";
     String generatedUsername = baseUsername + usernameSuffix;
 
-    while (getLibrarianByUsername(generatedUsername) != null) {
+    while (getSpecific(generatedUsername) != null) {
       usernameSuffix = String.format(".%d", suffixBase);
       generatedUsername = baseUsername + usernameSuffix;
       suffixBase++;

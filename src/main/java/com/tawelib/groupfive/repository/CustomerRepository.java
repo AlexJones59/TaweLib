@@ -9,14 +9,12 @@ import java.util.List;
 /**
  * File Name - CustomerRepository.java The Customer repository class hadles customer details.
  *
- * @author Created by Themis
+ * @author Created by Themis, Modified by Shree Desai
  * @version 0.2
  */
 public class CustomerRepository implements UserRepository<Customer> {
 
   private ArrayList<Customer> customers;
-
-  private int lastCustomerNumber = 0;
 
   /**
    * Instantiates a new Customer repository.
@@ -87,23 +85,6 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
-   * Generates a customer number.
-   */
-  private void generateCustomerNumber(Customer customer) {
-    try {
-      Field usernameField = customer.getClass().getDeclaredField("staffNumber");
-      usernameField.setAccessible(true);
-      usernameField.set(customer, lastCustomerNumber);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Error message"
-      );
-    } finally {
-      lastCustomerNumber++;
-    }
-  }
-
-  /**
    * {@inheritDoc}
    */
   @Override
@@ -118,7 +99,6 @@ public class CustomerRepository implements UserRepository<Customer> {
   public void add(Customer customer) {
     if (!customers.contains(customer)) {
       generateUsername(customer);
-      generateCustomerNumber(customer);
       customers.add(customer);
     }
   }

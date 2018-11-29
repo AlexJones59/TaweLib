@@ -32,31 +32,6 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * Gets oldest copy without due date.
-   *
-   * @param resource the resource
-   */
-  public void getOldestCopyWithoutDueDate(Resource resource) {
-    //Todo implement the method to get the oldest due date.
-  }
-
-
-  /**
-   * Search for the reserved copies by a customer username.
-   *
-   * @param customerUsername the customer username
-   * @return the list of reserved copies
-   */
-  public List<Copy> getReservedCopies(String customerUsername) {
-    for (Copy reserved : copies) {
-      if (reserved.getBorrowingCustomerUsername().equals(customerUsername)) {
-        return (List<Copy>) reserved;
-      }
-    }
-    throw new AuthenticationException();
-  }
-
-  /**
    * Gets specific.
    *
    * @param copyId the copy id
@@ -68,9 +43,7 @@ public class CopyRepository implements BaseRepository<Copy> {
         return copy;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
   }
 
   /**
@@ -85,32 +58,20 @@ public class CopyRepository implements BaseRepository<Copy> {
         return (List<Copy>) borrowed;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
   }
 
   /**
-   * Gets overdue copies.
-   *
-   * @return the overdue copies
+   * {@inheritDoc}
    */
-  public List<Copy> getOverdueCopies() {
-    for (Copy copy : copies) {
-      if (copy.getStatus().equals("Overdue")) {
-        return (List<Copy>) copy;
-      }
-    }
-    throw new IllegalStateException(
-        "Error message"
-    );
-  }
-
   @Override
   public List<Copy> getAll() {
     return copies;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void add(Copy copy) {
     if (!copies.contains((copy))) {
