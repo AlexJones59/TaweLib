@@ -23,7 +23,7 @@ public class Customer extends User {
    * @param postCode    the post code
    */
   public Customer(String firstName, String lastName, String phoneNumber,
-                  int houseNumber, String street, String city,
+                  String houseNumber, String street, String city,
                   String postCode) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);

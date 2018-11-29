@@ -8,7 +8,7 @@ package com.tawelib.groupfive.entity;
  */
 public class Address {
 
-  private int houseNumber;
+  private String houseNumber;
   private String street;
   private String city;
   private String postCode;
@@ -21,7 +21,7 @@ public class Address {
    * @param city        the city
    * @param postCode    the post code
    */
-  public Address(int houseNumber, String street, String city,
+  public Address(String houseNumber, String street, String city,
                  String postCode) {
     this.houseNumber = houseNumber;
     this.street = street;
@@ -34,7 +34,7 @@ public class Address {
    *
    * @return the house number
    */
-  public int getHouseNumber() {
+  public String getHouseNumber() {
     return houseNumber;
   }
 
@@ -43,7 +43,7 @@ public class Address {
    *
    * @param houseNumber the house number
    */
-  public void setHouseNumber(int houseNumber) {
+  public void setHouseNumber(String houseNumber) {
     this.houseNumber = houseNumber;
   }
 

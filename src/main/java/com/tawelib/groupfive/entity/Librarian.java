@@ -27,7 +27,7 @@ public class Librarian extends User {
    * @param employmentDate the employment date
    */
   public Librarian(String firstName, String lastName, String phoneNumber,
-                   int houseNumber, String street, String city,
+                   String houseNumber, String street, String city,
                    String postCode, Date employmentDate) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
