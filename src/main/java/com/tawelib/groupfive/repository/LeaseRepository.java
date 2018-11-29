@@ -101,7 +101,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
         customerOverdue.add(lease);
       }
     }
-    if (customerOverdue.isEmpty()){
+    if (customerOverdue.isEmpty()) {
       return customerOverdue;
     }
     return null;
@@ -120,7 +120,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
         overdueLeases.add(lease);
       }
     }
-    if (overdueLeases.isEmpty()){
+    if (overdueLeases.isEmpty()) {
       return overdueLeases;
     }
     return null;
