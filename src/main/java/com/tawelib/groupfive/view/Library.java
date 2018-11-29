@@ -50,7 +50,7 @@ public class Library extends Application {
               "Petr",
               "Hoffmann",
               "phone #",
-              66,
+              "66",
               "The Street",
               "Swansea",
               "SA20AT",
