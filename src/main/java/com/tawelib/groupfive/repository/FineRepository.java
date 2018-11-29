@@ -22,10 +22,14 @@ public class FineRepository implements BaseRepository<Fine> {
    */
   public List<Fine> getCustomerFines(String customerUsername) {
     for (Fine fine : fines) {
+      if (fine.getSpecificLease().getBorrowingCustomerUsername().equals(customerUsername)) {
+        return (List<Fine>) fine;
+      }
 
     }
-    return null;
-
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
