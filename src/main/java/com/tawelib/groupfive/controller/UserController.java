@@ -59,9 +59,22 @@ public class UserController {
   }
 
 
+  /**
+   * Update customer account.
+   *
+   * @param library the library
+   * @param username the username
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param phoneNumber the phone number
+   * @param houseNumber the house number
+   * @param street the street
+   * @param city the city
+   * @param postcode the postcode
+   */
   public void updateCustomerAccount(Library library,
       String username, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode ){
+      String houseNumber, String street, String city, String postcode) {
     library.getCustomerRepository().getSpecific(username).setFirstName(firstName);
     library.getCustomerRepository().getSpecific(username).setLastName(lastName);
     library.getCustomerRepository().getSpecific(username).setPhoneNumber(phoneNumber);
@@ -69,9 +82,22 @@ public class UserController {
     library.getCustomerRepository().getSpecific(username).setAddress(newAddress);
   }
 
+  /**
+   * Update librarian account.
+   *
+   * @param library the library
+   * @param username the username
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param phoneNumber the phone number
+   * @param houseNumber the house number
+   * @param street the street
+   * @param city the city
+   * @param postcode the postcode
+   */
   public void updateLibrarianAccount(Library library,
       String username, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode ){
+      String houseNumber, String street, String city, String postcode) {
     library.getLibrarianRepository().getSpecific(username).setFirstName(firstName);
     library.getLibrarianRepository().getSpecific(username).setLastName(lastName);
     library.getLibrarianRepository().getSpecific(username).setPhoneNumber(phoneNumber);

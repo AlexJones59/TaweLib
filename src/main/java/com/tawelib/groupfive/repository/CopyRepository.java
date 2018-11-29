@@ -62,7 +62,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * {@inheriuDoc}
+   * {@inheritDoc}
    */
   @Override
   public List<Copy> getAll() {
@@ -70,7 +70,7 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * {@inheriuDoc}
+   * {@inheritDoc}
    */
   @Override
   public void add(Copy copy) {
