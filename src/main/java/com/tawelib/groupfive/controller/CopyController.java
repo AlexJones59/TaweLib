@@ -60,7 +60,7 @@ public class CopyController {
         .setStatus(CopyStatus.BORROWED);
     Lease newLease = new Lease(copyId, customerUsername);
     if (library.getRequestRepository()
-        .getResourceRequests(borrowedCopy.getResource()) != null) {
+        .getOpenResourceRequests(borrowedCopy.getResource()) != null) {
       generateDueDate(newLease, borrowedCopy.getResource().getType());
     }
     library.getLeaseRepository().add(newLease);
@@ -90,7 +90,7 @@ public class CopyController {
 
     Resource returnedResource = library.getCopyRepository()
         .getSpecific(currentLease.getBorrowedCopyId()).getResource();
-    if (library.getRequestRepository().getResourceRequests(returnedResource)
+    if (library.getRequestRepository().getOpenResourceRequests(returnedResource)
         .isEmpty() == true) {
       library.getCopyRepository()
           .getSpecific(currentLease.getBorrowedCopyId())

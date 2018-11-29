@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Lease {
 
+  private String leaseId;
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
@@ -31,6 +32,15 @@ public class Lease {
     this.dateLeased = new Date();
     this.borrowingCustomerUsername = borrowingCustomerUsername;
     this.borrowedCopyId = borrowedCopyId;
+  }
+
+  /**
+   * Gets lease id.
+   *
+   * @return the lease id
+   */
+  public String getLeaseId() {
+    return leaseId;
   }
 
   /**

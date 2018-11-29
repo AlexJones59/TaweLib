@@ -74,9 +74,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
         return (Book) resource;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
   }
 
   /**

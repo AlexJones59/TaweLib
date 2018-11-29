@@ -9,6 +9,7 @@ package com.tawelib.groupfive.entity;
  */
 public class Request {
 
+  private String requestId;
   private RequestStatus status;
   private String customerUsername;
   private Resource requestedResource;
@@ -16,13 +17,22 @@ public class Request {
   /**
    * Instantiates a new Request.
    *
-   * @param customerUsername  the customer username
+   * @param customerUsername the customer username
    * @param requestedResource the requested resource
    */
   public Request(String customerUsername, Resource requestedResource) {
     this.customerUsername = customerUsername;
     this.status = RequestStatus.REQUESTED;
     this.requestedResource = requestedResource;
+  }
+
+  /**
+   * Gets request id.
+   *
+   * @return the request id
+   */
+  public String getRequestId() {
+    return requestId;
   }
 
   /**

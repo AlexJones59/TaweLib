@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Fine;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
 public class FineRepository implements BaseRepository<Fine> {
 
   private ArrayList<Fine> fines;
+
+  private int lastFineId = 0;
 
   /**
    * Gets customer fines.
@@ -43,11 +46,30 @@ public class FineRepository implements BaseRepository<Fine> {
    */
   public Fine getSpecific(String fineId) {
     for (Fine fine : fines) {
-      if (fine.getSpecificLease().equals(fineId)) {
+      if (fine.getFineId().equals(fineId)) {
         return fine;
       }
     }
     return null;
+  }
+
+  /**
+   * Generates a unique id for the request.
+   *
+   * @param fine fine
+   */
+  private void generateFineId(Fine fine) {
+    try {
+      Field usernameField = fine.getClass().getDeclaredField("fineId");
+      usernameField.setAccessible(true);
+      usernameField.set(fine, lastFineId);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "Request ID could not be set."
+      );
+    } finally {
+      lastFineId++;
+    }
   }
 
   /**
@@ -64,6 +86,7 @@ public class FineRepository implements BaseRepository<Fine> {
   @Override
   public void add(Fine fine) {
     if (!fines.contains(fine)) {
+      generateFineId(fine);
       fines.add(fine);
     }
   }

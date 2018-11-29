@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.exception.AuthenticationException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   private static ArrayList<Transaction> transactions;
 
+  private int lastTransactionId = 0;
+
   /**
    * Checks for customer transaction.
    *
@@ -23,13 +26,30 @@ public class TransactionRepository implements BaseRepository<Transaction> {
    */
   public Transaction getSpecific(String transactionId) {
     for (Transaction transaction : transactions) {
-      if (transaction.equals(transactionId)) {
+      if (transaction.getTransactionId().equals(transactionId)) {
         return transaction;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
+  }
+
+  /**
+   * Generates a unique id for the request.
+   *
+   * @param transaction transaction
+   */
+  private void generateTransactionId(Transaction transaction) {
+    try {
+      Field usernameField = transaction.getClass().getDeclaredField("transactionId");
+      usernameField.setAccessible(true);
+      usernameField.set(transaction, lastTransactionId);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "Request ID could not be set."
+      );
+    } finally {
+      lastTransactionId++;
+    }
   }
 
   @Override
@@ -39,7 +59,10 @@ public class TransactionRepository implements BaseRepository<Transaction> {
 
   @Override
   public void add(Transaction transaction) {
-    transactions.add(transaction);
+    if (!transactions.contains(transaction)) {
+      generateTransactionId(transaction);
+      transactions.add(transaction);
+    }
   }
 
 }

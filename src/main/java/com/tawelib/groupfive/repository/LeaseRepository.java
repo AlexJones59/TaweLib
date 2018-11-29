@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 public class LeaseRepository implements BaseRepository<Lease> {
 
   private static ArrayList<Lease> leases;
+
+  private int lastLeaseId = 0;
   
   /**
    * Gets specific.
@@ -23,7 +26,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   public Lease getSpecific(String leaseId) {
     for (Lease lease : leases) {
-      if (lease.getBorrowedCopyId().equals(leaseId)) {
+      if (lease.getLeaseId().equals(leaseId)) {
         return lease;
       }
     }
@@ -127,6 +130,25 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   /**
+   * Generates a unique id for the request.
+   *
+   * @param lease lease
+   */
+  private void generateLeaseId(Lease lease) {
+    try {
+      Field usernameField = lease.getClass().getDeclaredField("leaseId");
+      usernameField.setAccessible(true);
+      usernameField.set(lease, lastLeaseId);
+    } catch (Exception e) {
+      throw new IllegalStateException(
+          "Lease ID could not be set."
+      );
+    } finally {
+      lastLeaseId++;
+    }
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -140,6 +162,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
   @Override
   public void add(Lease lease) {
     if (!leases.contains(lease)) {
+      generateLeaseId(lease);
       leases.add(lease);
     }
   }
