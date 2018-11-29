@@ -74,7 +74,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
         return (Book) resource;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -88,8 +90,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
         return (Dvd) resource;
       }
     }
-    throw new AuthenticationException();
-
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -103,7 +106,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
         return (Laptop) resource;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**

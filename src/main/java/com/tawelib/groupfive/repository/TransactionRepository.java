@@ -27,7 +27,9 @@ public class TransactionRepository implements BaseRepository<Transaction> {
         return transaction;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   @Override

@@ -23,7 +23,10 @@ public class FineRepository implements BaseRepository<Fine> {
    * @return the customer fines
    */
   public List<Fine> getCustomerFines(String customerUsername) {
-    return null;
+    for (Fine fine : fines) {
+      return null;
+
+    }
   }
 
   /**
@@ -38,7 +41,9 @@ public class FineRepository implements BaseRepository<Fine> {
         return fine;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
