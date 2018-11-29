@@ -1,8 +1,6 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Fine;
-
-import com.tawelib.groupfive.exception.AuthenticationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,11 @@ public class FineRepository implements BaseRepository<Fine> {
    * @return the customer fines
    */
   public List<Fine> getCustomerFines(String customerUsername) {
+    for (Fine fine : fines) {
+
+    }
     return null;
+
   }
 
   /**
@@ -38,7 +40,9 @@ public class FineRepository implements BaseRepository<Fine> {
         return fine;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**

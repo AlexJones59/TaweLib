@@ -23,8 +23,8 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return open customer requests
    */
   public List<Request> getCustomerRequests(String customerId) {
-    for (Request request:requests){
-      
+    for (Request request : requests) {
+
     }
     return null;
   }
@@ -71,7 +71,9 @@ public class RequestRepository implements BaseRepository<Request> {
         return request;
       }
     }
-    return null;
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**

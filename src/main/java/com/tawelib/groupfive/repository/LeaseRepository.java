@@ -99,7 +99,9 @@ public class LeaseRepository implements BaseRepository<Lease> {
         return (List<Lease>) lease;
       }
     }
-    return null;
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**

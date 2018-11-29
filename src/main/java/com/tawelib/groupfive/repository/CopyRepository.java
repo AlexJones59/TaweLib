@@ -53,7 +53,9 @@ public class CopyRepository implements BaseRepository<Copy> {
         return (List<Copy>) reserved;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -68,7 +70,9 @@ public class CopyRepository implements BaseRepository<Copy> {
         return copy;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -83,7 +87,9 @@ public class CopyRepository implements BaseRepository<Copy> {
         return (List<Copy>) borrowed;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -97,7 +103,9 @@ public class CopyRepository implements BaseRepository<Copy> {
         return (List<Copy>) copy;
       }
     }
-    throw new AuthenticationException();
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   @Override
