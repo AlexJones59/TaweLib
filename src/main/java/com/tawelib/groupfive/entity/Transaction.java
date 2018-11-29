@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @author Shree Desai
  * @version 0.2
  */
-public class Transaction {
+public class Transaction implements Serializable {
 
   private String transactionId;
   private int amount;

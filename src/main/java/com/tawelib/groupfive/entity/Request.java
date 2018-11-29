@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.entity;
 
+import java.io.Serializable;
+
 /**
  * File Name - Request.java The Request class is the  class that stores all the
  * information pertaining to a request.
@@ -7,7 +9,7 @@ package com.tawelib.groupfive.entity;
  * @author Shree Desai
  * @version 0.2
  */
-public class Request {
+public class Request implements Serializable {
 
   private String requestId;
   private RequestStatus status;
