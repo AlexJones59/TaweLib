@@ -53,9 +53,7 @@ public class CopyRepository implements BaseRepository<Copy> {
         return (List<Copy>) reserved;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    throw new AuthenticationException();
   }
 
   /**
