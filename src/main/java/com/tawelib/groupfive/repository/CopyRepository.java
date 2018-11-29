@@ -53,10 +53,34 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @return the borrowed copies
    */
   public List<Copy> getBorrowedCopies(String customerUsername) {
+    ArrayList<Copy> borrowedCopies = new ArrayList<Copy>();
     for (Copy borrowed : copies) {
       if (borrowed.getBorrowingCustomerUsername().equals(customerUsername)) {
-        return (List<Copy>) borrowed;
+        borrowedCopies.add(borrowed);
       }
+    }
+    if (borrowedCopies != null) {
+      return (List<Copy>) borrowedCopies;
+    }
+    return null;
+
+  }
+
+  /**
+   * Gets resource copies.
+   *
+   * @param resourceId the resource id
+   * @return the resource copies
+   */
+  public List<Copy> getResourceCopies(String resourceId) {
+    ArrayList<Copy> resourceCopies = new ArrayList<Copy>();
+    for (Copy resourceCopy : copies) {
+      if (resourceCopy.getResource().equals(resourceId)) {
+        resourceCopies.add(resourceCopy);
+      }
+    }
+    if (resourceCopies != null) {
+      return (List<Copy>) resourceCopies;
     }
     return null;
   }
