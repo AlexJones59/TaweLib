@@ -37,7 +37,9 @@ public class RequestRepository implements BaseRepository<Request> {
     if (customerRequests.isEmpty()) {
       return customerRequests;
     }
-    return null;
+    throw new IllegalStateException(
+        "The universe is about to end!!! No, but the class reflection is broken..."
+    );
   }
 
   /**
