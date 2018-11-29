@@ -3,7 +3,9 @@ package com.tawelib.groupfive.draw;
 import static javafx.scene.paint.Color.WHITE;
 
 import java.io.File;
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -13,10 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
-//import javax.imageio.ImageIO;
-//import java.io.FileNotFoundException;
-//import java.io.IOException;
+import javax.imageio.ImageIO;
 
 
 /**
@@ -38,6 +37,10 @@ public class Drawing extends Application {
 
   private Button saveButton = new Button("SAVE");
   private Image imgOfCanvas;
+
+  public static void main(String[] args) {
+    launch(args);
+  }
 
   @Override
   public void start(Stage stage) {
@@ -155,13 +158,11 @@ public class Drawing extends Application {
       File file = new File("2.png");
       WritableImage imgOfCanvas = new WritableImage(CANVAS_SIDE, CANVAS_SIDE);
       canvas.snapshot(null, imgOfCanvas);
-      /*try{
-        ImageIO.write(SwingFXUtils.fromFXImage(imgOfCanvas, null),"png",file);
-      }catch (FileNotFoundException e){
+      try {
+        ImageIO.write(SwingFXUtils.fromFXImage(imgOfCanvas, null), "png", file);
+      } catch (IOException e) {
         System.out.println("File not found");
-      }*/
+      }
     });
-
-
   }
 }
