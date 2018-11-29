@@ -59,8 +59,8 @@ public class CopyRepository implements BaseRepository<Copy> {
         borrowedCopies.add(borrowed);
       }
     }
-    if (borrowedCopies != null) {
-      return (List<Copy>) borrowedCopies;
+    if (borrowedCopies.isEmpty()) {
+      return borrowedCopies;
     }
     return null;
 
@@ -79,8 +79,8 @@ public class CopyRepository implements BaseRepository<Copy> {
         resourceCopies.add(resourceCopy);
       }
     }
-    if (resourceCopies != null) {
-      return (List<Copy>) resourceCopies;
+    if (resourceCopies.isEmpty()) {
+      return resourceCopies;
     }
     return null;
   }
