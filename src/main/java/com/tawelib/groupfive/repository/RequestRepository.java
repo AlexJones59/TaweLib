@@ -29,8 +29,8 @@ public class RequestRepository implements BaseRepository<Request> {
   public List<Request> getOpenCustomerRequests(String customerUsername) {
     ArrayList<Request> customerRequests = new ArrayList<Request>();
     for (Request request : requests) {
-      if (request.getCustomerUsername().equals(customerUsername)&&
-          !request.getStatus().equals(RequestStatus.CLOSED)) {
+      if (request.getCustomerUsername().equals(customerUsername)
+          && !request.getStatus().equals(RequestStatus.CLOSED)) {
         customerRequests.add(request);
       }
     }
@@ -49,8 +49,8 @@ public class RequestRepository implements BaseRepository<Request> {
   public List<Request> getOpenResourceRequests(Resource requestedResource) {
     ArrayList<Request> resourceRequests = new ArrayList<Request>();
     for (Request request : requests) {
-      if (request.getRequestedResource().equals(requestedResource)&&
-          !request.getStatus().equals(RequestStatus.CLOSED)) {
+      if (request.getRequestedResource().equals(requestedResource)
+          && request.getStatus().equals(RequestStatus.REQUESTED)) {
         resourceRequests.add(request);
       }
     }
@@ -70,8 +70,8 @@ public class RequestRepository implements BaseRepository<Request> {
   public List<Request> getCustomerReserved(String customerUsername) {
     ArrayList<Request> customerReserved = new ArrayList<Request>();
     for (Request request : requests) {
-      if (request.getCustomerUsername().equals(customerUsername)&&
-          request.getStatus().equals(RequestStatus.RESERVED)) {
+      if (request.getCustomerUsername().equals(customerUsername)
+          && request.getStatus().equals(RequestStatus.RESERVED)) {
         customerReserved.add(request);
       }
     }
