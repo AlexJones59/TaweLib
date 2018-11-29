@@ -32,7 +32,7 @@ public class User implements Serializable {
    * @param postCode    the post code
    */
   public User(String firstName, String lastName, String phoneNumber,
-              int houseNumber, String street, String city, String postCode) {
+              String houseNumber, String street, String city, String postCode) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = generateUsername();
