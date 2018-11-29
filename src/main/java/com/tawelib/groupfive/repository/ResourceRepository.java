@@ -94,7 +94,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search for a specific laptop.
-   * @param resourceId
+   *
    * @return the pecific laptop
    */
   public Laptop getSpecificLaptop(String resourceId) {
