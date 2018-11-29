@@ -1,12 +1,14 @@
 package com.tawelib.groupfive.entity;
 
+import java.io.Serializable;
+
 /**
  * Address.java This class stores all the elements needed for an address.
  *
  * @author Shree Desai
  * @version 0.2
  */
-public class Address {
+public class Address implements Serializable {
 
   private String houseNumber;
   private String street;

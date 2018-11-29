@@ -2,6 +2,7 @@ package com.tawelib.groupfive.entity;
 
 import com.tawelib.groupfive.repository.CopyRepository;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  * @author Shree Desai
  * @version 0.2
  */
-public class Lease {
+public class Lease implements Serializable {
 
   private String leaseId;
   private Date dateLeased;

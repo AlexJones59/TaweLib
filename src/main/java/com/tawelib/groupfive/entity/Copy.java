@@ -2,6 +2,7 @@ package com.tawelib.groupfive.entity;
 
 //import com.tawelib.groupfive.repository.LeaseRepository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @author Shree Desai
  * @version 0.2
  */
-public class Copy {
+public class Copy implements Serializable {
 
   private String id;
   private CopyStatus status;
