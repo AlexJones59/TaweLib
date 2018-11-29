@@ -27,21 +27,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
         return lease;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
-  }
-
-  /**
-   * Gets copy leases.
-   *
-   * @param copyId the copy id
-   * @return the copy leases
-   */
-  public List<Lease> getCopyLeases(String copyId) {
-    for (Lease lease : leases) {
-      //TODO check for a copy leases by a copy id.
-    }
     return null;
   }
 
@@ -52,14 +37,17 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the copy lease history
    */
   public List<Lease> getCopyLeaseHistory(String copyId) {
+    ArrayList<Lease> copyLeaseHistory = new ArrayList<Lease>();
     for (Lease lease : leases) {
       if (lease.getBorrowedCopyId().equals(copyId)) {
-        return (List<Lease>) lease;
+        copyLeaseHistory.add(lease);
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    if (copyLeaseHistory.isEmpty()) {
+      return copyLeaseHistory;
+    }
+    return null;
+
   }
 
   /**
@@ -76,9 +64,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
         }
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
   }
 
   /**
@@ -88,15 +74,16 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the customer current leases
    */
   public List<Lease> getCustomerCurrentLeases(String customerUsername) {
+    ArrayList<Lease> customerCurrentLeases = new ArrayList<Lease>();
     for (Lease lease : leases) {
       if (lease.getBorrowingCustomerUsername().equals(customerUsername)) {
-        return (List<Lease>) lease;
+        customerCurrentLeases.add(lease);
       }
     }
-
-    throw new IllegalStateException(
-        "Error message"
-    );
+    if (customerCurrentLeases.isEmpty()) {
+      return customerCurrentLeases;
+    }
+    return null;
   }
 
   /**
@@ -106,16 +93,18 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the customer overdue leases
    */
   public List<Lease> getCustomerOverdueLeases(String customerUsername) {
+    ArrayList<Lease> customerOverdue = new ArrayList<Lease>();
     Date currentDate = new Date();
     for (Lease lease : leases) {
       if (lease.getBorrowingCustomerUsername().equals(customerUsername) && lease.getDueDate()
           .after(currentDate)) {
-        return (List<Lease>) lease;
+        customerOverdue.add(lease);
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    if (customerOverdue.isEmpty()){
+      return customerOverdue;
+    }
+    return null;
   }
 
   /**
@@ -124,15 +113,17 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the overdue leases
    */
   public List<Lease> getOverdueLeases() {
+    ArrayList<Lease> overdueLeases = new ArrayList<Lease>();
     Date currentDate = new Date();
     for (Lease lease : leases) {
       if (lease.getDueDate().after(currentDate)) {
-        return (List<Lease>) lease;
+        overdueLeases.add(lease);
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    if (overdueLeases.isEmpty()){
+      return overdueLeases;
+    }
+    return null;
   }
 
   /**

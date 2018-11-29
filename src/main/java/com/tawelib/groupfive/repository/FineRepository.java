@@ -21,15 +21,18 @@ public class FineRepository implements BaseRepository<Fine> {
    * @return the customer fines
    */
   public List<Fine> getCustomerFines(String customerUsername) {
+    ArrayList<Fine> customerFines = new ArrayList<Fine>();
     for (Fine fine : fines) {
       if (fine.getSpecificLease().getBorrowingCustomerUsername()
           .equals(customerUsername)) {
-        return (List<Fine>) fine;
+        customerFines.add(fine);
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    if (customerFines != null) {
+      return customerFines;
+    }
+
+    return null;
   }
 
   /**
@@ -44,9 +47,7 @@ public class FineRepository implements BaseRepository<Fine> {
         return fine;
       }
     }
-    throw new IllegalStateException(
-        "Error message"
-    );
+    return null;
   }
 
   /**
