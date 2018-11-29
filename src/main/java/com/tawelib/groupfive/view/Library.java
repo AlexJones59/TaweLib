@@ -2,10 +2,11 @@ package com.tawelib.groupfive.view;
 
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.FileSystemHelper;
+import com.tawelib.groupfive.util.ResourceHelper;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -26,7 +27,11 @@ public class Library extends Application {
     try {
       library = FileSystemHelper.getLibrary(DEFAULT_LIBRARY_NAME);
 
-      BorderPane root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+      System.out.println(System.getProperty("user.dir"));
+
+      URL resX = ResourceHelper.getViewUrl("Login");
+
+      BorderPane root = FXMLLoader.load(resX);
       Scene scene = new Scene(root);
 
       primaryStage.setScene(scene);
@@ -35,6 +40,7 @@ public class Library extends Application {
       devFunction();
     } catch (Exception e) {
       //TODO: Announce that the library could not be loaded nor created.
+      e.printStackTrace();
     }
 
     primaryStage.show();
