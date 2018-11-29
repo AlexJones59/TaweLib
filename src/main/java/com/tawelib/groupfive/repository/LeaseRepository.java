@@ -2,7 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Lease;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,9 +14,7 @@ import java.util.List;
 public class LeaseRepository implements BaseRepository<Lease> {
 
   private static ArrayList<Lease> leases;
-
-  private static Hashtable<String, Lease> LeaseTable = new Hashtable<String, Lease>();
-
+  
   /**
    * Gets specific.
    *
@@ -24,7 +22,14 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the specific
    */
   public Lease getSpecific(String leaseId) {
-    return null;
+    for (Lease lease : leases) {
+      if (lease.getBorrowedCopyId().equals(leaseId)) {
+        return lease;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -34,6 +39,9 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the copy leases
    */
   public List<Lease> getCopyLeases(String copyId) {
+    for (Lease lease : leases) {
+      //TODO check for a copy leases by a copy id.
+    }
     return null;
   }
 
@@ -44,7 +52,14 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the copy lease history
    */
   public List<Lease> getCopyLeaseHistory(String copyId) {
-    return null;
+    for (Lease lease : leases) {
+      if (lease.getBorrowedCopyId().equals(copyId)) {
+        return (List<Lease>) lease;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -54,17 +69,16 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the copy current lease
    */
   public Lease getCopyCurrentLease(String copyId) {
-    return null;
-  }
-
-  /**
-   * Gets customer requested leases.
-   *
-   * @param customerUsername the customer username
-   * @return the customer requested leases
-   */
-  public List<Lease> getCustomerRequestedLeases(String customerUsername) {
-    return null;
+    for (Lease lease : leases) {
+      if (lease.getBorrowedCopyId().equals(copyId)) {
+        if (lease.getDateReturned() == null) {
+          return lease;
+        }
+      }
+    }
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -74,7 +88,15 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the customer current leases
    */
   public List<Lease> getCustomerCurrentLeases(String customerUsername) {
-    return null;
+    for (Lease lease : leases) {
+      if (lease.getBorrowingCustomerUsername().equals(customerUsername)) {
+        return (List<Lease>) lease;
+      }
+    }
+
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -84,7 +106,16 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the customer overdue leases
    */
   public List<Lease> getCustomerOverdueLeases(String customerUsername) {
-    return null;
+    Date currentDate = new Date();
+    for (Lease lease : leases) {
+      if (lease.getBorrowingCustomerUsername().equals(customerUsername) && lease.getDueDate()
+          .after(currentDate)) {
+        return (List<Lease>) lease;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message"
+    );
   }
 
   /**
@@ -93,9 +124,9 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @return the overdue leases
    */
   public List<Lease> getOverdueLeases() {
-    int currentDate = 0;
+    Date currentDate = new Date();
     for (Lease lease : leases) {
-      if (lease.getDueDate().equals(currentDate)) {
+      if (lease.getDueDate().after(currentDate)) {
         return (List<Lease>) lease;
       }
     }
