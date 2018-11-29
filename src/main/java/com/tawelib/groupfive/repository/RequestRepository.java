@@ -24,9 +24,13 @@ public class RequestRepository implements BaseRepository<Request> {
    */
   public List<Request> getCustomerRequests(String customerId) {
     for (Request request : requests) {
-
+      if (request.getCustomerUsername().equals(customerId)) {
+        return (List<Request>) request;
+      }
     }
-    return null;
+    throw new IllegalStateException(
+        "The universe is about to end!!! No, but the class reflection is broken..."
+    );
   }
 
   /**
@@ -36,7 +40,13 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return the resource request
    */
   public List<Request> getResourceRequests(Resource requestedResource) {
-    return null;
+    for (Request request : requests) {
+      if (request.getRequestedResource() == requestedResource) {
+        return (List<Request>) request;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message.");
   }
 
   /**
@@ -46,7 +56,13 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return all reserved requests from specific customer
    */
   public List<Request> getCustomerReserved(String customerId) {
-    return null;
+    for (Request request : requests) {
+      if (request.getCustomerUsername().equals(customerId)) {
+        return (List<Request>) request;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message.");
   }
 
   /**
@@ -56,7 +72,13 @@ public class RequestRepository implements BaseRepository<Request> {
    * @return the earliest resource request
    */
   public Request getEarliestResourceRequest(Resource resource) {
-    return null;
+    for (Request request : requests) {
+      if (request.getRequestedResource() == resource) {
+        return request;
+      }
+    }
+    throw new IllegalStateException(
+        "Error message.");
   }
 
   /**
