@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Librarian repository class holds the Librarians and performs manipulative operations on
- * them.
+ * The Librarian repository class holds the Librarians and performs manipulative
+ * operations on them.
  *
- * @author Themis Mouyiasis, Modified by Petr Hoffmann
+ * @author Petr Hoffmann, Themis Mouyiasis
  * @version 0.3
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
@@ -19,12 +19,16 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private int lastLibrarianNumber = 0;
 
+  /**
+   * Constructs the repository.
+   */
   public LibrarianRepository() {
     librarians = new ArrayList<>();
   }
 
   /**
-   * Returns a Librarian by their username. Throws an exception when unable to authenticate.
+   * Returns a Librarian by their username. Throws an exception when unable to
+   * authenticate.
    *
    * @param username Username.
    * @return the librarian
@@ -68,6 +72,10 @@ public class LibrarianRepository implements UserRepository<Librarian> {
         librarian.getLastName().toLowerCase()
     );
 
+    /*
+    Tries to generate a username from the first and last names. Appends numbers
+    to it to ensure uniqueness.
+     */
     int suffixBase = 1;
     String usernameSuffix = "";
     String generatedUsername = baseUsername + usernameSuffix;
@@ -78,14 +86,20 @@ public class LibrarianRepository implements UserRepository<Librarian> {
       suffixBase++;
     }
 
+    /*
+    The username assignment is achieved using class reflection. This is
+    necessary, because the managing entity is not in the class hierarchy of the
+    entity and we want to disallow any other assignments.
+     */
     try {
-      Field usernameField = librarian.getClass().getSuperclass().getDeclaredField("username");
+      Field usernameField = librarian.getClass().getSuperclass()
+          .getDeclaredField("username");
       usernameField.setAccessible(true);
       usernameField.set(librarian, generatedUsername);
       usernameField.setAccessible(false);
     } catch (Exception e) {
       throw new IllegalStateException(
-          "The universe is about to end!!! No, but the class reflection is broken..."
+          "The class reflection is broken..."
       );
     }
   }
@@ -96,13 +110,17 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    * @param librarian Librarian.
    */
   private void generateStaffNumber(Librarian librarian) {
+    /*
+    Class reflection: see generateUsername()
+     */
     try {
-      Field usernameField = librarian.getClass().getDeclaredField("staffNumber");
+      Field usernameField = librarian.getClass()
+          .getDeclaredField("staffNumber");
       usernameField.setAccessible(true);
       usernameField.set(librarian, lastLibrarianNumber);
     } catch (Exception e) {
       throw new IllegalStateException(
-          "The universe is about to end!!! No, but the class reflection is broken..."
+          "The class reflection is broken..."
       );
     } finally {
       lastLibrarianNumber++;
