@@ -33,7 +33,7 @@ public class SceneHelper {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(resourceLocation);
     loader.load();
-    LoginController controller = loader.getController();
+    BaseFxmlController controller = loader.getController();
 
     /*
     These two references need to be passed around the application so that all
