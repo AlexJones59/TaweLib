@@ -44,6 +44,8 @@ public abstract class BaseFxmlController {
         node.setVisible(customerLoggedIn);
       }
     }
+
+    refresh();
   }
 
   protected void configureVisibilities() {
