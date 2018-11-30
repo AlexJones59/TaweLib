@@ -7,35 +7,24 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="800.0"
-            xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/2.2">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.TransactionsAndFinesController">
     <bottom>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
                 <Label layoutX="497.0" layoutY="145.0" text="Balance:">
                     <font>
-                        <Font size="20.0" fx:id="x1"/>
+                        <Font size="20.0" fx:id="x1" />
                     </font>
                 </Label>
-                <TextField layoutX="570.0" layoutY="146.0" prefWidth="200.0"/>
-                <TableView layoutX="37.0" layoutY="-86.0" prefHeight="200.0"
-                           prefWidth="720.0">
+                <TextField layoutX="570.0" layoutY="146.0" prefWidth="200.0" />
+                <TableView layoutX="37.0" layoutY="-86.0" prefHeight="200.0" prefWidth="720.0">
                     <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="User ID"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="Name"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="Resource ID"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="Resource Type"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="Resource Name"/>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0"
-                                     prefWidth="120.0" text="Fine"/>
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="User ID" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Name" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource ID" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Type" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Name" />
+                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Fine" />
                     </columns>
                 </TableView>
             </children>
@@ -44,19 +33,15 @@
     <top>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false"
-                        text="&lt;"/>
-                <Label layoutX="276.0" layoutY="25.0"
-                       text="Transactions and Fines">
+                <Button fx:id="backButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+                <Label layoutX="276.0" layoutY="25.0" text="Transactions and Fines">
                     <font>
-                        <Font size="25.0"/>
+                        <Font size="25.0" />
                     </font>
                 </Label>
-                <Button layoutX="715.0" layoutY="15.0" mnemonicParsing="false"
-                        text="Info"/>
-                <Label font="$x1" layoutX="80.0" layoutY="75.0"
-                       text="User ID:"/>
-                <TextField layoutX="170.0" layoutY="75.0" prefWidth="200.0"/>
+                <Button layoutX="715.0" layoutY="15.0" mnemonicParsing="false" text="Info" />
+                <Label font="$x1" layoutX="80.0" layoutY="75.0" text="User ID:" />
+                <TextField layoutX="170.0" layoutY="75.0" prefWidth="200.0" />
             </children>
         </Pane>
     </top>

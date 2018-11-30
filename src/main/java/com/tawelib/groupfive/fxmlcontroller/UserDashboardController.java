@@ -129,7 +129,7 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   public void manageAccount() {
-    SceneHelper.setUpScene(this, "UpdateUserInformation");
+    SceneHelper.setUpScene(this, "UserInformation");
   }
 
   public void transactionsAndFines() {
