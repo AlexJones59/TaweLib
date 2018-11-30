@@ -1,16 +1,11 @@
 package com.tawelib.groupfive.view;
 
 import com.tawelib.groupfive.entity.Librarian;
-import com.tawelib.groupfive.fxmlcontroller.LoginController;
 import com.tawelib.groupfive.util.FileSystemHelper;
-import com.tawelib.groupfive.util.ResourceHelper;
+import com.tawelib.groupfive.util.SceneHelper;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Library extends Application {
@@ -28,21 +23,9 @@ public class Library extends Application {
     try {
       library = FileSystemHelper.getLibrary(DEFAULT_LIBRARY_NAME);
 
-      URL resX = ResourceHelper.getViewUrl("Login");
+      SceneHelper.setUpScene(primaryStage, library, "Login");
 
-      FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(resX);
-      loader.load();
-      LoginController controller = loader.getController();
-      controller.setLibrary(library);
-
-      BorderPane root = loader.getRoot();
-      Scene scene = new Scene(root);
-
-      primaryStage.setScene(scene);
-      primaryStage.show();
-
-      devFunction();
+      setUpDefaultUsers();
     } catch (Exception e) {
       //TODO: Announce that the library could not be loaded nor created.
       e.printStackTrace();
@@ -66,24 +49,18 @@ public class Library extends Application {
   /**
    * Contains code for development purposes.
    */
-  private void devFunction() {
-    for (int i = 0; i < 5; i++) {
-      library.getLibrarianRepository().add(
-          new Librarian(
-              "Petr",
-              "Hoffmann",
-              "phone #",
-              "66",
-              "The Street",
-              "Swansea",
-              "SA20AT",
-              new Date()
-          )
-      );
-    }
-
-    for (Librarian librarian : library.getLibrarianRepository().getAll()) {
-      System.out.println(librarian.getUsername());
-    }
+  private void setUpDefaultUsers() {
+    library.getLibrarianRepository().add(
+        new Librarian(
+            "System",
+            "Admin",
+            "",
+            "",
+            "",
+            "",
+            "",
+            new Date()
+        )
+    );
   }
 }

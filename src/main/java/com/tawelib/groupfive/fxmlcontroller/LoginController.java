@@ -3,6 +3,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.exception.AuthenticationException;
 import com.tawelib.groupfive.repository.UserRepository;
+import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -49,6 +50,8 @@ public class LoginController extends BaseFxmlController {
 
     try {
       loggedInUser = userRepository.authenticate(usernameTextField.getText());
+
+      SceneHelper.setUpScene(this, "UserDashboard");
     } catch (AuthenticationException e) {
       Alert alert = new Alert(AlertType.WARNING);
       alert.setHeaderText("User not found.");
