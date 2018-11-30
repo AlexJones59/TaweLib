@@ -12,7 +12,7 @@ public class AccountCreationController extends BaseFxmlController {
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
-
+  /*
   @Override
   protected void refresh() {
     setGuiForUsers();
@@ -38,6 +38,6 @@ public class AccountCreationController extends BaseFxmlController {
             ((Librarian) loggedInUser).getStaffNumber()
         )
     );
-  }
+  }*/
 }
 
