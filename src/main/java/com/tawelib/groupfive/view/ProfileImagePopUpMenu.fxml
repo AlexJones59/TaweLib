@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-There is a grid here that is invisible until there are some images in there. It holds 6 images by
+There is a grid here that is invisible until there are some images in there.
+It holds 6 images by
 default.
 -->
 <?import javafx.scene.effect.*?>
