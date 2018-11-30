@@ -3,7 +3,7 @@ package com.tawelib.groupfive.controller;
 import com.tawelib.groupfive.entity.Library;
 
 /**
- * File Name - BaseController.java
+ * File Name - BaseFxmlController.java
  * The base controller class is the class that forms the basis for all
  * controllers.
  *
