@@ -123,4 +123,32 @@ public class UserDashboardController extends BaseFxmlController {
     loggedInUser = null;
     SceneHelper.setUpScene(this, "Login");
   }
+
+  public void browseResources() {
+    SceneHelper.setUpScene(this, "Resources");
+  }
+
+  public void manageAccount() {
+    SceneHelper.setUpScene(this, "UpdateUserInformation");
+  }
+
+  public void transactionsAndFines() {
+    SceneHelper.setUpScene(this, "TransactionsAndFines");
+  }
+
+  public void createNewAccount() {
+    SceneHelper.setUpScene(this, "CreateAccount");
+  }
+
+  public void overdueCopies() {
+    SceneHelper.setUpScene(this, "OverdueCopies");
+  }
+
+  public void manageUsers() {
+    SceneHelper.setUpScene(this, "UserList");
+  }
+
+  public void manageResources() {
+    SceneHelper.setUpScene(this, "ResourceInformation");
+  }
 }
