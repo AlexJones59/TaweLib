@@ -13,12 +13,12 @@ import javafx.scene.image.Image;
  */
 public class User implements Serializable {
 
-  private String username;
-  private String firstName;
-  private String lastName;
-  private String phoneNumber;
-  private Address address;
-  private Image profileImage;
+  protected String username;
+  protected String firstName;
+  protected String lastName;
+  protected String phoneNumber;
+  protected Address address;
+  protected Image profileImage;
 
   /**
    * Creates an instance of the User class.
@@ -35,18 +35,8 @@ public class User implements Serializable {
               String houseNumber, String street, String city, String postCode) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.username = generateUsername();
     this.phoneNumber = phoneNumber;
     this.address = new Address(houseNumber, street, city, postCode);
-  }
-
-
-  /**
-   * Generate username.
-   */
-  public String generateUsername() {
-    // TODO: Need to research method to generate username
-    return " "; // needs to change once method is fully written.
   }
 
   /**
@@ -92,6 +82,15 @@ public class User implements Serializable {
    */
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  /**
+   * Returns full name.
+   *
+   * @return Full name.
+   */
+  public String getFullName() {
+    return firstName + lastName;
   }
 
   /**

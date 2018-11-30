@@ -16,6 +16,13 @@ public abstract class BaseFxmlController {
     return library;
   }
 
+  /**
+   * Performs actions once the new scene is shown and runtime variables are
+   * set.
+   */
+  public void refresh() {
+  }
+
   public void setLibrary(Library library) {
     this.library = library;
   }
