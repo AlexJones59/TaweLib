@@ -10,7 +10,7 @@ import java.util.List;
  * The Librarian repository class holds the Librarians and performs manipulative operations on
  * them.
  *
- * @author Themis Mouyiasis, Modified by Petr Hoffmann
+ * @author Petr Hoffmann, Themis Mouyiasis
  * @version 0.3
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
