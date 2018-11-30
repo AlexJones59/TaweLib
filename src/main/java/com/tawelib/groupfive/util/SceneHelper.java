@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SceneHelper {
@@ -37,7 +37,7 @@ public class SceneHelper {
     loader.load();
     BaseFxmlController controller = loader.getController();
 
-    BorderPane root = loader.getRoot();
+    Pane root = loader.getRoot();
     Scene scene = new Scene(root);
 
     primaryStage.setScene(scene);
