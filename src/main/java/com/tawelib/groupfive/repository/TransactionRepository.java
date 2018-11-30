@@ -40,13 +40,11 @@ public class TransactionRepository implements BaseRepository<Transaction> {
    */
   private void generateTransactionId(Transaction transaction) {
     try {
-      Field usernameField = transaction.getClass().getDeclaredField("transactionId");
-      usernameField.setAccessible(true);
-      usernameField.set(transaction, lastTransactionId);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Request ID could not be set."
-      );
+      Field idField = transaction.getClass().getDeclaredField("transactionId");
+      idField.setAccessible(true);
+      idField.set(transaction, lastTransactionId);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     } finally {
       lastTransactionId++;
     }

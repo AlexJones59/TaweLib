@@ -80,6 +80,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     String usernameSuffix = "";
     String generatedUsername = baseUsername + usernameSuffix;
 
+    // Checks if the username is already part of repositiory
+    // If not, adds a number, and checks again.
     while (getSpecific(generatedUsername) != null) {
       usernameSuffix = String.format(".%d", suffixBase);
       generatedUsername = baseUsername + usernameSuffix;
@@ -97,10 +99,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
       usernameField.setAccessible(true);
       usernameField.set(librarian, generatedUsername);
       usernameField.setAccessible(false);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "The class reflection is broken..."
-      );
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     }
   }
 
@@ -118,10 +118,9 @@ public class LibrarianRepository implements UserRepository<Librarian> {
           .getDeclaredField("staffNumber");
       usernameField.setAccessible(true);
       usernameField.set(librarian, lastLibrarianNumber);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "The class reflection is broken..."
-      );
+      usernameField.setAccessible(false);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     } finally {
       lastLibrarianNumber++;
     }
