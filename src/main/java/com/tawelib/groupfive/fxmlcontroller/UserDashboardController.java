@@ -8,6 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controls the user dashboard screen.
+ *
+ * @author Petr Hoffmann
+ * @version 0.1
+ */
 public class UserDashboardController extends BaseFxmlController {
 
   @FXML
@@ -68,6 +74,10 @@ public class UserDashboardController extends BaseFxmlController {
     setNodeVisibilities();
   }
 
+  /**
+   * Sets nodes visible to only one type of users visible to the correct type of
+   * users only.
+   */
   private void setNodeVisibilities() {
     Node[] availableToLibrariansOnly = {
         staffNumberLabel,
@@ -149,6 +159,6 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   public void manageResources() {
-    SceneHelper.setUpScene(this, "ResourceInformation");
+    SceneHelper.setUpScene(this, "BrowseResources");
   }
 }

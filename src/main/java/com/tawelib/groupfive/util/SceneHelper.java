@@ -10,6 +10,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+/**
+ * Manages switching between scenes and passing important references around.
+ *
+ * @author Petr Hoffmann
+ * @version 0.2
+ */
 public class SceneHelper {
 
   private SceneHelper() {
