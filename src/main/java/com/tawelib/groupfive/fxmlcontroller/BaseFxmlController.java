@@ -6,6 +6,12 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
 import javafx.stage.Stage;
 
+/**
+ * Holds important runtime references and controls the GUI actions.
+ *
+ * @author Petr Hoffmann
+ * @version 0.1
+ */
 public abstract class BaseFxmlController {
 
   protected Library library;
@@ -14,10 +20,6 @@ public abstract class BaseFxmlController {
 
   protected User loggedInUser;
 
-  public Library getLibrary() {
-    return library;
-  }
-
   /**
    * Performs actions once the new scene is shown and runtime variables are
    * set.
@@ -25,26 +27,65 @@ public abstract class BaseFxmlController {
   public void refresh() {
   }
 
+  /**
+   * Returns the library.
+   *
+   * @return Library.
+   */
+  public Library getLibrary() {
+    return library;
+  }
+
+  /**
+   * Sets the library.
+   *
+   * @param library Library.
+   */
   public void setLibrary(Library library) {
     this.library = library;
   }
 
+  /**
+   * Returns the primary stage reference.
+   *
+   * @return Primary stage.
+   */
   public Stage getPrimaryStage() {
     return primaryStage;
   }
 
+  /**
+   * Sets the primary stage reference.
+   *
+   * @param primaryStage Primary stage.
+   */
   public void setPrimaryStage(Stage primaryStage) {
     this.primaryStage = primaryStage;
   }
 
+  /**
+   * Returns the logged-in user.
+   *
+   * @return User who is logged in.
+   */
   public User getLoggedInUser() {
     return loggedInUser;
   }
 
+  /**
+   * Sets the logged-in user.
+   *
+   * @param loggedInUser User who is logged in.
+   */
   public void setLoggedInUser(User loggedInUser) {
     this.loggedInUser = loggedInUser;
   }
 
+  /**
+   * Returns true or false depending on whether a librarian is logged in.
+   *
+   * @return True if a librarian is logged in, false otherwise.
+   */
   protected boolean isLibrarianLoggedIn() {
     if (loggedInUser == null) {
       return false;
@@ -53,6 +94,11 @@ public abstract class BaseFxmlController {
     }
   }
 
+  /**
+   * Returns true or false depending on whether a customer is logged in.
+   *
+   * @return True if a customer is logged in, false otherwise.
+   */
   protected boolean isCustomerLoggedIn() {
     if (loggedInUser == null) {
       return false;

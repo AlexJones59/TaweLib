@@ -11,6 +11,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controls the login screen.
+ *
+ * @author Petr Hoffmann
+ * @version 0.1
+ */
 public class LoginController extends BaseFxmlController {
 
   @FXML
