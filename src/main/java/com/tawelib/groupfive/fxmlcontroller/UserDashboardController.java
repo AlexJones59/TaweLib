@@ -149,6 +149,6 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   public void manageResources() {
-    SceneHelper.setUpScene(this, "ResourceInformation");
+    SceneHelper.setUpScene(this, "BrowseResources");
   }
 }
