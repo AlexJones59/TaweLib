@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.view;
 
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.fxmlcontroller.LoginController;
 import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import java.io.IOException;
@@ -27,11 +28,15 @@ public class Library extends Application {
     try {
       library = FileSystemHelper.getLibrary(DEFAULT_LIBRARY_NAME);
 
-      System.out.println(System.getProperty("user.dir"));
-
       URL resX = ResourceHelper.getViewUrl("Login");
 
-      BorderPane root = FXMLLoader.load(resX);
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(resX);
+      loader.load();
+      LoginController controller = loader.getController();
+      controller.setLibrary(library);
+
+      BorderPane root = loader.getRoot();
       Scene scene = new Scene(root);
 
       primaryStage.setScene(scene);
@@ -41,6 +46,7 @@ public class Library extends Application {
     } catch (Exception e) {
       //TODO: Announce that the library could not be loaded nor created.
       e.printStackTrace();
+      System.exit(1);
     }
 
     primaryStage.show();
@@ -53,6 +59,7 @@ public class Library extends Application {
     } catch (IOException e) {
       //TODO: deal with this situation in a better way?
       e.printStackTrace();
+      System.exit(1);
     }
   }
 
