@@ -16,6 +16,15 @@ public class SceneHelper {
     throw new IllegalStateException("Util class");
   }
 
+  /**
+   * Sets up a new scene. Saves important references in appropriate
+   * controllers.
+   *
+   * @param primaryStage Primary stage reference.
+   * @param library Library reference.
+   * @param sceneName Scene name.
+   * @throws IOException When unable to switch scenes.
+   */
   public static void setUpScene(Stage primaryStage, Library library,
       String sceneName)
       throws IOException {
@@ -42,6 +51,13 @@ public class SceneHelper {
     primaryStage.show();
   }
 
+  /**
+   * Overloads for setUpScene(Stage primaryStage, Library library, String
+   * sceneName).
+   *
+   * @param controller Controller that initiates the switch.
+   * @param sceneName Scene name to switch to.
+   */
   public static void setUpScene(BaseFxmlController controller,
       String sceneName) {
     try {
