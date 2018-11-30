@@ -3,6 +3,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -58,10 +59,40 @@ public class UserDashboardController extends BaseFxmlController {
   public void refresh() {
     setGuiForUsers();
 
-    if (loggedInUser.getClass().equals(Librarian.class)) {
+    if (isLibrarianLoggedIn()) {
       setGuiForLibrarians();
     } else {
       setGuiForCustomers();
+    }
+
+    setNodeVisibilities();
+  }
+
+  private void setNodeVisibilities() {
+    Node[] availableToLibrariansOnly = {
+        staffNumberLabel,
+        staffNumberTextField,
+        manageResourcesButton,
+        overdueCopiesButton,
+        createNewAccountButton,
+        manageUsersButton
+    };
+
+    Node[] availableToCustomersOnly = {
+        transactionsAndFinesButton,
+        manageAccountButton
+    };
+
+    boolean librarianLoggedIn = isLibrarianLoggedIn();
+
+    for (Node node : availableToLibrariansOnly) {
+      node.setVisible(librarianLoggedIn);
+    }
+
+    boolean customerLoggedIn = isCustomerLoggedIn();
+
+    for (Node node : availableToCustomersOnly) {
+      node.setVisible(customerLoggedIn);
     }
   }
 
@@ -73,8 +104,6 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   private void setGuiForLibrarians() {
-    staffNumberLabel.setVisible(true);
-    staffNumberTextField.setVisible(true);
     staffNumberTextField.setText(
         String.format(
             "%d",
@@ -84,8 +113,7 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   private void setGuiForCustomers() {
-    staffNumberLabel.setVisible(false);
-    staffNumberTextField.setVisible(false);
+
   }
 
   /**

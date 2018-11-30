@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
 import javafx.stage.Stage;
@@ -41,5 +43,21 @@ public abstract class BaseFxmlController {
 
   public void setLoggedInUser(User loggedInUser) {
     this.loggedInUser = loggedInUser;
+  }
+
+  protected boolean isLibrarianLoggedIn() {
+    if (loggedInUser == null) {
+      return false;
+    } else {
+      return loggedInUser.getClass().equals(Librarian.class);
+    }
+  }
+
+  protected boolean isCustomerLoggedIn() {
+    if (loggedInUser == null) {
+      return false;
+    } else {
+      return loggedInUser.getClass().equals(Customer.class);
+    }
   }
 }
