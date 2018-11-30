@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.exception.AuthenticationException;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +19,23 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   private static ArrayList<Copy> copies;
 
-  private static long copyNumber = 0;
-
-  private static final String COPY_PREFIX = "C";
+  private static long lastCopyId = 0;
 
   /**
    * Generates a unique id for copies.
    */
   private void generateId(Copy copy) {
-    String generatedCopyId = String.format("%s%s", COPY_PREFIX, copyNumber);
+    try {
+      Field idField = copy.getClass().getDeclaredField("transactionId");
+      idField.setAccessible(true);
+      idField.set(copy, lastCopyId);
+      idField.setAccessible(false);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    } finally {
+      lastCopyId++;
+    }
 
-    copyNumber++;
   }
 
   /**

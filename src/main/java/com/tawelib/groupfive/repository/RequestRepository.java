@@ -120,13 +120,11 @@ public class RequestRepository implements BaseRepository<Request> {
    */
   private void generateRequestId(Request request) {
     try {
-      Field usernameField = request.getClass().getDeclaredField("requestId");
-      usernameField.setAccessible(true);
-      usernameField.set(request, lastRequestId);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Request ID could not be set."
-      );
+      Field idField = request.getClass().getDeclaredField("requestId");
+      idField.setAccessible(true);
+      idField.set(request, lastRequestId);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     } finally {
       lastRequestId++;
     }

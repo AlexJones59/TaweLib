@@ -60,13 +60,11 @@ public class FineRepository implements BaseRepository<Fine> {
    */
   private void generateFineId(Fine fine) {
     try {
-      Field usernameField = fine.getClass().getDeclaredField("fineId");
-      usernameField.setAccessible(true);
-      usernameField.set(fine, lastFineId);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Request ID could not be set."
-      );
+      Field idField = fine.getClass().getDeclaredField("fineId");
+      idField.setAccessible(true);
+      idField.set(fine, lastFineId);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     } finally {
       lastFineId++;
     }
