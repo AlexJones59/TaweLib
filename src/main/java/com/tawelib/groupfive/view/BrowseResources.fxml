@@ -43,15 +43,17 @@ table and change it's schema depending on what Resource Type is selected.
                             mnemonicParsing="false" prefHeight="39.0"
                             prefWidth="160.0" text="Search by">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1"/>
-                        <MenuItem mnemonicParsing="false" text="Action 2"/>
+                        <MenuItem mnemonicParsing="false" text="Name"/>
+                        <MenuItem mnemonicParsing="false" text="ID"/>
+                        <MenuItem mnemonicParsing="false" text="Year"/>
                     </items>
                 </MenuButton>
                 <MenuButton layoutX="656.0" layoutY="123.0"
                             mnemonicParsing="false" text="Resource type">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1"/>
-                        <MenuItem mnemonicParsing="false" text="Action 2"/>
+                        <MenuItem mnemonicParsing="false" text="Book"/>
+                        <MenuItem mnemonicParsing="false" text="DVD"/>
+                        <MenuItem mnemonicParsing="false" text="Laptop"/>
                     </items>
                 </MenuButton>
                 <BorderPane layoutX="17.0" layoutY="190.0" prefHeight="526.0"
