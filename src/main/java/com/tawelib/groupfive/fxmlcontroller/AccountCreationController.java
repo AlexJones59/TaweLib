@@ -1,11 +1,11 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.util.SceneHelper;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-import com.tawelib.groupfive.util.SceneHelper;
-//import javafx.event.ActionEvent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -104,6 +104,8 @@ public class AccountCreationController extends BaseFxmlController {
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
+
+
   /*
   @Override
   protected void refresh() {
