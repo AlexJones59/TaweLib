@@ -24,6 +24,9 @@ public class LoginController extends BaseFxmlController {
   public LoginController() {
   }
 
+  /**
+   * Changes the login info label depending on who is trying to log in.
+   */
   public void toggleLibrarian() {
     if (librarianCheckBox.isSelected()) {
       usernameLabel.setText("Username or staff ID");
@@ -32,6 +35,9 @@ public class LoginController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Authenticates a User (Customer or Librarian) in or shows an error dialog.
+   */
   public void signIn() {
     UserRepository<? extends User> userRepository;
 

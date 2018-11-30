@@ -1,7 +1,5 @@
 package com.tawelib.groupfive.repository;
 
-import com.tawelib.groupfive.exception.AuthenticationException;
-
 /**
  * Defines all operations user repositories needs to implement.
  *
@@ -17,8 +15,6 @@ public interface UserRepository<T> extends BaseRepository<T> {
    *
    * @param username Username.
    * @return T User subclass.
-   * @throws com.tawelib.groupfive.exception.AuthenticationException When unable
-   * to authenticate.
    */
-  T authenticate(String username) throws AuthenticationException;
+  T authenticate(String username);
 }
