@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.view;
 
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.SceneHelper;
@@ -59,12 +60,23 @@ public class Library extends Application {
         new Librarian(
             "System",
             "Admin",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "Phone #",
+            "110",
+            "The street",
+            "Swansea",
+            "SA28PJ",
             new Date()
+        )
+    );
+    library.getCustomerRepository().add(
+        new Customer(
+            "Nice",
+            "Customer",
+            "000000000",
+            "56",
+            "Swansea Uni",
+            "Swansea",
+            "SA20AT"
         )
     );
   }
