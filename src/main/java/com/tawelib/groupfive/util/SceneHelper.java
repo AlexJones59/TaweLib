@@ -1,8 +1,8 @@
 package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.fxmlcontroller.BaseFxmlController;
-import com.tawelib.groupfive.fxmlcontroller.LoginController;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +22,12 @@ public class SceneHelper {
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
+   * @param loggedInUser Logged-in user.
    * @param sceneName Scene name.
    * @throws IOException When unable to switch scenes.
    */
   public static void setUpScene(Stage primaryStage, Library library,
+      User loggedInUser,
       String sceneName)
       throws IOException {
     URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
@@ -35,6 +37,12 @@ public class SceneHelper {
     loader.load();
     BaseFxmlController controller = loader.getController();
 
+    BorderPane root = loader.getRoot();
+    Scene scene = new Scene(root);
+
+    primaryStage.setScene(scene);
+    primaryStage.show();
+
     /*
     These two references need to be passed around the application so that all
     controllers can access the necessary data and operations.
@@ -42,13 +50,9 @@ public class SceneHelper {
     if (controller != null) {
       controller.setLibrary(library);
       controller.setPrimaryStage(primaryStage);
+      controller.setLoggedInUser(loggedInUser);
+      controller.refresh();
     }
-
-    BorderPane root = loader.getRoot();
-    Scene scene = new Scene(root);
-
-    primaryStage.setScene(scene);
-    primaryStage.show();
   }
 
   /**
@@ -64,6 +68,7 @@ public class SceneHelper {
       setUpScene(
           controller.getPrimaryStage(),
           controller.getLibrary(),
+          controller.getLoggedInUser(),
           sceneName
       );
     } catch (IOException e) {

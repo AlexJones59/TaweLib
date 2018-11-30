@@ -23,7 +23,12 @@ public class Library extends Application {
     try {
       library = FileSystemHelper.getLibrary(DEFAULT_LIBRARY_NAME);
 
-      SceneHelper.setUpScene(primaryStage, library, "Login");
+      SceneHelper.setUpScene(
+          primaryStage,
+          library,
+          null,
+          "Login"
+      );
 
       setUpDefaultUsers();
     } catch (Exception e) {
