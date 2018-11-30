@@ -11,9 +11,9 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public abstract class Resource implements Serializable {
+public class Resource implements Serializable {
 
-  private String id;
+  private String resourceId;
   private String title;
   private int year;
   private Image thumbnailImage;
@@ -40,8 +40,8 @@ public abstract class Resource implements Serializable {
    *
    * @return the id
    */
-  public String getId() {
-    return id;
+  public String getResourceId() {
+    return resourceId;
   }
 
   /**
@@ -116,11 +116,4 @@ public abstract class Resource implements Serializable {
     this.type = type;
   }
 
-  /**
-   * Gets number of copies of the specific Resource available.
-   */
-  public int getNumberofCopiesAvailable() {
-    //TODO: Once CopyRepository is made, need to call the method.
-    return 0; //also needs to be changed.
-  }
 }
