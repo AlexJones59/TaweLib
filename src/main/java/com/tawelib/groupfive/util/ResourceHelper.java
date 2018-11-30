@@ -27,6 +27,10 @@ public class ResourceHelper {
    */
   public static URL getViewUrl(String resourceName)
       throws MalformedURLException {
+    /*
+    This approach was chosen because compatibility with Gradle and IntelliJ was
+    necessary across all devices and operating systems.
+     */
     File file = new File(
         System.getProperty("user.dir")
             + FXML_VIEWS_DIR
