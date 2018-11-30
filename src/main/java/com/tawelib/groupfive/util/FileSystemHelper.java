@@ -53,7 +53,7 @@ public class FileSystemHelper {
     Library library;
 
     try {
-      library = loadLibraryFromFile(getLibraryPath(name));
+      library = loadLibraryFromFile(name);
     } catch (FileNotFoundException e) {
       library = new Library(name);
     }
