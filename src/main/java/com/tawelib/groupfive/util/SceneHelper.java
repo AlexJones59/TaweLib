@@ -57,7 +57,7 @@ public class SceneHelper {
       controller.setLibrary(library);
       controller.setPrimaryStage(primaryStage);
       controller.setLoggedInUser(loggedInUser);
-      controller.refresh();
+      controller.setVisibilitiesAndRefresh();
     }
   }
 

@@ -4,13 +4,14 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
  * Holds important runtime references and controls the GUI actions.
  *
  * @author Petr Hoffmann
- * @version 0.1
+ * @version 0.2
  */
 public abstract class BaseFxmlController {
 
@@ -20,11 +21,39 @@ public abstract class BaseFxmlController {
 
   protected User loggedInUser;
 
+  protected Node[] librarianNodes;
+
+  protected Node[] customerNodes;
+
+  /**
+   * Configures the visible nodes and calls the refresh function.
+   */
+  public void setVisibilitiesAndRefresh() {
+    configureVisibilities();
+
+    if (librarianNodes != null && customerNodes != null) {
+      boolean librarianLoggedIn = isLibrarianLoggedIn();
+
+      for (Node node : librarianNodes) {
+        node.setVisible(librarianLoggedIn);
+      }
+
+      boolean customerLoggedIn = isCustomerLoggedIn();
+
+      for (Node node : customerNodes) {
+        node.setVisible(customerLoggedIn);
+      }
+    }
+  }
+
+  protected void configureVisibilities() {
+  }
+
   /**
    * Performs actions once the new scene is shown and runtime variables are
    * set.
    */
-  public void refresh() {
+  protected void refresh() {
   }
 
   /**

@@ -62,7 +62,7 @@ public class UserDashboardController extends BaseFxmlController {
    * Sets the dynamic fields.
    */
   @Override
-  public void refresh() {
+  protected void refresh() {
     setGuiForUsers();
 
     if (isLibrarianLoggedIn()) {
@@ -70,16 +70,15 @@ public class UserDashboardController extends BaseFxmlController {
     } else {
       setGuiForCustomers();
     }
-
-    setNodeVisibilities();
   }
 
   /**
    * Sets nodes visible to only one type of users visible to the correct type of
    * users only.
    */
-  private void setNodeVisibilities() {
-    Node[] availableToLibrariansOnly = {
+  @Override
+  protected void configureVisibilities() {
+    librarianNodes = new Node[]{
         staffNumberLabel,
         staffNumberTextField,
         manageResourcesButton,
@@ -88,22 +87,10 @@ public class UserDashboardController extends BaseFxmlController {
         manageUsersButton
     };
 
-    Node[] availableToCustomersOnly = {
+    customerNodes = new Node[]{
         transactionsAndFinesButton,
         manageAccountButton
     };
-
-    boolean librarianLoggedIn = isLibrarianLoggedIn();
-
-    for (Node node : availableToLibrariansOnly) {
-      node.setVisible(librarianLoggedIn);
-    }
-
-    boolean customerLoggedIn = isCustomerLoggedIn();
-
-    for (Node node : availableToCustomersOnly) {
-      node.setVisible(customerLoggedIn);
-    }
   }
 
   private void setGuiForUsers() {
