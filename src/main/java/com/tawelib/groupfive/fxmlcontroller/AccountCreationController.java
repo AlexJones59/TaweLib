@@ -27,7 +27,7 @@ public class AccountCreationController extends BaseFxmlController {
   private Button btnCreate;
 
   @FXML
-  private CheckBox cbxBibrarian;
+  private CheckBox cbxLibrarian;
 
   @FXML
   private Label lblAccountType;
@@ -92,47 +92,21 @@ public class AccountCreationController extends BaseFxmlController {
   public AccountCreationController() {
   }
 
-  /*
-  public void checkedLibrarian(ActionEvent event) {
-    lblEmployDate.setDisable(false);
-    txtEmployDate.setDisable(false);
-    lblStaffNo.setDisable(false);
-    txtStaffNo.setDisable(false);
+  public void toggleCreate() {
+    if (cbxLibrarian.isSelected()) {
+      txtStaffNo.setVisible(true);
+      txtStaffNo.setDisable(false);
+      lblStaffNo.setVisible(true);
+      txtEmployDate.setVisible(true);
+      txtEmployDate.setDisable(false);
+      lblEmployDate.setVisible(true);
+
+    }
   }
-  */
 
 
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
-
-
-  /*
-  @Override
-  protected void refresh() {
-    setGuiForUsers();
-
-    if (isLibrarianLoggedIn()) {
-      setGuiForLibrarians();
-    } else {
-      setGuiForCustomers();
-    }
-  }
-
-  private void setGuiForUsers() {
-    usernameTextField.setText(loggedInUser.getUsername());
-    fullNameTextField.setText(loggedInUser.getFullName());
-    //TODO: Format Address nicely.
-    addressTextField.setText(loggedInUser.getAddress().toString());
-  }
-
-  private void setGuiForLibrarians() {
-    staffNumberTextField.setText(
-        String.format(
-            "%d",
-            ((Librarian) loggedInUser).getStaffNumber()
-        )
-    );
-  }*/
 }
 
