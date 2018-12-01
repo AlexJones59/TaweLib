@@ -1,17 +1,20 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.util.SceneHelper;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controls the Account Creation screen.
+ *
+ * @author Dearbhla Jackson
+ * @version 0.1
+ */
 public class AccountCreationController extends BaseFxmlController {
 
   @FXML
@@ -27,7 +30,7 @@ public class AccountCreationController extends BaseFxmlController {
   private Button btnCreate;
 
   @FXML
-  private CheckBox cbxBibrarian;
+  private CheckBox cbxLibrarian;
 
   @FXML
   private Label lblAccountType;
@@ -89,50 +92,34 @@ public class AccountCreationController extends BaseFxmlController {
   @FXML
   private TextField txtSurname;
 
+  /**
+   * Instantiates a new Account creation controller.
+   */
   public AccountCreationController() {
   }
 
-  /*
-  public void checkedLibrarian(ActionEvent event) {
-    lblEmployDate.setDisable(false);
-    txtEmployDate.setDisable(false);
-    lblStaffNo.setDisable(false);
-    txtStaffNo.setDisable(false);
-  }
-  */
+  /**
+   * Changes visibilities of certain things depending on if you are
+   * creating a librarian.
+   */
+  public void toggleCreate() {
+    if (cbxLibrarian.isSelected()) {
+      txtStaffNo.setVisible(true);
+      txtStaffNo.setDisable(false);
+      lblStaffNo.setVisible(true);
+      txtEmployDate.setVisible(true);
+      txtEmployDate.setDisable(false);
+      lblEmployDate.setVisible(true);
 
-
-  public void back() {
-    SceneHelper.setUpScene(this, "UserDashboard");
-  }
-
-
-  /*
-  @Override
-  protected void refresh() {
-    setGuiForUsers();
-
-    if (isLibrarianLoggedIn()) {
-      setGuiForLibrarians();
-    } else {
-      setGuiForCustomers();
     }
   }
 
-  private void setGuiForUsers() {
-    usernameTextField.setText(loggedInUser.getUsername());
-    fullNameTextField.setText(loggedInUser.getFullName());
-    //TODO: Format Address nicely.
-    addressTextField.setText(loggedInUser.getAddress().toString());
-  }
 
-  private void setGuiForLibrarians() {
-    staffNumberTextField.setText(
-        String.format(
-            "%d",
-            ((Librarian) loggedInUser).getStaffNumber()
-        )
-    );
-  }*/
+  /**
+   * Goes back to the user dashboard screen.
+   */
+  public void back() {
+    SceneHelper.setUpScene(this, "UserDashboard");
+  }
 }
 

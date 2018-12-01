@@ -13,7 +13,7 @@ librarian account creation is ticked
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.AccountCreationController">
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -31,20 +31,20 @@ librarian account creation is ticked
                 <TextField fx:id="txtCity" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="257.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblPostcode" alignment="CENTER" contentDisplay="RIGHT" layoutX="9.0" layoutY="313.0" text="Postcode:" />
                 <TextField fx:id="txtPostcode" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="306.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
-                <Label fx:id="lblEmployDate" alignment="CENTER" contentDisplay="RIGHT" layoutX="4.0" layoutY="369.0" prefHeight="27.0" prefWidth="152.0" text="Employment Date:" />
-                <TextField fx:id="txtEmployDate" alignment="CENTER_RIGHT" layoutX="157.0" layoutY="363.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
+                <Label fx:id="lblEmployDate" alignment="CENTER" contentDisplay="RIGHT" layoutX="4.0" layoutY="369.0" prefHeight="27.0" prefWidth="152.0" text="Employment Date:" visible="false" />
+                <TextField fx:id="txtEmployDate" alignment="CENTER_RIGHT" disable="true" layoutX="157.0" layoutY="363.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" />
                 <Label fx:id="lblAccountType" alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="24.0" text="Type of account:" />
                 <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" text="Create" />
-                <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" text="Librarian" />
-                <TextField fx:id="txtStaffNo" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="415.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
-                <Label fx:id="lblStaffNo" alignment="CENTER" contentDisplay="RIGHT" layoutX="1.0" layoutY="421.0" prefHeight="27.0" prefWidth="152.0" text="Staff Number:" />
+                <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" onAction="#toggleCreate" text="Librarian" />
+                <TextField fx:id="txtStaffNo" alignment="CENTER_RIGHT" disable="true" layoutX="154.0" layoutY="415.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" />
+                <Label fx:id="lblStaffNo" alignment="CENTER" contentDisplay="RIGHT" layoutX="1.0" layoutY="421.0" prefHeight="27.0" prefWidth="152.0" text="Staff Number:" visible="false" />
             </children>
         </Pane>
     </center>
     <top>
         <Pane prefHeight="80.0" prefWidth="800.0">
             <children>
-                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="&lt;" />
+                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
                 <Label fx:id="lblScreenTitle" layoutX="307.0" layoutY="25.0" text="Account Creation">
                     <font>
                         <Font size="25.0" />
