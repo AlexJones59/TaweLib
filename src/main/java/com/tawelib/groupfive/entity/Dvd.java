@@ -20,8 +20,12 @@ public class Dvd extends Resource {
   /**
    * Instantiates a new Dvd.
    *
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param type the type
    * @param director the director
-   * @param runtime  the runtime
+   * @param runtime the runtime
    */
   public Dvd(String title, int year, Image thumbnailImage, ResourceType type,
              String director, int runtime) {

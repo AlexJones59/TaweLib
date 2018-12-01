@@ -136,13 +136,11 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   private void generateLeaseId(Lease lease) {
     try {
-      Field usernameField = lease.getClass().getDeclaredField("leaseId");
-      usernameField.setAccessible(true);
-      usernameField.set(lease, lastLeaseId);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Lease ID could not be set."
-      );
+      Field idField = lease.getClass().getDeclaredField("leaseId");
+      idField.setAccessible(true);
+      idField.set(lease, lastLeaseId);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     } finally {
       lastLeaseId++;
     }

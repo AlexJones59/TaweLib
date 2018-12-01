@@ -134,7 +134,7 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   public void createNewAccount() {
-    SceneHelper.setUpScene(this, "CreateAccount");
+    SceneHelper.setUpScene(this, "AccountCreation");
   }
 
   public void overdueCopies() {

@@ -77,10 +77,8 @@ public class CustomerRepository implements UserRepository<Customer> {
       usernameField.setAccessible(true);
       usernameField.set(customer, generatedUsername);
       usernameField.setAccessible(false);
-    } catch (Exception e) {
-      throw new IllegalStateException(
-          "Error message"
-      );
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
     }
   }
 
