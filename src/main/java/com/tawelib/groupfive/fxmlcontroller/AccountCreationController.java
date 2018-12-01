@@ -1,17 +1,20 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.util.SceneHelper;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Controls the Account Creation screen.
+ *
+ * @author Dearbhla Jackson
+ * @version 0.1
+ */
 public class AccountCreationController extends BaseFxmlController {
 
   @FXML
@@ -89,9 +92,16 @@ public class AccountCreationController extends BaseFxmlController {
   @FXML
   private TextField txtSurname;
 
+  /**
+   * Instantiates a new Account creation controller.
+   */
   public AccountCreationController() {
   }
 
+  /**
+   * Changes visibilities of certain things depending on if you are
+   * creating a librarian.
+   */
   public void toggleCreate() {
     if (cbxLibrarian.isSelected()) {
       txtStaffNo.setVisible(true);
@@ -105,6 +115,9 @@ public class AccountCreationController extends BaseFxmlController {
   }
 
 
+  /**
+   * Goes back to the user dashboard screen.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
