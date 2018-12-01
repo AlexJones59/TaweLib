@@ -12,8 +12,8 @@ import javafx.scene.control.TextField;
 /**
  * Controls the Account Creation screen.
  *
- * @author Dearbhla Jackson
- * @version 0.1
+ * @author Dearbhla Jackson, Shree Desai
+ * @version 0.4
  */
 public class AccountCreationController extends BaseFxmlController {
 
@@ -63,7 +63,28 @@ public class AccountCreationController extends BaseFxmlController {
   private Label lblStreet;
 
   @FXML
-  private Label lblSurname;
+  private Label lblLastName;
+
+  @FXML
+  private Label lblFirstNameCheck;
+
+  @FXML
+  private Label lblLastNameCheck;
+
+  @FXML
+  private Label lblPhoneNoCheck;
+
+  @FXML
+  private Label lblHouseNoCheck;
+
+  @FXML
+  private Label lblStreetCheck;
+
+  @FXML
+  private Label lblCityCheck;
+
+  @FXML
+  private Label lblPostcodeCheck;
 
   @FXML
   private TextField txtCity;
@@ -90,7 +111,8 @@ public class AccountCreationController extends BaseFxmlController {
   private TextField txtStreet;
 
   @FXML
-  private TextField txtSurname;
+  private TextField txtLastName;
+
 
   /**
    * Instantiates a new Account creation controller.
@@ -99,8 +121,8 @@ public class AccountCreationController extends BaseFxmlController {
   }
 
   /**
-   * Changes visibilities of certain things depending on if you are
-   * creating a librarian.
+   * Changes visibilities of certain things depending on if you are creating a
+   * librarian.
    */
   public void toggleCreate() {
     if (cbxLibrarian.isSelected()) {
@@ -110,10 +132,102 @@ public class AccountCreationController extends BaseFxmlController {
       txtEmployDate.setVisible(true);
       txtEmployDate.setDisable(false);
       lblEmployDate.setVisible(true);
-
     }
   }
 
+  /**
+   * First name check.
+   */
+  public void firstNameCheck() {
+    if (txtFirstName.getText().length() != 0) {
+      if (!txtFirstName.getText().matches("[A-Z][a-zA-Z]*")) {
+        lblFirstNameCheck.setText("This is not valid data for this field.");
+      } else {
+        lblFirstNameCheck.setText("First name is valid.");
+      }
+    }
+  }
+
+  /**
+   * Last name check.
+   */
+  public void lastNameCheck() {
+    if (txtLastName.getText().length() != 0) {
+      if (!txtLastName.getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+        lblLastNameCheck.setText("This is not valid data for this field.");
+      } else {
+        lblLastNameCheck.setText("Last Name is valid.");
+      }
+    }
+  }
+
+  /**
+   * Phone no check.
+   */
+  public void phoneNoCheck() {
+    if (txtPhoneNo.getText().length() != 0) {
+      if (!txtPhoneNo.getText().matches("^\\+?(?:\\d\\s?){10,12}$")) {
+        lblPhoneNoCheck.setText("This is not valid data for this field.");
+      } else {
+        lblPhoneNoCheck.setText("Phone No. is valid.");
+      }
+    }
+  }
+
+  /**
+   * House no check.
+   */
+  public void houseNoCheck() {
+    if (txtHouseNo.getText().length() != 0) {
+      if (txtHouseNo.getText().length() >= 10) {
+        lblHouseNoCheck.setText("This is not valid data for this field.");
+      } else {
+        lblHouseNoCheck.setText("House No. is valid.");
+      }
+    }
+  }
+
+
+  /**
+   * Street check.
+   */
+  public void streetCheck() {
+    if (txtStreet.getText().length() != 0) {
+      if (txtStreet.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
+        lblStreetCheck.setText("This is not valid data for this field.");
+      } else {
+        lblStreetCheck.setText("Street is valid.");
+      }
+    }
+  }
+
+  /**
+   * City check.
+   */
+  public void cityCheck() {
+    if (txtCity.getText().length() != 0) {
+      if (txtCity.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
+        lblCityCheck.setText("This is not valid data for this field.");
+      } else {
+        lblCityCheck.setText("City is valid.");
+      }
+    }
+  }
+
+
+  /**
+   * Postcode check.
+   */
+  public void postcodeCheck() {
+    if (txtPostcode.getText().length() != 0) {
+      if (txtPostcode.getText()
+          .matches("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$")) {
+        lblPostcodeCheck.setText("This is not valid data for this field.");
+      } else {
+        lblPostcodeCheck.setText("City is valid.");
+      }
+    }
+  }
 
   /**
    * Goes back to the user dashboard screen.

@@ -18,8 +18,8 @@
                         <Font size="48.0" />
                     </font>
                 </Text>
-                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
-                <Button layoutX="543.0" layoutY="440.0" mnemonicParsing="false" onAction="#signIn" text="Sign in" />
+                <ImageView fx:id="imgLibraryLogo" fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true" />
+                <Button fx:id="btnSignIn" layoutX="543.0" layoutY="440.0" mnemonicParsing="false" onAction="#signIn" text="Sign in" />
             </children>
         </Pane>
     </center>
