@@ -2,7 +2,7 @@
 
 <!--
 Employment date and Staff Number are hidden until checkbox for
-librairan account creation is ticked
+librarian account creation is ticked
 -->
 
 <?import javafx.scene.control.Button?>
@@ -35,7 +35,7 @@ librairan account creation is ticked
                 <TextField fx:id="txtEmployDate" alignment="CENTER_RIGHT" layoutX="157.0" layoutY="363.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblAccountType" alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="24.0" text="Type of account:" />
                 <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" text="Create" />
-                <CheckBox fx:id="cbxBibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" text="Librarian" />
+                <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" text="Librarian" />
                 <TextField fx:id="txtStaffNo" alignment="CENTER_RIGHT" layoutX="154.0" layoutY="415.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblStaffNo" alignment="CENTER" contentDisplay="RIGHT" layoutX="1.0" layoutY="421.0" prefHeight="27.0" prefWidth="152.0" text="Staff Number:" />
             </children>
