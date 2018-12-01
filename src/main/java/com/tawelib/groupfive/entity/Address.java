@@ -102,4 +102,13 @@ public class Address implements Serializable {
   public void setPostCode(String postCode) {
     this.postCode = postCode;
   }
+
+  /**
+   *
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return  houseNumber + ", " + street + ", " + city + ", "  + postCode;
+  }
 }
