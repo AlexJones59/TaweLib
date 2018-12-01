@@ -7,43 +7,32 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.tawelib.groupfive.fxmlcontroller.OverdueCopiesController">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.OverdueCopiesController">
     <center>
-        <TableView prefHeight="259.0" prefWidth="600.0">
+        <TableView fx:id="tblOverdueCopies" prefHeight="259.0" prefWidth="600.0">
             <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="Username"/>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="Title"/>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="ID"/>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="Type"/>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="Date"/>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0"
-                             text="Fine"/>
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Username" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Title" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="ID" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Type" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Date" />
+                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Fine" />
             </columns>
         </TableView>
     </center>
     <top>
         <Pane prefHeight="136.0" prefWidth="600.0">
             <children>
-                <Button fx:id="backButton" layoutX="14.0" layoutY="15.0"
-                        mnemonicParsing="false" onAction="#back" text="&lt;"/>
-                <Label layoutX="212.0" layoutY="25.0" text="Overdue Copies">
+                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#back" text="&lt;" />
+                <Label fx:id="lblScreenTitle" layoutX="212.0" layoutY="25.0" text="Overdue Copies">
                     <font>
-                        <Font size="25.0"/>
+                        <Font size="25.0" />
                     </font>
                 </Label>
-                <TextField layoutX="160.0" layoutY="100.0" prefWidth="200.0"/>
-                <Label layoutX="70.0" layoutY="100.0" text="Search:">
+                <TextField fx:id="txtSearchQuery" layoutX="160.0" layoutY="100.0" prefWidth="200.0" />
+                <Label fx:id="lblSearch" layoutX="70.0" layoutY="100.0" text="Search:">
                     <font>
-                        <Font size="20.0"/>
+                        <Font size="20.0" />
                     </font>
                 </Label>
             </children>
