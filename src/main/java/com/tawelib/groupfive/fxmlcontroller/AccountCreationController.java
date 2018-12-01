@@ -1,8 +1,10 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.util.SceneHelper;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -110,6 +112,13 @@ public class AccountCreationController extends BaseFxmlController {
       txtEmployDate.setVisible(true);
       txtEmployDate.setDisable(false);
       lblEmployDate.setVisible(true);
+    } else {
+      txtStaffNo.setVisible(false);
+      txtStaffNo.setDisable(true);
+      lblStaffNo.setVisible(false);
+      txtEmployDate.setVisible(false);
+      txtEmployDate.setDisable(true);
+      lblEmployDate.setVisible(false);
 
     }
   }
