@@ -1,8 +1,10 @@
 package com.tawelib.groupfive.util;
 
+import com.tawelib.groupfive.entity.User;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javafx.scene.image.Image;
 
 /**
  * Locates the project's resources (assets).
@@ -39,5 +41,17 @@ public class ResourceHelper {
     );
 
     return file.toURI().toURL();
+  }
+
+  public static Image getUserProfileImage(User user) {
+    String profilePicturePath = FileSystemHelper
+        .getUserProfilePicturePath(user);
+    File imageFile = new File(profilePicturePath);
+    if (imageFile.exists() && !imageFile.isDirectory()) {
+      Image profileImage = new Image("file:" + profilePicturePath);
+      return profileImage;
+    } else {
+      return null;
+    }
   }
 }
