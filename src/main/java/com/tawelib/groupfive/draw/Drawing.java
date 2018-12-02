@@ -178,7 +178,6 @@ public class Drawing extends Application {
       } catch (IOException e) {
         System.out.println("File not found");
       }
-      user.setProfileImage(bufferedImage);
     });
   }
 }
