@@ -132,6 +132,13 @@ public class AccountCreationController extends BaseFxmlController {
       txtEmployDate.setVisible(true);
       txtEmployDate.setDisable(false);
       lblEmployDate.setVisible(true);
+    } else {
+      txtStaffNo.setVisible(false);
+      txtStaffNo.setDisable(true);
+      lblStaffNo.setVisible(false);
+      txtEmployDate.setVisible(false);
+      txtEmployDate.setDisable(true);
+      lblEmployDate.setVisible(false);
     }
   }
 
