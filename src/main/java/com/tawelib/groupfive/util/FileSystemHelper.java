@@ -64,6 +64,12 @@ public class FileSystemHelper {
     return library;
   }
 
+  /**
+   * Returns a path to the user's profile image.
+   *
+   * @param user User.
+   * @return Path to the user's profile image.
+   */
   public static String getUserProfilePicturePath(User user) {
     if (user == null) {
       //For development purposes.
@@ -78,6 +84,11 @@ public class FileSystemHelper {
     }
   }
 
+  /**
+   * Creates a directory recursively if it doesn't exist already.
+   *
+   * @param path Path.
+   */
   public static void createDirectoryIfNotExist(String path) {
     File directoryNecessary = new File(path);
     if (!directoryNecessary.exists()) {
