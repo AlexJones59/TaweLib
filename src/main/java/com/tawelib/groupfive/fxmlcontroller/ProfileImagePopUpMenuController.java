@@ -22,9 +22,10 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
+  /**
+   * Launches an app for drawing custom images.
+   */
   public void drawYourOwn() {
-//    DrawingLock drawingLock = new DrawingLock();
-
     Platform.runLater(new Runnable() {
       public void run() {
         Drawing drawingApp = new Drawing();

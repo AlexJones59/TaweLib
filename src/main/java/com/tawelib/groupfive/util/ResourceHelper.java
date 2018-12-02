@@ -43,6 +43,12 @@ public class ResourceHelper {
     return file.toURI().toURL();
   }
 
+  /**
+   * Returns a profile image for a given user.
+   *
+   * @param user User.
+   * @return Profile image of the given user.
+   */
   public static Image getUserProfileImage(User user) {
     String profilePicturePath = FileSystemHelper
         .getUserProfilePicturePath(user);
@@ -52,6 +58,7 @@ public class ResourceHelper {
       return profileImage;
     } else {
       return null;
+      //TODO: Return a default one.
     }
   }
 }
