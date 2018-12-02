@@ -18,8 +18,8 @@ import java.io.ObjectOutputStream;
  */
 public class FileSystemHelper {
 
-  private static final String LIBRARY_SAVE_DIR = "data/";
-  private static final String IMAGES_SAVE_DIR = "data/images/";
+  public static final String LIBRARY_SAVE_DIR = "data/";
+  public static final String IMAGES_SAVE_DIR = "data/images/";
 
   private FileSystemHelper() {
     // An empty constructor to prevent instantiating this class.
