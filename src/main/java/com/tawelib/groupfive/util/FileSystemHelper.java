@@ -32,6 +32,7 @@ public class FileSystemHelper {
    * @throws IOException Unable to save the changes.
    */
   public static void saveLibraryToFile(Library library) throws IOException {
+    createDirectoryIfNotExist(LIBRARY_SAVE_DIR);
     String path = getLibraryPath(library.getName());
 
     FileOutputStream outputStream = new FileOutputStream(path);
