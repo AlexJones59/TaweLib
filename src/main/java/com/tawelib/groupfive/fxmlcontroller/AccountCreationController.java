@@ -3,11 +3,15 @@ package com.tawelib.groupfive.fxmlcontroller;
 import com.tawelib.groupfive.util.SceneHelper;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -89,10 +93,13 @@ public class AccountCreationController extends BaseFxmlController {
   private Label lblPostcodeCheck;
 
   @FXML
+  private Label lblEmploymentDateCheck;
+
+  @FXML
   private TextField txtCity;
 
   @FXML
-  private TextField txtEmployDate;
+  private DatePicker dateEmploymentDate;
 
   @FXML
   private TextField txtFirstName;
@@ -131,15 +138,17 @@ public class AccountCreationController extends BaseFxmlController {
       txtStaffNo.setVisible(true);
       txtStaffNo.setDisable(false);
       lblStaffNo.setVisible(true);
-      txtEmployDate.setVisible(true);
-      txtEmployDate.setDisable(false);
+      dateEmploymentDate.setVisible(true);
+      dateEmploymentDate.setOpacity(1);
+      dateEmploymentDate.setDisable(false);
       lblEmployDate.setVisible(true);
     } else {
       txtStaffNo.setVisible(false);
       txtStaffNo.setDisable(true);
       lblStaffNo.setVisible(false);
-      txtEmployDate.setVisible(false);
-      txtEmployDate.setDisable(true);
+      dateEmploymentDate.setVisible(false);
+      dateEmploymentDate.setOpacity(0);
+      dateEmploymentDate.setDisable(true);
       lblEmployDate.setVisible(false);
     }
   }
@@ -202,7 +211,7 @@ public class AccountCreationController extends BaseFxmlController {
    */
   public void streetCheck() {
     if (txtStreet.getText().length() != 0) {
-      if (txtStreet.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
+      if (!txtStreet.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
         lblStreetCheck.setText("This is not valid data for this field.");
       } else {
         lblStreetCheck.setText("Street is valid.");
@@ -215,7 +224,7 @@ public class AccountCreationController extends BaseFxmlController {
    */
   public void cityCheck() {
     if (txtCity.getText().length() != 0) {
-      if (txtCity.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
+      if (!txtCity.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
         lblCityCheck.setText("This is not valid data for this field.");
       } else {
         lblCityCheck.setText("City is valid.");
@@ -229,7 +238,7 @@ public class AccountCreationController extends BaseFxmlController {
    */
   public void postcodeCheck() {
     if (txtPostcode.getText().length() != 0) {
-      if (txtPostcode.getText()
+      if (!txtPostcode.getText()
           .matches("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$")) {
         lblPostcodeCheck.setText("This is not valid data for this field.");
       } else {
@@ -237,6 +246,24 @@ public class AccountCreationController extends BaseFxmlController {
       }
     }
   }
+
+  /**
+   * Postcode check.
+   */
+  public void employmentDateCheck() {
+    Date currentDate = new Date();
+    LocalDate pickedDate = dateEmploymentDate.getValue();
+    Date picked = Date.from(pickedDate.atStartOfDay()
+        .atZone(ZoneId.systemDefault()).toInstant());
+    if (picked.after(currentDate)) {
+      lblEmploymentDateCheck.setText("This is not valid data for this field.");
+    } else {
+      lblEmploymentDateCheck.setText("Employment Date is valid");
+    }
+
+  }
+
+  //public void createAccount() {}
 
   /**
    * Goes back to the user dashboard screen.

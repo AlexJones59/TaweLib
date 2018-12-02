@@ -27,16 +27,15 @@ librarian account creation is ticked
                 <Label fx:id="lblHouseNo" alignment="CENTER" contentDisplay="RIGHT" layoutX="24.0" layoutY="173.0" text="House Number:" />
                 <Label fx:id="lblStreet" alignment="CENTER" contentDisplay="RIGHT" layoutX="66.0" layoutY="217.0" text="Street:" />
                 <TextField fx:id="txtFirstName" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="51.0" maxHeight="-Infinity" onKeyReleased="#firstNameCheck" prefHeight="20.0" prefWidth="200.0" />
-                <TextField fx:id="txtPhoneNo" alignment="CENTER_RIGHT" layoutX="149.0" layoutY="128.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
+                <TextField fx:id="txtPhoneNo" alignment="CENTER_RIGHT" layoutX="149.0" layoutY="128.0" maxHeight="-Infinity" onKeyReleased="#phoneNoCheck" prefHeight="20.0" prefWidth="200.0" />
                 <TextField fx:id="txtLastName" alignment="CENTER_RIGHT" layoutX="149.0" layoutY="91.0" maxHeight="-Infinity" onKeyReleased="#lastNameCheck" prefHeight="20.0" prefWidth="200.0" />
-                <TextField fx:id="txtHouseNo" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="169.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
-                <TextField fx:id="txtStreet" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="213.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
+                <TextField fx:id="txtHouseNo" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="169.0" maxHeight="-Infinity" onKeyReleased="#houseNoCheck" prefHeight="20.0" prefWidth="200.0" />
+                <TextField fx:id="txtStreet" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="213.0" maxHeight="-Infinity" onKeyReleased="#streetCheck" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblCity" alignment="CENTER" contentDisplay="RIGHT" layoutX="83.0" layoutY="261.0" text="City:" />
-                <TextField fx:id="txtCity" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="257.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
+                <TextField fx:id="txtCity" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="257.0" maxHeight="-Infinity" onKeyReleased="#cityCheck" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblPostcode" alignment="CENTER" contentDisplay="RIGHT" layoutX="57.0" layoutY="310.0" text="Postcode:" />
-                <TextField fx:id="txtPostcode" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="306.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
+                <TextField fx:id="txtPostcode" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="306.0" maxHeight="-Infinity" onKeyReleased="#postcodeCheck" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblEmployDate" alignment="CENTER" contentDisplay="RIGHT" layoutX="4.0" layoutY="369.0" prefHeight="27.0" prefWidth="152.0" text="Employment Date:" visible="false" />
-                <TextField fx:id="txtEmployDate" alignment="CENTER_RIGHT" disable="true" layoutX="157.0" layoutY="363.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" />
                 <Label fx:id="lblAccountType" alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="24.0" text="Type of account:" />
                 <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" text="Create" />
                 <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" onAction="#toggleCreate" text="Librarian" />
@@ -49,6 +48,8 @@ librarian account creation is ticked
             <Label fx:id="lblStreetCheck" layoutX="370.0" layoutY="217.0" prefHeight="17.0" prefWidth="313.0" />
             <Label fx:id="lblCityCheck" layoutX="370.0" layoutY="261.0" prefHeight="17.0" prefWidth="305.0" />
             <Label fx:id="lblPostcodeCheck" layoutX="370.0" layoutY="310.0" prefHeight="17.0" prefWidth="323.0" />
+            <DatePicker fx:id="dateEmploymentDate" disable="true" layoutX="176.0" layoutY="370.0" onAction="#employmentDateCheck" opacity="0.0" />
+            <Label fx:id="lblEmploymentDateCheck" layoutX="406.0" layoutY="374.0" prefHeight="17.0" prefWidth="228.0" />
             </children>
         </Pane>
     </center>
