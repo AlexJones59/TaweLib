@@ -4,6 +4,7 @@ import static javafx.scene.paint.Color.WHITE;
 
 import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.util.FileSystemHelper;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -171,11 +172,13 @@ public class Drawing extends Application {
       File file = new File(FileSystemHelper.getUserProfilePicturePath(user));
       WritableImage imgOfCanvas = new WritableImage(CANVAS_SIDE, CANVAS_SIDE);
       canvas.snapshot(null, imgOfCanvas);
+      BufferedImage bufferedImage = SwingFXUtils.fromFXImage(imgOfCanvas, null);
       try {
-        ImageIO.write(SwingFXUtils.fromFXImage(imgOfCanvas, null), IMAGE_FORMAT, file);
+        ImageIO.write(bufferedImage, IMAGE_FORMAT, file);
       } catch (IOException e) {
         System.out.println("File not found");
       }
+      user.setProfileImage(bufferedImage);
     });
   }
 }
