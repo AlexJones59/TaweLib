@@ -1,6 +1,5 @@
 package com.tawelib.groupfive.entity;
 
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
@@ -17,7 +16,6 @@ public class User implements Serializable {
   protected String lastName;
   protected String phoneNumber;
   protected Address address;
-  protected BufferedImage profileImage;
 
   /**
    * Creates an instance of the User class.
@@ -126,13 +124,5 @@ public class User implements Serializable {
    */
   public void setAddress(Address address) {
     this.address = address;
-  }
-
-  public BufferedImage getProfileImage() {
-    return profileImage;
-  }
-
-  public void setProfileImage(BufferedImage profileImage) {
-    this.profileImage = profileImage;
   }
 }
