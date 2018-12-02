@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.util;
 
+import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.User;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -19,6 +20,7 @@ public class ResourceHelper {
 
   public static final String FXML_VIEWS_DIR =
       "/src/main/java/com/tawelib/groupfive/view/";
+  private static final String DEFAULT_IMAGE = "default_0";
 
   /**
    * Returns the URL of the requested resource.
@@ -53,12 +55,12 @@ public class ResourceHelper {
     String profilePicturePath = FileSystemHelper
         .getUserProfilePicturePath(user);
     File imageFile = new File(profilePicturePath);
-    if (imageFile.exists() && !imageFile.isDirectory()) {
-      Image profileImage = new Image("file:" + profilePicturePath);
-      return profileImage;
+    if (imageFile.isFile()) {
+      return new Image("file:" + profilePicturePath);
     } else {
-      return null;
-      //TODO: Return a default one.
+      String dir = "file:" + FileSystemHelper.IMAGES_SAVE_DIR + "profile/default/"
+          + DEFAULT_IMAGE + "." + Drawing.IMAGE_FORMAT;
+      return new Image(dir);
     }
   }
 }
