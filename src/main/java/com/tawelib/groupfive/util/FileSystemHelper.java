@@ -1,7 +1,8 @@
 package com.tawelib.groupfive.util;
 
+import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.Library;
-
+import com.tawelib.groupfive.entity.User;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +18,7 @@ import java.io.ObjectOutputStream;
 public class FileSystemHelper {
 
   private static final String LIBRARY_SAVE_DIR = "data/";
+  private static final String IMAGES_SAVE_DIR = "data/images/";
 
   private FileSystemHelper() {
     // An empty constructor to prevent instantiating this class.
@@ -45,7 +47,7 @@ public class FileSystemHelper {
    *
    * @param name Name of the library to load.
    * @return Loaded library.
-   * @throws IOException            Unable to access the file.
+   * @throws IOException Unable to access the file.
    * @throws ClassNotFoundException Corrupted file.
    */
   public static Library getLibrary(String name) throws IOException,
@@ -61,9 +63,19 @@ public class FileSystemHelper {
     return library;
   }
 
+  public static String getUserProfilePicturePath(User user) {
+    if (user == null) {
+      //For development purposes.
+      return IMAGES_SAVE_DIR + "profile/default/temp." + Drawing.IMAGE_FORMAT;
+    } else {
+      return IMAGES_SAVE_DIR + "profile/custom/" + user.getUsername() + "."
+          + Drawing.IMAGE_FORMAT;
+    }
+  }
+
   /**
-   * Reads a Library from the file system.
-   * If the file path supplied is null a default path is used.
+   * Reads a Library from the file system. If the file path supplied is null a
+   * default path is used.
    *
    * @return Library loaded from the file system.
    */

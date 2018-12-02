@@ -2,6 +2,8 @@ package com.tawelib.groupfive.draw;
 
 import static javafx.scene.paint.Color.WHITE;
 
+import com.tawelib.groupfive.entity.User;
+import com.tawelib.groupfive.util.FileSystemHelper;
 import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
@@ -19,17 +21,20 @@ import javax.imageio.ImageIO;
 
 
 /**
- * The Drawing class creates a new window and allow to draw on its canvas and save the result as a
- * file. For drawing can be used point, line, rectangle and oval shapes, also the closed chapes can
- * be filled. The size of brush and color can be changed. Native window resolution is 1920 x 1080p
+ * The Drawing class creates a new window and allow to draw on its canvas and
+ * save the result as a file. For drawing can be used point, line, rectangle and
+ * oval shapes, also the closed chapes can be filled. The size of brush and
+ * color can be changed. Native window resolution is 1920 x 1080p
  */
 public class Drawing extends Application {
 
+  public static final String IMAGE_FORMAT = "png";
   private static final int WINDOW_HEIGHT = 1080;
   private static final int WINDOW_WIDTH = 1920;
   private static final int CANVAS_SIDE = 800;
   private Canvas canvas;
   private GraphicsContext gc;
+  private User user;
 
   /*An array of boolean which determines the shape selected and if
   filling option is enabled(point,line,rect,oval,fill)*/
@@ -40,6 +45,11 @@ public class Drawing extends Application {
 
   public static void main(String[] args) {
     launch(args);
+  }
+
+  public void startWithUserReference(User user) {
+    this.user = user;
+    start(new Stage());
   }
 
   @Override
@@ -72,8 +82,8 @@ public class Drawing extends Application {
   }
 
   /**
-   * The method uses MouseEvents to catch the users mouse pressed and draw on the canvas shapes
-   * according to the selected ones.
+   * The method uses MouseEvents to catch the users mouse pressed and draw on
+   * the canvas shapes according to the selected ones.
    */
   private void mouseDraw() {
     canvas.setOnMousePressed((evt) -> {
@@ -112,10 +122,12 @@ public class Drawing extends Application {
                 Math.abs(height));
             //If the shape is filled Rectangle
           } else if (shapes[2] && shapes[shapes.length - 1]) {
-            gc.fillRect(posXAndY[0], posXAndY[1], Math.abs(width), Math.abs(height));
+            gc.fillRect(posXAndY[0], posXAndY[1], Math.abs(width),
+                Math.abs(height));
             //If the shape is filled Oval
           } else if (shapes[3] && shapes[shapes.length - 1]) {
-            gc.fillOval(posXAndY[0], posXAndY[1], Math.abs(width), Math.abs(height));
+            gc.fillOval(posXAndY[0], posXAndY[1], Math.abs(width),
+                Math.abs(height));
           }
         }
       });
@@ -123,8 +135,9 @@ public class Drawing extends Application {
   }
 
   /**
-   * The method takes the position of the mouse pressed and the dimensions of the shape and return
-   * the adjusted x and y, as the shape can be drawn to the any side.
+   * The method takes the position of the mouse pressed and the dimensions of
+   * the shape and return the adjusted x and y, as the shape can be drawn to the
+   * any side.
    *
    * @param x x position when mouse pressed
    * @param y y position when mouse pressed
@@ -155,11 +168,11 @@ public class Drawing extends Application {
 
     saveButton.setOnAction((evt) -> {
 
-      File file = new File("2.png");
+      File file = new File(FileSystemHelper.getUserProfilePicturePath(user));
       WritableImage imgOfCanvas = new WritableImage(CANVAS_SIDE, CANVAS_SIDE);
       canvas.snapshot(null, imgOfCanvas);
       try {
-        ImageIO.write(SwingFXUtils.fromFXImage(imgOfCanvas, null), "png", file);
+        ImageIO.write(SwingFXUtils.fromFXImage(imgOfCanvas, null), IMAGE_FORMAT, file);
       } catch (IOException e) {
         System.out.println("File not found");
       }
