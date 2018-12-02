@@ -1,8 +1,7 @@
 package com.tawelib.groupfive.entity;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
-
-import javafx.scene.image.Image;
 
 /**
  * File name: User.java User class stores personal information for the account
@@ -18,7 +17,7 @@ public class User implements Serializable {
   protected String lastName;
   protected String phoneNumber;
   protected Address address;
-  protected Image profileImage;
+  protected BufferedImage profileImage;
 
   /**
    * Creates an instance of the User class.
@@ -127,5 +126,13 @@ public class User implements Serializable {
    */
   public void setAddress(Address address) {
     this.address = address;
+  }
+
+  public BufferedImage getProfileImage() {
+    return profileImage;
+  }
+
+  public void setProfileImage(BufferedImage profileImage) {
+    this.profileImage = profileImage;
   }
 }
