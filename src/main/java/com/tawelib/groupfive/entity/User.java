@@ -2,8 +2,6 @@ package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
 
-import javafx.scene.image.Image;
-
 /**
  * File name: User.java User class stores personal information for the account
  * holder (either the Customer or Librarian).
@@ -18,7 +16,6 @@ public class User implements Serializable {
   protected String lastName;
   protected String phoneNumber;
   protected Address address;
-  protected Image profileImage;
 
   /**
    * Creates an instance of the User class.

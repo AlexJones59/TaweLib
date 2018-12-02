@@ -1,7 +1,9 @@
 package com.tawelib.groupfive.util;
 
+import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.Library;
-
+import com.tawelib.groupfive.entity.User;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +19,7 @@ import java.io.ObjectOutputStream;
 public class FileSystemHelper {
 
   private static final String LIBRARY_SAVE_DIR = "data/";
+  private static final String IMAGES_SAVE_DIR = "data/images/";
 
   private FileSystemHelper() {
     // An empty constructor to prevent instantiating this class.
@@ -45,7 +48,7 @@ public class FileSystemHelper {
    *
    * @param name Name of the library to load.
    * @return Loaded library.
-   * @throws IOException            Unable to access the file.
+   * @throws IOException Unable to access the file.
    * @throws ClassNotFoundException Corrupted file.
    */
   public static Library getLibrary(String name) throws IOException,
@@ -62,8 +65,40 @@ public class FileSystemHelper {
   }
 
   /**
-   * Reads a Library from the file system.
-   * If the file path supplied is null a default path is used.
+   * Returns a path to the user's profile image.
+   *
+   * @param user User.
+   * @return Path to the user's profile image.
+   */
+  public static String getUserProfilePicturePath(User user) {
+    if (user == null) {
+      //For development purposes.
+      String directory = IMAGES_SAVE_DIR + "profile/default/";
+      createDirectoryIfNotExist(directory);
+      return directory + "temp." + Drawing.IMAGE_FORMAT;
+    } else {
+      String directory = IMAGES_SAVE_DIR + "profile/custom/";
+      createDirectoryIfNotExist(directory);
+      return directory + user.getUsername() + "."
+          + Drawing.IMAGE_FORMAT;
+    }
+  }
+
+  /**
+   * Creates a directory recursively if it doesn't exist already.
+   *
+   * @param path Path.
+   */
+  public static void createDirectoryIfNotExist(String path) {
+    File directoryNecessary = new File(path);
+    if (!directoryNecessary.exists()) {
+      directoryNecessary.mkdirs();
+    }
+  }
+
+  /**
+   * Reads a Library from the file system. If the file path supplied is null a
+   * default path is used.
    *
    * @return Library loaded from the file system.
    */

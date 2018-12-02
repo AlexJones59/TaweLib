@@ -1,12 +1,15 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Controls the user dashboard screen.
@@ -55,6 +58,9 @@ public class UserDashboardController extends BaseFxmlController {
   @FXML
   public Button manageResourcesButton;
 
+  @FXML
+  public ImageView profileImageImageView;
+
   public UserDashboardController() {
   }
 
@@ -98,6 +104,11 @@ public class UserDashboardController extends BaseFxmlController {
     fullNameTextField.setText(loggedInUser.getFullName());
     //TODO: Format Address nicely.
     addressTextField.setText(loggedInUser.getAddress().toString());
+
+    Image profileImage = ResourceHelper.getUserProfileImage(loggedInUser);
+    if (profileImage != null) {
+      profileImageImageView.setImage(profileImage);
+    }
   }
 
   private void setGuiForLibrarians() {
@@ -147,5 +158,9 @@ public class UserDashboardController extends BaseFxmlController {
 
   public void manageResources() {
     SceneHelper.setUpScene(this, "BrowseResources");
+  }
+
+  public void changeProfileImage() {
+    SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
   }
 }
