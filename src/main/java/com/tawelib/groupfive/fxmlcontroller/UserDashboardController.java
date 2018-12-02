@@ -148,4 +148,8 @@ public class UserDashboardController extends BaseFxmlController {
   public void manageResources() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
+
+  public void changeProfileImage() {
+    SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
+  }
 }
