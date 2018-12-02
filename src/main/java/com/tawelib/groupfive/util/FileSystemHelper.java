@@ -3,6 +3,7 @@ package com.tawelib.groupfive.util;
 import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,10 +67,21 @@ public class FileSystemHelper {
   public static String getUserProfilePicturePath(User user) {
     if (user == null) {
       //For development purposes.
-      return IMAGES_SAVE_DIR + "profile/default/temp." + Drawing.IMAGE_FORMAT;
+      String directory = IMAGES_SAVE_DIR + "profile/default/";
+      createDirectoryIfNotExist(directory);
+      return directory + "temp." + Drawing.IMAGE_FORMAT;
     } else {
-      return IMAGES_SAVE_DIR + "profile/custom/" + user.getUsername() + "."
+      String directory = IMAGES_SAVE_DIR + "profile/custom/";
+      createDirectoryIfNotExist(directory);
+      return directory + user.getUsername() + "."
           + Drawing.IMAGE_FORMAT;
+    }
+  }
+
+  public static void createDirectoryIfNotExist(String path) {
+    File directoryNecessary = new File(path);
+    if (!directoryNecessary.exists()) {
+      directoryNecessary.mkdirs();
     }
   }
 
