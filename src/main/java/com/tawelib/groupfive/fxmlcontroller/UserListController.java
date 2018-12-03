@@ -21,6 +21,9 @@ public class UserListController extends BaseFxmlController {
   public UserListController() {
   }
 
+  /**
+   * Initializes the gui.
+   */
   @FXML
   public void initialize() {
     usernameTableColumn.setCellValueFactory(
