@@ -76,11 +76,11 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getType() == ResourceType.BOOK) {
         Book searchBook = (Book) searchResource;
-        if ( searchBook.getTitle().equals(query)
+        if (searchBook.getTitle().equals(query)
             || searchBook.getYear() == Integer.valueOf(query)
             || searchBook.getAuthor().equals(query)
             || searchBook.getPublisher().equals(query)
-            || searchBook.getGenre().equals(query) ) {
+            || searchBook.getGenre().equals(query)) {
           result.add(searchBook);
         }
       }
@@ -108,7 +108,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
             || searchDvd.getYear() == Integer.valueOf(query)
             || searchDvd.getDirector().equals(query)
             || searchDvd.getRuntime() == Integer.valueOf(query)) {
-              result.add(searchDvd);
+          result.add(searchDvd);
         }
       }
     }
@@ -136,8 +136,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
             || searchLaptop.getYear() == Integer.valueOf(query)
             || searchLaptop.getManufacturer().equals(query)
             || searchLaptop.getModel().equals(query)
-            ||searchLaptop.getInstalledOperatingSystem().equals(query)) {
-              result.add(searchLaptop);
+            || searchLaptop.getInstalledOperatingSystem().equals(query)) {
+          result.add(searchLaptop);
 
         }
       }
