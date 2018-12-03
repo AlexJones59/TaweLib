@@ -69,40 +69,19 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * Search through resources of type "Book".
    *
    * @param query the query
-   * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
-  public List<Book> searchBook(String query, String searchAttribute) {
+  public List<Book> searchBook(String query) {
     ArrayList<Book> result = new ArrayList<>();
     for (Resource searchResource : resources) {
       if (searchResource.getType() == ResourceType.BOOK) {
-        Book searchBook = (Book) searchResource; switch (searchAttribute) {
-          case "Title": {
-            if (searchBook.getTitle().equals(query)) {
-              result.add(searchBook);
-            }
-            break;
-          } case "Year": {
-            if (searchBook.getYear() == Integer.valueOf(query)) {
-              result.add(searchBook);
-            }
-            break;
-          } case "Author": {
-            if (searchBook.getAuthor().equals(query)) {
-              result.add(searchBook);
-            }
-            break;
-          } case "Publisher": {
-            if (searchBook.getPublisher().equals(query)) {
-              result.add(searchBook);
-            }
-            break;
-          } case "Genre": {
-            if (searchBook.getGenre().equals(query)) {
-              result.add(searchBook);
-            }
-            break;
-          } default :
+        Book searchBook = (Book) searchResource;
+        if ( searchBook.getTitle().equals(query)
+            || searchBook.getYear() == Integer.valueOf(query)
+            || searchBook.getAuthor().equals(query)
+            || searchBook.getPublisher().equals(query)
+            || searchBook.getGenre().equals(query) ) {
+          result.add(searchBook);
         }
       }
     }
@@ -118,35 +97,18 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * Search through resources of type "DVD".
    *
    * @param query the query
-   * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
-  public List<Dvd> searchDvd(String query, String searchAttribute) {
+  public List<Dvd> searchDvd(String query) {
     ArrayList<Dvd> result = new ArrayList<>();
     for (Resource searchResource : resources) {
       if (searchResource.getType() == ResourceType.DVD) {
-        Dvd searchDvd = (Dvd) searchResource; switch (searchAttribute) {
-          case "Title": {
-            if (searchDvd.getTitle().equals(query)) {
+        Dvd searchDvd = (Dvd) searchResource;
+        if (searchDvd.getTitle().equals(query)
+            || searchDvd.getYear() == Integer.valueOf(query)
+            || searchDvd.getDirector().equals(query)
+            || searchDvd.getRuntime() == Integer.valueOf(query)) {
               result.add(searchDvd);
-            }
-            break;
-          } case "Year": {
-            if (searchDvd.getYear() == Integer.valueOf(query)) {
-              result.add(searchDvd);
-            }
-            break;
-          } case "Director": {
-            if (searchDvd.getDirector().equals(query)) {
-              result.add(searchDvd);
-            }
-            break;
-          } case "Runtime": {
-            if (searchDvd.getRuntime() == Integer.valueOf(query)) {
-              result.add(searchDvd);
-            }
-            break;
-          } default :
         }
       }
     }
@@ -170,33 +132,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getType() == ResourceType.LAPTOP) {
         Laptop searchLaptop = (Laptop) searchResource;
-        switch (searchAttribute) {
-          case "title": {
-            if (searchLaptop.getTitle().equals(query)) {
+        if (searchLaptop.getTitle().equals(query)
+            || searchLaptop.getYear() == Integer.valueOf(query)
+            || searchLaptop.getManufacturer().equals(query)
+            || searchLaptop.getModel().equals(query)
+            ||searchLaptop.getInstalledOperatingSystem().equals(query)) {
               result.add(searchLaptop);
-            }
-            break;
-          } case "Year": {
-            if (searchLaptop.getYear() == Integer.valueOf(query)) {
-              result.add(searchLaptop);
-            }
-            break;
-          } case "Manufacturer": {
-            if (searchLaptop.getManufacturer().equals(query)) {
-              result.add(searchLaptop);
-            }
-            break;
-          } case "Model": {
-            if (searchLaptop.getModel().equals(query)) {
-              result.add(searchLaptop);
-            }
-            break;
-          } case "Installed Operating System": {
-            if (searchLaptop.getInstalledOperatingSystem().equals(query)) {
-              result.add(searchLaptop);
-            }
-            break;
-          } default:
+
         }
       }
     }

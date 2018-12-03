@@ -54,4 +54,6 @@ public class BrowseResourcesController extends BaseFxmlController {
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
+
+
 }
