@@ -266,6 +266,9 @@ public class AccountCreationController extends BaseFxmlController {
 
   }
 
+  /**
+   * Creates an appropriate account.
+   */
   public void createAccount() {
     if (cbxLibrarian.isSelected()) {
       UserController.createLibrarianAccount(
