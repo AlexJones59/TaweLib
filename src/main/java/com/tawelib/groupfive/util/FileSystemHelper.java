@@ -63,7 +63,8 @@ public class FileSystemHelper {
     } catch (ClassNotFoundException | InvalidClassException e) {
       if (Main.DEV_MODE) {
         File libraryFile = new File(
-            getLibraryPath(com.tawelib.groupfive.view.Library.DEFAULT_LIBRARY_NAME)
+            getLibraryPath(
+                com.tawelib.groupfive.view.Library.DEFAULT_LIBRARY_NAME)
         );
 
         if (libraryFile.exists()) {
@@ -74,8 +75,7 @@ public class FileSystemHelper {
       } else {
         throw e;
       }
-    }
-    catch (FileNotFoundException e) {
+    } catch (FileNotFoundException e) {
       library = new Library(name);
     }
 

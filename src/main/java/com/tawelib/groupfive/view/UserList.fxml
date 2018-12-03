@@ -31,6 +31,6 @@
                 </TableView>
             </children>
         </Pane>
-        <Button fx:id="btnOpen" layoutX="491.0" layoutY="414.0" mnemonicParsing="false" text="Open" />
+        <Button fx:id="openButton" layoutX="491.0" layoutY="414.0" mnemonicParsing="false" onAction="#manageUser" text="Open" />
     </children>
 </AnchorPane>
