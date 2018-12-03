@@ -145,13 +145,13 @@ public class CopyController {
 
   /**
    * Generate Due Date.
-   * @param newLease
-   * @param resourceType
+   * @param newLease new lease
+   * @param resourceType resource type
    */
   private static void generateDueDate(Lease newLease,
       ResourceType resourceType) {
-    long dueDateMilli = newLease.getDateLeased().getTime() +
-        ((resourceType.getLoanDuration()) * DAYTOMILLISECONDS);
+    long dueDateMilli = newLease.getDateLeased().getTime()
+        + ((resourceType.getLoanDuration()) * DAYTOMILLISECONDS);
     Date dueDate = new Date(dueDateMilli);
     newLease.setDueDate(dueDate);
 
