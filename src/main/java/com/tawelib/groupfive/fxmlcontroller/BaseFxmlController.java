@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
+import java.util.Collection;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -19,9 +20,9 @@ public abstract class BaseFxmlController {
 
   protected Stage primaryStage;
 
-  protected User loggedInUser;
+  protected static User loggedInUser;
 
-  protected User selectedUser;
+  protected static User selectedUser;
 
   protected Node[] librarianNodes;
 
@@ -34,19 +35,17 @@ public abstract class BaseFxmlController {
     configureVisibilities();
 
     if (librarianNodes != null) {
-      boolean librarianLoggedIn = isLibrarianLoggedIn();
-
-      for (Node node : librarianNodes) {
-        node.setVisible(librarianLoggedIn);
-      }
+      setNodeVisibilities(
+          librarianNodes,
+          isLibrarianLoggedIn()
+      );
     }
 
     if (customerNodes != null) {
-      boolean customerLoggedIn = isCustomerLoggedIn();
-
-      for (Node node : customerNodes) {
-        node.setVisible(customerLoggedIn);
-      }
+      setNodeVisibilities(
+          customerNodes,
+          isCustomerLoggedIn()
+      );
     }
 
     refresh();
@@ -57,6 +56,12 @@ public abstract class BaseFxmlController {
 
     if (isCustomerLoggedIn()) {
       refreshForCustomers();
+    }
+  }
+
+  protected void setNodeVisibilities(Node[] nodes, boolean visible) {
+    for (Node node : nodes) {
+      node.setVisible(visible);
     }
   }
 
