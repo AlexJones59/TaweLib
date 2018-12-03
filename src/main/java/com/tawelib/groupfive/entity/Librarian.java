@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * File Name: Librarian.java Librarian class stores personal information for the
@@ -11,7 +12,7 @@ import java.time.LocalDate;
  */
 public class Librarian extends User {
 
-  private final LocalDate employmentDate;
+  private final Date employmentDate;
   private int staffNumber;
 
   /**
@@ -28,7 +29,7 @@ public class Librarian extends User {
    */
   public Librarian(String firstName, String lastName, String phoneNumber,
                    String houseNumber, String street, String city,
-                   String postCode, LocalDate employmentDate) {
+                   String postCode, Date employmentDate) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
     this.employmentDate = employmentDate;
@@ -39,7 +40,7 @@ public class Librarian extends User {
    *
    * @return the employment date
    */
-  public LocalDate getEmploymentDate() {
+  public Date getEmploymentDate() {
     return employmentDate;
   }
 

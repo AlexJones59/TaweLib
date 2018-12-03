@@ -275,7 +275,8 @@ public class AccountCreationController extends BaseFxmlController {
           library,
           txtFirstName.getText(),
           txtLastName.getText(),
-          dateEmploymentDate.getValue(),
+          Date.from(dateEmploymentDate.getValue().atStartOfDay()
+              .atZone(ZoneId.systemDefault()).toInstant()),
           txtPhoneNo.getText(),
           txtHouseNo.getText(),
           txtStreet.getText(),
