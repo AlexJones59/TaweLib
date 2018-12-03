@@ -39,8 +39,6 @@ librarian account creation is ticked
                 <Label fx:id="lblAccountType" alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="24.0" text="Type of account:" />
                 <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#createAccount" text="Create" />
                 <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" onAction="#toggleCreate" text="Librarian" />
-                <TextField fx:id="txtStaffNo" alignment="CENTER_RIGHT" disable="true" layoutX="154.0" layoutY="415.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" visible="false" />
-                <Label fx:id="lblStaffNo" alignment="CENTER" contentDisplay="RIGHT" layoutX="1.0" layoutY="421.0" prefHeight="27.0" prefWidth="152.0" text="Staff Number:" visible="false" />
             <Label fx:id="lblFirstNameCheck" layoutX="370.0" layoutY="55.0" prefHeight="17.0" prefWidth="305.0" />
             <Label fx:id="lblLastNameCheck" layoutX="356.0" layoutY="95.0" prefHeight="17.0" prefWidth="335.0" />
             <Label fx:id="lblPhoneNoCheck" layoutX="370.0" layoutY="132.0" prefHeight="17.0" prefWidth="303.0" />
