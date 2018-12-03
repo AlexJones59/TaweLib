@@ -2,9 +2,13 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.util.SceneHelper;
 
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -32,7 +36,11 @@ public class BrowseResourcesController extends BaseFxmlController {
   private Button btnInfo;
 
   @FXML
-  private MenuButton mbtnResourceType;
+  private ComboBox<String> cmbResourceType;
+
+  private ObservableList<String> resourceType =
+      FXCollections.observableArrayList(
+      "Book", "DVD","Laptop");
 
 
   public BrowseResourcesController() {
@@ -43,12 +51,8 @@ public class BrowseResourcesController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
-    MenuItem menuItemBook  = new MenuItem("Book");
-    MenuItem menuItemDvd  = new MenuItem("DVD");
-    MenuItem menuItemLaptop  = new MenuItem("Laptop");
+    cmbResourceType.setItems(resourceType);
 
-    mbtnResourceType.getItems().addAll(menuItemBook, menuItemDvd,
-        menuItemLaptop);
   }
 
   public void back() {
