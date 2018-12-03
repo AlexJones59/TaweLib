@@ -37,9 +37,7 @@ public class RequestRepository implements BaseRepository<Request> {
     if (customerRequests.isEmpty()) {
       return customerRequests;
     }
-    throw new IllegalStateException(
-        "The universe is about to end!!! No, but the class reflection is broken..."
-    );
+    return null;
   }
 
   /**
@@ -97,6 +95,18 @@ public class RequestRepository implements BaseRepository<Request> {
     }
     return null;
   }
+
+  public Request getSpecificReserved(String customerUsername,
+      Resource requestedResource){
+    for (Request request : requests) {
+      if (request.getCustomerUsername().equals(customerUsername)
+          | request.getRequestedResource().equals(requestedResource)) {
+        return request;
+      }
+    }
+    return null;
+  }
+
 
   /**
    * Gets specific.
