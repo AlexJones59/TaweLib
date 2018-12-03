@@ -38,6 +38,10 @@ public class Customer extends User {
     return accountBalance;
   }
 
+  public double getAccountBalanceInPounds() {
+    return ((double) accountBalance) * 100;
+  }
+
   /**
    * Increase account balance.
    *

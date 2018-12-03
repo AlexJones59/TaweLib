@@ -21,6 +21,8 @@ public abstract class BaseFxmlController {
 
   protected User loggedInUser;
 
+  protected User selectedUser;
+
   protected Node[] librarianNodes;
 
   protected Node[] customerNodes;
@@ -31,13 +33,15 @@ public abstract class BaseFxmlController {
   public void setVisibilitiesAndRefresh() {
     configureVisibilities();
 
-    if (librarianNodes != null && customerNodes != null) {
+    if (librarianNodes != null) {
       boolean librarianLoggedIn = isLibrarianLoggedIn();
 
       for (Node node : librarianNodes) {
         node.setVisible(librarianLoggedIn);
       }
+    }
 
+    if (customerNodes != null) {
       boolean customerLoggedIn = isCustomerLoggedIn();
 
       for (Node node : customerNodes) {
@@ -46,6 +50,14 @@ public abstract class BaseFxmlController {
     }
 
     refresh();
+
+    if (isLibrarianLoggedIn()) {
+      refreshForLibrarians();
+    }
+
+    if (isCustomerLoggedIn()) {
+      refreshForCustomers();
+    }
   }
 
   protected void configureVisibilities() {
@@ -56,6 +68,20 @@ public abstract class BaseFxmlController {
    * set.
    */
   protected void refresh() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are
+   * set in case that a Librarian is logged in.
+   */
+  protected void refreshForLibrarians() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are
+   * set in case that a Customer is logged in.
+   */
+  protected void refreshForCustomers() {
   }
 
   /**
@@ -110,6 +136,24 @@ public abstract class BaseFxmlController {
    */
   public void setLoggedInUser(User loggedInUser) {
     this.loggedInUser = loggedInUser;
+  }
+
+  /**
+   * Returns the currently selected user.
+   *
+   * @return Selected User.
+   */
+  public User getSelectedUser() {
+    return selectedUser;
+  }
+
+  /**
+   * Sets the currently selected User.
+   *
+   * @param selectedUser Selected User.
+   */
+  public void setSelectedUser(User selectedUser) {
+    this.selectedUser = selectedUser;
   }
 
   /**
