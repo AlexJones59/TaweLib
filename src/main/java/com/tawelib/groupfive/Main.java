@@ -14,6 +14,8 @@ import com.tawelib.groupfive.view.Library;
  */
 public class Main {
 
+  public static final boolean DEV_MODE = true;
+
   /**
    * This method checks whether the application is activated. In case it is,
    * it launches the Tawe-Lib application. In case it is not, it launches

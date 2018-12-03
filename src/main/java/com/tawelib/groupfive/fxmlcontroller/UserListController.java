@@ -69,6 +69,11 @@ public class UserListController extends BaseFxmlController {
     );
   }
 
+  public void manageUser() {
+    selectedUser = userListTableView.getSelectionModel().getSelectedItem();
+    SceneHelper.setUpScene(this, "UserInformation");
+  }
+
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }

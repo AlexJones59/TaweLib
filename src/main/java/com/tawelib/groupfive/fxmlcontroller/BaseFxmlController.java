@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
+import java.util.Collection;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -19,7 +20,9 @@ public abstract class BaseFxmlController {
 
   protected Stage primaryStage;
 
-  protected User loggedInUser;
+  protected static User loggedInUser;
+
+  protected static User selectedUser;
 
   protected Node[] librarianNodes;
 
@@ -31,21 +34,35 @@ public abstract class BaseFxmlController {
   public void setVisibilitiesAndRefresh() {
     configureVisibilities();
 
-    if (librarianNodes != null && customerNodes != null) {
-      boolean librarianLoggedIn = isLibrarianLoggedIn();
+    if (librarianNodes != null) {
+      setNodeVisibilities(
+          librarianNodes,
+          isLibrarianLoggedIn()
+      );
+    }
 
-      for (Node node : librarianNodes) {
-        node.setVisible(librarianLoggedIn);
-      }
-
-      boolean customerLoggedIn = isCustomerLoggedIn();
-
-      for (Node node : customerNodes) {
-        node.setVisible(customerLoggedIn);
-      }
+    if (customerNodes != null) {
+      setNodeVisibilities(
+          customerNodes,
+          isCustomerLoggedIn()
+      );
     }
 
     refresh();
+
+    if (isLibrarianLoggedIn()) {
+      refreshForLibrarians();
+    }
+
+    if (isCustomerLoggedIn()) {
+      refreshForCustomers();
+    }
+  }
+
+  protected void setNodeVisibilities(Node[] nodes, boolean visible) {
+    for (Node node : nodes) {
+      node.setVisible(visible);
+    }
   }
 
   protected void configureVisibilities() {
@@ -56,6 +73,20 @@ public abstract class BaseFxmlController {
    * set.
    */
   protected void refresh() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are
+   * set in case that a Librarian is logged in.
+   */
+  protected void refreshForLibrarians() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are
+   * set in case that a Customer is logged in.
+   */
+  protected void refreshForCustomers() {
   }
 
   /**
@@ -110,6 +141,24 @@ public abstract class BaseFxmlController {
    */
   public void setLoggedInUser(User loggedInUser) {
     this.loggedInUser = loggedInUser;
+  }
+
+  /**
+   * Returns the currently selected user.
+   *
+   * @return Selected User.
+   */
+  public User getSelectedUser() {
+    return selectedUser;
+  }
+
+  /**
+   * Sets the currently selected User.
+   *
+   * @param selectedUser Selected User.
+   */
+  public void setSelectedUser(User selectedUser) {
+    this.selectedUser = selectedUser;
   }
 
   /**
