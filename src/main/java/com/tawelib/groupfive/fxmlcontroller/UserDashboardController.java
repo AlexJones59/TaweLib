@@ -32,6 +32,9 @@ public class UserDashboardController extends BaseFxmlController {
   public TextField addressTextField;
 
   @FXML
+  public TextField phoneNumberTextField;
+
+  @FXML
   public Label staffNumberLabel;
 
   @FXML
@@ -104,6 +107,7 @@ public class UserDashboardController extends BaseFxmlController {
     fullNameTextField.setText(loggedInUser.getFullName());
     //TODO: Format Address nicely.
     addressTextField.setText(loggedInUser.getAddress().toString());
+    phoneNumberTextField.setText(loggedInUser.getPhoneNumber());
 
     Image profileImage = ResourceHelper.getUserProfileImage(loggedInUser);
     if (profileImage != null) {
