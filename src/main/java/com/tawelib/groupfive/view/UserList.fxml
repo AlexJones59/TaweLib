@@ -23,10 +23,10 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <TableView fx:id="tblUserList" layoutX="25.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="260.0" prefWidth="550.0">
+                <TableView fx:id="userListTableView" layoutX="25.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="260.0" prefWidth="550.0">
                     <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="292.0" text="Username" />
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="256.0" text="Name" />
+                        <TableColumn fx:id="usernameTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="292.0" text="Username" />
+                        <TableColumn fx:id="fullNameTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="256.0" text="Name" />
                     </columns>
                 </TableView>
             </children>
