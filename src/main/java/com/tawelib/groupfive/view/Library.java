@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -65,7 +66,7 @@ public class Library extends Application {
             "The street",
             "Swansea",
             "SA28PJ",
-            new Date()
+            LocalDate.now()
         )
     );
     library.getCustomerRepository().add(

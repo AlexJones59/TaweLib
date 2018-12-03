@@ -6,7 +6,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Transaction;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * File Name - UserController.java The User Controller class controls data flow
@@ -29,7 +29,7 @@ public class UserController {
    * @param city the city
    * @param postcode the postcode
    */
-  public void createCustomerAccount(Library library, String firstName,
+  public static void createCustomerAccount(Library library, String firstName,
       String lastName, String phoneNumber, String houseNumber, String street,
       String city, String postcode) {
     Customer newCustomer = new Customer(firstName,lastName,phoneNumber,
@@ -50,8 +50,8 @@ public class UserController {
    * @param city the city
    * @param postcode the postcode
    */
-  public void createLibrarianAccount(Library library, String firstName,
-      String lastName, Date employmentDate, String phoneNumber,
+  public static void createLibrarianAccount(Library library, String firstName,
+      String lastName, LocalDate employmentDate, String phoneNumber,
       String houseNumber, String street, String city, String postcode) {
     Librarian newLibrarian = new Librarian(firstName,lastName,phoneNumber,
         houseNumber,street,city,postcode,employmentDate);
@@ -72,7 +72,7 @@ public class UserController {
    * @param city the city
    * @param postcode the postcode
    */
-  public void updateCustomerAccount(Library library,
+  public static void updateCustomerAccount(Library library,
       String username, String firstName, String lastName, String phoneNumber,
       String houseNumber, String street, String city, String postcode) {
     library.getCustomerRepository().getSpecific(username).setFirstName(firstName);
@@ -95,7 +95,7 @@ public class UserController {
    * @param city the city
    * @param postcode the postcode
    */
-  public void updateLibrarianAccount(Library library,
+  public static void updateLibrarianAccount(Library library,
       String username, String firstName, String lastName, String phoneNumber,
       String houseNumber, String street, String city, String postcode) {
     library.getLibrarianRepository().getSpecific(username).setFirstName(firstName);
@@ -112,7 +112,7 @@ public class UserController {
    * @param customerUsername the customer username
    * @param amount the amount
    */
-  public void topUpAccountBalance(Library library, String customerUsername,
+  public static void topUpAccountBalance(Library library, String customerUsername,
       int amount) {
     Customer payee = library.getCustomerRepository()
         .getSpecific(customerUsername);
