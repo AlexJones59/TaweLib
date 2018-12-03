@@ -66,7 +66,7 @@ public class Library extends Application {
             "The street",
             "Swansea",
             "SA28PJ",
-            LocalDate.now()
+            new Date()
         )
     );
     library.getCustomerRepository().add(
