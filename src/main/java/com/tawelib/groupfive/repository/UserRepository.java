@@ -1,5 +1,8 @@
 package com.tawelib.groupfive.repository;
 
+import com.tawelib.groupfive.entity.User;
+import java.util.Collection;
+
 /**
  * Defines all operations user repositories needs to implement.
  *
@@ -17,4 +20,6 @@ public interface UserRepository<T> extends BaseRepository<T> {
    * @return T User subclass.
    */
   T authenticate(String username);
+
+  Collection<? extends User> search(String query);
 }
