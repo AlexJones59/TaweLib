@@ -64,9 +64,6 @@ public class AccountCreationController extends BaseFxmlController {
   private Label lblScreenTitle;
 
   @FXML
-  private Label lblStaffNo;
-
-  @FXML
   private Label lblStreet;
 
   @FXML
@@ -115,9 +112,6 @@ public class AccountCreationController extends BaseFxmlController {
   private TextField txtPostcode;
 
   @FXML
-  private TextField txtStaffNo;
-
-  @FXML
   private TextField txtStreet;
 
   @FXML
@@ -136,17 +130,11 @@ public class AccountCreationController extends BaseFxmlController {
    */
   public void toggleCreate() {
     if (cbxLibrarian.isSelected()) {
-      txtStaffNo.setVisible(true);
-      txtStaffNo.setDisable(false);
-      lblStaffNo.setVisible(true);
       dateEmploymentDate.setVisible(true);
       dateEmploymentDate.setOpacity(1);
       dateEmploymentDate.setDisable(false);
       lblEmployDate.setVisible(true);
     } else {
-      txtStaffNo.setVisible(false);
-      txtStaffNo.setDisable(true);
-      lblStaffNo.setVisible(false);
       dateEmploymentDate.setVisible(false);
       dateEmploymentDate.setOpacity(0);
       dateEmploymentDate.setDisable(true);
