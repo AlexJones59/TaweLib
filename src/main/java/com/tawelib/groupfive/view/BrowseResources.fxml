@@ -28,18 +28,8 @@ table and change it's schema depending on what Resource Type is selected.
                 <TextField fx:id="txtSearch" layoutX="113.0" layoutY="125.0" />
                 <Button fx:id="btnInfo" layoutX="707.0" layoutY="51.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Info" />
                 <MenuButton fx:id="mbtnSearchAttribute" layoutX="429.0" layoutY="123.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="160.0" text="Search by">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Name" />
-                        <MenuItem mnemonicParsing="false" text="ID" />
-                        <MenuItem mnemonicParsing="false" text="Year" />
-                    </items>
                 </MenuButton>
                 <MenuButton fx:id="mbtnResourceType" layoutX="656.0" layoutY="123.0" mnemonicParsing="false" text="Resource type">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Book" />
-                        <MenuItem mnemonicParsing="false" text="DVD" />
-                        <MenuItem mnemonicParsing="false" text="Laptop" />
-                    </items>
                 </MenuButton>
                 <BorderPane layoutX="17.0" layoutY="190.0" prefHeight="526.0" prefWidth="821.0">
                     <center>
