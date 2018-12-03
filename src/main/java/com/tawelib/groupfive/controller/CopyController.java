@@ -14,6 +14,7 @@ import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.RequestRepository;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * File Name - CopyController.java The CopyController class controls data flow
@@ -34,9 +35,9 @@ public class CopyController {
   /**
    * Create resource copy.
    *
-   * @param library  the library
+   * @param library the library
    * @param resource the resource
-   * @param amount   the amount
+   * @param amount the amount
    */
   public void createResourceCopy(Library library, Resource resource,
                                  int amount) {
@@ -49,8 +50,8 @@ public class CopyController {
   /**
    * Borrow resource copy.
    *
-   * @param library          the library
-   * @param copyId           the copy id
+   * @param library the library
+   * @param copyId the copy id
    * @param customerUsername the customer username
    */
   public void borrowResourceCopy(Library library, String copyId,
@@ -58,6 +59,8 @@ public class CopyController {
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
     library.getCopyRepository().getSpecific(copyId)
         .setStatus(CopyStatus.BORROWED);
+    library.getCopyRepository().getSpecific(copyId)
+        .setBorrowingCustomerUsername(customerUsername);
     Lease newLease = new Lease(copyId, customerUsername);
     if (library.getRequestRepository()
         .getOpenResourceRequests(borrowedCopy.getResource()) != null) {
@@ -70,6 +73,7 @@ public class CopyController {
   /**
    * Return resource copy.
    *
+   * @param library the library
    * @param copyId the copy id
    */
   public void returnResourceCopy(Library library, String copyId) {
@@ -78,7 +82,7 @@ public class CopyController {
     Lease currentLease = library.getLeaseRepository()
         .getCopyCurrentLease(copyId);
 
-    if (currentLease.getDueDate().before(dateReturned) == true) {
+    if (currentLease.getDueDate().before(dateReturned)) {
       Fine newFine = new Fine(currentLease);
       library.getFineRepository().add(newFine);
       String returningCustomerUsername = currentLease
@@ -91,7 +95,7 @@ public class CopyController {
     Resource returnedResource = library.getCopyRepository()
         .getSpecific(currentLease.getBorrowedCopyId()).getResource();
     if (library.getRequestRepository().getOpenResourceRequests(returnedResource)
-        .isEmpty() == true) {
+        .isEmpty()) {
       library.getCopyRepository()
           .getSpecific(currentLease.getBorrowedCopyId())
           .setStatus(CopyStatus.AVAILABLE);
@@ -115,11 +119,39 @@ public class CopyController {
 
   }
 
+  /**
+   * Pick Up reserved Copy.
+   *
+   * @param library the library
+   * @param copyId the copy id
+   * @param customerUsername the customer username
+   */
+  public void pickUpReservedCopy(Library library, String copyId,
+      String customerUsername) {
+
+    Copy reservedCopy = library.getCopyRepository().getSpecific(copyId);
+    library.getCopyRepository().getSpecific(copyId)
+        .setStatus(CopyStatus.BORROWED);
+    library.getRequestRepository().getSpecificReserved(customerUsername,
+        reservedCopy.getResource()).setStatus(RequestStatus.RESERVED);
+    Lease newLease = new Lease(copyId, customerUsername);
+    if (library.getRequestRepository()
+        .getOpenResourceRequests(reservedCopy.getResource()) != null) {
+      generateDueDate(newLease, reservedCopy.getResource().getType());
+    }
+    library.getLeaseRepository().add(newLease);
+
+  }
+
+  /**
+   * Generate Due Date.
+   * @param newLease new lease
+   * @param resourceType resource type
+   */
   private static void generateDueDate(Lease newLease,
-                                      ResourceType resourceType) {
-    long dueDateMilli =
-        newLease.getDateLeased().getTime() + ((resourceType.getLoanDuration())
-            * DAYTOMILLISECONDS);
+      ResourceType resourceType) {
+    long dueDateMilli = newLease.getDateLeased().getTime()
+        + ((resourceType.getLoanDuration()) * DAYTOMILLISECONDS);
     Date dueDate = new Date(dueDateMilli);
     newLease.setDueDate(dueDate);
 
