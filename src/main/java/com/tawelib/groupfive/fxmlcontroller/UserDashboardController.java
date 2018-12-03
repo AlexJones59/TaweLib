@@ -59,9 +59,6 @@ public class UserDashboardController extends BaseFxmlController {
   public Button manageUsersButton;
 
   @FXML
-  public Button manageResourcesButton;
-
-  @FXML
   public ImageView profileImageImageView;
 
   public UserDashboardController() {
@@ -90,7 +87,6 @@ public class UserDashboardController extends BaseFxmlController {
     librarianNodes = new Node[]{
         staffNumberLabel,
         staffNumberTextField,
-        manageResourcesButton,
         overdueCopiesButton,
         createNewAccountButton,
         manageUsersButton
@@ -158,10 +154,6 @@ public class UserDashboardController extends BaseFxmlController {
 
   public void manageUsers() {
     SceneHelper.setUpScene(this, "UserList");
-  }
-
-  public void manageResources() {
-    SceneHelper.setUpScene(this, "BrowseResources");
   }
 
   public void changeProfileImage() {

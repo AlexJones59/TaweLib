@@ -4,14 +4,14 @@
 Disabled text and field for Employment date if updating a Librarian's user information
 -->
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -40,7 +40,7 @@ Disabled text and field for Employment date if updating a Librarian's user infor
     <top>
         <Pane prefHeight="80.0" prefWidth="800.0">
             <children>
-                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="&lt;" />
+                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" />
                 <Label fx:id="lblScreenTitle" layoutX="307.0" layoutY="25.0" text="User Information">
                     <font>
                         <Font size="25.0" />
