@@ -22,6 +22,9 @@ public class Lease implements Serializable {
   private String borrowingCustomerUsername;
   private String borrowedCopyId;
 
+  // TODO: This will be the way after refactoring.
+  private Copy copy;
+
 
   /**
    * Instantiates a new Lease.
@@ -105,4 +108,13 @@ public class Lease implements Serializable {
     return borrowedCopyId;
   }
 
+  /**
+   * TODO: This will be the way after refactoring.
+   * Returns the copy.
+   *
+   * @return The Copy.
+   */
+  public Copy getCopy() {
+    return copy;
+  }
 }

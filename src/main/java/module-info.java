@@ -12,4 +12,5 @@ module com.tawelib.groupfive {
   exports com.tawelib.groupfive.draw to javafx.graphics;
   opens com.tawelib.groupfive.fxmlcontroller to javafx.fxml;
   opens com.tawelib.groupfive.entity;
+  opens com.tawelib.groupfive.tablewrapper;
 }
