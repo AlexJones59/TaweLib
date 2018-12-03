@@ -94,15 +94,10 @@ public class CustomerRepository implements UserRepository<Customer> {
       suffixBase++;
     }
 
-    try {
-      Field usernameField = customer.getClass().getSuperclass()
-          .getDeclaredField("username");
-      usernameField.setAccessible(true);
-      usernameField.set(customer, generatedUsername);
-      usernameField.setAccessible(false);
-    } catch (IllegalAccessException | NoSuchFieldException e) {
-      e.printStackTrace();
-    }
+    assignGeneratedId(
+        customer,
+        generatedUsername
+    );
   }
 
   /**

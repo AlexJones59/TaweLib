@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.User;
+import java.lang.reflect.Field;
 import java.util.Collection;
 
 /**
@@ -22,4 +23,16 @@ public interface UserRepository<T> extends BaseRepository<T> {
   T authenticate(String username);
 
   Collection<? extends User> search(String query);
+
+  default void assignGeneratedId(User user, String username) {
+    try {
+      Field usernameField = user.getClass().getSuperclass()
+          .getDeclaredField("username");
+      usernameField.setAccessible(true);
+      usernameField.set(user, username);
+      usernameField.setAccessible(false);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -104,15 +104,10 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     }
 
     //Use
-    try {
-      Field usernameField = librarian.getClass().getSuperclass()
-          .getDeclaredField("username");
-      usernameField.setAccessible(true);
-      usernameField.set(librarian, generatedUsername);
-      usernameField.setAccessible(false);
-    } catch (IllegalAccessException | NoSuchFieldException e) {
-      e.printStackTrace();
-    }
+    assignGeneratedId(
+        librarian,
+        generatedUsername
+    );
   }
 
   /**
