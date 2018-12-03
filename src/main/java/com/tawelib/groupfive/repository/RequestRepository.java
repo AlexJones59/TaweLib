@@ -96,8 +96,15 @@ public class RequestRepository implements BaseRepository<Request> {
     return null;
   }
 
+  /**
+   * Get specific reserved request.
+   *
+   * @param customerUsername the customer username
+   * @param requestedResource the requested resource
+   * @return the request
+   */
   public Request getSpecificReserved(String customerUsername,
-      Resource requestedResource){
+      Resource requestedResource) {
     for (Request request : requests) {
       if (request.getCustomerUsername().equals(customerUsername)
           | request.getRequestedResource().equals(requestedResource)) {
