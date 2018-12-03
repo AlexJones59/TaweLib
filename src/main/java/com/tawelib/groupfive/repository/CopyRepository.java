@@ -1,7 +1,9 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.exception.AuthenticationException;
 
 import java.lang.reflect.Field;
@@ -17,9 +19,13 @@ import java.util.List;
 public class CopyRepository implements BaseRepository<Copy> {
 
 
-  private static ArrayList<Copy> copies;
+  private ArrayList<Copy> copies;
 
-  private static long lastCopyId = 0;
+  private long lastCopyId = 0;
+
+  public CopyRepository() {
+    copies = new ArrayList<>();
+  }
 
   /**
    * Generates a unique id for copies.
@@ -58,9 +64,11 @@ public class CopyRepository implements BaseRepository<Copy> {
    *
    * @param customerUsername the customer username
    * @return the borrowed copies
+   *
+   * @deprecated Use getBorrowedCopies(User user) in the future.
    */
   public List<Copy> getBorrowedCopies(String customerUsername) {
-    ArrayList<Copy> borrowedCopies = new ArrayList<Copy>();
+    ArrayList<Copy> borrowedCopies = new ArrayList<>();
     for (Copy borrowed : copies) {
       if (borrowed.getBorrowingCustomerUsername().equals(customerUsername)) {
         borrowedCopies.add(borrowed);
@@ -74,10 +82,30 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
+   * Gets borrowed copies.
+   *
+   * @param customer The Customer.
+   * @return the borrowed copies.
+   */
+  public List<Copy> getBorrowedCopies(Customer customer) {
+    ArrayList<Copy> result = new ArrayList<>();
+
+    for (Copy copy : copies) {
+      if (copy.getBorrowingCustomer() == customer) {
+        result.add(copy);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Gets resource copies.
    *
    * @param resourceId the resource id
    * @return the resource copies
+   *
+   * @deprecated Use getResourceCopies(Resource resource)
    */
   public List<Copy> getResourceCopies(String resourceId) {
     ArrayList<Copy> resourceCopies = new ArrayList<Copy>();
@@ -90,6 +118,24 @@ public class CopyRepository implements BaseRepository<Copy> {
       return resourceCopies;
     }
     return null;
+  }
+
+  /**
+   * Gets resource copies.
+   *
+   * @param resource Resource.
+   * @return the resource copies
+   */
+  public List<Copy> getResourceCopies(Resource resource) {
+    ArrayList<Copy> result = new ArrayList<>();
+
+    for (Copy copy : copies) {
+      if (copy.getResource() == resource) {
+        result.add(copy);
+      }
+    }
+
+    return result;
   }
 
   /**
