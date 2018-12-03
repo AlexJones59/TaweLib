@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.controller.UserController;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.net.URL;
 import java.time.LocalDate;
@@ -7,6 +8,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -240,7 +243,7 @@ public class AccountCreationController extends BaseFxmlController {
           .matches("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$")) {
         lblPostcodeCheck.setText("This is not valid data for this field.");
       } else {
-        lblPostcodeCheck.setText("City is valid.");
+        lblPostcodeCheck.setText("Post code is valid.");
       }
     }
   }
@@ -261,7 +264,39 @@ public class AccountCreationController extends BaseFxmlController {
 
   }
 
-  //public void createAccount() {}
+  public void createAccount() {
+    if (cbxLibrarian.isSelected()) {
+      UserController.createLibrarianAccount(
+          library,
+          txtFirstName.getText(),
+          txtLastName.getText(),
+          dateEmploymentDate.getValue(),
+          txtPhoneNo.getText(),
+          txtHouseNo.getText(),
+          txtStreet.getText(),
+          txtCity.getText(),
+          txtPostcode.getText()
+      );
+    } else {
+      UserController.createCustomerAccount(
+          library,
+          txtFirstName.getText(),
+          txtLastName.getText(),
+          txtPhoneNo.getText(),
+          txtHouseNo.getText(),
+          txtStreet.getText(),
+          txtCity.getText(),
+          txtPostcode.getText()
+      );
+    }
+
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.setHeaderText("Success");
+    alert.setContentText("User account created.");
+    alert.showAndWait();
+
+    back();
+  }
 
   /**
    * Goes back to the user dashboard screen.
@@ -270,4 +305,3 @@ public class AccountCreationController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 }
-
