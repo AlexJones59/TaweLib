@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="346.0" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <left>
+        <Pane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Label layoutX="50.0" layoutY="10.0" text="Customer Username:" />
+                <Label layoutX="50.0" layoutY="40.0" text="Amount:" />
+                <TextField fx:id="txtCustomerUsername" layoutX="250.0" layoutY="10.0" prefWidth="200.0" />
+                <TextField fx:id="txtAmount" layoutX="250.0" layoutY="40.0" prefWidth="200.0" />
+                <Button fx:id="btnTopUp" layoutX="116.0" layoutY="121.0" mnemonicParsing="false" prefWidth="70.0" text="Top Up" />
+            </children>
+        </Pane>
+    </left>
+    <top>
+        <Pane prefHeight="79.0" prefWidth="600.0">
+            <children>
+                <Label layoutX="147.0" layoutY="22.0" text="Top Up Account Balance">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </top>
+   <center>
+          <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
