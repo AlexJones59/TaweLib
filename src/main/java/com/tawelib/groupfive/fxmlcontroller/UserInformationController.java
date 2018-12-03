@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Customer;
-import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -31,33 +30,41 @@ public class UserInformationController extends BaseFxmlController {
   public UserInformationController() {
   }
 
-  @Override
-  protected void configureVisibilities() {
-    customerNodes = new Node[]{
-        balanceLabel,
-        balanceTextField
-    };
-  }
-
   /**
    * Sets the dynamic fields.
    */
   @Override
   public void refresh() {
-    firstNameTextField.setText(loggedInUser.getFirstName());
-    lastNameTextField.setText(loggedInUser.getLastName());
-    usernameTextField.setText(loggedInUser.getUsername());
-    addressTextField.setText(loggedInUser.getAddress().toString());
+    firstNameTextField.setText(selectedUser.getFirstName());
+    lastNameTextField.setText(selectedUser.getLastName());
+    usernameTextField.setText(selectedUser.getUsername());
+    addressTextField.setText(selectedUser.getAddress().toString());
 
-    //    if (false) {
-    //      Customer loggedInCustomer = (Customer) loggedInUser;
-    //      balanceTextField.setText(
-    //          String.format(
-    //              "£ %f",
-    //              loggedInCustomer.getAccountBalanceInPounds()
-    //          )
-    //      );
-    //    }
+    if (selectedUser.getClass().equals(Customer.class)) {
+      Customer selectedCustomer = (Customer) selectedUser;
+      balanceTextField.setText(
+          String.format(
+              "£ %.2f",
+              selectedCustomer.getAccountBalanceInPounds()
+          )
+      );
+
+      setNodeVisibilities(
+          new Node[]{
+              balanceLabel,
+              balanceTextField
+          },
+          true
+      );
+    } else {
+      setNodeVisibilities(
+          new Node[]{
+              balanceLabel,
+              balanceTextField
+          },
+          false
+      );
+    }
   }
 
   public void back() {

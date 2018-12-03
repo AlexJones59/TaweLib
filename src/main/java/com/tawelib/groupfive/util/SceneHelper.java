@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.entity.Library;
-import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.fxmlcontroller.BaseFxmlController;
 import java.io.IOException;
 import java.net.URL;
@@ -28,12 +27,10 @@ public class SceneHelper {
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
-   * @param loggedInUser Logged-in user.
    * @param sceneName Scene name.
    * @throws IOException When unable to switch scenes.
    */
   public static void setUpScene(Stage primaryStage, Library library,
-      User loggedInUser,
       String sceneName)
       throws IOException {
     URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
@@ -56,7 +53,6 @@ public class SceneHelper {
     if (controller != null) {
       controller.setLibrary(library);
       controller.setPrimaryStage(primaryStage);
-      controller.setLoggedInUser(loggedInUser);
       controller.setVisibilitiesAndRefresh();
     }
   }
@@ -74,7 +70,6 @@ public class SceneHelper {
       setUpScene(
           controller.getPrimaryStage(),
           controller.getLibrary(),
-          controller.getLoggedInUser(),
           sceneName
       );
     } catch (IOException e) {

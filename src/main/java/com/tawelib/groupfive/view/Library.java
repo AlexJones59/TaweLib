@@ -28,7 +28,6 @@ public class Library extends Application {
       SceneHelper.setUpScene(
           primaryStage,
           library,
-          null,
           "Login"
       );
 
