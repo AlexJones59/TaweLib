@@ -1,14 +1,16 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.exception.AuthenticationException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * The Librarian repository class holds the Librarians and performs manipulative operations on
- * them.
+ * The Librarian repository class holds the Librarians and performs manipulative
+ * operations on them.
  *
  * @author Themis Mouyiasis, Modified by Petr Hoffmann
  * @version 0.3
@@ -24,7 +26,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   }
 
   /**
-   * Returns a Librarian by their username. Throws an exception when unable to authenticate.
+   * Returns a Librarian by their username. Throws an exception when unable to
+   * authenticate.
    *
    * @param username Username.
    * @return the librarian
@@ -57,6 +60,26 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Collection<? extends User> search(String query) {
+    ArrayList<User> foundUsers = new ArrayList<>();
+
+    for (Librarian librarian : librarians) {
+      if (
+          librarian.getUsername().contains(query)
+              || librarian.getFullName().contains(query)
+              || Integer.toString(librarian.getStaffNumber()).contains(query)
+      ) {
+        foundUsers.add(librarian);
+      }
+    }
+
+    return foundUsers;
+  }
+
+  /**
    * Generates a unique username for a librarian.
    *
    * @param librarian Librarian.
@@ -82,7 +105,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
     //Use
     try {
-      Field usernameField = librarian.getClass().getSuperclass().getDeclaredField("username");
+      Field usernameField = librarian.getClass().getSuperclass()
+          .getDeclaredField("username");
       usernameField.setAccessible(true);
       usernameField.set(librarian, generatedUsername);
       usernameField.setAccessible(false);
@@ -98,7 +122,8 @@ public class LibrarianRepository implements UserRepository<Librarian> {
    */
   private void generateStaffNumber(Librarian librarian) {
     try {
-      Field usernameField = librarian.getClass().getDeclaredField("staffNumber");
+      Field usernameField = librarian.getClass()
+          .getDeclaredField("staffNumber");
       usernameField.setAccessible(true);
       usernameField.set(librarian, lastLibrarianNumber);
       usernameField.setAccessible(false);

@@ -1,13 +1,16 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.exception.AuthenticationException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * File Name - CustomerRepository.java The Customer repository class hadles customer details.
+ * File Name - CustomerRepository.java The Customer repository class hadles
+ * customer details.
  *
  * @author Created by Themis, Modified by Shree Desai
  * @version 0.2
@@ -55,6 +58,25 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public Collection<? extends User> search(String query) {
+    ArrayList<User> foundUsers = new ArrayList<>();
+
+    for (Customer customer : customers) {
+      if (
+          customer.getUsername().contains(query)
+              || customer.getFullName().contains(query)
+      ) {
+        foundUsers.add(customer);
+      }
+    }
+
+    return foundUsers;
+  }
+
+  /**
    * Generates a customer unique username.
    */
   public void generateUsername(Customer customer) {
@@ -73,7 +95,8 @@ public class CustomerRepository implements UserRepository<Customer> {
     }
 
     try {
-      Field usernameField = customer.getClass().getSuperclass().getDeclaredField("username");
+      Field usernameField = customer.getClass().getSuperclass()
+          .getDeclaredField("username");
       usernameField.setAccessible(true);
       usernameField.set(customer, generatedUsername);
       usernameField.setAccessible(false);

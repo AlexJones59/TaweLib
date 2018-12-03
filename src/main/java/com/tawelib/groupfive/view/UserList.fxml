@@ -17,7 +17,7 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtSearch" layoutX="160.0" layoutY="69.0" prefWidth="200.0" />
+                <TextField fx:id="searchTextField" layoutX="160.0" layoutY="69.0" onAction="#searchAction" prefWidth="200.0" />
                 <Label fx:id="lblSearch" layoutX="70.0" layoutY="66.0" text="Search:">
                     <font>
                         <Font size="20.0" />
