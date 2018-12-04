@@ -41,12 +41,15 @@ public class ResourceRepository implements BaseRepository<Resource> {
     if (resource.getClass().equals(Dvd.class)) {
       typePrefix = "D";
       newResourceId = typePrefix + Integer.toString(lastDvdNumber);
+      lastDvdNumber++;
     } else if (resource.getClass().equals(Book.class)) {
       typePrefix = "B";
       newResourceId = typePrefix + Integer.toString(lastBookNumber);
+      lastBookNumber++;
     } else if (resource.getClass().equals(Laptop.class)) {
       typePrefix = "L";
       newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
+      lastLaptopNumber++;
     }
 
     try {
