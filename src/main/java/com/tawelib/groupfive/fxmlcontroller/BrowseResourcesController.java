@@ -93,19 +93,17 @@ public class BrowseResourcesController extends BaseFxmlController {
   @Override
   public void refresh() {
     cmbResourceType.setItems(resourceType);
+    //TODO: Populate table
 
-    mbtnResourceType.getItems().addAll(menuItemBook, menuItemDvd,
-        menuItemLaptop);
-
-
-
-    tblBrowseResourcesTable.getItems().addAll(
-        library.getResourceRepository().getAll());
+    /*tblBrowseResourcesTable.getItems().addAll(
+    library.getResourceRepository().getAll()); */
   }
 
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
-
+  public void resourceInformation() {
+    SceneHelper.setUpScene(this, "ResourceInformation");
+  }
 }
