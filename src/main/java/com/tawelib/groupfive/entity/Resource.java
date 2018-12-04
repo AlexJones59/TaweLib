@@ -11,14 +11,13 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 0.2
  */
-public class Resource implements Serializable {
+public abstract class Resource implements Serializable {
 
   private String resourceId;
   private String title;
   private int year;
   private Image thumbnailImage;
-  @Deprecated
-  private ResourceType type;
+  private final ResourceType type;
 
   /**
    * Instantiates a new Resource.
@@ -28,26 +27,12 @@ public class Resource implements Serializable {
    * @param thumbnailImage the thumbnail image
    * @param type           the type
    */
-  @Deprecated
   public Resource(String title, int year, Image thumbnailImage,
                   ResourceType type) {
     this.title = title;
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
-  }
-
-  /**
-   * Instantiates a new Resource.
-   *
-   * @param title          the title
-   * @param year           the year
-   * @param thumbnailImage the thumbnail image
-   */
-  public Resource(String title, int year, Image thumbnailImage) {
-    this.title = title;
-    this.year = year;
-    this.thumbnailImage = thumbnailImage;
   }
 
   /**
@@ -118,19 +103,8 @@ public class Resource implements Serializable {
    *
    * @return the type
    */
-  @Deprecated
   public ResourceType getType() {
     return type;
-  }
-
-  /**
-   * Sets type.
-   *
-   * @param type the type
-   */
-  @Deprecated
-  public void setType(ResourceType type) {
-    this.type = type;
   }
 
 }

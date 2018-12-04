@@ -28,10 +28,12 @@ public class Dvd extends Resource {
    * @param runtime the runtime
    */
   public Dvd(String title, int year, Image thumbnailImage, ResourceType type,
-             String director, int runtime) {
-    super(title, year, thumbnailImage, type);
+      String director, int runtime, ArrayList<String> languages,
+      ArrayList<String> subtitleLanguages) {
+    super(title, year, thumbnailImage, ResourceType.DVD);
     this.director = director;
     this.runtime = runtime;
+
   }
 
   /**
