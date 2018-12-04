@@ -24,6 +24,7 @@ public class Lease implements Serializable {
 
   // TODO: This will be the way after refactoring.
   private Copy copy;
+  private Customer borrowingCustomer;
 
 
   /**
@@ -108,13 +109,27 @@ public class Lease implements Serializable {
     return borrowedCopyId;
   }
 
+  //TODO: This will be the way after refactoring.
+
   /**
-   * TODO: This will be the way after refactoring.
    * Returns the copy.
    *
    * @return The Copy.
    */
   public Copy getCopy() {
     return copy;
+  }
+
+  public void setCopy(Copy copy) {
+    this.copy = copy;
+  }
+
+  public Customer getBorrowingCustomer() {
+    return borrowingCustomer;
+  }
+
+  public void setBorrowingCustomer(
+      Customer borrowingCustomer) {
+    this.borrowingCustomer = borrowingCustomer;
   }
 }
