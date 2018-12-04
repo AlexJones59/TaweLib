@@ -16,19 +16,19 @@ public class CopyTableWrapper {
   private Lease lease;
 
   public Copy getCopy() {
-    return lease.getCopy();
+    return lease.getBorrowedCopy();
   }
 
   public String getResourceId() {
-    return lease.getCopy().getResource().getResourceId();
+    return lease.getBorrowedCopy().getResource().getResourceId();
   }
 
   public String getCopyId() {
-    return lease.getCopy().getId();
+    return lease.getBorrowedCopy().getId();
   }
 
   public String getTitle() {
-    return lease.getCopy().getResource().getTitle();
+    return lease.getBorrowedCopy().getResource().getTitle();
   }
 
   public Date getDueDate() {
@@ -36,6 +36,6 @@ public class CopyTableWrapper {
   }
 
   public String getStatus() {
-    return lease.getCopy().getStatus().toString();
+    return lease.getBorrowedCopy().getStatus().toString();
   }
 }

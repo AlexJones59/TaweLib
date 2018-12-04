@@ -12,6 +12,7 @@ import java.util.List;
  * instances of requests.
  *
  * @author Themis Mouyiasis, Modified by Shree Desai.
+ * @version 0.5
  */
 public class RequestRepository implements BaseRepository<Request> {
 
@@ -34,7 +35,7 @@ public class RequestRepository implements BaseRepository<Request> {
     ArrayList<Request> result = new ArrayList<>();
 
     for (Request request : requests) {
-      if ( request.getCustomer() == customer
+      if (request.getCustomer() == customer
               && request.getStatus().equals(RequestStatus.REQUESTED)
       ) {
         result.add(request);

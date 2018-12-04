@@ -25,6 +25,8 @@ public class Dvd extends Resource {
    * @param thumbnailImage the thumbnail image
    * @param director the director
    * @param runtime the runtime
+   * @param languages languages
+   * @param subtitleLanguages  subtitle languages
    */
   public Dvd(String title, int year, Image thumbnailImage,
       String director, int runtime, ArrayList<String> languages,
@@ -32,8 +34,9 @@ public class Dvd extends Resource {
     super(title, year, thumbnailImage, ResourceType.DVD);
     this.director = director;
     this.runtime = runtime;
-
-}
+    this.setLanguages(languages);
+    this.setSubtitleLanguages(subtitleLanguages);
+  }
 
   /**
    * Gets director.
@@ -104,6 +107,6 @@ public class Dvd extends Resource {
    * @param subtitleLanguages the languages
    */
   public void setSubtitleLanguages(ArrayList<String> subtitleLanguages) {
-      this.subtitleLanguages = subtitleLanguages;
+    this.subtitleLanguages = subtitleLanguages;
   }
 }

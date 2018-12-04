@@ -14,7 +14,7 @@ import java.util.List;
  * File Name - LeaseRepository.java The Lease repository class handles lease details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.4
+ * @version 0.6
  */
 public class LeaseRepository implements BaseRepository<Lease> {
 
@@ -91,13 +91,12 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param customer the customer
    * @return the customer current leases
    *
-   * @deprecated Use reference.
    */
 
   public List<Lease> getCustomerCurrentLeases(Customer customer) {
     ArrayList<Lease> customerCurrentLeases = new ArrayList<Lease>();
     for (Lease lease : getCustomerLeaseHistory(customer)) {
-      if (lease.getDateReturned()== null) {
+      if (lease.getDateReturned() == null) {
         customerCurrentLeases.add(lease);
       }
     }
@@ -105,7 +104,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
 
   }
 
-   /**
+  /**
    * Gets customer overdue leases.
    *
    * @param customer the customer username

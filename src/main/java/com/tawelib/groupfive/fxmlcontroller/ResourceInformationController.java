@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ResourceInformationController extends BaseFxmlController{
+public class ResourceInformationController extends BaseFxmlController {
 
   @FXML
   private Button btnBack;

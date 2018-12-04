@@ -12,7 +12,7 @@ import java.util.List;
  * details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.2
+ * @version 0.6
  */
 public class CopyRepository implements BaseRepository<Copy> {
 

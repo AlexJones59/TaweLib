@@ -9,7 +9,7 @@ import java.util.Collection;
  *
  * @param <T> Entity class.
  * @author Petr Hoffmann
- * @version 0.2
+ * @version 0.4
  */
 public interface UserRepository<T> extends BaseRepository<T> {
 

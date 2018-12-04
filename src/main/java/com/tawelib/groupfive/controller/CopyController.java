@@ -10,12 +10,9 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
-import com.tawelib.groupfive.repository.CopyRepository;
-import com.tawelib.groupfive.repository.LeaseRepository;
-import com.tawelib.groupfive.repository.RequestRepository;
 
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * File Name - CopyController.java The CopyController class controls data flow
@@ -24,12 +21,11 @@ import java.util.List;
  * @author Nayeem Mohammed, Shree Desai
  * @version 0.2
  */
-
 public class CopyController {
 
 
   /**
-   * The constant DAYTOMILLIS.
+   * The constant DAYTOMILLISECONDS.
    */
   public static final int DAYTOMILLISECONDS = 86400000;
 
@@ -132,7 +128,7 @@ public class CopyController {
   }
 
   /**
-   * Pick Up reserved Copy.
+   * Pick up reserved Copy.
    *
    * @param library the library
    * @param copyId the copy id
@@ -156,6 +152,7 @@ public class CopyController {
 
   /**
    * Generate Due Date.
+   *
    * @param newLease new lease
    */
   private static void generateDueDate(Lease newLease) {
@@ -168,10 +165,16 @@ public class CopyController {
 
   }
 
-  private static int generateFineAmount (Lease lease){
+  /**
+   * Generates fine amount.
+   *
+   * @param lease lease
+   * @return fine amount
+   */
+  private static int generateFineAmount(Lease lease) {
     ResourceType resourceType = lease.getBorrowedCopy().getResource().getType();
     int amount = (resourceType.getFine()) * (getDaysOverdue(lease));
-    if (amount <= resourceType.getMaxFine()){
+    if (amount <= resourceType.getMaxFine()) {
       return amount;
     } else {
       return resourceType.getMaxFine();
@@ -180,7 +183,8 @@ public class CopyController {
 
   /**
    * Gets days overdue.
-   * TODO: Comment well.
+   *
+   * @param lease lease
    */
   private static int getDaysOverdue(Lease lease) {
     long diffInMilli =
@@ -193,6 +197,13 @@ public class CopyController {
     }
   }
 
+  /**
+   * Creates lease while checking to see if due date needs to be added.
+   *
+   * @param library library
+   * @param customer borrowing customer
+   * @param copy borrowed copy
+   */
   private static void createLease(Library library, Customer customer,
       Copy copy) {
     Lease newLease = new Lease(customer, copy);

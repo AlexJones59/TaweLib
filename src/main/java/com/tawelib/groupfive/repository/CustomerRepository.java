@@ -13,7 +13,7 @@ import java.util.List;
  * customer details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.2
+ * @version 0.6
  */
 public class CustomerRepository implements UserRepository<Customer> {
 
