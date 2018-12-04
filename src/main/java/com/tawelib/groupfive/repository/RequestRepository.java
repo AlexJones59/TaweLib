@@ -1,9 +1,9 @@
 package com.tawelib.groupfive.repository;
 
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +15,11 @@ import java.util.List;
  */
 public class RequestRepository implements BaseRepository<Request> {
 
-  private static ArrayList<Request> requests;
+  private ArrayList<Request> requests;
 
-  private int lastRequestId = 0;
-
+  public RequestRepository() {
+    requests = new ArrayList<>();
+  }
 
   /**
    * Gets all open customer requests.
@@ -26,6 +27,7 @@ public class RequestRepository implements BaseRepository<Request> {
    * @param customerUsername the customer username
    * @return open customer requests
    */
+  @Deprecated
   public List<Request> getOpenCustomerRequests(String customerUsername) {
     ArrayList<Request> customerRequests = new ArrayList<Request>();
     for (Request request : requests) {
@@ -41,23 +43,45 @@ public class RequestRepository implements BaseRepository<Request> {
   }
 
   /**
+   * Gets all open customer requests.
+   *
+   * @param customer the customer username
+   * @return open customer requests
+   */
+  public List<Request> getOpenCustomerRequests(Customer customer) {
+    ArrayList<Request> result = new ArrayList<>();
+
+    for (Request request : requests) {
+      if (
+          request.getCustomer() == customer
+              && !request.getStatus().equals(RequestStatus.CLOSED)
+      ) {
+        result.add(request);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Gets all open requests for a specific resource.
    *
    * @param requestedResource the requested resource
    * @return the resource request
    */
   public List<Request> getOpenResourceRequests(Resource requestedResource) {
-    ArrayList<Request> resourceRequests = new ArrayList<Request>();
+    ArrayList<Request> result = new ArrayList<>();
+
     for (Request request : requests) {
-      if (request.getRequestedResource().equals(requestedResource)
-          && request.getStatus().equals(RequestStatus.REQUESTED)) {
-        resourceRequests.add(request);
+      if (
+          request.getRequestedResource() == requestedResource
+              && request.getStatus().equals(RequestStatus.REQUESTED)
+      ) {
+        result.add(request);
       }
     }
-    if (resourceRequests.isEmpty()) {
-      return resourceRequests;
-    }
-    return null;
+
+    return result;
   }
 
   /**
@@ -67,6 +91,7 @@ public class RequestRepository implements BaseRepository<Request> {
    * @param customerUsername the customer id
    * @return all reserved requests from specific customer
    */
+  @Deprecated
   public List<Request> getCustomerReserved(String customerUsername) {
     ArrayList<Request> customerReserved = new ArrayList<Request>();
     for (Request request : requests) {
@@ -82,6 +107,28 @@ public class RequestRepository implements BaseRepository<Request> {
   }
 
   /**
+   * Gets all requests, where status has been changed to Reserved, for a
+   * specific customer.
+   *
+   * @param customer the customer id
+   * @return all reserved requests from specific customer
+   */
+  public List<Request> getCustomerReserved(Customer customer) {
+    ArrayList<Request> result = new ArrayList<>();
+
+    for (Request request : requests) {
+      if (
+          request.getCustomer() == customer
+              && request.getStatus().equals(RequestStatus.RESERVED)
+      ) {
+        result.add(request);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Gets earliest resource request.
    *
    * @param resource the resource
@@ -89,10 +136,11 @@ public class RequestRepository implements BaseRepository<Request> {
    */
   public Request getEarliestResourceRequest(Resource resource) {
     for (Request request : requests) {
-      if (request.getRequestedResource().equals(resource)) {
+      if (request.getRequestedResource() == resource) {
         return request;
       }
     }
+
     return null;
   }
 
@@ -103,6 +151,7 @@ public class RequestRepository implements BaseRepository<Request> {
    * @param requestedResource the requested resource
    * @return the request
    */
+  @Deprecated
   public Request getSpecificReserved(String customerUsername,
       Resource requestedResource) {
     for (Request request : requests) {
@@ -121,6 +170,7 @@ public class RequestRepository implements BaseRepository<Request> {
    * @param requestId the request id
    * @return the specific
    */
+  @Deprecated
   public Request getSpecific(String requestId) {
     for (Request request : requests) {
       if (request.getRequestId().equals(requestId)) {
@@ -128,23 +178,6 @@ public class RequestRepository implements BaseRepository<Request> {
       }
     }
     return null;
-  }
-
-  /**
-   * Generates a unique id for the request.
-   *
-   * @param request request
-   */
-  private void generateRequestId(Request request) {
-    try {
-      Field idField = request.getClass().getDeclaredField("requestId");
-      idField.setAccessible(true);
-      idField.set(request, lastRequestId);
-    } catch (IllegalAccessException | NoSuchFieldException e) {
-      e.printStackTrace();
-    } finally {
-      lastRequestId++;
-    }
   }
 
   /**
@@ -161,7 +194,6 @@ public class RequestRepository implements BaseRepository<Request> {
   @Override
   public void add(Request request) {
     if (!requests.contains((request))) {
-      generateRequestId(request);
       requests.add(request);
     }
 
