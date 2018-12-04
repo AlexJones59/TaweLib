@@ -12,17 +12,31 @@ import java.util.Date;
  */
 public class Fine implements Serializable {
 
+  @Deprecated
   private String fineId;
+
   private int amount;
   private Date dateIssued;
-  private Lease specificLease;
+  private int daysOverdue;
 
   /**
    * Instantiates a new Fine for resources that overdue.
    */
+  @Deprecated
   public Fine(Lease specificLease) {
     this.dateIssued = new Date();
-    this.specificLease = specificLease;
+  }
+
+  /**
+   * Instantiates a new Fine for resources that overdue.
+   *
+   * @param amount Amount.
+   * @param daysOverdue Days overdue.
+   */
+  public Fine(int amount, int daysOverdue) {
+    this.amount = amount;
+    this.daysOverdue = daysOverdue;
+    this.dateIssued = new Date();
   }
 
   /**
@@ -31,10 +45,10 @@ public class Fine implements Serializable {
    *
    * @param amount the amount
    */
+  @Deprecated
   public Fine(int amount, Lease specificLease) {
     this.amount = amount;
     this.dateIssued = new Date();
-    this.specificLease = specificLease;
   }
 
   /**
@@ -42,6 +56,7 @@ public class Fine implements Serializable {
    *
    * @return the fine id
    */
+  @Deprecated
   public String getFineId() {
     return fineId;
   }
@@ -55,6 +70,8 @@ public class Fine implements Serializable {
     return amount;
   }
 
+
+
   /**
    * Gets date issued.
    *
@@ -67,20 +84,30 @@ public class Fine implements Serializable {
   /**
    * Gets instance of Lease that this fine is specific to.
    */
+  @Deprecated
   public Lease getSpecificLease() {
-    return specificLease;
+    return null;
   }
 
   /**
-   * Gets days overdue.
+   * Returns days overdue.
+   *
+   * @return Days overdue.
    */
   public int getDaysOverdue() {
-    //TODO: optimise.
-    Date currentDate = new Date();
-    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
-
+    return daysOverdue;
   }
 
-
+  //  /**
+//   * Gets days overdue.
+//   *
+//   * NOTE: Wrong class
+//   */
+//  public int getDaysOverdue() {
+//    //TODO: optimise.
+//    Date currentDate = new Date();
+//    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
+//    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
+//
+//  }
 }
