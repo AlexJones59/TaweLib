@@ -1,6 +1,8 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.controller.UserController;
+import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 
 import java.net.URL;
@@ -24,106 +26,142 @@ import javafx.scene.control.TextField;
  * @author Dearbhla Jackson, Shree Desai
  * @version 0.4
  */
-public class AccountCreationController extends BaseFxmlController {
+public class AccountCrudController extends BaseFxmlController {
+
+  private CrudAction crudAction;
 
   @FXML
-  private ResourceBundle resources;
+  public ResourceBundle resources;
 
   @FXML
-  private URL location;
+  public URL location;
 
   @FXML
-  private Button btnBack;
+  public Button btnBack;
 
   @FXML
-  private Button btnCreate;
+  public Button btnCreate;
 
   @FXML
-  private CheckBox cbxLibrarian;
+  public Button btnUpdate;
 
   @FXML
-  private Label lblAccountType;
+  public CheckBox cbxLibrarian;
 
   @FXML
-  private Label lblCity;
+  public Label lblAccountType;
 
   @FXML
-  private Label lblEmployDate;
+  public Label lblCity;
 
   @FXML
-  private Label lblFirstName;
+  public Label lblEmployDate;
 
   @FXML
-  private Label lblHouseNo;
+  public Label lblFirstName;
 
   @FXML
-  private Label lblPhoneNo;
+  public Label lblHouseNo;
 
   @FXML
-  private Label lblPostcode;
+  public Label lblPhoneNo;
 
   @FXML
-  private Label lblScreenTitle;
+  public Label lblPostcode;
 
   @FXML
-  private Label lblStreet;
+  public Label lblScreenTitle;
 
   @FXML
-  private Label lblLastName;
+  public Label lblStreet;
 
   @FXML
-  private Label lblFirstNameCheck;
+  public Label lblLastName;
 
   @FXML
-  private Label lblLastNameCheck;
+  public Label lblFirstNameCheck;
 
   @FXML
-  private Label lblPhoneNoCheck;
+  public Label lblLastNameCheck;
 
   @FXML
-  private Label lblHouseNoCheck;
+  public Label lblPhoneNoCheck;
 
   @FXML
-  private Label lblStreetCheck;
+  public Label lblHouseNoCheck;
 
   @FXML
-  private Label lblCityCheck;
+  public Label lblStreetCheck;
 
   @FXML
-  private Label lblPostcodeCheck;
+  public Label lblCityCheck;
 
   @FXML
-  private Label lblEmploymentDateCheck;
+  public Label lblPostcodeCheck;
 
   @FXML
-  private TextField txtCity;
+  public Label lblEmploymentDateCheck;
 
   @FXML
-  private DatePicker dateEmploymentDate;
+  public TextField txtCity;
 
   @FXML
-  private TextField txtFirstName;
+  public DatePicker dateEmploymentDate;
 
   @FXML
-  private TextField txtHouseNo;
+  public TextField txtFirstName;
 
   @FXML
-  private TextField txtPhoneNo;
+  public TextField txtHouseNo;
 
   @FXML
-  private TextField txtPostcode;
+  public TextField txtPhoneNo;
 
   @FXML
-  private TextField txtStreet;
+  public TextField txtPostcode;
 
   @FXML
-  private TextField txtLastName;
+  public TextField txtStreet;
+
+  @FXML
+  public TextField txtLastName;
 
 
   /**
    * Instantiates a new Account creation controller.
    */
-  public AccountCreationController() {
+  public AccountCrudController() {
+  }
+
+  @Override
+  public void refresh() {
+    setFieldVisibilities();
+
+    if (crudAction == CrudAction.UPDATE) {
+      populateFields();
+    }
+  }
+
+  private void setFieldVisibilities() {
+    if (crudAction == CrudAction.CREATE) {
+      btnCreate.setVisible(true);
+      btnUpdate.setVisible(false);
+    } else if (crudAction == CrudAction.UPDATE) {
+      btnCreate.setVisible(false);
+      btnUpdate.setVisible(true);
+      cbxLibrarian.setDisable(true);
+    }
+  }
+
+  private void populateFields() {
+    cbxLibrarian.setSelected(selectedUser.getClass().equals(Librarian.class));
+    txtFirstName.setText(selectedUser.getFirstName());
+    txtLastName.setText(selectedUser.getLastName());
+    txtPhoneNo.setText(selectedUser.getPhoneNumber());
+    txtHouseNo.setText(selectedUser.getAddress().getHouseNumber());
+    txtStreet.setText(selectedUser.getAddress().getStreet());
+    txtCity.setText(selectedUser.getAddress().getCity());
+    txtPostcode.setText(selectedUser.getAddress().getPostCode());
   }
 
   /**
@@ -293,9 +331,38 @@ public class AccountCreationController extends BaseFxmlController {
   }
 
   /**
+   * Creates an appropriate account.
+   */
+  public void updateAccount() {
+    UserController.updateUserAccount(
+        library,
+        selectedUser,
+        txtFirstName.getText(),
+        txtLastName.getText(),
+        txtPhoneNo.getText(),
+        txtHouseNo.getText(),
+        txtStreet.getText(),
+        txtCity.getText(),
+        txtPostcode.getText()
+    );
+
+    AlertHelper.alert(AlertType.INFORMATION, "User account updated.");
+
+    back();
+  }
+
+  /**
    * Goes back to the user dashboard screen.
    */
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
+  }
+
+  public CrudAction getCrudAction() {
+    return crudAction;
+  }
+
+  public void setCrudAction(CrudAction crudAction) {
+    this.crudAction = crudAction;
   }
 }
