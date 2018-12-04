@@ -17,6 +17,7 @@ public class Resource implements Serializable {
   private String title;
   private int year;
   private Image thumbnailImage;
+  @Deprecated
   private ResourceType type;
 
   /**
@@ -27,12 +28,26 @@ public class Resource implements Serializable {
    * @param thumbnailImage the thumbnail image
    * @param type           the type
    */
+  @Deprecated
   public Resource(String title, int year, Image thumbnailImage,
                   ResourceType type) {
     this.title = title;
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
+  }
+
+  /**
+   * Instantiates a new Resource.
+   *
+   * @param title          the title
+   * @param year           the year
+   * @param thumbnailImage the thumbnail image
+   */
+  public Resource(String title, int year, Image thumbnailImage) {
+    this.title = title;
+    this.year = year;
+    this.thumbnailImage = thumbnailImage;
   }
 
   /**
@@ -103,6 +118,7 @@ public class Resource implements Serializable {
    *
    * @return the type
    */
+  @Deprecated
   public ResourceType getType() {
     return type;
   }
@@ -112,6 +128,7 @@ public class Resource implements Serializable {
    *
    * @param type the type
    */
+  @Deprecated
   public void setType(ResourceType type) {
     this.type = type;
   }
