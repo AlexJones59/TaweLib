@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * File name: Resource.java Dvd class saves all info pertaining to a Dvd.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 0.5
  */
 public class Dvd extends Resource {
 
@@ -23,15 +23,19 @@ public class Dvd extends Resource {
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param type the type
    * @param director the director
    * @param runtime the runtime
+   * @param languages languages
+   * @param subtitleLanguages  subtitle languages
    */
-  public Dvd(String title, int year, Image thumbnailImage, ResourceType type,
-             String director, int runtime) {
-    super(title, year, thumbnailImage, type);
+  public Dvd(String title, int year, Image thumbnailImage,
+      String director, int runtime, ArrayList<String> languages,
+      ArrayList<String> subtitleLanguages) {
+    super(title, year, thumbnailImage, ResourceType.DVD);
     this.director = director;
     this.runtime = runtime;
+    this.setLanguages(languages);
+    this.setSubtitleLanguages(subtitleLanguages);
   }
 
   /**
@@ -84,9 +88,8 @@ public class Dvd extends Resource {
    *
    * @param languages the languages
    */
-  public void addLanguages(ArrayList<String> languages) {
-    //TODO: Write logic for this with array checking.
-    //this.languages.add(languages);
+  public void setLanguages(ArrayList<String> languages) {
+    this.languages = languages;
   }
 
   /**
@@ -103,8 +106,7 @@ public class Dvd extends Resource {
    *
    * @param subtitleLanguages the languages
    */
-  public void addSubtitleLanguages(ArrayList<String> subtitleLanguages) {
-    //TODO: Write logic for this with array checking.
-    //this.subtitleLanguages.add(subtitleLanguages);
+  public void setSubtitleLanguages(ArrayList<String> subtitleLanguages) {
+    this.subtitleLanguages = subtitleLanguages;
   }
 }

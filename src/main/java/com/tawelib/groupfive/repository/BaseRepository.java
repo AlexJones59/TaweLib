@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @param <T> Entity class.
  * @author Petr Hoffmann
- * @version 0.1
+ * @version 0.3
  */
 public interface BaseRepository<T> extends Serializable {
 

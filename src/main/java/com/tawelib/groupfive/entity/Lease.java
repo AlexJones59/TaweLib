@@ -15,53 +15,23 @@ import java.util.Date;
  */
 public class Lease implements Serializable {
 
-  @Deprecated
-  private String leaseId;
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
+  private final Copy copy;
+  private final Customer borrowingCustomer;
 
-  @Deprecated
-  private String borrowingCustomerUsername;
-  @Deprecated
-  private String borrowedCopyId;
-
-  private Copy copy;
-  private Customer borrowingCustomer;
-
-  /**
-   * Instantiates a new Lease.
-   *
-   * @param borrowingCustomerUsername the borrowing customer username
-   * @param borrowedCopyId            the borrowed copy id
-   */
-  @Deprecated
-  public Lease(String borrowingCustomerUsername, String borrowedCopyId) {
-    this.dateLeased = new Date();
-    this.borrowingCustomerUsername = borrowingCustomerUsername;
-    this.borrowedCopyId = borrowedCopyId;
-  }
 
   /**
    * Instantiates a new Lease.
    *
    * @param customer the borrowing customer username
-   * @param copy            the borrowed copy id
+   * @param copy the borrowed copy id
    */
   public Lease(Customer customer, Copy copy) {
     this.borrowingCustomer = customer;
     this.copy = copy;
     this.dateLeased = new Date();
-  }
-
-  /**
-   * Gets lease id.
-   *
-   * @return the lease id
-   */
-  @Deprecated
-  public String getLeaseId() {
-    return leaseId;
   }
 
   /**
@@ -107,47 +77,25 @@ public class Lease implements Serializable {
     this.dueDate = dueDate;
   }
 
-  /**
-   * Gets borrowing customer.
-   *
-   * @return the borrowing customer username
-   */
-  @Deprecated
-  public String getBorrowingCustomerUsername() {
-    return borrowingCustomerUsername;
-  }
 
   /**
-   * Gets borrowed copy.
+   * Returns the borrowed copy.
    *
-   * @return the borrowed copy id
+   * @return the borrowed Copy.
    */
-  @Deprecated
-  public String getBorrowedCopyId() {
-    return borrowedCopyId;
-  }
-
-  //TODO: This will be the way after refactoring.
-
-  /**
-   * Returns the copy.
-   *
-   * @return The Copy.
-   */
-  public Copy getCopy() {
+  public Copy getBorrowedCopy() {
     return copy;
   }
 
-  public void setCopy(Copy copy) {
-    this.copy = copy;
-  }
 
+  /**
+   * Gets borrowing customer.
+   *
+   * @return the borrowing customer
+   */
   public Customer getBorrowingCustomer() {
     return borrowingCustomer;
   }
 
-  public void setBorrowingCustomer(
-      Customer borrowingCustomer) {
-    this.borrowingCustomer = borrowingCustomer;
-  }
+
 }

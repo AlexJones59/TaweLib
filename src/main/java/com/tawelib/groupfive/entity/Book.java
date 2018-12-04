@@ -23,29 +23,6 @@ public class Book extends Resource {
    * @param title          the title
    * @param year           the year
    * @param thumbnailImage the thumbnail image
-   * @param type           the type
-   * @param author         the author
-   * @param publisher      the publisher
-   * @param genre          the genre
-   */
-  @Deprecated
-  public Book(String title, int year, Image thumbnailImage, ResourceType type,
-              String author, String publisher, String genre, String isbn,
-              String language) {
-    super(title, year, thumbnailImage, type);
-    this.author = author;
-    this.publisher = publisher;
-    this.genre = genre;
-    this.isbn = isbn;
-    this.language = language;
-  }
-
-  /**
-   * Instantiates a new Book.
-   *
-   * @param title          the title
-   * @param year           the year
-   * @param thumbnailImage the thumbnail image
    * @param author         the author
    * @param publisher      the publisher
    * @param genre          the genre
@@ -53,7 +30,7 @@ public class Book extends Resource {
   public Book(String title, int year, Image thumbnailImage,
       String author, String publisher, String genre, String isbn,
       String language) {
-    super(title, year, thumbnailImage);
+    super(title, year, thumbnailImage, ResourceType.BOOK);
     this.author = author;
     this.publisher = publisher;
     this.genre = genre;

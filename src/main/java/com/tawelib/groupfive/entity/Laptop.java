@@ -22,27 +22,10 @@ public class Laptop extends Resource {
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  @Deprecated
-  public Laptop(String title, int year, Image thumbnailImage,
-      ResourceType type, String manufacturer, String model,
-      String installedOperatingSystem) {
-    super(title, year, thumbnailImage, type);
-    this.manufacturer = manufacturer;
-    this.model = model;
-    this.installedOperatingSystem = installedOperatingSystem;
-  }
-
-  /**
-   * Instantiates a new Laptop.
-   *
-   * @param manufacturer the manufacturer
-   * @param model the model
-   * @param installedOperatingSystem the installed operating system
-   */
   public Laptop(String title, int year, Image thumbnailImage,
       String manufacturer, String model,
       String installedOperatingSystem) {
-    super(title, year, thumbnailImage);
+    super(title, year, thumbnailImage, ResourceType.LAPTOP);
     this.manufacturer = manufacturer;
     this.model = model;
     this.installedOperatingSystem = installedOperatingSystem;

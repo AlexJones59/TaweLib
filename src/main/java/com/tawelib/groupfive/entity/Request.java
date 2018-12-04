@@ -11,29 +11,9 @@ import java.io.Serializable;
  */
 public class Request implements Serializable {
 
-  @Deprecated
-  private String requestId;
-
   private RequestStatus status;
-
-  @Deprecated
-  private String customerUsername;
-
-  private Customer customer;
-  private Resource requestedResource;
-
-  /**
-   * Instantiates a new Request.
-   *
-   * @param customerUsername the customer username
-   * @param requestedResource the requested resource
-   */
-  @Deprecated
-  public Request(String customerUsername, Resource requestedResource) {
-    this.customerUsername = customerUsername;
-    this.status = RequestStatus.REQUESTED;
-    this.requestedResource = requestedResource;
-  }
+  private final Customer customer;
+  private final Resource requestedResource;
 
   /**
    * Instantiates a new Request.
@@ -45,16 +25,6 @@ public class Request implements Serializable {
     this.customer = customer;
     this.status = RequestStatus.REQUESTED;
     this.requestedResource = requestedResource;
-  }
-
-  /**
-   * Gets request id.
-   *
-   * @return the request id
-   */
-  @Deprecated
-  public String getRequestId() {
-    return requestId;
   }
 
   /**
@@ -75,22 +45,14 @@ public class Request implements Serializable {
     this.status = status;
   }
 
-  /**
-   * Gets customer username.
-   *
-   * @return the customer username
-   */
-  @Deprecated
-  public String getCustomerUsername() {
-    return customerUsername;
-  }
 
+  /**
+   * Gets customer.
+   *
+   * @return the customer
+   */
   public Customer getCustomer() {
     return customer;
-  }
-
-  public void setCustomer(Customer customer) {
-    this.customer = customer;
   }
 
   /**

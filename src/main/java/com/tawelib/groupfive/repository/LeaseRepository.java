@@ -14,7 +14,7 @@ import java.util.List;
  * File Name - LeaseRepository.java The Lease repository class handles lease details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.4
+ * @version 0.6
  */
 public class LeaseRepository implements BaseRepository<Lease> {
 
@@ -27,47 +27,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   /**
-   * Gets specific.
-   *
-   * @param leaseId the lease id
-   * @return the specific
-   *
-   * @deprecated Use reference.
-   */
-  @Deprecated
-  public Lease getSpecific(String leaseId) {
-    for (Lease lease : leases) {
-      if (lease.getLeaseId().equals(leaseId)) {
-        return lease;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Gets copy lease history.
-   *
-   * @param copyId the copy id
-   * @return the copy lease history
-   *
-   * @deprecated Use reference.
-   */
-  @Deprecated
-  public List<Lease> getCopyLeaseHistory(String copyId) {
-    ArrayList<Lease> copyLeaseHistory = new ArrayList<Lease>();
-    for (Lease lease : leases) {
-      if (lease.getBorrowedCopyId().equals(copyId)) {
-        copyLeaseHistory.add(lease);
-      }
-    }
-    if (copyLeaseHistory.isEmpty()) {
-      return copyLeaseHistory;
-    }
-    return null;
-
-  }
-
-  /**
    * Gets Copy lease history.
    *
    * @param copy The Copy.
@@ -77,7 +36,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
     ArrayList<Lease> result = new ArrayList<>();
 
     for (Lease lease : leases) {
-      if (lease.getCopy() == copy) {
+      if (lease.getBorrowedCopy() == copy) {
         result.add(lease);
       }
     }
@@ -91,7 +50,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param customer The Copy.
    * @return The leases.
    */
-  public List<Lease> getCopyLeaseHistory(Customer customer) {
+  public List<Lease> getCustomerLeaseHistory(Customer customer) {
     ArrayList<Lease> result = new ArrayList<>();
 
     for (Lease lease : leases) {
@@ -101,26 +60,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
     }
 
     return result;
-  }
-
-  /**
-   * Gets copy current lease.
-   *
-   * @param copyId the copy id
-   * @return the copy current lease
-   *
-   * @deprecated Use reference.
-   */
-  @Deprecated
-  public Lease getCopyCurrentLease(String copyId) {
-    for (Lease lease : leases) {
-      if (lease.getBorrowedCopyId().equals(copyId)) {
-        if (lease.getDateReturned() == null) {
-          return lease;
-        }
-      }
-    }
-    return null;
   }
 
   /**
@@ -137,7 +76,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
       for (int i = leases.size() - 1; i >= 0; i--) {
         lease = leases.get(i);
 
-        if (lease.getCopy() == copy) {
+        if (lease.getBorrowedCopy() == copy) {
           return lease;
         }
       }
@@ -149,47 +88,20 @@ public class LeaseRepository implements BaseRepository<Lease> {
   /**
    * Gets customer current leases.
    *
-   * @param customerUsername the customer username
+   * @param customer the customer
    * @return the customer current leases
    *
-   * @deprecated Use reference.
    */
-  @Deprecated
-  public List<Lease> getCustomerCurrentLeases(String customerUsername) {
+
+  public List<Lease> getCustomerCurrentLeases(Customer customer) {
     ArrayList<Lease> customerCurrentLeases = new ArrayList<Lease>();
-    for (Lease lease : leases) {
-      if (lease.getBorrowingCustomerUsername().equals(customerUsername)) {
+    for (Lease lease : getCustomerLeaseHistory(customer)) {
+      if (lease.getDateReturned() == null) {
         customerCurrentLeases.add(lease);
       }
     }
-    if (customerCurrentLeases.isEmpty()) {
-      return customerCurrentLeases;
-    }
-    return null;
-  }
+    return customerCurrentLeases;
 
-  /**
-   * Gets customer overdue leases.
-   *
-   * @param customerUsername the customer username
-   * @return the customer overdue leases
-   *
-   * @deprecated Use reference.
-   */
-  @Deprecated
-  public List<Lease> getCustomerOverdueLeases(String customerUsername) {
-    ArrayList<Lease> customerOverdue = new ArrayList<Lease>();
-    Date currentDate = new Date();
-    for (Lease lease : leases) {
-      if (lease.getBorrowingCustomerUsername().equals(customerUsername) && lease.getDueDate()
-          .after(currentDate)) {
-        customerOverdue.add(lease);
-      }
-    }
-    if (customerOverdue.isEmpty()) {
-      return customerOverdue;
-    }
-    return null;
   }
 
   /**
@@ -198,7 +110,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param customer the customer username
    * @return the customer overdue leases
    */
-  public List<Lease> getOverdueLeases(Customer customer) {
+  public List<Lease> getCustomerOverdueLeases(Customer customer) {
     ArrayList<Lease> result = new ArrayList<>();
 
     for (Lease lease : getOverdueLeases()) {

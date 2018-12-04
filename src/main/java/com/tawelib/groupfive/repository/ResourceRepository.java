@@ -14,7 +14,7 @@ import java.util.List;
  * resources.
  *
  * @author Themis Mouyiasis, Shree Desai
- * @version 0.2
+ * @version 0.6
  */
 public class ResourceRepository implements BaseRepository<Resource> {
 
@@ -38,18 +38,26 @@ public class ResourceRepository implements BaseRepository<Resource> {
     String newResourceId = "";
 
     //Checks type of Resource and creates Id based upon that...
-    if (resource.getClass().equals(Dvd.class)) {
-      typePrefix = "D";
-      newResourceId = typePrefix + Integer.toString(lastDvdNumber);
-      lastDvdNumber++;
-    } else if (resource.getClass().equals(Book.class)) {
-      typePrefix = "B";
-      newResourceId = typePrefix + Integer.toString(lastBookNumber);
-      lastBookNumber++;
-    } else if (resource.getClass().equals(Laptop.class)) {
-      typePrefix = "L";
-      newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
-      lastLaptopNumber++;
+    switch (resource.getType()) {
+      case DVD: {
+        typePrefix = "D";
+        newResourceId = typePrefix + Integer.toString(lastDvdNumber);
+        lastDvdNumber++;
+        break;
+      }
+      case BOOK: {
+        typePrefix = "B";
+        newResourceId = typePrefix + Integer.toString(lastBookNumber);
+        lastBookNumber++;
+        break;
+      }
+      case LAPTOP: {
+        typePrefix = "L";
+        newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
+        lastLaptopNumber++;
+        break;
+      } default:
+
     }
 
     try {

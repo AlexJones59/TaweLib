@@ -8,7 +8,6 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javafx.scene.image.Image;
 
@@ -29,15 +28,14 @@ public class ResourceController {
    * @param title          the title
    * @param year           the year
    * @param thumbnailImage the thumbnail image
-   * @param type           the type
    * @param author         the author
    * @param publisher      the publisher
    * @param genre          the genre
    */
   public void createBook(Library library,String title, int year,
-      Image thumbnailImage, ResourceType type, String author, String publisher,
+      Image thumbnailImage, String author, String publisher,
       String genre, String isbn, String language) {
-    Book newBook = new Book(title, year, thumbnailImage, type, author,
+    Book newBook = new Book(title, year, thumbnailImage, author,
         publisher, genre, isbn, language);
     library.getResourceRepository().add(newBook);
   }
@@ -54,11 +52,10 @@ public class ResourceController {
    * @param subtitleLanguages the subtitle languages
    */
   public void createDvd(Library library,String title, int year,
-      Image thumbnailImage, ResourceType type, String director, int runtime,
+      Image thumbnailImage,String director, int runtime,
       ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
-    Dvd newDvd = new Dvd(title, year, thumbnailImage, type, director,runtime);
-    newDvd.addLanguages(languages);
-    newDvd.addSubtitleLanguages(subtitleLanguages);
+    Dvd newDvd = new Dvd(title, year, thumbnailImage, director, runtime,
+        languages, subtitleLanguages);
     library.getResourceRepository().add(newDvd);
   }
 
@@ -68,15 +65,14 @@ public class ResourceController {
    * @param title                    the title
    * @param year                     the year
    * @param thumbnailImage           the thumbnail image
-   * @param type                     the type
    * @param manufacturer             the manufacturer
    * @param model                    the model
    * @param installedOperatingSystem the installed operating system
    */
   public void createLaptop(Library library, String title, int year,
-      Image thumbnailImage, ResourceType type,
-      String manufacturer, String model, String installedOperatingSystem) {
-    Laptop newLaptop = new Laptop(title, year, thumbnailImage, type,
+      Image thumbnailImage, String manufacturer, String model,
+      String installedOperatingSystem) {
+    Laptop newLaptop = new Laptop(title, year, thumbnailImage,
         manufacturer, model, installedOperatingSystem);
     library.getResourceRepository().add(newLaptop);
   }
@@ -87,19 +83,17 @@ public class ResourceController {
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param type the type
    * @param author the author
    * @param publisher the publisher
    * @param genre the genre
    */
   public void updateBook(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, ResourceType type, String author,
+      int year, Image thumbnailImage, String author,
       String publisher, String genre, String isbn, String language) {
     library.getResourceRepository().getSpecificBook(resourceId).setTitle(title);
     library.getResourceRepository().getSpecificBook(resourceId).setYear(year);
     library.getResourceRepository().getSpecificBook(resourceId)
         .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificBook(resourceId).setType(type);
     library.getResourceRepository().getSpecificBook(resourceId)
         .setAuthor(author);
     library.getResourceRepository().getSpecificBook(resourceId)
@@ -123,22 +117,20 @@ public class ResourceController {
    * @param subtitleLanguages the subtitle languages
    */
   public void updateDvd(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, ResourceType type, String director,
-      int runtime, ArrayList<String> languages,
-      ArrayList<String> subtitleLanguages) {
+      int year, Image thumbnailImage, String director, int runtime,
+      ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
     library.getResourceRepository().getSpecificDvd(resourceId).setTitle(title);
     library.getResourceRepository().getSpecificDvd(resourceId).setYear(year);
     library.getResourceRepository().getSpecificDvd(resourceId)
         .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificDvd(resourceId).setType(type);
     library.getResourceRepository().getSpecificDvd(resourceId)
         .setDirector(director);
     library.getResourceRepository().getSpecificDvd(resourceId)
         .setRuntime(runtime);
     library.getResourceRepository().getSpecificDvd(resourceId)
-        .addLanguages(languages);
+        .setLanguages(languages);
     library.getResourceRepository().getSpecificDvd(resourceId)
-        .addSubtitleLanguages(subtitleLanguages);
+        .setSubtitleLanguages(subtitleLanguages);
   }
 
   /**
@@ -147,20 +139,18 @@ public class ResourceController {
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param type the type
    * @param manufacturer the manufacturer
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
   public void updateLaptop(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, ResourceType type, String manufacturer,
+      int year, Image thumbnailImage, String manufacturer,
       String model, String installedOperatingSystem) {
     library.getResourceRepository().getSpecificLaptop(resourceId)
         .setTitle(title);
     library.getResourceRepository().getSpecificLaptop(resourceId).setYear(year);
     library.getResourceRepository().getSpecificLaptop(resourceId)
         .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificLaptop(resourceId).setType(type);
     library.getResourceRepository().getSpecificLaptop(resourceId)
         .setManufacturer(manufacturer);
     library.getResourceRepository().getSpecificLaptop(resourceId)

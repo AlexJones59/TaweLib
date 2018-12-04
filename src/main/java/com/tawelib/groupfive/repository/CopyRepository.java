@@ -12,7 +12,7 @@ import java.util.List;
  * details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.2
+ * @version 0.6
  */
 public class CopyRepository implements BaseRepository<Copy> {
 
@@ -52,7 +52,6 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @param copyId the copy id
    * @return the specific
    */
-  @Deprecated
   public Copy getSpecific(String copyId) {
     for (Copy copy : copies) {
       if (copy.getId().equals(copyId)) {
@@ -60,28 +59,6 @@ public class CopyRepository implements BaseRepository<Copy> {
       }
     }
     return null;
-  }
-
-  /**
-   * Gets borrowed copies.
-   *
-   * @param customerUsername the customer username
-   * @return the borrowed copies
-   * @deprecated Use getBorrowedCopies(User user) in the future.
-   */
-  @Deprecated
-  public List<Copy> getBorrowedCopies(String customerUsername) {
-    ArrayList<Copy> borrowedCopies = new ArrayList<>();
-    for (Copy borrowed : copies) {
-      if (borrowed.getBorrowingCustomerUsername().equals(customerUsername)) {
-        borrowedCopies.add(borrowed);
-      }
-    }
-    if (borrowedCopies.isEmpty()) {
-      return borrowedCopies;
-    }
-    return null;
-
   }
 
   /**
@@ -100,27 +77,6 @@ public class CopyRepository implements BaseRepository<Copy> {
     }
 
     return result;
-  }
-
-  /**
-   * Gets resource copies.
-   *
-   * @param resourceId the resource id
-   * @return the resource copies
-   * @deprecated Use getResourceCopies(Resource resource)
-   */
-  @Deprecated
-  public List<Copy> getResourceCopies(String resourceId) {
-    ArrayList<Copy> resourceCopies = new ArrayList<Copy>();
-    for (Copy resourceCopy : copies) {
-      if (resourceCopy.getResource().equals(resourceId)) {
-        resourceCopies.add(resourceCopy);
-      }
-    }
-    if (resourceCopies.isEmpty()) {
-      return resourceCopies;
-    }
-    return null;
   }
 
   /**

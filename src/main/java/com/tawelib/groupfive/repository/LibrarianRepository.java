@@ -13,7 +13,7 @@ import java.util.List;
  * operations on them.
  *
  * @author Themis Mouyiasis, Modified by Petr Hoffmann
- * @version 0.3
+ * @version 0.5
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
@@ -95,7 +95,7 @@ public class LibrarianRepository implements UserRepository<Librarian> {
     String usernameSuffix = "";
     String generatedUsername = baseUsername + usernameSuffix;
 
-    // Checks if the username is already part of repositiory
+    // Checks if the username is already part of repository
     // If not, adds a number, and checks again.
     while (getSpecific(generatedUsername) != null) {
       usernameSuffix = String.format(".%d", suffixBase);
@@ -103,7 +103,6 @@ public class LibrarianRepository implements UserRepository<Librarian> {
       suffixBase++;
     }
 
-    //Use
     assignGeneratedId(
         librarian,
         generatedUsername
