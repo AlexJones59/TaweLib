@@ -18,31 +18,20 @@ public class Lease implements Serializable {
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
-  private String borrowedCopyId;
-  private Copy copy;
-  private Customer borrowingCustomer;
+  private final Copy copy;
+  private final Customer borrowingCustomer;
 
 
   /**
    * Instantiates a new Lease.
    *
    * @param customer the borrowing customer username
-   * @param copy            the borrowed copy id
+   * @param copy the borrowed copy id
    */
   public Lease(Customer customer, Copy copy) {
     this.borrowingCustomer = customer;
     this.copy = copy;
     this.dateLeased = new Date();
-  }
-
-  /**
-   * Gets lease id.
-   *
-   * @return the lease id
-   */
-  @Deprecated
-  public String getLeaseId() {
-    return leaseId;
   }
 
   /**
@@ -88,47 +77,25 @@ public class Lease implements Serializable {
     this.dueDate = dueDate;
   }
 
-  /**
-   * Gets borrowing customer.
-   *
-   * @return the borrowing customer username
-   */
-  @Deprecated
-  public String getBorrowingCustomerUsername() {
-    return borrowingCustomerUsername;
-  }
 
   /**
-   * Gets borrowed copy.
+   * Returns the borrowed copy.
    *
-   * @return the borrowed copy id
+   * @return the borrowed Copy.
    */
-  @Deprecated
-  public String getBorrowedCopyId() {
-    return borrowedCopyId;
-  }
-
-  //TODO: This will be the way after refactoring.
-
-  /**
-   * Returns the copy.
-   *
-   * @return The Copy.
-   */
-  public Copy getCopy() {
+  public Copy getBorrowedCopy() {
     return copy;
   }
 
-  public void setCopy(Copy copy) {
-    this.copy = copy;
-  }
 
+  /**
+   * Gets borrowing customer.
+   *
+   * @return the borrowing customer
+   */
   public Customer getBorrowingCustomer() {
     return borrowingCustomer;
   }
 
-  public void setBorrowingCustomer(
-      Customer borrowingCustomer) {
-    this.borrowingCustomer = borrowingCustomer;
-  }
+
 }
