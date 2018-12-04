@@ -68,18 +68,7 @@ public class CopyController {
     library.getCopyRepository().getSpecific(copyId)
         .setBorrowingCustomer(borrowingCustomer);
 
-
-    //Creates new Lease.
-    Lease newLease = new Lease(borrowingCustomer, borrowedCopy);
-
-    //Sets Due Date if there are any requests.
-    if (library.getRequestRepository()
-        .getOpenResourceRequests(borrowedCopy.getResource()) != null) {
-      generateDueDate(newLease);
-    }
-
-    //Adds lease to repository.
-    library.getLeaseRepository().add(newLease);
+    createLease(library, borrowingCustomer, borrowedCopy);
 
   }
 
@@ -140,8 +129,6 @@ public class CopyController {
           .getEarliestResourceRequest(returnedResource)
           .setStatus(RequestStatus.RESERVED);
     }
-
-
   }
 
   /**
@@ -154,18 +141,17 @@ public class CopyController {
   public void pickUpReservedCopy(Library library, String copyId,
       String customerUsername) {
 
+    //Sets Copy to Borrowed
     Copy reservedCopy = library.getCopyRepository().getSpecific(copyId);
     library.getCopyRepository().getSpecific(copyId)
         .setStatus(CopyStatus.BORROWED);
-    library.getRequestRepository().getSpecificReserved(customerUsername,
-        reservedCopy.getResource()).setStatus(RequestStatus.RESERVED);
-    Lease newLease = new Lease(copyId, customerUsername);
-    if (library.getRequestRepository()
-        .getOpenResourceRequests(reservedCopy.getResource()) != null) {
-      generateDueDate(newLease);
-    }
-    library.getLeaseRepository().add(newLease);
 
+    Customer customer =
+        library.getCustomerRepository().getSpecific(customerUsername);
+    library.getRequestRepository().getSpecificReserved(customer,
+        reservedCopy.getResource()).setStatus(RequestStatus.CLOSED);
+
+    createLease(library, customer, reservedCopy);
   }
 
   /**
@@ -190,8 +176,6 @@ public class CopyController {
     } else {
       return resourceType.getMaxFine();
     }
-
-
   }
 
   /**
@@ -207,6 +191,16 @@ public class CopyController {
     } else {
       return 0;
     }
+  }
+
+  private static void createLease(Library library, Customer customer,
+      Copy copy) {
+    Lease newLease = new Lease(customer, copy);
+    if (library.getRequestRepository()
+        .getOpenResourceRequests(copy.getResource()) != null) {
+      generateDueDate(newLease);
+    }
+    library.getLeaseRepository().add(newLease);
   }
 
 }

@@ -17,29 +17,11 @@ public class RequestRepository implements BaseRepository<Request> {
 
   private ArrayList<Request> requests;
 
+  /**
+   * Instantiates a new Request repository.
+   */
   public RequestRepository() {
     requests = new ArrayList<>();
-  }
-
-  /**
-   * Gets all open customer requests.
-   *
-   * @param customerUsername the customer username
-   * @return open customer requests
-   */
-  @Deprecated
-  public List<Request> getOpenCustomerRequests(String customerUsername) {
-    ArrayList<Request> customerRequests = new ArrayList<Request>();
-    for (Request request : requests) {
-      if (request.getCustomerUsername().equals(customerUsername)
-          && !request.getStatus().equals(RequestStatus.CLOSED)) {
-        customerRequests.add(request);
-      }
-    }
-    if (customerRequests.isEmpty()) {
-      return customerRequests;
-    }
-    return null;
   }
 
   /**
@@ -52,14 +34,12 @@ public class RequestRepository implements BaseRepository<Request> {
     ArrayList<Request> result = new ArrayList<>();
 
     for (Request request : requests) {
-      if (
-          request.getCustomer() == customer
-              && !request.getStatus().equals(RequestStatus.CLOSED)
+      if ( request.getCustomer() == customer
+              && request.getStatus().equals(RequestStatus.REQUESTED)
       ) {
         result.add(request);
       }
     }
-
     return result;
   }
 
@@ -88,28 +68,6 @@ public class RequestRepository implements BaseRepository<Request> {
    * Gets all requests, where status has been changed to Reserved, for a
    * specific customer.
    *
-   * @param customerUsername the customer id
-   * @return all reserved requests from specific customer
-   */
-  @Deprecated
-  public List<Request> getCustomerReserved(String customerUsername) {
-    ArrayList<Request> customerReserved = new ArrayList<Request>();
-    for (Request request : requests) {
-      if (request.getCustomerUsername().equals(customerUsername)
-          && request.getStatus().equals(RequestStatus.RESERVED)) {
-        customerReserved.add(request);
-      }
-    }
-    if (customerReserved.isEmpty()) {
-      return customerReserved;
-    }
-    return null;
-  }
-
-  /**
-   * Gets all requests, where status has been changed to Reserved, for a
-   * specific customer.
-   *
    * @param customer the customer id
    * @return all reserved requests from specific customer
    */
@@ -124,7 +82,6 @@ public class RequestRepository implements BaseRepository<Request> {
         result.add(request);
       }
     }
-
     return result;
   }
 
@@ -147,38 +104,37 @@ public class RequestRepository implements BaseRepository<Request> {
   /**
    * Get specific reserved request.
    *
-   * @param customerUsername the customer username
+   * @param customer the customer
    * @param requestedResource the requested resource
    * @return the request
    */
-  @Deprecated
-  public Request getSpecificReserved(String customerUsername,
+  public Request getSpecificReserved(Customer customer,
       Resource requestedResource) {
-    for (Request request : requests) {
-      if (request.getCustomerUsername().equals(customerUsername)
-          | request.getRequestedResource().equals(requestedResource)) {
+    for (Request request : getCustomerReserved(customer)) {
+      if (request.getRequestedResource().equals(requestedResource)) {
         return request;
       }
     }
     return null;
   }
-
 
   /**
-   * Gets specific.
+   * Get specific request.
    *
-   * @param requestId the request id
-   * @return the specific
+   * @param customer the customer
+   * @param requestedResource the requested resource
+   * @return the request
    */
-  @Deprecated
-  public Request getSpecific(String requestId) {
-    for (Request request : requests) {
-      if (request.getRequestId().equals(requestId)) {
+  public Request getSpecificRequest(Customer customer,
+      Resource requestedResource) {
+    for (Request request : getOpenCustomerRequests(customer)) {
+      if (request.getRequestedResource().equals(requestedResource)) {
         return request;
       }
     }
     return null;
   }
+
 
   /**
    * {@inheritDoc}
