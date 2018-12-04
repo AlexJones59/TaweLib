@@ -15,17 +15,20 @@ import java.util.Date;
  */
 public class Lease implements Serializable {
 
+  @Deprecated
   private String leaseId;
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
+
+  @Deprecated
   private String borrowingCustomerUsername;
+  @Deprecated
   private String borrowedCopyId;
 
-  // TODO: This will be the way after refactoring.
   private Copy copy;
   private Customer borrowingCustomer;
-
+  private Fine fine;
 
   /**
    * Instantiates a new Lease.
@@ -33,6 +36,7 @@ public class Lease implements Serializable {
    * @param borrowingCustomerUsername the borrowing customer username
    * @param borrowedCopyId            the borrowed copy id
    */
+  @Deprecated
   public Lease(String borrowingCustomerUsername, String borrowedCopyId) {
     this.dateLeased = new Date();
     this.borrowingCustomerUsername = borrowingCustomerUsername;
@@ -40,10 +44,23 @@ public class Lease implements Serializable {
   }
 
   /**
+   * Instantiates a new Lease.
+   *
+   * @param customer the borrowing customer username
+   * @param copy            the borrowed copy id
+   */
+  public Lease(Customer customer, Copy copy) {
+    this.borrowingCustomer = customer;
+    this.copy = copy;
+    this.dateLeased = new Date();
+  }
+
+  /**
    * Gets lease id.
    *
    * @return the lease id
    */
+  @Deprecated
   public String getLeaseId() {
     return leaseId;
   }
@@ -96,6 +113,7 @@ public class Lease implements Serializable {
    *
    * @return the borrowing customer username
    */
+  @Deprecated
   public String getBorrowingCustomerUsername() {
     return borrowingCustomerUsername;
   }
@@ -105,6 +123,7 @@ public class Lease implements Serializable {
    *
    * @return the borrowed copy id
    */
+  @Deprecated
   public String getBorrowedCopyId() {
     return borrowedCopyId;
   }
@@ -131,5 +150,13 @@ public class Lease implements Serializable {
   public void setBorrowingCustomer(
       Customer borrowingCustomer) {
     this.borrowingCustomer = borrowingCustomer;
+  }
+
+  public Fine getFine() {
+    return fine;
+  }
+
+  public void setFine(Fine fine) {
+    this.fine = fine;
   }
 }
