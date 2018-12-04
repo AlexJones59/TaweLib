@@ -2,6 +2,7 @@ package com.tawelib.groupfive.controller;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
@@ -23,7 +24,7 @@ import java.util.List;
  * @author Nayeem Mohammed, Shree Desai
  * @version 0.2
  */
-//TODO: Finish implementation of this class.
+
 public class CopyController {
 
 
@@ -56,16 +57,27 @@ public class CopyController {
    */
   public void borrowResourceCopy(Library library, String copyId,
       String customerUsername) {
+    //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
     library.getCopyRepository().getSpecific(copyId)
         .setStatus(CopyStatus.BORROWED);
+
+    //Sets customer as Borrowing Customer.
+    Customer borrowingCustomer =
+        library.getCustomerRepository().getSpecific(customerUsername);
     library.getCopyRepository().getSpecific(copyId)
-        .setBorrowingCustomerUsername(customerUsername);
-    Lease newLease = new Lease(copyId, customerUsername);
+        .setBorrowingCustomer(borrowingCustomer);
+
+    //Creates new Lease.
+    Lease newLease = new Lease(borrowingCustomer, borrowedCopy);
+
+    //Sets Due Date if there are any requests.
     if (library.getRequestRepository()
         .getOpenResourceRequests(borrowedCopy.getResource()) != null) {
       generateDueDate(newLease, borrowedCopy.getResource().getType());
     }
+
+    //Adds lease to repository.
     library.getLeaseRepository().add(newLease);
 
   }

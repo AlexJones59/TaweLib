@@ -15,32 +15,13 @@ import java.util.Date;
  */
 public class Lease implements Serializable {
 
-  @Deprecated
-  private String leaseId;
   private Date dateLeased;
   private Date dateReturned;
   private Date dueDate;
-
-  @Deprecated
-  private String borrowingCustomerUsername;
-  @Deprecated
   private String borrowedCopyId;
-
   private Copy copy;
   private Customer borrowingCustomer;
 
-  /**
-   * Instantiates a new Lease.
-   *
-   * @param borrowingCustomerUsername the borrowing customer username
-   * @param borrowedCopyId            the borrowed copy id
-   */
-  @Deprecated
-  public Lease(String borrowingCustomerUsername, String borrowedCopyId) {
-    this.dateLeased = new Date();
-    this.borrowingCustomerUsername = borrowingCustomerUsername;
-    this.borrowedCopyId = borrowedCopyId;
-  }
 
   /**
    * Instantiates a new Lease.
