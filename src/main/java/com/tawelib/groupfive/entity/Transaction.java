@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Transaction implements Serializable {
 
+  @Deprecated
   private String transactionId;
   private int amount;
   private Date datePaid;
@@ -35,6 +36,7 @@ public class Transaction implements Serializable {
    *
    * @return the transaction id
    */
+  @Deprecated
   public String getTransactionId() {
     return transactionId;
   }
