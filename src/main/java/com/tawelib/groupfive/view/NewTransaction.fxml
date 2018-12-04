@@ -12,11 +12,8 @@
     <left>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Label layoutX="50.0" layoutY="10.0" text="Customer Username:" />
                 <Label layoutX="50.0" layoutY="40.0" text="Amount:" />
-                <TextField fx:id="txtCustomerUsername" layoutX="250.0" layoutY="10.0" prefWidth="200.0" />
-                <TextField fx:id="txtAmount" layoutX="250.0" layoutY="40.0" prefWidth="200.0" />
-                <Button fx:id="btnTopUp" layoutX="116.0" layoutY="121.0" mnemonicParsing="false" prefWidth="70.0" text="Top Up" />
+            <Label layoutX="50.0" layoutY="14.0" text="Username" />
             </children>
         </Pane>
     </left>
@@ -32,6 +29,13 @@
         </Pane>
     </top>
    <center>
-          <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+                <Button fx:id="cancelButton" layoutX="118.0" layoutY="105.0" mnemonicParsing="false" onAction="#back" text="Cancel" />
+                <Button fx:id="topUpButton" layoutX="13.0" layoutY="105.0" mnemonicParsing="false" onAction="#topUp" prefWidth="70.0" text="Top Up" />
+                <TextField fx:id="amountTextField" layoutX="13.0" layoutY="41.0" prefHeight="25.0" prefWidth="130.0" />
+            <Label fx:id="usernameLabel" layoutX="13.0" layoutY="14.0" prefHeight="15.0" prefWidth="128.0" text="[Username]" />
+         </children>
+      </Pane>
    </center>
 </BorderPane>

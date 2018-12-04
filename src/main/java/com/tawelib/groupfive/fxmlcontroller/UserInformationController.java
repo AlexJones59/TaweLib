@@ -6,10 +6,12 @@ import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.tablewrapper.CopyTableWrapper;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -119,36 +121,68 @@ public class UserInformationController extends BaseFxmlController {
     devCommand();
   }
 
+  public void manageBalance() {
+    if (selectedUser.getClass().equals(Customer.class)) {
+      SceneHelper.setUpScene(this, "NewTransaction");
+    } else {
+      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+    }
+  }
+
+  public void borrowNewResource() {
+    if (selectedUser.getClass().equals(Customer.class)) {
+      //TODO: decide from which site to approach this (user first or COPY first)
+//      SceneHelper.setUpScene(this, "BorrowResource");
+      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+    } else {
+      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+    }
+  }
+
+  public void editUserInfo() {
+    AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+  }
+
+  public void returnCopy() {
+    if (selectedUser.getClass().equals(Customer.class)) {
+      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+    } else {
+      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+    }
+  }
+
   /**
    * TODO: Remove this.
    */
   private void devCommand() {
-    Book book = new Book(
-        "The tiTTle",
-        2010,
-        null,
-        "Theeee Author",
-        "Publisheeeer",
-        "Genreeeeeeeeeee",
-        "IZBNN",
-        "C#"
-    );
-    library.getResourceRepository().add(book);
+    if (selectedUser.getClass().equals(Customer.class)) {
+      Book book = new Book(
+          "The tiTTle",
+          2010,
+          null,
+          "Theeee Author",
+          "Publisheeeer",
+          "Genreeeeeeeeeee",
+          "IZBNN",
+          "C#"
+      );
+      library.getResourceRepository().add(book);
 
-    Copy copy = new Copy(book);
-    library.getCopyRepository().add(copy);
+      Copy copy = new Copy(book);
+      library.getCopyRepository().add(copy);
 
-    Lease lease = new Lease(
-        (Customer) selectedUser,
-        copy
-    );
-    library.getLeaseRepository().add(lease);
+      Lease lease = new Lease(
+          (Customer) selectedUser,
+          copy
+      );
+      library.getLeaseRepository().add(lease);
 
-    CopyTableWrapper wrapper = new CopyTableWrapper(
-        lease
-    );
+      CopyTableWrapper wrapper = new CopyTableWrapper(
+          lease
+      );
 
-    resourceTableView.getItems().add(wrapper);
+      resourceTableView.getItems().add(wrapper);
+    }
   }
 
   public void back() {
