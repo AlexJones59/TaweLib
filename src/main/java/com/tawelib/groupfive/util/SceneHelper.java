@@ -23,14 +23,14 @@ public class SceneHelper {
 
   /**
    * Sets up a new scene. Saves important references in appropriate
-   * controllers.
+   * controllers. Returns the new controller.
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
    * @param sceneName Scene name.
    * @throws IOException When unable to switch scenes.
    */
-  public static void setUpScene(Stage primaryStage, Library library,
+  public static BaseFxmlController setUpScene(Stage primaryStage, Library library,
       String sceneName)
       throws IOException {
     URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
@@ -55,6 +55,8 @@ public class SceneHelper {
       controller.setPrimaryStage(primaryStage);
       controller.setVisibilitiesAndRefresh();
     }
+
+    return controller;
   }
 
   /**
@@ -64,10 +66,10 @@ public class SceneHelper {
    * @param controller Controller that initiates the switch.
    * @param sceneName Scene name to switch to.
    */
-  public static void setUpScene(BaseFxmlController controller,
+  public static BaseFxmlController setUpScene(BaseFxmlController controller,
       String sceneName) {
     try {
-      setUpScene(
+      return setUpScene(
           controller.getPrimaryStage(),
           controller.getLibrary(),
           sceneName
