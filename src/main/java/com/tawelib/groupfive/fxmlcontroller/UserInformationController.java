@@ -150,7 +150,7 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void editUserInfo() {
     AccountCrudController controller = (AccountCrudController) SceneHelper
-        .setUpScene(this, "AccountCRUD");
+        .setUpScene(this, "AccountCrud");
 
     controller.setCrudAction(CrudAction.UPDATE);
     controller.refresh();

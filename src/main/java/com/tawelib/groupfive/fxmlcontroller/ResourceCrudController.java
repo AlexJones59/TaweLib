@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ResourceInformationController extends BaseFxmlController {
+public class ResourceCrudController extends BaseFxmlController {
 
   @FXML
   private TextField txtField6;

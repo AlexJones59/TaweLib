@@ -149,7 +149,7 @@ public class UserDashboardController extends BaseFxmlController {
    */
   public void createNewAccount() {
     AccountCrudController controller = (AccountCrudController) SceneHelper
-        .setUpScene(this, "AccountCRUD");
+        .setUpScene(this, "AccountCrud");
 
     controller.setCrudAction(CrudAction.CREATE);
     controller.refresh();
