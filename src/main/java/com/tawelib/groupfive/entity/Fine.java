@@ -18,6 +18,7 @@ public class Fine implements Serializable {
   private int amount;
   private Date dateIssued;
   private int daysOverdue;
+  private Lease lease;
 
   /**
    * Instantiates a new Fine for resources that overdue.
@@ -33,7 +34,8 @@ public class Fine implements Serializable {
    * @param amount Amount.
    * @param daysOverdue Days overdue.
    */
-  public Fine(int amount, int daysOverdue) {
+  public Fine(Lease lease, int amount, int daysOverdue) {
+    this.lease = lease;
     this.amount = amount;
     this.daysOverdue = daysOverdue;
     this.dateIssued = new Date();
@@ -96,6 +98,10 @@ public class Fine implements Serializable {
    */
   public int getDaysOverdue() {
     return daysOverdue;
+  }
+
+  public Lease getLease() {
+    return lease;
   }
 
   //  /**

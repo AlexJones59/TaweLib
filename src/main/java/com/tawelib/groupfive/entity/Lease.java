@@ -28,7 +28,6 @@ public class Lease implements Serializable {
 
   private Copy copy;
   private Customer borrowingCustomer;
-  private Fine fine;
 
   /**
    * Instantiates a new Lease.
@@ -150,13 +149,5 @@ public class Lease implements Serializable {
   public void setBorrowingCustomer(
       Customer borrowingCustomer) {
     this.borrowingCustomer = borrowingCustomer;
-  }
-
-  public Fine getFine() {
-    return fine;
-  }
-
-  public void setFine(Fine fine) {
-    this.fine = fine;
   }
 }
