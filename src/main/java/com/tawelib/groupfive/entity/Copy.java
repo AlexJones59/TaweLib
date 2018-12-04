@@ -17,7 +17,11 @@ public class Copy implements Serializable {
   private String id;
   private CopyStatus status;
   private Resource resource;
+
+  @Deprecated
   private String borrowingCustomerUsername;
+
+  private Customer borrowingCustomer;
 
 
   /**
@@ -62,6 +66,7 @@ public class Copy implements Serializable {
    *
    * @return the borrowing customer username
    */
+  @Deprecated
   public String getBorrowingCustomerUsername() {
     return borrowingCustomerUsername;
   }
@@ -71,6 +76,7 @@ public class Copy implements Serializable {
    *
    * @param borrowingCustomerUsername the borrowing customer username
    */
+  @Deprecated
   public void setBorrowingCustomerUsername(String borrowingCustomerUsername) {
     this.borrowingCustomerUsername = borrowingCustomerUsername;
   }
@@ -82,6 +88,15 @@ public class Copy implements Serializable {
    */
   public Resource getResource() {
     return resource;
+  }
+
+  public Customer getBorrowingCustomer() {
+    return borrowingCustomer;
+  }
+
+  public void setBorrowingCustomer(
+      Customer borrowingCustomer) {
+    this.borrowingCustomer = borrowingCustomer;
   }
 }
 

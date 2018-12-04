@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.repository;
 
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Fine;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -15,7 +16,9 @@ public class FineRepository implements BaseRepository<Fine> {
 
   private ArrayList<Fine> fines;
 
-  private int lastFineId = 0;
+  public FineRepository() {
+    fines = new ArrayList<>();
+  }
 
   /**
    * Gets customer fines.
@@ -23,6 +26,7 @@ public class FineRepository implements BaseRepository<Fine> {
    * @param customerUsername the customer username
    * @return the customer fines
    */
+  @Deprecated
   public List<Fine> getCustomerFines(String customerUsername) {
     ArrayList<Fine> customerFines = new ArrayList<Fine>();
     for (Fine fine : fines) {
@@ -39,11 +43,30 @@ public class FineRepository implements BaseRepository<Fine> {
   }
 
   /**
+   * Gets customer fines.
+   *
+   * @param customer the customer
+   * @return the customer fines
+   */
+  public List<Fine> getCustomerFines(Customer customer) {
+    ArrayList<Fine> result = new ArrayList<>();
+
+    for (Fine fine : fines) {
+      if (fine.getLease().getBorrowingCustomer() == customer) {
+        result.add(fine);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Gets specific.
    *
    * @param fineId the fine id
    * @return the specific
    */
+  @Deprecated
   public Fine getSpecific(String fineId) {
     for (Fine fine : fines) {
       if (fine.getFineId().equals(fineId)) {
@@ -51,23 +74,6 @@ public class FineRepository implements BaseRepository<Fine> {
       }
     }
     return null;
-  }
-
-  /**
-   * Generates a unique id for the request.
-   *
-   * @param fine fine
-   */
-  private void generateFineId(Fine fine) {
-    try {
-      Field idField = fine.getClass().getDeclaredField("fineId");
-      idField.setAccessible(true);
-      idField.set(fine, lastFineId);
-    } catch (IllegalAccessException | NoSuchFieldException e) {
-      e.printStackTrace();
-    } finally {
-      lastFineId++;
-    }
   }
 
   /**
@@ -84,7 +90,6 @@ public class FineRepository implements BaseRepository<Fine> {
   @Override
   public void add(Fine fine) {
     if (!fines.contains(fine)) {
-      generateFineId(fine);
       fines.add(fine);
     }
   }

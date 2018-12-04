@@ -18,11 +18,15 @@ import java.util.List;
  */
 public class ResourceRepository implements BaseRepository<Resource> {
 
-  private static ArrayList<Resource> resources;
+  private ArrayList<Resource> resources;
 
   private int lastBookNumber = 0;
   private int lastDvdNumber = 0;
   private int lastLaptopNumber = 0;
+
+  public ResourceRepository() {
+    resources = new ArrayList<>();
+  }
 
   /**
    * Generates unique id as resource is persisted to repository.
@@ -34,35 +38,28 @@ public class ResourceRepository implements BaseRepository<Resource> {
     String newResourceId = "";
 
     //Checks type of Resource and creates Id based upon that...
-    switch (resource.getType()) {
-      case DVD: {
-        typePrefix = "D";
-        newResourceId = typePrefix + Integer.toString(lastDvdNumber);
-        break;
-      }
-      case BOOK: {
-        typePrefix = "B";
-        newResourceId = typePrefix + Integer.toString(lastBookNumber);
-        break;
-      }
-      case LAPTOP: {
-        typePrefix = "L";
-        newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
-        break;
-      } default:
-
+    if (resource.getClass().equals(Dvd.class)) {
+      typePrefix = "D";
+      newResourceId = typePrefix + Integer.toString(lastDvdNumber);
+      lastDvdNumber++;
+    } else if (resource.getClass().equals(Book.class)) {
+      typePrefix = "B";
+      newResourceId = typePrefix + Integer.toString(lastBookNumber);
+      lastBookNumber++;
+    } else if (resource.getClass().equals(Laptop.class)) {
+      typePrefix = "L";
+      newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
+      lastLaptopNumber++;
     }
 
     try {
-      Field idField = resource.getClass().getDeclaredField("resourceId");
+      Field idField = resource.getClass().getSuperclass().getDeclaredField("resourceId");
       idField.setAccessible(true);
       idField.set(resource, newResourceId);
       idField.setAccessible(false);
     } catch (IllegalAccessException | NoSuchFieldException e) {
       e.printStackTrace();
     }
-
-
   }
 
   /**
@@ -73,8 +70,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   public List<Book> searchBook(String query) {
     ArrayList<Book> result = new ArrayList<>();
+
     for (Resource searchResource : resources) {
-      if (searchResource.getType() == ResourceType.BOOK) {
+      if (searchResource.getClass().equals(Book.class)) {
         Book searchBook = (Book) searchResource;
         if (searchBook.getTitle().equals(query)
             || searchBook.getYear() == Integer.valueOf(query)
@@ -86,10 +84,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
       }
     }
 
-    if (!result.isEmpty()) {
-      return result;
-    }
-    return null;
+    return result;
 
   }
 
@@ -101,8 +96,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   public List<Dvd> searchDvd(String query) {
     ArrayList<Dvd> result = new ArrayList<>();
+
     for (Resource searchResource : resources) {
-      if (searchResource.getType() == ResourceType.DVD) {
+      if (searchResource.getClass().equals(Dvd.class)) {
         Dvd searchDvd = (Dvd) searchResource;
         if (searchDvd.getTitle().equals(query)
             || searchDvd.getYear() == Integer.valueOf(query)
@@ -113,10 +109,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
       }
     }
 
-    if (!result.isEmpty()) {
-      return result;
-    }
-    return null;
+    return result;
 
   }
 
@@ -129,8 +122,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   public List<Laptop> searchLaptop(String query, String searchAttribute) {
     ArrayList<Laptop> result = new ArrayList<>();
+
     for (Resource searchResource : resources) {
-      if (searchResource.getType() == ResourceType.LAPTOP) {
+      if (searchResource.getClass().equals(Laptop.class)) {
         Laptop searchLaptop = (Laptop) searchResource;
         if (searchLaptop.getTitle().equals(query)
             || searchLaptop.getYear() == Integer.valueOf(query)
@@ -142,10 +136,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
         }
       }
     }
-    if (!result.isEmpty()) {
-      return result;
-    }
-    return null;
+
+    return result;
   }
 
   /**
@@ -204,9 +196,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
   @Override
   public void add(Resource resource) {
     if (!resources.contains((resource))) {
+      generateId(resource);
       resources.add(resource);
     }
   }
-
-
 }

@@ -2,28 +2,30 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class NewTransactionController extends BaseFxmlController {
 
+  @FXML
+  public Label usernameLabel;
 
   @FXML
-  private Button btnCancel;
+  public TextField amountTextField;
 
-  @FXML
-  private TextField txtCustomerUsername;
+  @Override
+  public void refresh() {
 
-  @FXML
-  private TextField txtAmount;
-
-  @FXML
-  private Button btnTopUp;
+  }
 
   public NewTransactionController() {
   }
 
+  public void topUp() {
+
+  }
+
   public void back() {
-    SceneHelper.setUpScene(this, "TransactionsAndFines");
+    SceneHelper.setUpScene(this, "UserInformation");
   }
 }

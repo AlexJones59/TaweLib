@@ -12,17 +12,30 @@ import java.util.Date;
  */
 public class Fine implements Serializable {
 
+  @Deprecated
   private String fineId;
+
   private int amount;
   private Date dateIssued;
-  private Lease specificLease;
+  private Lease lease;
 
   /**
    * Instantiates a new Fine for resources that overdue.
    */
+  @Deprecated
   public Fine(Lease specificLease) {
     this.dateIssued = new Date();
-    this.specificLease = specificLease;
+  }
+
+  /**
+   * Instantiates a new Fine for resources that overdue.
+   *
+   * @param amount Amount.
+   */
+  public Fine(Lease lease, int amount) {
+    this.lease = lease;
+    this.amount = amount;
+    this.dateIssued = new Date();
   }
 
   /**
@@ -31,10 +44,10 @@ public class Fine implements Serializable {
    *
    * @param amount the amount
    */
+  @Deprecated
   public Fine(int amount, Lease specificLease) {
     this.amount = amount;
     this.dateIssued = new Date();
-    this.specificLease = specificLease;
   }
 
   /**
@@ -42,6 +55,7 @@ public class Fine implements Serializable {
    *
    * @return the fine id
    */
+  @Deprecated
   public String getFineId() {
     return fineId;
   }
@@ -55,6 +69,7 @@ public class Fine implements Serializable {
     return amount;
   }
 
+
   /**
    * Gets date issued.
    *
@@ -67,20 +82,27 @@ public class Fine implements Serializable {
   /**
    * Gets instance of Lease that this fine is specific to.
    */
+  @Deprecated
   public Lease getSpecificLease() {
-    return specificLease;
+    return null;
+  }
+
+  public Lease getLease() {
+    return lease;
   }
 
   /**
    * Gets days overdue.
+   * TODO: Comment well.
    */
-  public int getDaysOverdue() {
-    //TODO: optimise.
-    Date currentDate = new Date();
-    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
+  private int getDaysOverdue() {
+    long diffInMilli =
+        lease.getDueDate().getTime() - lease.getDateReturned().getTime();
 
+    if (diffInMilli > 84600 * 1000) {
+      return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
+    } else {
+      return 0;
+    }
   }
-
-
 }
