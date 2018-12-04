@@ -24,6 +24,12 @@ public interface UserRepository<T> extends BaseRepository<T> {
 
   Collection<? extends User> search(String query);
 
+  /**
+   * Assigns a generated ID (username) to a User using class reflection.
+   *
+   * @param user User
+   * @param username Username
+   */
   default void assignGeneratedId(User user, String username) {
     try {
       Field usernameField = user.getClass().getSuperclass()

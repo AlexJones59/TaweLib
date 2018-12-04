@@ -105,15 +105,15 @@ public class Fine implements Serializable {
   }
 
   //  /**
-//   * Gets days overdue.
-//   *
-//   * NOTE: Wrong class
-//   */
-//  public int getDaysOverdue() {
-//    //TODO: optimise.
-//    Date currentDate = new Date();
-//    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-//    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
-//
-//  }
+  //   * Gets days overdue.
+  //   *
+  //   * NOTE: Wrong class
+  //   */
+  //  public int getDaysOverdue() {
+  //    //TODO: optimise.
+  //    Date currentDate = new Date();
+  //    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
+  //    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
+  //
+  //  }
 }

@@ -121,6 +121,9 @@ public class UserInformationController extends BaseFxmlController {
     devCommand();
   }
 
+  /**
+   * Launches ManageBalance screen.
+   */
   public void manageBalance() {
     if (selectedUser.getClass().equals(Customer.class)) {
       SceneHelper.setUpScene(this, "NewTransaction");
@@ -129,20 +132,29 @@ public class UserInformationController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Launches a window for borrowing new resources.
+   */
   public void borrowNewResource() {
     if (selectedUser.getClass().equals(Customer.class)) {
       //TODO: decide from which site to approach this (user first or COPY first)
-//      SceneHelper.setUpScene(this, "BorrowResource");
+      //      SceneHelper.setUpScene(this, "BorrowResource");
       AlertHelper.alert(AlertType.ERROR, "To be implemented.");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
   }
 
+  /**
+   * Launches a screen for editing user info.
+   */
   public void editUserInfo() {
     AlertHelper.alert(AlertType.ERROR, "To be implemented.");
   }
 
+  /**
+   * Returns a selected copy.
+   */
   public void returnCopy() {
     if (selectedUser.getClass().equals(Customer.class)) {
       AlertHelper.alert(AlertType.ERROR, "To be implemented.");

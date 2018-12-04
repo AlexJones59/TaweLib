@@ -20,6 +20,12 @@ public class TransactionRepository implements BaseRepository<Transaction> {
     transactions = new ArrayList<>();
   }
 
+  /**
+   * Returns all customer's transactions.
+   *
+   * @param customer Customer
+   * @return Transactions.
+   */
   public List<Transaction> getTransactions(Customer customer) {
     ArrayList<Transaction> result = new ArrayList<>();
 

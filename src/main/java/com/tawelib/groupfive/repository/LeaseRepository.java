@@ -32,7 +32,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param leaseId the lease id
    * @return the specific
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   public Lease getSpecific(String leaseId) {
@@ -50,7 +50,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param copyId the copy id
    * @return the copy lease history
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   public List<Lease> getCopyLeaseHistory(String copyId) {
@@ -109,7 +109,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param copyId the copy id
    * @return the copy current lease
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   public Lease getCopyCurrentLease(String copyId) {
@@ -128,15 +128,13 @@ public class LeaseRepository implements BaseRepository<Lease> {
    *
    * @param copy The Copy.
    * @return the copy current lease
-   *
-   * TODO: Does not count when reserved.
    */
   public Lease getCopyCurrentLease(Copy copy) {
     if (copy.getStatus() == CopyStatus.BORROWED) {
       Lease lease;
 
       //NOTE: Counting backwards.
-      for (int i = leases.size() - 1; i >= 0 ; i--) {
+      for (int i = leases.size() - 1; i >= 0; i--) {
         lease = leases.get(i);
 
         if (lease.getCopy() == copy) {
@@ -154,7 +152,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param customerUsername the customer username
    * @return the customer current leases
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   public List<Lease> getCustomerCurrentLeases(String customerUsername) {
@@ -176,7 +174,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    * @param customerUsername the customer username
    * @return the customer overdue leases
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   public List<Lease> getCustomerOverdueLeases(String customerUsername) {
@@ -235,7 +233,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    *
    * @param lease lease
    *
-   * @deprecated
+   * @deprecated Use reference.
    */
   @Deprecated
   private void generateLeaseId(Lease lease) {
