@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
  * resource.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 0.5
  */
 public abstract class Resource implements Serializable {
 
