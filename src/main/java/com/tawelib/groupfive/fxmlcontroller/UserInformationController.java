@@ -2,10 +2,9 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
-import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.tablewrapper.CopyTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
@@ -44,10 +43,16 @@ public class UserInformationController extends BaseFxmlController {
   public TableColumn<CopyTableWrapper, String> resourceIdTableColumn;
 
   @FXML
+  public TableColumn<CopyTableWrapper, String> copyIdTableColumn;
+
+  @FXML
   public TableColumn<CopyTableWrapper, String> titleTableColumn;
 
   @FXML
   public TableColumn<CopyTableWrapper, Date> dueDateTableColumn;
+
+  @FXML
+  public TableColumn<CopyTableWrapper, CopyStatus> statusTableColumn;
 
   public UserInformationController() {
   }
@@ -60,7 +65,7 @@ public class UserInformationController extends BaseFxmlController {
     resourceIdTableColumn.setCellValueFactory(
         new PropertyValueFactory<>("resourceId"));
 
-    resourceIdTableColumn.setCellValueFactory(
+    copyIdTableColumn.setCellValueFactory(
         new PropertyValueFactory<>("copyId"));
 
     titleTableColumn.setCellValueFactory(
@@ -69,7 +74,7 @@ public class UserInformationController extends BaseFxmlController {
     dueDateTableColumn.setCellValueFactory(
         new PropertyValueFactory<>("dueDate"));
 
-    dueDateTableColumn.setCellValueFactory(
+    statusTableColumn.setCellValueFactory(
         new PropertyValueFactory<>("status"));
   }
 
@@ -109,30 +114,41 @@ public class UserInformationController extends BaseFxmlController {
       );
     }
 
+    //TODO: Populate.
+
+    devCommand();
+  }
+
+  /**
+   * TODO: Remove this.
+   */
+  private void devCommand() {
     Book book = new Book(
         "The tiTTle",
         2010,
         null,
-        ResourceType.BOOK,
         "Theeee Author",
         "Publisheeeer",
         "Genreeeeeeeeeee",
         "IZBNN",
         "C#"
     );
+    library.getResourceRepository().add(book);
 
-    Copy copy = new Copy(
-        book
+    Copy copy = new Copy(book);
+    library.getCopyRepository().add(copy);
+
+    Lease lease = new Lease(
+        (Customer) selectedUser,
+        copy
+    );
+    library.getLeaseRepository().add(lease);
+
+    CopyTableWrapper wrapper = new CopyTableWrapper(
+        lease
     );
 
-    resourceTableView.getItems().add(
-        new CopyTableWrapper(
-            new Lease(
-                "blaaaahname",
-                copy.getId()
-            )
-        )
-    );
+    resourceTableView.getItems().add(wrapper);
   }
 
   public void back() {
