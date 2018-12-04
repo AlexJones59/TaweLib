@@ -48,7 +48,7 @@ public class Customer extends User {
    * @param amount increments to account balance
    */
   public void increaseAccountBalance(int amount) {
-    this.accountBalance += accountBalance;
+    this.accountBalance += Math.abs(amount);
   }
 
   /**
@@ -57,6 +57,6 @@ public class Customer extends User {
    * @param amount increments to account balance
    */
   public void decreaseAccountBalance(int amount) {
-    this.accountBalance -= accountBalance;
+    this.accountBalance -= Math.abs(amount);
   }
 }

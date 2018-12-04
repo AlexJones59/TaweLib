@@ -5,6 +5,10 @@ Employment date and Staff Number are hidden until checkbox for
 librarian account creation is ticked
 -->
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -14,7 +18,7 @@ librarian account creation is ticked
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.AccountCreationController">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.AccountCrudController">
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -34,7 +38,7 @@ librarian account creation is ticked
                 <TextField fx:id="txtPostcode" alignment="CENTER_RIGHT" layoutX="150.0" layoutY="306.0" maxHeight="-Infinity" onKeyReleased="#postcodeCheck" prefHeight="20.0" prefWidth="200.0" />
                 <Label fx:id="lblEmployDate" alignment="CENTER" contentDisplay="RIGHT" layoutX="4.0" layoutY="369.0" prefHeight="27.0" prefWidth="152.0" text="Employment Date:" visible="false" />
                 <Label fx:id="lblAccountType" alignment="CENTER" contentDisplay="RIGHT" layoutX="16.0" layoutY="24.0" text="Type of account:" />
-                <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#createAccount" text="Create" />
+                <Button fx:id="btnCreate" alignment="CENTER_RIGHT" layoutX="52.0" layoutY="396.0" mnemonicParsing="false" onAction="#createAccount" text="Create" />
                 <CheckBox fx:id="cbxLibrarian" layoutX="155.0" layoutY="24.0" mnemonicParsing="false" onAction="#toggleCreate" text="Librarian" />
             <Label fx:id="lblFirstNameCheck" layoutX="370.0" layoutY="55.0" prefHeight="17.0" prefWidth="305.0" />
             <Label fx:id="lblLastNameCheck" layoutX="356.0" layoutY="95.0" prefHeight="17.0" prefWidth="335.0" />
@@ -45,6 +49,7 @@ librarian account creation is ticked
             <Label fx:id="lblPostcodeCheck" layoutX="370.0" layoutY="310.0" prefHeight="17.0" prefWidth="323.0" />
             <DatePicker fx:id="dateEmploymentDate" disable="true" layoutX="176.0" layoutY="370.0" onAction="#employmentDateCheck" opacity="0.0" />
             <Label fx:id="lblEmploymentDateCheck" layoutX="406.0" layoutY="374.0" prefHeight="17.0" prefWidth="228.0" />
+            <Button fx:id="btnUpdate" alignment="CENTER_RIGHT" layoutX="134.0" layoutY="396.0" mnemonicParsing="false" onAction="#updateAccount" text="Update" />
             </children>
         </Pane>
     </center>
@@ -52,7 +57,7 @@ librarian account creation is ticked
         <Pane prefHeight="80.0" prefWidth="800.0">
             <children>
                 <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#back" text="Back" />
-                <Label fx:id="lblScreenTitle" layoutX="307.0" layoutY="25.0" text="Account Creation">
+                <Label fx:id="lblScreenTitle" layoutX="307.0" layoutY="25.0" text="Account">
                     <font>
                         <Font size="25.0" />
                     </font>

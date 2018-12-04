@@ -149,7 +149,11 @@ public class UserInformationController extends BaseFxmlController {
    * Launches a screen for editing user info.
    */
   public void editUserInfo() {
-    AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+    AccountCrudController controller = (AccountCrudController) SceneHelper
+        .setUpScene(this, "AccountCrud");
+
+    controller.setCrudAction(CrudAction.UPDATE);
+    controller.refresh();
   }
 
   /**
