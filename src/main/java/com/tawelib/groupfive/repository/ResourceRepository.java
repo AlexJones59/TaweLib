@@ -50,7 +50,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
     }
 
     try {
-      Field idField = resource.getClass().getDeclaredField("resourceId");
+      Field idField = resource.getClass().getSuperclass().getDeclaredField("resourceId");
       idField.setAccessible(true);
       idField.set(resource, newResourceId);
       idField.setAccessible(false);
