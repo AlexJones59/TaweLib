@@ -175,6 +175,7 @@ public class UserInformationController extends BaseFxmlController {
           (Customer) selectedUser,
           copy
       );
+      lease.setDueDate(new Date());
       library.getLeaseRepository().add(lease);
 
       CopyTableWrapper wrapper = new CopyTableWrapper(
