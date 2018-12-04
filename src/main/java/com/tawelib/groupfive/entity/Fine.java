@@ -17,7 +17,6 @@ public class Fine implements Serializable {
 
   private int amount;
   private Date dateIssued;
-  private int daysOverdue;
   private Lease lease;
 
   /**
@@ -32,12 +31,10 @@ public class Fine implements Serializable {
    * Instantiates a new Fine for resources that overdue.
    *
    * @param amount Amount.
-   * @param daysOverdue Days overdue.
    */
-  public Fine(Lease lease, int amount, int daysOverdue) {
+  public Fine(Lease lease, int amount) {
     this.lease = lease;
     this.amount = amount;
-    this.daysOverdue = daysOverdue;
     this.dateIssued = new Date();
   }
 
@@ -73,7 +70,6 @@ public class Fine implements Serializable {
   }
 
 
-
   /**
    * Gets date issued.
    *
@@ -91,29 +87,22 @@ public class Fine implements Serializable {
     return null;
   }
 
-  /**
-   * Returns days overdue.
-   *
-   * @return Days overdue.
-   */
-  public int getDaysOverdue() {
-    return daysOverdue;
-  }
-
   public Lease getLease() {
     return lease;
   }
 
-  //  /**
-  //   * Gets days overdue.
-  //   *
-  //   * NOTE: Wrong class
-  //   */
-  //  public int getDaysOverdue() {
-  //    //TODO: optimise.
-  //    Date currentDate = new Date();
-  //    long diffInMilli = currentDate.getTime() - dateIssued.getTime();
-  //    return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
-  //
-  //  }
+  /**
+   * Gets days overdue.
+   * TODO: Comment well.
+   */
+  private int getDaysOverdue() {
+    long diffInMilli =
+        lease.getDueDate().getTime() - lease.getDateReturned().getTime();
+
+    if (diffInMilli > 84600 * 1000) {
+      return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
+    } else {
+      return 0;
+    }
+  }
 }
