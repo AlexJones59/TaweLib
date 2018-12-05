@@ -14,7 +14,7 @@
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <Button fx:id="createButton" layoutX="14.0" layoutY="442.0" mnemonicParsing="false" onAction="#create" text="Create" />
       <Button fx:id="updateButton" layoutX="85.0" layoutY="442.0" mnemonicParsing="false" onAction="#update" text="Update" />
-      <Button layoutX="507.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCopies" text="Show Copies" />
+      <Button fx:id="showCopiesButton" layoutX="507.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCopies" text="Show Copies" />
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
       <VBox layoutX="222.0" layoutY="52.0" prefHeight="491.0" prefWidth="303.0">
          <children>
