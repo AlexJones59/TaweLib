@@ -80,20 +80,16 @@ public class ResourceCrudController extends BaseFxmlController {
 
   @Override
   public void refresh() {
-    if (isLibrarianLoggedIn()) {
-      if (crudAction == CrudAction.UPDATE) {
-        populateResource();
-
-        createButton.setVisible(false);
-        updateButton.setVisible(true);
-      } else if (crudAction == CrudAction.CREATE) {
-        createButton.setVisible(true);
-        updateButton.setVisible(false);
-      }
-    } else {
-      createButton.setVisible(false);
-      updateButton.setVisible(false);
+    if (crudAction == CrudAction.UPDATE) {
+      populateResource();
     }
+
+    createButton.setVisible(
+        isLibrarianLoggedIn() && crudAction == CrudAction.CREATE
+    );
+    updateButton.setVisible(
+        isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE
+    );
   }
 
   private void populateResource() {
