@@ -145,7 +145,18 @@ public class BrowseResourcesController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
+  /**
+   * Opens the resource CRUD screen if a resource is selected.
+   */
   public void resourceInformation() {
-    SceneHelper.setUpScene(this, "ResourceInformation");
+    if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
+      ((ResourceCrudController) SceneHelper.setUpScene(
+          this,
+          "ResourceCrud")
+      ).setSelectedResource(
+          tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
+              .getResource()
+      );
+    }
   }
 }
