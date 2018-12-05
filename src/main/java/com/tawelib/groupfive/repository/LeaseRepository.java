@@ -129,7 +129,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   public List<Lease> getOverdueLeases() {
     ArrayList<Lease> result = new ArrayList<>();
-    Date currentDate = new Date();
+    LocalDateTime currentDate = new Date();
 
     for (Lease lease : leases) {
       if (lease.getDueDate().after(currentDate)) {

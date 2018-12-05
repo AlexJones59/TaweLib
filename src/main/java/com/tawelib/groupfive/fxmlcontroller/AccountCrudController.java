@@ -280,9 +280,9 @@ public class AccountCrudController extends BaseFxmlController {
    * Postcode check.
    */
   public void employmentDateCheck() {
-    Date currentDate = new Date();
+    LocalDateTime currentDate = new Date();
     LocalDate pickedDate = dateEmploymentDate.getValue();
-    Date picked = Date.from(pickedDate.atStartOfDay()
+    LocalDateTime picked = Date.from(pickedDate.atStartOfDay()
         .atZone(ZoneId.systemDefault()).toInstant());
     if (picked.after(currentDate)) {
       lblEmploymentDateCheck.setText(VALID_DATA_ERROR);

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 public class Librarian extends User {
 
-  private final Date employmentDate;
+  private final LocalDateTime employmentDate;
   private int staffNumber;
 
   /**
@@ -29,7 +30,7 @@ public class Librarian extends User {
    */
   public Librarian(String firstName, String lastName, String phoneNumber,
                    String houseNumber, String street, String city,
-                   String postCode, Date employmentDate) {
+                   String postCode, LocalDateTime employmentDate) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
     this.employmentDate = employmentDate;
@@ -40,7 +41,7 @@ public class Librarian extends User {
    *
    * @return the employment date
    */
-  public Date getEmploymentDate() {
+  public LocalDateTime getEmploymentDate() {
     return employmentDate;
   }
 

@@ -75,7 +75,7 @@ public class CopyManager {
    * @param copyId the copy id
    */
   public static void returnResourceCopy(Library library, String copyId) {
-    Date dateReturned = new Date();
+    LocalDateTime dateReturned = new Date();
     Copy returnedCopy = library.getCopyRepository().getSpecific(copyId);
 
     //Sets date returned in Lease.
@@ -160,7 +160,7 @@ public class CopyManager {
         newLease.getBorrowedCopy().getResource().getType();
     long dueDateMilli = newLease.getDateLeased().getTime()
         + ((resourceType.getLoanDuration()) * DAYTOMILLISECONDS);
-    Date dueDate = new Date(dueDateMilli);
+    LocalDateTime dueDate = new Date(dueDateMilli);
     newLease.setDueDate(dueDate);
 
   }

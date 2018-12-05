@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -13,10 +14,8 @@ import java.util.Date;
  */
 public class Transaction implements Serializable {
 
-  @Deprecated
-  private String transactionId;
   private int amount;
-  private Date datePaid;
+  private LocalDateTime datePaid;
   private Customer payee;
 
   /**
@@ -28,17 +27,7 @@ public class Transaction implements Serializable {
   public Transaction(int amount, Customer payee) {
     this.amount = amount;
     this.payee = payee;
-    this.datePaid = new Date();
-  }
-
-  /**
-   * Gets transaction id.
-   *
-   * @return the transaction id
-   */
-  @Deprecated
-  public String getTransactionId() {
-    return transactionId;
+    this.datePaid = LocalDateTime.now();
   }
 
   /**
@@ -55,7 +44,7 @@ public class Transaction implements Serializable {
    *
    * @return the date paid
    */
-  public Date getDatePaid() {
+  public LocalDateTime getDatePaid() {
     return datePaid;
   }
 

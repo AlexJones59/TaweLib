@@ -51,7 +51,7 @@ public class UserManager {
    * @param postcode the postcode
    */
   public static void createLibrarianAccount(Library library, String firstName,
-      String lastName, Date employmentDate, String phoneNumber,
+      String lastName, LocalDateTime employmentDate, String phoneNumber,
       String houseNumber, String street, String city, String postcode) {
     Librarian newLibrarian = new Librarian(firstName, lastName, phoneNumber,
         houseNumber, street, city, postcode, employmentDate);
