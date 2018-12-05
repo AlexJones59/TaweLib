@@ -1,103 +1,156 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Book;
+import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.SceneHelper;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 public class ResourceCrudController extends BaseFxmlController {
 
   private Resource selectedResource;
+  private CrudAction crudAction;
 
   @FXML
-  private TextField txtField6;
+  private Label idLabel;
 
   @FXML
-  private Button btnBack;
+  private TextField titleTextField;
 
   @FXML
-  private TextField txtFieldId;
+  private TextField yearTextField;
 
   @FXML
-  private TextField txtField2;
+  private TextField authorTextField;
 
   @FXML
-  private Label lblYear;
+  private TextField publisherTextField;
 
   @FXML
-  private TextField txtField3;
+  private TextField genreTextField;
 
   @FXML
-  private Button btnCopyList;
+  private TextField isbnTextField;
 
   @FXML
-  private TextField txtField4;
+  private TextField languageTextField;
 
   @FXML
-  private TextField txtField5;
+  private TextField modelTextField;
 
   @FXML
-  private Button btnCreate;
+  private TextField manufacturedTextField;
 
   @FXML
-  private TextField txtField1;
+  private TextField operatingSystemTextField;
 
   @FXML
-  private Label lblNoOfCopies;
+  private TextField directorTextField;
 
   @FXML
-  private Label lblField5;
+  private TextField runtimeTextField;
 
   @FXML
-  private Label lblField4;
+  private TextArea audioLanguagesTextArea;
 
   @FXML
-  private Button btnModify;
+  private TextArea subtitleLanguagesTextArea;
 
   @FXML
-  private Label lblField1;
+  private Button createButton;
 
   @FXML
-  private TextField txtFieldYear;
+  private Button updateButton;
 
-  @FXML
-  private Label lblId;
+  @Override
+  public void refresh() {
+    if (isLibrarianLoggedIn()) {
+      if (crudAction == CrudAction.UPDATE) {
+        populateResource();
 
-  @FXML
-  private Label lblField3;
+        createButton.setVisible(false);
+      } else {
+        updateButton.setVisible(false);
+      }
+    } else {
+      createButton.setVisible(false);
+      updateButton.setVisible(false);
+    }
+  }
 
-  @FXML
-  private Label lblField2;
+  private void populateResource() {
+    idLabel.setText(selectedResource.getResourceId());
+    titleTextField.setText(selectedResource.getTitle());
+    yearTextField.setText(Integer.toString(selectedResource.getYear()));
 
-  @FXML
-  private Label lblScreenTitle;
+    switch (selectedResource.getType()) {
+      case BOOK:
+        populateBook();
+        break;
+      case DVD:
+        populateDvd();
+        break;
+      case LAPTOP:
+        populateLaptop();
+        break;
+      default:
+        break;
+    }
+  }
 
-  @FXML
-  private TextField txtFieldTitle;
+  private void populateBook() {
+    Book selectedBook = (Book) selectedResource;
 
-  @FXML
-  private Label lblTitle;
+    authorTextField.setText(selectedBook.getAuthor());
+    publisherTextField.setText(selectedBook.getPublisher());
+    genreTextField.setText(selectedBook.getGenre());
+    isbnTextField.setText(selectedBook.getIsbn());
+    languageTextField.setText(selectedBook.getLanguage());
+  }
 
-  public void modifyResource() {
-    System.out.println("modifyResource goes here");
+  private void populateDvd() {
+    Dvd selectedDvd = (Dvd) selectedResource;
+
+    directorTextField.setText(selectedDvd.getDirector());
+    runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
+    audioLanguagesTextArea.setText(
+        ExplosionHelper.implode(selectedDvd.getLanguages())
+    );
+    subtitleLanguagesTextArea.setText(
+        ExplosionHelper.implode(selectedDvd.getSubtitleLanguages())
+    );
+  }
+
+  private void populateLaptop() {
+    Laptop selectedLaptop = (Laptop) selectedResource;
+
+    modelTextField.setText(selectedLaptop.getModel());
+    manufacturedTextField.setText(selectedLaptop.getModel());
+    operatingSystemTextField.setText(
+        selectedLaptop.getInstalledOperatingSystem()
+    );
+  }
+
+  public void create() {
 
   }
 
-  public void copyList() {
-    System.out.println("copyList goes here");
+  public void update() {
+
   }
 
-  public void createResource() {
-    System.out.println("createResource goes here");
+  public void showCopies() {
+
   }
 
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
-
   }
 
   public Resource getSelectedResource() {
@@ -105,7 +158,16 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   public void setSelectedResource(
-      Resource selectedResource) {
+      Resource selectedResource
+  ) {
     this.selectedResource = selectedResource;
+  }
+
+  public CrudAction getCrudAction() {
+    return crudAction;
+  }
+
+  public void setCrudAction(CrudAction crudAction) {
+    this.crudAction = crudAction;
   }
 }
