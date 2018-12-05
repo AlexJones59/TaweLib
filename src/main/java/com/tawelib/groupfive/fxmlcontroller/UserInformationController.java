@@ -9,6 +9,7 @@ import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
@@ -85,6 +86,7 @@ public class UserInformationController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+
     firstNameTextField.setText(selectedUser.getFirstName());
     lastNameTextField.setText(selectedUser.getLastName());
     usernameTextField.setText(selectedUser.getUsername());
@@ -106,6 +108,10 @@ public class UserInformationController extends BaseFxmlController {
           },
           true
       );
+
+      setTableContents(library.getLeaseRepository()
+          .getCustomerLeaseHistory(selectedCustomer));
+
     } else {
       setNodeVisibilities(
           new Node[]{
@@ -116,7 +122,16 @@ public class UserInformationController extends BaseFxmlController {
       );
     }
 
-    //TODO: Populate.
+
+
+  }
+
+  private void setTableContents(List<Lease> customerLeases) {
+    resourceTableView.getItems().clear();
+
+    for (Lease lease : customerLeases) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(lease));
+    }
   }
 
   /**
