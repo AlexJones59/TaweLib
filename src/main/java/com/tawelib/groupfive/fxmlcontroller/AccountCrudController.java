@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -29,6 +28,8 @@ import javafx.scene.control.TextField;
 public class AccountCrudController extends BaseFxmlController {
 
   private CrudAction crudAction;
+  private static final String VALID_DATA_ERROR =
+      "This is not valid data for " + "this field.";
 
   @FXML
   public ResourceBundle resources;
@@ -188,7 +189,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void firstNameCheck() {
     if (txtFirstName.getText().length() != 0) {
       if (!txtFirstName.getText().matches("[A-Z][a-zA-Z]*")) {
-        lblFirstNameCheck.setText("This is not valid data for this field.");
+        lblFirstNameCheck.setText(VALID_DATA_ERROR);
       } else {
         lblFirstNameCheck.setText("First name is valid.");
       }
@@ -201,7 +202,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void lastNameCheck() {
     if (txtLastName.getText().length() != 0) {
       if (!txtLastName.getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
-        lblLastNameCheck.setText("This is not valid data for this field.");
+        lblLastNameCheck.setText(VALID_DATA_ERROR);
       } else {
         lblLastNameCheck.setText("Last Name is valid.");
       }
@@ -214,7 +215,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void phoneNoCheck() {
     if (txtPhoneNo.getText().length() != 0) {
       if (!txtPhoneNo.getText().matches("^\\+?(?:\\d\\s?){10,12}$")) {
-        lblPhoneNoCheck.setText("This is not valid data for this field.");
+        lblPhoneNoCheck.setText(VALID_DATA_ERROR);
       } else {
         lblPhoneNoCheck.setText("Phone No. is valid.");
       }
@@ -227,7 +228,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void houseNoCheck() {
     if (txtHouseNo.getText().length() != 0) {
       if (txtHouseNo.getText().length() >= 10) {
-        lblHouseNoCheck.setText("This is not valid data for this field.");
+        lblHouseNoCheck.setText(VALID_DATA_ERROR);
       } else {
         lblHouseNoCheck.setText("House No. is valid.");
       }
@@ -241,7 +242,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void streetCheck() {
     if (txtStreet.getText().length() != 0) {
       if (!txtStreet.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
-        lblStreetCheck.setText("This is not valid data for this field.");
+        lblStreetCheck.setText(VALID_DATA_ERROR);
       } else {
         lblStreetCheck.setText("Street is valid.");
       }
@@ -254,7 +255,7 @@ public class AccountCrudController extends BaseFxmlController {
   public void cityCheck() {
     if (txtCity.getText().length() != 0) {
       if (!txtCity.getText().matches("^[#.0-9a-zA-Z\\s,-]+$")) {
-        lblCityCheck.setText("This is not valid data for this field.");
+        lblCityCheck.setText(VALID_DATA_ERROR);
       } else {
         lblCityCheck.setText("City is valid.");
       }
@@ -264,12 +265,13 @@ public class AccountCrudController extends BaseFxmlController {
 
   /**
    * Postcode check.
+   * //TODO: Check why alerts do not just are making it go to dashboard.
    */
   public void postcodeCheck() {
     if (txtPostcode.getText().length() != 0) {
       if (!txtPostcode.getText()
           .matches("^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$")) {
-        lblPostcodeCheck.setText("This is not valid data for this field.");
+        lblPostcodeCheck.setText(VALID_DATA_ERROR);
       } else {
         lblPostcodeCheck.setText("Post code is valid.");
       }
@@ -285,7 +287,7 @@ public class AccountCrudController extends BaseFxmlController {
     Date picked = Date.from(pickedDate.atStartOfDay()
         .atZone(ZoneId.systemDefault()).toInstant());
     if (picked.after(currentDate)) {
-      lblEmploymentDateCheck.setText("This is not valid data for this field.");
+      lblEmploymentDateCheck.setText(VALID_DATA_ERROR);
     } else {
       lblEmploymentDateCheck.setText("Employment Date is valid");
     }
@@ -296,55 +298,61 @@ public class AccountCrudController extends BaseFxmlController {
    * Creates an appropriate account.
    */
   public void createAccount() {
-    if (cbxLibrarian.isSelected()) {
-      UserController.createLibrarianAccount(
-          library,
-          txtFirstName.getText(),
-          txtLastName.getText(),
-          Date.from(dateEmploymentDate.getValue().atStartOfDay()
-              .atZone(ZoneId.systemDefault()).toInstant()),
-          txtPhoneNo.getText(),
-          txtHouseNo.getText(),
-          txtStreet.getText(),
-          txtCity.getText(),
-          txtPostcode.getText()
-      );
+    if (txtFirstName.getText().equals("")
+        || txtLastName.getText().equals("")
+        || txtPhoneNo.getText().equals("")
+        || txtHouseNo.getText().equals("")
+        || txtStreet.getText().equals("")
+        || txtCity.getText().equals("")
+        || txtPostcode.getText().equals("")) {
+      AlertHelper.alert(AlertType.ERROR, "You have unfilled Text fields. \n"
+          + "Please fill them in before trying to create user.");
+    } else if (lblFirstNameCheck.getText().equals(VALID_DATA_ERROR)
+        || lblLastNameCheck.getText().equals(VALID_DATA_ERROR)
+        || lblPhoneNoCheck.getText().equals(VALID_DATA_ERROR)
+        || lblHouseNoCheck.getText().equals(VALID_DATA_ERROR)
+        || lblStreetCheck.getText().equals(VALID_DATA_ERROR)
+        || lblCityCheck.getText().equals(VALID_DATA_ERROR)
+        || lblPostcodeCheck.getText().equals(VALID_DATA_ERROR)) {
+      AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
+          + "Please check your input and rectify to pass check.");
+    } else if (cbxLibrarian.isSelected()) {
+      if (dateEmploymentDate.getValue() == null) {
+        AlertHelper.alert(AlertType.ERROR, "You have unfilled Text fields. \n"
+            + "Please fill them in before trying to create user.");
+      } else if (lblEmploymentDateCheck.getText().equals(VALID_DATA_ERROR)) {
+        AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
+            + "Please check your input and rectify to pass check.");
+      } else {
+        UserController.createLibrarianAccount(library, txtFirstName.getText(),
+            txtLastName.getText(), Date.from(
+                dateEmploymentDate.getValue().atStartOfDay()
+                    .atZone(ZoneId.systemDefault()).toInstant()),
+            txtPhoneNo.getText(), txtHouseNo.getText(), txtStreet.getText(),
+            txtCity.getText(), txtPostcode.getText());
+        AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
+        back();
+      }
     } else {
-      UserController.createCustomerAccount(
-          library,
-          txtFirstName.getText(),
-          txtLastName.getText(),
-          txtPhoneNo.getText(),
-          txtHouseNo.getText(),
-          txtStreet.getText(),
-          txtCity.getText(),
-          txtPostcode.getText()
-      );
+      UserController.createCustomerAccount(library, txtFirstName.getText(),
+          txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
+          txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
+      AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
+      back();
     }
 
-    Alert alert = new Alert(AlertType.CONFIRMATION);
-    alert.setHeaderText("Success");
-    alert.setContentText("User account created.");
-    alert.showAndWait();
 
-    back();
   }
+
 
   /**
    * Creates an appropriate account.
    */
   public void updateAccount() {
-    UserController.updateUserAccount(
-        library,
-        selectedUser,
-        txtFirstName.getText(),
-        txtLastName.getText(),
-        txtPhoneNo.getText(),
-        txtHouseNo.getText(),
-        txtStreet.getText(),
-        txtCity.getText(),
-        txtPostcode.getText()
-    );
+    UserController
+        .updateUserAccount(library, selectedUser, txtFirstName.getText(),
+            txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
+            txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
 
     AlertHelper.alert(AlertType.INFORMATION, "User account updated.");
 
