@@ -1,8 +1,8 @@
 package com.tawelib.groupfive.tablewrapper;
 
-import com.tawelib.groupfive.controller.CopyController;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.manager.CopyManager;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -117,7 +117,7 @@ public class TransactionsFinesTableWrapper {
   public String getDaysOverdue() {
     switch (argument) {
       case "Fine" : {
-        return Integer.toString(CopyController.getDaysOverdue(fine.getLease()));
+        return Integer.toString(CopyManager.getDaysOverdue(fine.getLease()));
       }
       default : {
         return "";

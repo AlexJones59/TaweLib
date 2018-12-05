@@ -25,12 +25,12 @@
                 <TextField fx:id="txtBalance" layoutX="570.0" layoutY="146.0" prefWidth="200.0" />
                 <TableView fx:id="tblTransactionsFines" layoutX="37.0" layoutY="-86.0" prefHeight="200.0" prefWidth="720.0">
                     <columns>
-                        <TableColumn fx:id="timeIssuedColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Time Issued" />
-                        <TableColumn fx:id="resourceIdColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource ID" />
-                        <TableColumn fx:id="resourceNameColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Name" />
-                        <TableColumn fx:id="resourceTypeColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Type" />
-                        <TableColumn fx:id="daysOverdueColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Days Overdue" />
-                        <TableColumn fx:id="amountColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Amount" />
+                        <TableColumn fx:id="timeIssuedTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Time Issued" />
+                        <TableColumn fx:id="resourceIdTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource ID" />
+                        <TableColumn fx:id="resourceNameTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Name" />
+                        <TableColumn fx:id="resourceTypeTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Resource Type" />
+                        <TableColumn fx:id="daysOverdueTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Days Overdue" />
+                        <TableColumn fx:id="amountTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Amount" />
                     </columns>
                 </TableView>
             </children>
@@ -46,8 +46,11 @@
                     </font>
                 </Label>
                 <Button fx:id="btnInfo" layoutX="715.0" layoutY="15.0" mnemonicParsing="false" text="Info" />
-                <Label fx:id="lblUserId" font="$x1" layoutX="80.0" layoutY="75.0" text="User ID:" />
-                <TextField fx:id="txtUserId" layoutX="170.0" layoutY="75.0" prefWidth="200.0" />
+                <Label fx:id="lblUsername" layoutX="74.0" layoutY="75.0" text="Username:">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+                <TextField fx:id="txtUsername" layoutX="170.0" layoutY="75.0" prefWidth="200.0" />
             </children>
         </Pane>
     </top>
