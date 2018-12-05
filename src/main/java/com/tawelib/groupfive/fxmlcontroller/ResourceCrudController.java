@@ -5,6 +5,8 @@ import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.manager.ResourceManager;
+import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.SceneHelper;
@@ -84,6 +86,9 @@ public class ResourceCrudController extends BaseFxmlController {
   private Button updateButton;
 
   @FXML
+  private Button showCopiesButton;
+
+  @FXML
   private ComboBox<ResourceType> resourceTypeComboBox;
 
   private ResourceType[] resourceTypes = {
@@ -119,6 +124,7 @@ public class ResourceCrudController extends BaseFxmlController {
       }
     }
 
+    showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
     createButton.setVisible(
@@ -195,7 +201,48 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   public void create() {
-    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
+    try {
+      switch (resourceTypeComboBox.getValue()) {
+        case BOOK:
+          ResourceManager.createBook(
+              library,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              authorTextField.getText(),
+              publisherTextField.getText(),
+              genreTextField.getText(),
+              isbnTextField.getText(),
+              languageTextField.getText()
+          );
+          break;
+        case DVD:
+          ResourceManager.createDvd(
+              library,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText())
+          );
+          break;
+        case LAPTOP:
+          ResourceManager.createLaptop(
+              library,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              manufacturerTextField.getText(),
+              modelTextField.getText(),
+              operatingSystemTextField.getText()
+          );
+          break;
+      }
+    } catch (NumberFormatException e) {
+      AlertHelper.alert(AlertType.ERROR, e.getMessage());
+    }
   }
 
   public void update() {
