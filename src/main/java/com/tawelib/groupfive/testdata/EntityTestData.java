@@ -8,6 +8,7 @@ import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 
@@ -160,6 +161,7 @@ public class EntityTestData {
 
     library.getResourceRepository().add(laptop1);
 
+    //Creates lease after creating copy of book
     Copy copy = new Copy(book);
     library.getCopyRepository().add(copy);
 
@@ -169,5 +171,13 @@ public class EntityTestData {
     );
     lease.setDueDate(new Date());
     library.getLeaseRepository().add(lease);
+
+    //Creates request
+    Request newRequest = new Request(
+        library.getCustomerRepository().getAll().get(0),
+        book1
+    );
+
+    library.getRequestRepository().add(newRequest);
   }
 }
