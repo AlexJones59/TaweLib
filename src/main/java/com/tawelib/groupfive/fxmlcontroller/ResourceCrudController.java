@@ -11,11 +11,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class ResourceCrudController extends BaseFxmlController {
 
   private Resource selectedResource;
   private CrudAction crudAction;
+
+  @FXML
+  private AnchorPane bookAnchorPane;
+
+  @FXML
+  private AnchorPane dvdAnchorPane;
+
+  @FXML
+  private AnchorPane laptopAnchorPane;
 
   @FXML
   private Label idLabel;
@@ -45,7 +55,7 @@ public class ResourceCrudController extends BaseFxmlController {
   private TextField modelTextField;
 
   @FXML
-  private TextField manufacturedTextField;
+  private TextField manufacturerTextField;
 
   @FXML
   private TextField operatingSystemTextField;
@@ -70,18 +80,16 @@ public class ResourceCrudController extends BaseFxmlController {
 
   @Override
   public void refresh() {
-    if (isLibrarianLoggedIn()) {
-      if (crudAction == CrudAction.UPDATE) {
-        populateResource();
-
-        createButton.setVisible(false);
-      } else {
-        updateButton.setVisible(false);
-      }
-    } else {
-      createButton.setVisible(false);
-      updateButton.setVisible(false);
+    if (crudAction == CrudAction.UPDATE) {
+      populateResource();
     }
+
+    createButton.setVisible(
+        isLibrarianLoggedIn() && crudAction == CrudAction.CREATE
+    );
+    updateButton.setVisible(
+        isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE
+    );
   }
 
   private void populateResource() {
@@ -89,15 +97,28 @@ public class ResourceCrudController extends BaseFxmlController {
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
 
+    bookAnchorPane.setVisible(false);
+    bookAnchorPane.setManaged(false);
+    dvdAnchorPane.setVisible(false);
+    dvdAnchorPane.setManaged(false);
+    laptopAnchorPane.setVisible(false);
+    laptopAnchorPane.setManaged(false);
+
     switch (selectedResource.getType()) {
       case BOOK:
         populateBook();
+        bookAnchorPane.setVisible(true);
+        bookAnchorPane.setManaged(true);
         break;
       case DVD:
         populateDvd();
+        dvdAnchorPane.setVisible(true);
+        dvdAnchorPane.setManaged(true);
         break;
       case LAPTOP:
         populateLaptop();
+        laptopAnchorPane.setVisible(true);
+        laptopAnchorPane.setManaged(true);
         break;
       default:
         break;
@@ -131,7 +152,7 @@ public class ResourceCrudController extends BaseFxmlController {
     Laptop selectedLaptop = (Laptop) selectedResource;
 
     modelTextField.setText(selectedLaptop.getModel());
-    manufacturedTextField.setText(selectedLaptop.getModel());
+    manufacturerTextField.setText(selectedLaptop.getModel());
     operatingSystemTextField.setText(
         selectedLaptop.getInstalledOperatingSystem()
     );
