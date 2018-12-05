@@ -4,7 +4,6 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +55,14 @@ public class ResourceRepository implements BaseRepository<Resource> {
         newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
         lastLaptopNumber++;
         break;
-      } default:
+      }
+      default:
 
     }
 
     try {
-      Field idField = resource.getClass().getSuperclass().getDeclaredField("resourceId");
+      Field idField = resource.getClass().getSuperclass()
+          .getDeclaredField("resourceId");
       idField.setAccessible(true);
       idField.set(resource, newResourceId);
       idField.setAccessible(false);
@@ -72,6 +73,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Book".
+   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -82,11 +84,14 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Book.class)) {
         Book searchBook = (Book) searchResource;
-        if (searchBook.getTitle().equals(query)
-            || searchBook.getYear() == Integer.valueOf(query)
-            || searchBook.getAuthor().equals(query)
-            || searchBook.getPublisher().equals(query)
-            || searchBook.getGenre().equals(query)) {
+        if (
+            searchBook.getResourceId().contains(query)
+                || searchBook.getTitle().contains(query)
+                || Integer.toString(searchBook.getYear()).contains(query)
+                || searchBook.getAuthor().contains(query)
+                || searchBook.getPublisher().contains(query)
+                || searchBook.getGenre().contains(query)
+        ) {
           result.add(searchBook);
         }
       }
@@ -98,6 +103,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "DVD".
+   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -108,10 +114,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Dvd.class)) {
         Dvd searchDvd = (Dvd) searchResource;
-        if (searchDvd.getTitle().equals(query)
-            || searchDvd.getYear() == Integer.valueOf(query)
-            || searchDvd.getDirector().equals(query)
-            || searchDvd.getRuntime() == Integer.valueOf(query)) {
+        if (
+            searchDvd.getResourceId().contains(query)
+                || searchDvd.getTitle().contains(query)
+                || Integer.toString(searchDvd.getYear()).contains(query)
+                || searchDvd.getDirector().contains(query)
+                || searchDvd.getRuntime() == Integer.valueOf(query)
+        ) {
           result.add(searchDvd);
         }
       }
@@ -122,25 +131,49 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
-   * Search through resources of type "Laptop".
+   * Search through resources.
    *
    * @param query the query
-   * @param searchAttribute the search attribute
    * @return the list of resources fulfilling search query
    */
-  public List<Laptop> searchLaptop(String query, String searchAttribute) {
+  public List<Resource> searchResource(String query) {
+    ArrayList<Resource> result = new ArrayList<>();
+
+    for (Resource resource : resources) {
+      if (
+          resource.getResourceId().contains(query)
+              || resource.getTitle().contains(query)
+              || Integer.toString(resource.getYear()).contains(query)
+      ) {
+        result.add(resource);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Search through resources of type "Laptop".
+   *TODO: Refactor: use searchResource(String query)
+   *
+   * @param query the query
+   * @return the list of resources fulfilling search query
+   */
+  public List<Laptop> searchLaptop(String query) {
     ArrayList<Laptop> result = new ArrayList<>();
 
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Laptop.class)) {
         Laptop searchLaptop = (Laptop) searchResource;
-        if (searchLaptop.getTitle().equals(query)
-            || searchLaptop.getYear() == Integer.valueOf(query)
-            || searchLaptop.getManufacturer().equals(query)
-            || searchLaptop.getModel().equals(query)
-            || searchLaptop.getInstalledOperatingSystem().equals(query)) {
+        if (
+            searchLaptop.getResourceId().contains(query)
+                || searchLaptop.getTitle().contains(query)
+                || Integer.toString(searchLaptop.getYear()).contains(query)
+                || searchLaptop.getManufacturer().contains(query)
+                || searchLaptop.getModel().contains(query)
+                || searchLaptop.getInstalledOperatingSystem().contains(query)
+        ) {
           result.add(searchLaptop);
-
         }
       }
     }

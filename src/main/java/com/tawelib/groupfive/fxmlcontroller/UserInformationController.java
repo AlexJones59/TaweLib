@@ -5,7 +5,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
-import com.tawelib.groupfive.tablewrapper.CopyTableWrapper;
+import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
@@ -39,22 +39,22 @@ public class UserInformationController extends BaseFxmlController {
   public TextField balanceTextField;
 
   @FXML
-  public TableView<CopyTableWrapper> resourceTableView;
+  public TableView<LeaseTableWrapper> resourceTableView;
 
   @FXML
-  public TableColumn<CopyTableWrapper, String> resourceIdTableColumn;
+  public TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
 
   @FXML
-  public TableColumn<CopyTableWrapper, String> copyIdTableColumn;
+  public TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
 
   @FXML
-  public TableColumn<CopyTableWrapper, String> titleTableColumn;
+  public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
   @FXML
-  public TableColumn<CopyTableWrapper, Date> dueDateTableColumn;
+  public TableColumn<LeaseTableWrapper, Date> dueDateTableColumn;
 
   @FXML
-  public TableColumn<CopyTableWrapper, CopyStatus> statusTableColumn;
+  public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
   public UserInformationController() {
   }
@@ -194,7 +194,7 @@ public class UserInformationController extends BaseFxmlController {
       lease.setDueDate(new Date());
       library.getLeaseRepository().add(lease);
 
-      CopyTableWrapper wrapper = new CopyTableWrapper(
+      LeaseTableWrapper wrapper = new LeaseTableWrapper(
           lease
       );
 

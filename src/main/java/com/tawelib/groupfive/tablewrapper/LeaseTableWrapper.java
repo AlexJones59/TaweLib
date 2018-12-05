@@ -7,9 +7,9 @@ import java.util.Date;
 /**
  * This class wraps information about Copies that is shown in an FXML table.
  */
-public class CopyTableWrapper {
+public class LeaseTableWrapper {
 
-  public CopyTableWrapper(Lease lease) {
+  public LeaseTableWrapper(Lease lease) {
     this.lease = lease;
   }
 
