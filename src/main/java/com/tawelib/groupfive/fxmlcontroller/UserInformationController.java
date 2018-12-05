@@ -58,7 +58,7 @@ public class UserInformationController extends BaseFxmlController {
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, Date> dueDateTableColumn;
+  public TableColumn<LeaseTableWrapper, String> dueDateTableColumn;
 
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
