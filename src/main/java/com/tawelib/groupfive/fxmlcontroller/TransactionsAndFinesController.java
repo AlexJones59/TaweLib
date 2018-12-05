@@ -21,9 +21,6 @@ public class TransactionsAndFinesController extends BaseFxmlController {
   private Button btnBack;
 
   @FXML
-  private Button btnInfo;
-
-  @FXML
   private Label lblScreenTitle;
 
   @FXML
