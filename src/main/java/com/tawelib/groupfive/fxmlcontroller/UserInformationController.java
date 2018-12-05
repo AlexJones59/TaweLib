@@ -117,8 +117,6 @@ public class UserInformationController extends BaseFxmlController {
     }
 
     //TODO: Populate.
-
-    devCommand();
   }
 
   /**
@@ -164,41 +162,6 @@ public class UserInformationController extends BaseFxmlController {
       AlertHelper.alert(AlertType.ERROR, "To be implemented.");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
-    }
-  }
-
-  /**
-   * TODO: Remove this.
-   */
-  private void devCommand() {
-    if (selectedUser.getClass().equals(Customer.class)) {
-      Book book = new Book(
-          "The tiTTle",
-          2010,
-          null,
-          "Theeee Author",
-          "Publisheeeer",
-          "Genreeeeeeeeeee",
-          "IZBNN",
-          "C#"
-      );
-      library.getResourceRepository().add(book);
-
-      Copy copy = new Copy(book);
-      library.getCopyRepository().add(copy);
-
-      Lease lease = new Lease(
-          (Customer) selectedUser,
-          copy
-      );
-      lease.setDueDate(new Date());
-      library.getLeaseRepository().add(lease);
-
-      LeaseTableWrapper wrapper = new LeaseTableWrapper(
-          lease
-      );
-
-      resourceTableView.getItems().add(wrapper);
     }
   }
 

@@ -4,6 +4,7 @@ import com.tawelib.groupfive.Main;
 import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.User;
+import com.tawelib.groupfive.testdata.EntityTestData;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,7 +61,9 @@ public class FileSystemHelper {
 
     try {
       library = loadLibraryFromFile(name);
-    } catch (ClassNotFoundException | InvalidClassException e) {
+    } catch (
+        ClassNotFoundException | InvalidClassException | FileNotFoundException e
+    ) {
       if (Main.DEV_MODE) {
         File libraryFile = new File(
             getLibraryPath(
@@ -71,12 +74,20 @@ public class FileSystemHelper {
           libraryFile.delete();
         }
 
-        library = new Library(name);
+        library = createNewLibrary(name);
       } else {
         throw e;
       }
-    } catch (FileNotFoundException e) {
-      library = new Library(name);
+    }
+
+    return library;
+  }
+
+  private static Library createNewLibrary(String name) {
+    Library library = new Library(name);
+
+    if (Main.DEV_MODE) {
+      EntityTestData.populateLibrary(library);
     }
 
     return library;
