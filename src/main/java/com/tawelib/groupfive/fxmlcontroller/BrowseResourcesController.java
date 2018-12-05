@@ -1,10 +1,10 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -39,9 +39,14 @@ public class BrowseResourcesController extends BaseFxmlController {
   private Button btnInfo;
 
   @FXML
-  private ComboBox<String> cmbResourceType;
+  private ComboBox<ResourceType> cmbResourceType;
 
-  private String[] resourceTypes = {"", "Book", "DVD", "Laptop"};
+  private ResourceType[] resourceTypes = {
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP
+  };
 
   //TABLE----------------------------------------------------------
   @FXML
@@ -82,7 +87,9 @@ public class BrowseResourcesController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
-    cmbResourceType.getItems().addAll(Arrays.asList(resourceTypes));
+    cmbResourceType.getItems().addAll(
+        Arrays.asList(resourceTypes)
+    );
 
     setTableContents(
         library.getResourceRepository().getAll()
@@ -90,12 +97,34 @@ public class BrowseResourcesController extends BaseFxmlController {
   }
 
   public void search() {
-    List<Resource> resources = library.getResourceRepository().searchResource(
-      txtSearch.getText()
-    );
+    List<Resource> result;
+
+    if (cmbResourceType.getValue() == ResourceType.BOOK) {
+      result = new ArrayList<>(
+          library.getResourceRepository().searchBook(
+              txtSearch.getText()
+          )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.DVD) {
+      result = new ArrayList<>(
+          library.getResourceRepository().searchDvd(
+              txtSearch.getText()
+          )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
+      result = new ArrayList<>(
+          library.getResourceRepository().searchLaptop(
+              txtSearch.getText()
+          )
+      );
+    } else {
+      result = library.getResourceRepository().searchResource(
+          txtSearch.getText()
+      );
+    }
 
     setTableContents(
-      resources
+        result
     );
   }
 
