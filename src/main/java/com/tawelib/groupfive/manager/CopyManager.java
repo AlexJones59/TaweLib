@@ -182,12 +182,14 @@ public class CopyManager {
     }
   }
 
+  //TODO: Change to work for FXML
   /**
    * Gets days overdue.
    *
    * @param lease lease
    */
   public static int getDaysOverdue(Lease lease) {
+
     long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
     return (int) diff;
   }

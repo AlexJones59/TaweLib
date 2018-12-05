@@ -15,6 +15,7 @@ import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,7 @@ public class EntityTestData {
             "The street",
             "Swansea",
             "SA28PJ",
-            new Date()
+            LocalDateTime.now()
         )
     );
 
@@ -53,7 +54,7 @@ public class EntityTestData {
             "The better street",
             "Cardiff",
             "SA1 4LL",
-            new Date()
+            LocalDateTime.now()
         )
     );
     //[CUSTOMER]
@@ -195,7 +196,7 @@ public class EntityTestData {
         library.getCustomerRepository().getSpecific("nice.customer"),
         copy
     );
-    lease.setDueDate(new Date());
+    lease.setDueDate(LocalDateTime.now());
     library.getLeaseRepository().add(lease);
 
 
