@@ -9,11 +9,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="449.0" prefWidth="621.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.ResourceCrudController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="621.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.ResourceCrudController">
    <children>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Button fx:id="createButton" layoutX="14.0" layoutY="410.0" mnemonicParsing="false" onAction="#create" text="Create" />
-      <Button fx:id="updateButton" layoutX="85.0" layoutY="410.0" mnemonicParsing="false" onAction="#update" text="Update" />
+      <Button fx:id="createButton" layoutX="14.0" layoutY="442.0" mnemonicParsing="false" onAction="#create" text="Create" />
+      <Button fx:id="updateButton" layoutX="85.0" layoutY="442.0" mnemonicParsing="false" onAction="#update" text="Update" />
       <Button layoutX="507.0" layoutY="14.0" mnemonicParsing="false" onAction="#showCopies" text="Show Copies" />
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
       <VBox layoutX="222.0" layoutY="52.0" prefHeight="491.0" prefWidth="303.0">
@@ -66,5 +66,6 @@
             </AnchorPane>
          </children>
       </VBox>
+      <ComboBox fx:id="resourceTypeComboBox" layoutX="14.0" layoutY="264.0" onAction="#refresh" prefHeight="25.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
