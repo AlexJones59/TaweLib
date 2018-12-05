@@ -1,16 +1,14 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.controller.UserController;
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.manager.UserManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -264,8 +262,8 @@ public class AccountCrudController extends BaseFxmlController {
 
 
   /**
-   * Postcode check.
-   * //TODO: Check why alerts do not just are making it go to dashboard.
+   * Postcode check. //TODO: Check why alerts do not just are making it go to
+   * dashboard.
    */
   public void postcodeCheck() {
     if (txtPostcode.getText().length() != 0) {
@@ -324,7 +322,7 @@ public class AccountCrudController extends BaseFxmlController {
         AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
             + "Please check your input and rectify to pass check.");
       } else {
-        UserController.createLibrarianAccount(library, txtFirstName.getText(),
+        UserManager.createLibrarianAccount(library, txtFirstName.getText(),
             txtLastName.getText(), Date.from(
                 dateEmploymentDate.getValue().atStartOfDay()
                     .atZone(ZoneId.systemDefault()).toInstant()),
@@ -334,7 +332,7 @@ public class AccountCrudController extends BaseFxmlController {
         back();
       }
     } else {
-      UserController.createCustomerAccount(library, txtFirstName.getText(),
+      UserManager.createCustomerAccount(library, txtFirstName.getText(),
           txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
           txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
       AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
@@ -349,7 +347,7 @@ public class AccountCrudController extends BaseFxmlController {
    * Creates an appropriate account.
    */
   public void updateAccount() {
-    UserController
+    UserManager
         .updateUserAccount(library, selectedUser, txtFirstName.getText(),
             txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
             txtStreet.getText(), txtCity.getText(), txtPostcode.getText());

@@ -1,4 +1,4 @@
-package com.tawelib.groupfive.controller;
+package com.tawelib.groupfive.manager;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
@@ -15,13 +15,13 @@ import java.util.Date;
 
 
 /**
- * File Name - CopyController.java The CopyController class controls data flow
+ * File Name - CopyManager.java The CopyManager class controls data flow
  * between the Copy Repository and the GUI interfaces.
  *
  * @author Nayeem Mohammed, Shree Desai
  * @version 0.2
  */
-public class CopyController {
+public class CopyManager {
 
 
   /**
@@ -36,7 +36,7 @@ public class CopyController {
    * @param resource the resource
    * @param amount the amount
    */
-  public void createResourceCopy(Library library, Resource resource,
+  public static void createResourceCopy(Library library, Resource resource,
                                  int amount) {
     for (int i = 1; i <= amount; i++) {
       library.getCopyRepository().add(new Copy(resource));
@@ -51,7 +51,7 @@ public class CopyController {
    * @param copyId the copy id
    * @param customerUsername the customer username
    */
-  public void borrowResourceCopy(Library library, String copyId,
+  public static void borrowResourceCopy(Library library, String copyId,
       String customerUsername) {
     //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
@@ -74,7 +74,7 @@ public class CopyController {
    * @param library the library
    * @param copyId the copy id
    */
-  public void returnResourceCopy(Library library, String copyId) {
+  public static void returnResourceCopy(Library library, String copyId) {
     Date dateReturned = new Date();
     Copy returnedCopy = library.getCopyRepository().getSpecific(copyId);
 
@@ -134,7 +134,7 @@ public class CopyController {
    * @param copyId the copy id
    * @param customerUsername the customer username
    */
-  public void pickUpReservedCopy(Library library, String copyId,
+  public static void pickUpReservedCopy(Library library, String copyId,
       String customerUsername) {
 
     //Sets Copy to Borrowed
