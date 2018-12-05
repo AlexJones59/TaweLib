@@ -85,21 +85,17 @@ public class ResourceManager {
    * @param publisher the publisher
    * @param genre the genre
    */
-  public static void updateBook(Library library, String resourceId, String title,
+  public static void updateBook(Book book, String title,
       int year, Image thumbnailImage, String author,
       String publisher, String genre, String isbn, String language) {
-    library.getResourceRepository().getSpecificBook(resourceId).setTitle(title);
-    library.getResourceRepository().getSpecificBook(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setAuthor(author);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setPublisher(publisher);
-    library.getResourceRepository().getSpecificBook(resourceId).setGenre(genre);
-    library.getResourceRepository().getSpecificBook(resourceId).setIsbn(isbn);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setLanguage(language);
+    book.setTitle(title);
+    book.setYear(year);
+    book.setThumbnailImage(thumbnailImage);
+    book.setAuthor(author);
+    book.setPublisher(publisher);
+    book.setGenre(genre);
+    book.setIsbn(isbn);
+    book.setLanguage(language);
 
   }
 
@@ -114,21 +110,16 @@ public class ResourceManager {
    * @param languages the languages
    * @param subtitleLanguages the subtitle languages
    */
-  public static void updateDvd(Library library, String resourceId, String title,
+  public static void updateDvd(Dvd dvd, String title,
       int year, Image thumbnailImage, String director, int runtime,
       ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
-    library.getResourceRepository().getSpecificDvd(resourceId).setTitle(title);
-    library.getResourceRepository().getSpecificDvd(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setDirector(director);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setRuntime(runtime);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setLanguages(languages);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setSubtitleLanguages(subtitleLanguages);
+    dvd.setTitle(title);
+    dvd.setYear(year);
+    dvd.setThumbnailImage(thumbnailImage);
+    dvd.setDirector(director);
+    dvd.setRuntime(runtime);
+    dvd.setLanguages(languages);
+    dvd.setSubtitleLanguages(subtitleLanguages);
   }
 
   /**
@@ -141,20 +132,15 @@ public class ResourceManager {
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  public static void updateLaptop(Library library, String resourceId, String title,
+  public static void updateLaptop(Laptop laptop, String title,
       int year, Image thumbnailImage, String manufacturer,
       String model, String installedOperatingSystem) {
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setTitle(title);
-    library.getResourceRepository().getSpecificLaptop(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setManufacturer(manufacturer);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setModel(model);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setInstalledOperatingSystem(installedOperatingSystem);
+    laptop.setTitle(title);
+    laptop.setYear(year);
+    laptop.setThumbnailImage(thumbnailImage);
+    laptop.setManufacturer(manufacturer);
+    laptop.setModel(model);
+    laptop.setInstalledOperatingSystem(installedOperatingSystem);
   }
 
 }

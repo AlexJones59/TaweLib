@@ -244,6 +244,9 @@ public class ResourceCrudController extends BaseFxmlController {
         default:
           break;
       }
+
+      AlertHelper.alert(AlertType.INFORMATION, "Successfully created");
+      back();
     } catch (NumberFormatException e) {
       AlertHelper.alert(AlertType.ERROR, e.getMessage());
     }
@@ -253,7 +256,53 @@ public class ResourceCrudController extends BaseFxmlController {
    * Updates a resource.
    */
   public void update() {
-    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
+    try {
+      switch (selectedResource.getType()) {
+        case BOOK:
+          ResourceManager.updateBook(
+              (Book) selectedResource,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              authorTextField.getText(),
+              publisherTextField.getText(),
+              genreTextField.getText(),
+              isbnTextField.getText(),
+              languageTextField.getText()
+          );
+          break;
+        case DVD:
+          ResourceManager.updateDvd(
+              (Dvd) selectedResource,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText())
+          );
+          break;
+        case LAPTOP:
+          ResourceManager.updateLaptop(
+              (Laptop) selectedResource,
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),
+              null,
+              manufacturerTextField.getText(),
+              modelTextField.getText(),
+              operatingSystemTextField.getText()
+          );
+          break;
+        default:
+          break;
+      }
+
+      AlertHelper.alert(AlertType.INFORMATION, "Successfully updated");
+      back();
+    } catch (NumberFormatException e) {
+      AlertHelper.alert(AlertType.ERROR, e.getMessage());
+    }
   }
 
   /**
