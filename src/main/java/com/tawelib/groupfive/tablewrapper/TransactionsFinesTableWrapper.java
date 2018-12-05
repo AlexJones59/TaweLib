@@ -3,9 +3,8 @@ package com.tawelib.groupfive.tablewrapper;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.manager.CopyManager;
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The type Transactions fines table wrapper.
@@ -46,13 +45,13 @@ public class TransactionsFinesTableWrapper {
    * @return the time issued
    */
   public String getTimeIssued() {
-    DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy hh:mm:ss");
     switch (argument) {
       case "Fine" : {
-        return dateFormat.format(fine.getLease().getDueDate());
+        return fine.getLease().getDueDate().format(formatter);
       }
       case "Transaction" : {
-        return dateFormat.format(transaction.getDatePaid());
+        return transaction.getDatePaid().format(formatter);
       }
       default : {
         return "";
