@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
@@ -57,7 +58,7 @@ public class UserInformationController extends BaseFxmlController {
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, Date> dueDateTableColumn;
+  public TableColumn<LeaseTableWrapper, String> dueDateTableColumn;
 
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
@@ -116,8 +117,10 @@ public class UserInformationController extends BaseFxmlController {
           true
       );
 
-      setTableContents(library.getLeaseRepository()
-          .getCustomerLeaseHistory(selectedCustomer));
+      setTableContents(
+          library.getLeaseRepository().getCustomerLeaseHistory(selectedCustomer),
+          library.getRequestRepository().getOpenCustomerRequests(selectedCustomer),
+          library.getRequestRepository().getCustomerReserved(selectedCustomer));
 
     } else {
       setNodeVisibilities(
@@ -133,12 +136,23 @@ public class UserInformationController extends BaseFxmlController {
 
   }
 
-  private void setTableContents(List<Lease> customerLeases) {
+  private void setTableContents(List<Lease> customerLeases,
+      List<Request> customerRequests, List<Request> customerReserved) {
     resourceTableView.getItems().clear();
 
     for (Lease lease : customerLeases) {
       resourceTableView.getItems().add(new LeaseTableWrapper(lease));
     }
+
+    for (Request request : customerRequests) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(request));
+    }
+
+    for (Request reserved : customerReserved) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
+    }
+
+
   }
 
   /**
