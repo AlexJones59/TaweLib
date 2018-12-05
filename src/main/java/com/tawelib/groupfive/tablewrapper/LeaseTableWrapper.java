@@ -2,6 +2,8 @@ package com.tawelib.groupfive.tablewrapper;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.Request;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 /**
@@ -11,16 +13,35 @@ public class LeaseTableWrapper {
 
   public LeaseTableWrapper(Lease lease) {
     this.lease = lease;
+    this.argument = lease.getClass().getSimpleName();
+  }
+
+  public LeaseTableWrapper(Request request) {
+    this.request = request;
   }
 
   private Lease lease;
 
-  public Copy getCopy() {
+  private Request request;
+
+  private String argument;
+
+  /*public Copy getCopy() {
     return lease.getBorrowedCopy();
-  }
+  }*/
 
   public String getResourceId() {
-    return lease.getBorrowedCopy().getResource().getResourceId();
+    switch (argument){
+      case "Lease" :{
+        return lease.getBorrowedCopy().getResource().getResourceId();
+      }
+      case "Request" : {
+        return request.getRequestedResource().getResourceId();
+      }
+      default : {
+        return " ";
+      }
+    }
   }
 
   public String getCopyId() {
@@ -28,7 +49,17 @@ public class LeaseTableWrapper {
   }
 
   public String getTitle() {
-    return lease.getBorrowedCopy().getResource().getTitle();
+    switch (argument){
+      case "Lease" :{
+        return lease.getBorrowedCopy().getResource().getTitle();
+      }
+      case "Request" : {
+        return request.getRequestedResource().getTitle();
+      }
+      default : {
+        return " ";
+      }
+    }
   }
 
   public Date getDueDate() {
@@ -36,6 +67,21 @@ public class LeaseTableWrapper {
   }
 
   public String getStatus() {
-    return lease.getBorrowedCopy().getStatus().toString();
+    switch (argument){
+      case "Lease" :{
+        return lease.getBorrowedCopy().getStatus().toString();
+      }
+      case "Request" : {
+        return request.getStatus().toString();
+      }
+      default : {
+        return " ";
+      }
+    }
+
+
+
   }
+
+
 }

@@ -8,6 +8,7 @@ import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 
@@ -169,5 +170,6 @@ public class EntityTestData {
     );
     lease.setDueDate(new Date());
     library.getLeaseRepository().add(lease);
+
   }
 }
