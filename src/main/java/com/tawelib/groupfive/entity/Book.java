@@ -26,6 +26,7 @@ public class Book extends Resource {
    * @param author         the author
    * @param publisher      the publisher
    * @param genre          the genre
+   * @param language       the languag
    */
   public Book(String title, int year, Image thumbnailImage,
       String author, String publisher, String genre, String isbn,
