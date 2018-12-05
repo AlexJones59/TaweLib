@@ -11,11 +11,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class ResourceCrudController extends BaseFxmlController {
 
   private Resource selectedResource;
   private CrudAction crudAction;
+
+  @FXML
+  private AnchorPane bookAnchorPane;
+
+  @FXML
+  private AnchorPane dvdAnchorPane;
+
+  @FXML
+  private AnchorPane laptopAnchorPane;
 
   @FXML
   private Label idLabel;
@@ -45,7 +55,7 @@ public class ResourceCrudController extends BaseFxmlController {
   private TextField modelTextField;
 
   @FXML
-  private TextField manufacturedTextField;
+  private TextField manufacturerTextField;
 
   @FXML
   private TextField operatingSystemTextField;
@@ -75,7 +85,9 @@ public class ResourceCrudController extends BaseFxmlController {
         populateResource();
 
         createButton.setVisible(false);
-      } else {
+        updateButton.setVisible(true);
+      } else if (crudAction == CrudAction.CREATE) {
+        createButton.setVisible(true);
         updateButton.setVisible(false);
       }
     } else {
@@ -89,15 +101,22 @@ public class ResourceCrudController extends BaseFxmlController {
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
 
+    bookAnchorPane.setVisible(false);
+    dvdAnchorPane.setVisible(false);
+    laptopAnchorPane.setVisible(false);
+
     switch (selectedResource.getType()) {
       case BOOK:
         populateBook();
+        bookAnchorPane.setVisible(true);
         break;
       case DVD:
         populateDvd();
+        dvdAnchorPane.setVisible(true);
         break;
       case LAPTOP:
         populateLaptop();
+        laptopAnchorPane.setVisible(true);
         break;
       default:
         break;
@@ -131,7 +150,7 @@ public class ResourceCrudController extends BaseFxmlController {
     Laptop selectedLaptop = (Laptop) selectedResource;
 
     modelTextField.setText(selectedLaptop.getModel());
-    manufacturedTextField.setText(selectedLaptop.getModel());
+    manufacturerTextField.setText(selectedLaptop.getModel());
     operatingSystemTextField.setText(
         selectedLaptop.getInstalledOperatingSystem()
     );

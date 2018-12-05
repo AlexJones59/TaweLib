@@ -26,7 +26,7 @@
       <Button fx:id="updateButton" layoutX="83.0" layoutY="547.0" mnemonicParsing="false" onAction="#update" text="Update" />
       <Button layoutX="711.0" layoutY="547.0" mnemonicParsing="false" onAction="#showCopies" text="Show Copies" />
       <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane layoutX="13.0" layoutY="264.0" prefHeight="283.0" prefWidth="400.0">
+      <AnchorPane fx:id="dvdAnchorPane" layoutX="13.0" layoutY="264.0" prefHeight="283.0" prefWidth="400.0">
          <children>
             <Label layoutX="14.0" layoutY="23.0" text="Director" />
             <Label layoutX="14.0" layoutY="60.0" text="Runtime" />
@@ -38,7 +38,7 @@
             <TextArea fx:id="audioLanguagesTextArea" layoutX="14.0" layoutY="116.0" prefHeight="62.0" prefWidth="372.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="412.0" layoutY="179.0" prefHeight="200.0" prefWidth="400.0">
+      <AnchorPane fx:id="bookAnchorPane" layoutX="412.0" layoutY="179.0" prefHeight="200.0" prefWidth="400.0">
          <children>
             <Label layoutX="22.0" layoutY="23.0" text="Author" />
             <Label layoutX="21.0" layoutY="57.0" text="Publisher" />
