@@ -179,5 +179,15 @@ public class EntityTestData {
     );
 
     library.getRequestRepository().add(newRequest);
+
+    /*//Create a overdue lease
+    Copy copy1 = new Copy(book1);
+    library.getCopyRepository().add(copy1);
+
+    Lease lease1 = new Lease(
+        library.getCustomerRepository().getAll().get(0),
+        copy
+    );
+    lease1.setDueDate(new Date()); */
   }
 }
