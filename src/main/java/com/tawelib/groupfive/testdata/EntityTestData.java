@@ -86,6 +86,8 @@ public class EntityTestData {
         "C#"
     );
 
+    library.getResourceRepository().add(book);
+
     Book book1 = new Book(
         "The Dunwich Horror",
         1980,
@@ -97,15 +99,32 @@ public class EntityTestData {
         "R'lyeh"
     );
 
-    /*Dvd dvd = new Dvd(
+    library.getResourceRepository().add(book1);
+
+    ArrayList<String> l1 = new ArrayList<>();
+
+    l1.add("Englih");
+
+    Dvd dvd = new Dvd(
         "DVDdddD",
         2018,
         null,
         "Director",
         60,
-        List<String> languages = Arrays.asList ("English", "Spanish"),
-        List<String> sublanguages = Arrays.asList ("English", "Spanish")
+        l1,
+        l1
     );
+
+    library.getResourceRepository().add(dvd);
+
+    ArrayList<String> l2 = new ArrayList<>();
+
+    l2.add("Spanish");
+
+    ArrayList<String> l3 = new ArrayList<>();
+
+    l3.add("Engrish");
+
 
     Dvd dvd1 = new Dvd(
         "Intersteller",
@@ -113,9 +132,11 @@ public class EntityTestData {
         null,
         "Christopher Nolan",
         420,
-        List<String> languages = Arrays.asList ("English", "Spanish", "Engrish"),
-        List<String> sublanguages = Arrays.asList ("English", "Engrish")
-    );*/
+        l2,
+        l3
+    );
+
+    library.getResourceRepository().add(dvd1);
 
     Laptop laptop = new Laptop(
         "New Laptop",
@@ -126,6 +147,8 @@ public class EntityTestData {
         "installedOperatingSystem"
     );
 
+    library.getResourceRepository().add(laptop);
+
     Laptop laptop1 = new Laptop(
         "HP Laptop",
         2018,
@@ -135,10 +158,6 @@ public class EntityTestData {
         "Windows (Better than Linux)"
     );
 
-
-    library.getResourceRepository().add(book);
-    library.getResourceRepository().add(book1);
-    library.getResourceRepository().add(laptop);
     library.getResourceRepository().add(laptop1);
 
     Copy copy = new Copy(book);
