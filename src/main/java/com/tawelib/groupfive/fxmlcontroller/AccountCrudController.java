@@ -6,6 +6,8 @@ import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -280,11 +282,11 @@ public class AccountCrudController extends BaseFxmlController {
    * Postcode check.
    */
   public void employmentDateCheck() {
-    LocalDateTime currentDate = new Date();
+    LocalDateTime currentDate = LocalDateTime.now();
     LocalDate pickedDate = dateEmploymentDate.getValue();
-    LocalDateTime picked = Date.from(pickedDate.atStartOfDay()
-        .atZone(ZoneId.systemDefault()).toInstant());
-    if (picked.after(currentDate)) {
+    LocalDateTime picked = LocalDateTime.of(pickedDate, LocalTime.MIN);
+
+    if (picked.isAfter(currentDate)) {
       lblEmploymentDateCheck.setText(VALID_DATA_ERROR);
     } else {
       lblEmploymentDateCheck.setText("Employment Date is valid");
@@ -296,22 +298,19 @@ public class AccountCrudController extends BaseFxmlController {
    * Creates an appropriate account.
    */
   public void createAccount() {
-    if (txtFirstName.getText().equals("")
-        || txtLastName.getText().equals("")
-        || txtPhoneNo.getText().equals("")
-        || txtHouseNo.getText().equals("")
-        || txtStreet.getText().equals("")
-        || txtCity.getText().equals("")
+    if (txtFirstName.getText().equals("") || txtLastName.getText().equals("")
+        || txtPhoneNo.getText().equals("") || txtHouseNo.getText().equals("")
+        || txtStreet.getText().equals("") || txtCity.getText().equals("")
         || txtPostcode.getText().equals("")) {
       AlertHelper.alert(AlertType.ERROR, "You have unfilled Text fields. \n"
           + "Please fill them in before trying to create user.");
     } else if (lblFirstNameCheck.getText().equals(VALID_DATA_ERROR)
         || lblLastNameCheck.getText().equals(VALID_DATA_ERROR)
-        || lblPhoneNoCheck.getText().equals(VALID_DATA_ERROR)
-        || lblHouseNoCheck.getText().equals(VALID_DATA_ERROR)
-        || lblStreetCheck.getText().equals(VALID_DATA_ERROR)
-        || lblCityCheck.getText().equals(VALID_DATA_ERROR)
-        || lblPostcodeCheck.getText().equals(VALID_DATA_ERROR)) {
+        || lblPhoneNoCheck.getText().equals(VALID_DATA_ERROR) || lblHouseNoCheck
+        .getText().equals(VALID_DATA_ERROR) || lblStreetCheck.getText()
+        .equals(VALID_DATA_ERROR) || lblCityCheck.getText()
+        .equals(VALID_DATA_ERROR) || lblPostcodeCheck.getText()
+        .equals(VALID_DATA_ERROR)) {
       AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
           + "Please check your input and rectify to pass check.");
     } else if (cbxLibrarian.isSelected()) {
@@ -323,9 +322,8 @@ public class AccountCrudController extends BaseFxmlController {
             + "Please check your input and rectify to pass check.");
       } else {
         UserManager.createLibrarianAccount(library, txtFirstName.getText(),
-            txtLastName.getText(), Date.from(
-                dateEmploymentDate.getValue().atStartOfDay()
-                    .atZone(ZoneId.systemDefault()).toInstant()),
+            txtLastName.getText(),
+            LocalDateTime.of(dateEmploymentDate.getValue(), LocalTime.MIN),
             txtPhoneNo.getText(), txtHouseNo.getText(), txtStreet.getText(),
             txtCity.getText(), txtPostcode.getText());
         AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
@@ -347,10 +345,9 @@ public class AccountCrudController extends BaseFxmlController {
    * Creates an appropriate account.
    */
   public void updateAccount() {
-    UserManager
-        .updateUserAccount(library, selectedUser, txtFirstName.getText(),
-            txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
-            txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
+    UserManager.updateUserAccount(library, selectedUser, txtFirstName.getText(),
+        txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
+        txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
 
     AlertHelper.alert(AlertType.INFORMATION, "User account updated.");
 
