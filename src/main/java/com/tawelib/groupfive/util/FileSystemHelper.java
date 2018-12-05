@@ -61,8 +61,9 @@ public class FileSystemHelper {
 
     try {
       library = loadLibraryFromFile(name);
-    } catch (
-        ClassNotFoundException | InvalidClassException | FileNotFoundException e
+    } catch (ClassNotFoundException
+        | InvalidClassException
+        | FileNotFoundException e
     ) {
       if (Main.DEV_MODE) {
         File libraryFile = new File(

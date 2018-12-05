@@ -12,6 +12,11 @@ import java.util.Date;
 
 public class EntityTestData {
 
+  /**
+   * Populates the Library with test data.
+   *
+   * @param library Library.
+   */
   public static void populateLibrary(Library library) {
     LibrarianRepository librarianRepository = library.getLibrarianRepository();
     CustomerRepository customerRepository = library.getCustomerRepository();
