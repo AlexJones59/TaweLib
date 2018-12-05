@@ -5,10 +5,12 @@ import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Arrays;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -95,9 +97,12 @@ public class ResourceCrudController extends BaseFxmlController {
     if (crudAction == CrudAction.UPDATE) {
       populateResource();
     } else if (crudAction == CrudAction.CREATE) {
-      resourceTypeComboBox.getItems().addAll(
-          Arrays.asList(resourceTypes)
-      );
+      if (resourceTypeComboBox.getItems().isEmpty()) {
+        resourceTypeComboBox.getItems().addAll(
+            Arrays.asList(resourceTypes)
+        );
+        resourceTypeComboBox.setValue(ResourceType.BOOK);
+      }
 
       switch (resourceTypeComboBox.getValue()) {
         case BOOK:
@@ -190,15 +195,15 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   public void create() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void update() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void showCopies() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void back() {
