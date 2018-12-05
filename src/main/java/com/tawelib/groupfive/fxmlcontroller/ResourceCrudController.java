@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.util.SceneHelper;
 
 import javafx.event.ActionEvent;
@@ -9,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ResourceCrudController extends BaseFxmlController {
+
+  private Resource selectedResource;
 
   @FXML
   private TextField txtField6;
@@ -97,4 +100,12 @@ public class ResourceCrudController extends BaseFxmlController {
 
   }
 
+  public Resource getSelectedResource() {
+    return selectedResource;
+  }
+
+  public void setSelectedResource(
+      Resource selectedResource) {
+    this.selectedResource = selectedResource;
+  }
 }

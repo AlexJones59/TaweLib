@@ -29,4 +29,8 @@ public class ResourceTableWrapper {
   public ResourceType getType() {
     return resource.getType();
   }
+
+  public Resource getResource() {
+    return resource;
+  }
 }
