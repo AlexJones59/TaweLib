@@ -186,7 +186,7 @@ public class CopyController {
    *
    * @param lease lease
    */
-  private static int getDaysOverdue(Lease lease) {
+  public static int getDaysOverdue(Lease lease) {
     long diffInMilli =
         lease.getDueDate().getTime() - lease.getDateReturned().getTime();
 
@@ -196,6 +196,7 @@ public class CopyController {
       return 0;
     }
   }
+
 
   /**
    * Creates lease while checking to see if due date needs to be added.
