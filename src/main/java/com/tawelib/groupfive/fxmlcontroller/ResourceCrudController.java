@@ -98,21 +98,27 @@ public class ResourceCrudController extends BaseFxmlController {
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
 
     bookAnchorPane.setVisible(false);
+    bookAnchorPane.setManaged(false);
     dvdAnchorPane.setVisible(false);
+    dvdAnchorPane.setManaged(false);
     laptopAnchorPane.setVisible(false);
+    laptopAnchorPane.setManaged(false);
 
     switch (selectedResource.getType()) {
       case BOOK:
         populateBook();
         bookAnchorPane.setVisible(true);
+        bookAnchorPane.setManaged(true);
         break;
       case DVD:
         populateDvd();
         dvdAnchorPane.setVisible(true);
+        dvdAnchorPane.setManaged(true);
         break;
       case LAPTOP:
         populateLaptop();
         laptopAnchorPane.setVisible(true);
+        laptopAnchorPane.setManaged(true);
         break;
       default:
         break;
