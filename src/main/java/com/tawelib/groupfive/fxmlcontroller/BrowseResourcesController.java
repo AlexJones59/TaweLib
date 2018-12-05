@@ -150,13 +150,17 @@ public class BrowseResourcesController extends BaseFxmlController {
    */
   public void resourceInformation() {
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
-      ((ResourceCrudController) SceneHelper.setUpScene(
-          this,
-          "ResourceCrud")
-      ).setSelectedResource(
+      ResourceCrudController newController =
+          (ResourceCrudController) SceneHelper.setUpScene(
+              this,
+              "ResourceCrud");
+
+      newController.setSelectedResource(
           tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
               .getResource()
       );
+      newController.setCrudAction(CrudAction.UPDATE);
+      newController.refresh();
     }
   }
 }
