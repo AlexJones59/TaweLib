@@ -4,7 +4,6 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +55,14 @@ public class ResourceRepository implements BaseRepository<Resource> {
         newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
         lastLaptopNumber++;
         break;
-      } default:
+      }
+      default:
 
     }
 
     try {
-      Field idField = resource.getClass().getSuperclass().getDeclaredField("resourceId");
+      Field idField = resource.getClass().getSuperclass()
+          .getDeclaredField("resourceId");
       idField.setAccessible(true);
       idField.set(resource, newResourceId);
       idField.setAccessible(false);
@@ -72,6 +73,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Book".
+   *
+   * TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -99,6 +102,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search through resources of type "DVD".
    *
+   * TODO: Refactor: use searchResource(String query)
+   *
    * @param query the query
    * @return the list of resources fulfilling search query
    */
@@ -122,7 +127,31 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
+   * Search through resources.
+   *
+   * @param query the query
+   * @return the list of resources fulfilling search query
+   */
+  public List<Resource> searchResource(String query) {
+    ArrayList<Resource> result = new ArrayList<>();
+
+    for (Resource resource : resources) {
+      if (
+          resource.getResourceId().contains(query)
+              || resource.getTitle().contains(query)
+              || Integer.toString(resource.getYear()).contains(query)
+      ) {
+        result.add(resource);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Search through resources of type "Laptop".
+   *
+   * TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @param searchAttribute the search attribute
