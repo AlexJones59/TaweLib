@@ -4,10 +4,15 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.util.Arrays;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -78,11 +83,43 @@ public class ResourceCrudController extends BaseFxmlController {
   @FXML
   private Button updateButton;
 
+  @FXML
+  private ComboBox<ResourceType> resourceTypeComboBox;
+
+  private ResourceType[] resourceTypes = {
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP
+  };
+
   @Override
   public void refresh() {
     if (crudAction == CrudAction.UPDATE) {
       populateResource();
+    } else if (crudAction == CrudAction.CREATE) {
+      if (resourceTypeComboBox.getItems().isEmpty()) {
+        resourceTypeComboBox.getItems().addAll(
+            Arrays.asList(resourceTypes)
+        );
+        resourceTypeComboBox.setValue(ResourceType.BOOK);
+      }
+
+      switch (resourceTypeComboBox.getValue()) {
+        case BOOK:
+          showSubtypePane(bookAnchorPane);
+          break;
+        case DVD:
+          showSubtypePane(dvdAnchorPane);
+          break;
+        case LAPTOP:
+          showSubtypePane(laptopAnchorPane);
+          break;
+        default:
+          break;
+      }
     }
+
+    resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
     createButton.setVisible(
         isLibrarianLoggedIn() && crudAction == CrudAction.CREATE
@@ -92,33 +129,32 @@ public class ResourceCrudController extends BaseFxmlController {
     );
   }
 
+  private void showSubtypePane(AnchorPane pane) {
+    bookAnchorPane.setVisible(bookAnchorPane == pane);
+    bookAnchorPane.setManaged(bookAnchorPane == pane);
+    dvdAnchorPane.setVisible(dvdAnchorPane == pane);
+    dvdAnchorPane.setManaged(dvdAnchorPane == pane);
+    laptopAnchorPane.setVisible(laptopAnchorPane == pane);
+    laptopAnchorPane.setManaged(laptopAnchorPane == pane);
+  }
+
   private void populateResource() {
     idLabel.setText(selectedResource.getResourceId());
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
 
-    bookAnchorPane.setVisible(false);
-    bookAnchorPane.setManaged(false);
-    dvdAnchorPane.setVisible(false);
-    dvdAnchorPane.setManaged(false);
-    laptopAnchorPane.setVisible(false);
-    laptopAnchorPane.setManaged(false);
-
     switch (selectedResource.getType()) {
       case BOOK:
         populateBook();
-        bookAnchorPane.setVisible(true);
-        bookAnchorPane.setManaged(true);
+        showSubtypePane(bookAnchorPane);
         break;
       case DVD:
         populateDvd();
-        dvdAnchorPane.setVisible(true);
-        dvdAnchorPane.setManaged(true);
+        showSubtypePane(dvdAnchorPane);
         break;
       case LAPTOP:
         populateLaptop();
-        laptopAnchorPane.setVisible(true);
-        laptopAnchorPane.setManaged(true);
+        showSubtypePane(laptopAnchorPane);
         break;
       default:
         break;
@@ -159,15 +195,15 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   public void create() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void update() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void showCopies() {
-
+    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
   public void back() {
