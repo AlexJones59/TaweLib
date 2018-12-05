@@ -7,8 +7,10 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
+import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
@@ -17,8 +19,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 public class UserInformationController extends BaseFxmlController {
+
+  @FXML
+  private ImageView userProfileImageView;
 
   @FXML
   public TextField firstNameTextField;
@@ -85,6 +91,9 @@ public class UserInformationController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+
+    userProfileImageView.setImage(ResourceHelper
+        .getUserProfileImage(selectedUser));
     firstNameTextField.setText(selectedUser.getFirstName());
     lastNameTextField.setText(selectedUser.getLastName());
     usernameTextField.setText(selectedUser.getUsername());
@@ -106,6 +115,10 @@ public class UserInformationController extends BaseFxmlController {
           },
           true
       );
+
+      setTableContents(library.getLeaseRepository()
+          .getCustomerLeaseHistory(selectedCustomer));
+
     } else {
       setNodeVisibilities(
           new Node[]{
@@ -116,7 +129,16 @@ public class UserInformationController extends BaseFxmlController {
       );
     }
 
-    //TODO: Populate.
+
+
+  }
+
+  private void setTableContents(List<Lease> customerLeases) {
+    resourceTableView.getItems().clear();
+
+    for (Lease lease : customerLeases) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(lease));
+    }
   }
 
   /**
