@@ -6,7 +6,6 @@ import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.manager.ResourceManager;
-import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.SceneHelper;
@@ -200,6 +199,9 @@ public class ResourceCrudController extends BaseFxmlController {
     );
   }
 
+  /**
+   * Creates a new resource.
+   */
   public void create() {
     try {
       switch (resourceTypeComboBox.getValue()) {
@@ -239,20 +241,32 @@ public class ResourceCrudController extends BaseFxmlController {
               operatingSystemTextField.getText()
           );
           break;
+        default:
+          break;
       }
     } catch (NumberFormatException e) {
       AlertHelper.alert(AlertType.ERROR, e.getMessage());
     }
   }
 
+  /**
+   * Updates a resource.
+   */
   public void update() {
     AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
+  /**
+   * Shows copies available for a resource.
+   */
   public void showCopies() {
     AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
