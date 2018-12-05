@@ -1,4 +1,4 @@
-package com.tawelib.groupfive.controller;
+package com.tawelib.groupfive.manager;
 
 import com.tawelib.groupfive.entity.Address;
 import com.tawelib.groupfive.entity.Customer;
@@ -9,13 +9,13 @@ import com.tawelib.groupfive.entity.User;
 import java.util.Date;
 
 /**
- * File Name - UserController.java The User Controller class controls data flow
+ * File Name - UserManager.java The User Controller class controls data flow
  * between the Customer and Librarian Repository and the GUI interfaces.
  *
  * @author Shree Desai
  * @version 0.2
  */
-public class UserController {
+public class UserManager {
 
   /**
    * Create customer account.
