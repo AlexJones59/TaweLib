@@ -73,8 +73,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Book".
-   *
-   * TODO: Refactor: use searchResource(String query)
+   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -104,8 +103,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "DVD".
-   *
-   * TODO: Refactor: use searchResource(String query)
+   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -156,8 +154,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Laptop".
-   *
-   * TODO: Refactor: use searchResource(String query)
+   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query

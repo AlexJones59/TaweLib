@@ -96,6 +96,9 @@ public class BrowseResourcesController extends BaseFxmlController {
     );
   }
 
+  /**
+   * Searches for resources and displays the result.
+   */
   public void search() {
     List<Resource> result;
 
