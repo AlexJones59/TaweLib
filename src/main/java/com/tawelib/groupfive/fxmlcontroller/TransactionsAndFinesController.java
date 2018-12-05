@@ -88,7 +88,7 @@ public class TransactionsAndFinesController extends BaseFxmlController {
   public void refresh() {
     Customer customer = (Customer) loggedInUser;
     txtUsername.setText(customer.getUsername());
-    txtBalance.setText(String.format( "£ %.2f",
+    txtBalance.setText(String.format("£ %.2f",
             customer.getAccountBalanceInPounds()));
 
     setTableContents(

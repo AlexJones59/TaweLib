@@ -102,7 +102,7 @@ public class UserInformationController extends BaseFxmlController {
 
     if (selectedUser.getClass().equals(Customer.class)) {
       Customer selectedCustomer = (Customer) selectedUser;
-      balanceTextField.setText(String.format( "£ %.2f",
+      balanceTextField.setText(String.format("£ %.2f",
           selectedCustomer.getAccountBalanceInPounds()));
 
       setNodeVisibilities(
