@@ -30,8 +30,6 @@ public class Library extends Application {
           library,
           "Login"
       );
-
-      setUpDefaultUsers();
     } catch (Exception e) {
       //TODO: Announce that the library could not be loaded nor created.
       e.printStackTrace();
@@ -50,34 +48,5 @@ public class Library extends Application {
       e.printStackTrace();
       System.exit(1);
     }
-  }
-
-  /**
-   * Contains code for development purposes.
-   */
-  private void setUpDefaultUsers() {
-    library.getLibrarianRepository().add(
-        new Librarian(
-            "System",
-            "Admin",
-            "Phone #",
-            "110",
-            "The street",
-            "Swansea",
-            "SA28PJ",
-            new Date()
-        )
-    );
-    library.getCustomerRepository().add(
-        new Customer(
-            "Nice",
-            "Customer",
-            "000000000",
-            "56",
-            "Swansea Uni",
-            "Swansea",
-            "SA20AT"
-        )
-    );
   }
 }
