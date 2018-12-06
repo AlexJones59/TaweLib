@@ -2,6 +2,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.tablewrapper.OverdueCopiesTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
@@ -28,25 +29,22 @@ public class OverdueCopiesController extends BaseFxmlController {
   private Label lblSearch;
 
   @FXML
-  private TableView<OverdueCopiesTableWrapper> tblOverdueCopies;
+  private TableView<LeaseTableWrapper> tblOverdueCopies;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> usernameColumn;
+  private TableColumn<LeaseTableWrapper, String> usernameColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> titleColumn;
+  private TableColumn<LeaseTableWrapper, String> titleColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> idColumn;
+  private TableColumn<LeaseTableWrapper, String> idColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, ResourceType> typeColumn;
+  private TableColumn<LeaseTableWrapper, ResourceType> typeColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, Date> dateColumn;
-
-  @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> fineColumn;
+  private TableColumn<LeaseTableWrapper, Date> dateColumn;
 
 
   public OverdueCopiesController() {
