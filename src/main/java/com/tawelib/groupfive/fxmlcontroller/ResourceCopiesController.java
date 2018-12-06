@@ -127,7 +127,7 @@ public class ResourceCopiesController extends BaseFxmlController {
   }
 
   public void back() {
-    SceneHelper.setUpScene(this, "BrowseResource");
+    SceneHelper.setUpScene(this, "BrowseResources");
   }
 
   public Resource getSelectedResource() {
