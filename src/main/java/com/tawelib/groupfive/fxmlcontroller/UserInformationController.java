@@ -1,7 +1,5 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
@@ -13,7 +11,6 @@ import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -154,7 +151,6 @@ public class UserInformationController extends BaseFxmlController {
 
       setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
 
-
       setTableContents(library.getLeaseRepository()
               .getCustomerLeaseHistory(loggedInCustomer),
           library.getRequestRepository()
@@ -253,6 +249,9 @@ public class UserInformationController extends BaseFxmlController {
             library,
             resourceTableView.getSelectionModel().getSelectedItem().getCopyId()
         );
+
+        AlertHelper.alert(AlertType.INFORMATION, "Returned.");
+
         refresh();
       }
     } else {
