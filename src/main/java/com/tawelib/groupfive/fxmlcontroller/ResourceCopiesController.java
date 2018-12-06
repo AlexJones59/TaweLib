@@ -41,6 +41,9 @@ public class ResourceCopiesController extends BaseFxmlController {
   @FXML
   private Button requestCopyButton;
 
+  @FXML
+  private Button createCopyButton;
+
   /**
    * Initializes the gui.
    */
@@ -65,6 +68,10 @@ public class ResourceCopiesController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+    if (!copiesTableView.getItems().isEmpty()) {
+      copiesTableView.getItems().clear();
+    }
+
     for (Copy copy : library.getCopyRepository()
         .getResourceCopies(selectedResource)
     ) {
@@ -76,6 +83,7 @@ public class ResourceCopiesController extends BaseFxmlController {
     }
 
     requestCopyButton.setVisible(isCustomerLoggedIn());
+    createCopyButton.setVisible(isLibrarianLoggedIn());
   }
 
   /**
@@ -92,8 +100,17 @@ public class ResourceCopiesController extends BaseFxmlController {
     back();
   }
 
+  /**
+   * Creates a copy of currently selected resource.
+   */
+  public void createCopy() {
+    CopyManager.createResourceCopy(library, selectedResource, 1);
+    AlertHelper.alert(AlertType.INFORMATION, "Copy created.");
+    refresh();
+  }
+
   public void back() {
-    SceneHelper.setUpScene(this, "BrowseResources");
+    SceneHelper.setUpScene(this, "ResourceCrud");
   }
 
   public Resource getSelectedResource() {
