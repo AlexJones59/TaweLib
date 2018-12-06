@@ -41,7 +41,7 @@ public class BorrowResourcesController extends BaseFxmlController {
     if (selectedUser.getAccountBalance() < 0) {
       AlertHelper.alert(AlertType.WARNING, "Your balance is below the minimum.");
     } /*else {
-      //if (CopyManager.borrowResourceCopy.txtResourceCopyId.getText())
+      //if (CopyManager.borrowResourceCopy.txtResourceCopyId.getText()) <<
 
       CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(), selectedUser);*/
   }
