@@ -6,8 +6,6 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.manager.RequestManager;
-import com.tawelib.groupfive.manager.ResourceManager;
-import com.tawelib.groupfive.manager.UserManager;
 import com.tawelib.groupfive.tablewrapper.CopiesTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
@@ -43,6 +41,9 @@ public class ResourceCopiesController extends BaseFxmlController {
 
   @FXML
   private Button createCopyButton;
+
+  @FXML
+  private Button historyButton;
 
   /**
    * Initializes the gui.
@@ -82,6 +83,7 @@ public class ResourceCopiesController extends BaseFxmlController {
       );
     }
 
+    historyButton.setVisible(isLibrarianLoggedIn());
     requestCopyButton.setVisible(isCustomerLoggedIn());
     createCopyButton.setVisible(isLibrarianLoggedIn());
   }
@@ -109,8 +111,23 @@ public class ResourceCopiesController extends BaseFxmlController {
     refresh();
   }
 
+  /**
+   * Shows the copy history screen.
+   */
+  public void history() {
+    CopyHistoryController newController = (CopyHistoryController) SceneHelper
+        .setUpScene(
+            this,
+            "CopyHistory"
+        );
+
+    newController.setSelectedCopy(
+        copiesTableView.getSelectionModel().getSelectedItem().getCopy()
+    );
+  }
+
   public void back() {
-    SceneHelper.setUpScene(this, "ResourceCrud");
+    SceneHelper.setUpScene(this, "BrowseResource");
   }
 
   public Resource getSelectedResource() {
