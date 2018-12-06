@@ -40,7 +40,7 @@
                 <Button fx:id="btnManageBalance" layoutX="48.0" layoutY="399.0" mnemonicParsing="false" onAction="#manageBalance" text="Manage Balance" />
                 <Button fx:id="tbnBorrow" layoutX="207.0" layoutY="399.0" mnemonicParsing="false" onAction="#borrowNewResource" text="Borrow New Resource" />
                 <Button fx:id="btnEditUserInfo" layoutX="403.0" layoutY="399.0" mnemonicParsing="false" onAction="#editUserInfo" text="Edit User Info" />
-                <Button fx:id="btnReturn" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#returnCopy" text="Return Copy" />
+                <Button fx:id="returnCopyButton" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#returnCopy" text="Return Copy" />
             <ImageView fx:id="userProfileImageView" fitHeight="118.0" fitWidth="159.0" layoutX="40.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>

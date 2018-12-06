@@ -18,6 +18,7 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -105,6 +106,9 @@ public class UserInformationController extends BaseFxmlController {
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
+  @FXML
+  private Button returnCopyButton;
+
   /**
    * Instantiates a new User information controller.
    */
@@ -183,7 +187,7 @@ public class UserInformationController extends BaseFxmlController {
       }
     }
 
-
+    returnCopyButton.setVisible(isLibrarianLoggedIn());
   }
 
 
