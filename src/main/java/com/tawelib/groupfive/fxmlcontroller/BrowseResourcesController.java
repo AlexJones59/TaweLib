@@ -39,6 +39,9 @@ public class BrowseResourcesController extends BaseFxmlController {
   private Button btnInfo;
 
   @FXML
+  private Button createNewButton;
+
+  @FXML
   private ComboBox<ResourceType> cmbResourceType;
 
   private ResourceType[] resourceTypes = {
@@ -94,6 +97,8 @@ public class BrowseResourcesController extends BaseFxmlController {
     setTableContents(
         library.getResourceRepository().getAll()
     );
+
+    createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
   /**
