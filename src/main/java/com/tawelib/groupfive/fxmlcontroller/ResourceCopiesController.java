@@ -121,9 +121,11 @@ public class ResourceCopiesController extends BaseFxmlController {
             "CopyHistory"
         );
 
-    newController.setSelectedCopy(
-        copiesTableView.getSelectionModel().getSelectedItem().getCopy()
-    );
+    Copy copy = copiesTableView.getSelectionModel().getSelectedItem().getCopy();
+
+    newController.setSelectedCopy(copy);
+
+    newController.refresh();
   }
 
   public void back() {
