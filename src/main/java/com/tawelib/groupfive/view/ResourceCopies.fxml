@@ -43,6 +43,7 @@
                         <TableColumn fx:id="dueDateTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="94.0" text="Due Date" />
                     </columns>
                 </TableView>
+            <Button fx:id="createCopyButton" layoutX="689.0" layoutY="28.0" mnemonicParsing="false" onAction="#createCopy" text="Create copy" />
             </children>
         </Pane>
     </top>
