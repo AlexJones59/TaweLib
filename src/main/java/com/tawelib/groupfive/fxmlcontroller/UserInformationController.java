@@ -180,7 +180,7 @@ public class UserInformationController extends BaseFxmlController {
     if (selectedUser.getClass().equals(Customer.class)) {
       //TODO: decide from which site to approach this (user first or COPY first)
       //      SceneHelper.setUpScene(this, "BorrowResource");
-      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+      SceneHelper.setUpScene(this, "BorrowResource");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
