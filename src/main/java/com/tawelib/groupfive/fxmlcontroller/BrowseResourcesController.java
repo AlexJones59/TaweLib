@@ -154,7 +154,9 @@ public class BrowseResourcesController extends BaseFxmlController {
    * Opens the resource CRUD screen if a resource is selected.
    */
   public void resourceInformation() {
-    setUpResourceCrud(CrudAction.UPDATE);
+    if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
+      setUpResourceCrud(CrudAction.UPDATE);
+    }
   }
 
   public void createNew() {
