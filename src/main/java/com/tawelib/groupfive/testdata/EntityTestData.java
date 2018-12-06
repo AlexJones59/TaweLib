@@ -180,6 +180,8 @@ public class EntityTestData {
 
     library.getRequestRepository().add(newRequest);
 
+    library.getCustomerRepository().getSpecific("nice.customer").decreaseAccountBalance(30000);
+
     /*//Create a overdue lease
     Copy copy1 = new Copy(book1);
     library.getCopyRepository().add(copy1);
