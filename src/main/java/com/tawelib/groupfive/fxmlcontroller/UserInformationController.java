@@ -24,47 +24,89 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
+/**
+ * The type User information controller.
+ */
 public class UserInformationController extends BaseFxmlController {
 
   @FXML
   private ImageView userProfileImageView;
 
+  /**
+   * The First name text field.
+   */
   @FXML
   public TextField firstNameTextField;
 
+  /**
+   * The Last name text field.
+   */
   @FXML
   public TextField lastNameTextField;
 
+  /**
+   * The Username text field.
+   */
   @FXML
   public TextField usernameTextField;
 
+  /**
+   * The Address text field.
+   */
   @FXML
   public TextField addressTextField;
 
+  /**
+   * The Balance label.
+   */
   @FXML
   public Label balanceLabel;
 
+  /**
+   * The Balance text field.
+   */
   @FXML
   public TextField balanceTextField;
 
+  /**
+   * The Resource table view.
+   */
   @FXML
   public TableView<LeaseTableWrapper> resourceTableView;
 
+  /**
+   * The Resource id table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
 
+  /**
+   * The Copy id table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
 
+  /**
+   * The Title table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
+  /**
+   * The Due date table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
 
+  /**
+   * The Status table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
+  /**
+   * Instantiates a new User information controller.
+   */
   public UserInformationController() {
   }
 
@@ -207,6 +249,9 @@ public class UserInformationController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Goes back to previous scene.
+   */
   public void back() {
     if (loggedInUser.getClass().equals(Librarian.class)) {
       SceneHelper.setUpScene(this, "UserList");

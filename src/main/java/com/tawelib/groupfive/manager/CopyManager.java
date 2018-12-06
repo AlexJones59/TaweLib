@@ -157,12 +157,16 @@ public class CopyManager {
    *
    * @param newLease new lease
    */
-  private static void generateDueDate(Lease newLease) {
+  public static void generateDueDate(Lease newLease) {
     ResourceType resourceType = newLease.getBorrowedCopy().getResource()
         .getType();
     LocalDateTime dueDate = newLease.getDateLeased()
         .plusDays(resourceType.getLoanDuration());
-    newLease.setDueDate(dueDate);
+    if (dueDate.isAfter(LocalDateTime.now())) {
+      newLease.setDueDate(dueDate);
+    } else {
+      newLease.setDueDate((LocalDateTime.now()).plusDays(1));
+    }
 
   }
 
@@ -172,7 +176,7 @@ public class CopyManager {
    * @param lease lease
    * @return fine amount
    */
-  private static int generateFineAmount(Lease lease) {
+  public static int generateFineAmount(Lease lease) {
     ResourceType resourceType = lease.getBorrowedCopy().getResource().getType();
     int amount = (resourceType.getFine()) * (getDaysOverdue(lease));
     if (amount <= resourceType.getMaxFine()) {
@@ -182,7 +186,6 @@ public class CopyManager {
     }
   }
 
-  //TODO: Change to work for FXML
   /**
    * Gets days overdue.
    *

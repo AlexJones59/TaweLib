@@ -1,9 +1,11 @@
 package com.tawelib.groupfive.manager;
 
+import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.List;
 
 /**
  * File Name - RequestManager.java The Request Controller class handles data
@@ -25,5 +27,23 @@ public class RequestManager {
       Resource requestedResource) {
     Request newRequest = new Request(customer, requestedResource);
     library.getRequestRepository().add(newRequest);
+
+    //Sets Due Date of oldest borrowed copy.
+    List<Copy> resourceCopies = library.getCopyRepository()
+        .getResourceCopies(requestedResource);
+    Copy oldestCopy = resourceCopies.get(0);
+    for (Copy copy : resourceCopies) {
+      if (library.getLeaseRepository().getCopyCurrentLease(copy).getDateLeased()
+          .isBefore(library.getLeaseRepository().getCopyCurrentLease(oldestCopy)
+              .getDateLeased())
+          && library.getLeaseRepository().getCopyCurrentLease(copy).getDueDate()
+          != null) {
+        oldestCopy = copy;
+
+      }
+    }
+
+    CopyManager.generateDueDate(
+        library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
   }
 }
