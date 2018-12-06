@@ -309,7 +309,12 @@ public class ResourceCrudController extends BaseFxmlController {
    * Shows copies available for a resource.
    */
   public void showCopies() {
-    AlertHelper.alert(AlertType.ERROR, "Not Implemented.");
+    ResourceCopiesController newController =
+        (ResourceCopiesController) SceneHelper
+        .setUpScene(this, "ResourceCopies");
+
+    newController.setSelectedResource(selectedResource);
+    newController.refresh();
   }
 
   /**
