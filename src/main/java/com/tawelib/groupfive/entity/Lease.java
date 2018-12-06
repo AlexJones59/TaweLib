@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.Main;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -42,6 +43,17 @@ public class Lease implements Serializable {
   }
 
   /**
+   * Development method only.
+   *
+   * @param date Date.
+   */
+  public void dev_setDateLeased(LocalDateTime date) {
+    if (Main.DEV_MODE) {
+      dateLeased = date;
+    }
+  }
+
+  /**
    * Gets date returned.
    *
    * @return the date returned
@@ -55,6 +67,17 @@ public class Lease implements Serializable {
    */
   public void setDateReturned() {
     this.dateReturned = LocalDateTime.now();
+  }
+
+  /**
+   * Development method only.
+   *
+   * @param date Date.
+   */
+  public void dev_setDateReturned(LocalDateTime date) {
+    if (Main.DEV_MODE) {
+      dateReturned = date;
+    }
   }
 
   /**

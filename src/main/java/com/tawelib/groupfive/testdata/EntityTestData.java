@@ -16,6 +16,7 @@ import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -196,7 +197,9 @@ public class EntityTestData {
         library.getCustomerRepository().getSpecific("nice.customer"),
         copy
     );
-    lease.setDueDate(LocalDateTime.now());
+    lease.dev_setDateLeased(LocalDateTime.of(2018, 11, 5, 12, 0));
+    lease.setDueDate(LocalDateTime.of(2018, 11, 15, 12, 0));
+    lease.dev_setDateReturned(LocalDateTime.of(2018, 12, 5, 12, 0));
     library.getLeaseRepository().add(lease);
 
 
