@@ -6,6 +6,7 @@ import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.tablewrapper.TransactionsFinesTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.time.LocalDateTime;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,7 +40,7 @@ public class TransactionsAndFinesController extends BaseFxmlController {
   private TableView<TransactionsFinesTableWrapper> tblTransactionsFines;
 
   @FXML
-  private TableColumn<TransactionsFinesTableWrapper, String> timeIssuedTableColumn;
+  private TableColumn<TransactionsFinesTableWrapper, LocalDateTime> timeIssuedTableColumn;
 
   @FXML
   private TableColumn<TransactionsFinesTableWrapper, String> resourceIdTableColumn;

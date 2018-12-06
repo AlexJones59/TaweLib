@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.manager.CopyManager;
 import java.text.NumberFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -44,17 +45,16 @@ public class TransactionsFinesTableWrapper {
    *
    * @return the time issued
    */
-  public String getTimeIssued() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy hh:mm:ss");
+  public LocalDateTime getTimeIssued() {
     switch (argument) {
       case "Fine" : {
-        return fine.getLease().getDueDate().format(formatter);
+        return fine.getLease().getDueDate();
       }
       case "Transaction" : {
-        return transaction.getDatePaid().format(formatter);
+        return transaction.getDatePaid();
       }
       default : {
-        return "";
+        return null;
       }
     }
   }
