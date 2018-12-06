@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
 public class LeaseTableWrapper {
 
   /**
-   * Instantiates a new Lease table wrapper, while storing what the
-   * parameter's class type is.
+   * Instantiates a new Lease table wrapper, while storing what the parameter's
+   * class type is.
    *
    * @param lease the lease
    */
@@ -25,8 +25,8 @@ public class LeaseTableWrapper {
   }
 
   /**
-   * Instantiates a new Lease table wrapper, while storing what the
-   * parameter's class type is.
+   * Instantiates a new Lease table wrapper, while storing what the parameter's
+   * class type is.
    *
    * @param request the request
    */
@@ -48,13 +48,13 @@ public class LeaseTableWrapper {
    */
   public String getResourceId() {
     switch (argument) {
-      case "Lease" : {
+      case "Lease": {
         return lease.getBorrowedCopy().getResource().getResourceId();
       }
-      case "Request" : {
+      case "Request": {
         return request.getRequestedResource().getResourceId();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -67,10 +67,10 @@ public class LeaseTableWrapper {
    */
   public String getCopyId() {
     switch (argument) {
-      case "Lease" : {
+      case "Lease": {
         return lease.getBorrowedCopy().getId();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -83,13 +83,13 @@ public class LeaseTableWrapper {
    */
   public String getTitle() {
     switch (argument) {
-      case "Lease" : {
+      case "Lease": {
         return lease.getBorrowedCopy().getResource().getTitle();
       }
-      case "Request" : {
+      case "Request": {
         return request.getRequestedResource().getTitle();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -102,10 +102,10 @@ public class LeaseTableWrapper {
    */
   public LocalDateTime getDueDate() {
     switch (argument) {
-      case "Lease" : {
+      case "Lease": {
         return lease.getDueDate();
       }
-      default : {
+      default: {
         return null;
       }
     }
@@ -126,17 +126,20 @@ public class LeaseTableWrapper {
    */
   public String getStatus() {
     switch (argument) {
-      case "Lease" : {
-        return lease.getBorrowedCopy().getStatus().toString();
+      case "Lease": {
+        if (lease.getDateReturned() != null) {
+          return "RETURNED";
+        } else {
+          return lease.getBorrowedCopy().getStatus().toString();
+        }
       }
-      case "Request" : {
+      case "Request": {
         return request.getStatus().toString();
       }
-      default : {
+      default: {
         return "";
       }
     }
-
 
 
   }
