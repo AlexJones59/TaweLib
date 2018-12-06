@@ -31,7 +31,7 @@ public class BorrowResourcesController extends BaseFxmlController {
   private Button btnBorrow;
 
   @FXML
-  private TextField txtResourceId;
+  private TextField txtResourceCopyId;
 
   @FXML
   private Label lblResourceId;
@@ -45,6 +45,10 @@ public class BorrowResourcesController extends BaseFxmlController {
   public void borrow() {
     if (selectedUser.getAccountBalance() < 0) {
       AlertHelper.alert(AlertType.WARNING, "Your balance is below the minimum.");
+    } else {
+      //if (CopyManager.borrowResourceCopy.txtResourceCopyId.getText())
+
+      CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(),selectedUser);
     }
   }
 
