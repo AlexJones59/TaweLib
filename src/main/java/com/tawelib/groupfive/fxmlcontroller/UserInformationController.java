@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
@@ -178,8 +179,6 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void borrowNewResource() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      //TODO: decide from which site to approach this (user first or COPY first)
-      //      SceneHelper.setUpScene(this, "BorrowResource");
       SceneHelper.setUpScene(this, "BorrowResource");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
@@ -209,6 +208,12 @@ public class UserInformationController extends BaseFxmlController {
   }
 
   public void back() {
-    SceneHelper.setUpScene(this, "UserList");
+    if (loggedInUser.getClass().equals(Librarian.class)) {
+      SceneHelper.setUpScene(this, "UserList");
+    } else {
+      SceneHelper.setUpScene(this, "UserDashboard");
+    }
+
+
   }
 }
