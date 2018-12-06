@@ -12,14 +12,11 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
-
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class EntityTestData {
 
@@ -139,7 +136,6 @@ public class EntityTestData {
 
     l3.add("English");
 
-
     Dvd dvd1 = new Dvd(
         "Intersteller",
         2016,
@@ -192,16 +188,20 @@ public class EntityTestData {
     // [LEASE]
     // ---------------------------------------------------------------------------------------------
 
+    //    Lease lease = new Lease(
+    //        library.getCustomerRepository().getSpecific("nice.customer"),
+    //        copy
+    //    );
+    //    lease.dev_setDateLeased(LocalDateTime.of(2018, 11, 5, 12, 0));
+    //    lease.setDueDate(LocalDateTime.of(2018, 11, 15, 12, 0));
+    //    lease.dev_setDateReturned(LocalDateTime.of(2018, 12, 5, 12, 0));
+    //    library.getLeaseRepository().add(lease);
 
-    Lease lease = new Lease(
-        library.getCustomerRepository().getSpecific("nice.customer"),
-        copy
+    CopyManager.borrowResourceCopy(
+        library,
+        copy.getId(),
+        "nice.customer"
     );
-    lease.dev_setDateLeased(LocalDateTime.of(2018, 11, 5, 12, 0));
-    lease.setDueDate(LocalDateTime.of(2018, 11, 15, 12, 0));
-    lease.dev_setDateReturned(LocalDateTime.of(2018, 12, 5, 12, 0));
-    library.getLeaseRepository().add(lease);
-
 
     Lease lease2 = new Lease(
         library.getCustomerRepository().getAll().get(0),
@@ -219,7 +219,6 @@ public class EntityTestData {
 
     library.getRequestRepository().add(newRequest);
 
-
     Request newRequest2 = new Request(
         library.getCustomerRepository().getAll().get(0),
         dvd1
@@ -231,9 +230,9 @@ public class EntityTestData {
     // [FINE]
     //----------------------------------------------------------------------------------------------
 
-    Fine fine = new Fine(lease, 3);
+    //    Fine fine = new Fine(lease, 3);
 
-    library.getFineRepository().add(fine);
+    //    library.getFineRepository().add(fine);
 
     // [TRANSACTION]
     //----------------------------------------------------------------------------------------------
