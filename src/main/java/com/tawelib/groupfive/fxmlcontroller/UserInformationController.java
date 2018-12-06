@@ -6,6 +6,7 @@ import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
@@ -202,7 +203,13 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void returnCopy() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+      if (true) {
+        CopyManager.returnResourceCopy(
+            library,
+            resourceTableView.getSelectionModel().getSelectedItem().getCopyId()
+        );
+        refresh();
+      }
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
