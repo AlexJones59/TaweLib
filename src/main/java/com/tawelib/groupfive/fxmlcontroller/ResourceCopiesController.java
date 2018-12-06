@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -45,6 +46,12 @@ public class ResourceCopiesController extends BaseFxmlController {
   @FXML
   private Button historyButton;
 
+  @FXML
+  private Label totalCopiesLabel;
+
+  @FXML
+  private Label availableCopiesLabel;
+
   /**
    * Initializes the gui.
    */
@@ -69,6 +76,9 @@ public class ResourceCopiesController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+    int availableCopies = 0;
+    int totalCopies = 0;
+
     if (!copiesTableView.getItems().isEmpty()) {
       copiesTableView.getItems().clear();
     }
@@ -81,7 +91,14 @@ public class ResourceCopiesController extends BaseFxmlController {
               copy, library.getLeaseRepository()
           )
       );
+      totalCopies++;
+      if (copy.getStatus() == CopyStatus.AVAILABLE) {
+        availableCopies++;
+      }
     }
+
+    totalCopiesLabel.setText(Integer.toString(totalCopies));
+    availableCopiesLabel.setText(Integer.toString(availableCopies));
 
     historyButton.setVisible(isLibrarianLoggedIn());
     requestCopyButton.setVisible(isCustomerLoggedIn());

@@ -45,6 +45,10 @@
                 </TableView>
             <Button fx:id="createCopyButton" layoutX="689.0" layoutY="28.0" mnemonicParsing="false" onAction="#createCopy" text="Create copy" />
             <Button fx:id="historyButton" layoutX="615.0" layoutY="28.0" mnemonicParsing="false" onAction="#history" text="History" />
+            <Label layoutX="93.0" layoutY="21.0" text="Total copies" />
+            <Label layoutX="93.0" layoutY="45.0" text="Available copies" />
+            <Label fx:id="totalCopiesLabel" layoutX="212.0" layoutY="21.0" text="Label" />
+            <Label fx:id="availableCopiesLabel" layoutX="212.0" layoutY="45.0" text="Label" />
             </children>
         </Pane>
     </top>
