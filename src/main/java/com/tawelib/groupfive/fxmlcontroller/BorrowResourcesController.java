@@ -14,7 +14,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-
+/**
+ * Allows Librarians to let loan resources to customers that have above minimum account balance.
+ *  @author Nayeem
+ *  @version 0.1
+ */
 public class BorrowResourcesController extends BaseFxmlController {
 
   @FXML
@@ -34,6 +38,10 @@ public class BorrowResourcesController extends BaseFxmlController {
 
   private Customer selectedUser = (Customer) BaseFxmlController.selectedUser;
 
+  /**
+   * Checks whether user can borrow a resource and then lets them borrow specified resource.
+   *
+   */
   public void borrow() {
     if (selectedUser.getAccountBalance() < 0) {
       AlertHelper.alert(AlertType.WARNING, "Your balance is below the minimum.");
