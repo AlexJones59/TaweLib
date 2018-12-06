@@ -44,6 +44,7 @@
                     </columns>
                 </TableView>
             <Button fx:id="createCopyButton" layoutX="689.0" layoutY="28.0" mnemonicParsing="false" onAction="#createCopy" text="Create copy" />
+            <Button fx:id="historyButton" layoutX="615.0" layoutY="28.0" mnemonicParsing="false" onAction="#history" text="History" />
             </children>
         </Pane>
     </top>

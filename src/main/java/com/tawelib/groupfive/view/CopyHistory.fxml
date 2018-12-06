@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -8,21 +12,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.CopyHistoryController">
     <center>
-        <TableView fx:id="tblCopyHistory" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="317.0" prefWidth="600.0">
+        <TableView fx:id="copyHistoryTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="317.0" prefWidth="600.0">
             <columns>
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Username" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Date Borrowed" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Date Returned" />
-                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Is Overdue" />
+                <TableColumn fx:id="usernameTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Username" />
+                <TableColumn fx:id="dateBorrowedTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Date Borrowed" />
+                <TableColumn fx:id="dateReturnedTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="150.0" text="Date Returned" />
             </columns>
         </TableView>
     </center>
     <top>
         <Pane prefHeight="67.0" prefWidth="600.0">
             <children>
-                <Button fx:id="btnBack" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" />
+                <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#back" text="Back" />
                 <Label fx:id="lblScreenTitle" layoutX="229.0" layoutY="22.0" text="Copy History">
                     <font>
                         <Font size="25.0" />

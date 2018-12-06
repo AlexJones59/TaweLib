@@ -45,4 +45,8 @@ public class CopiesTableWrapper {
       return null;
     }
   }
+
+  public Copy getCopy() {
+    return copy;
+  }
 }

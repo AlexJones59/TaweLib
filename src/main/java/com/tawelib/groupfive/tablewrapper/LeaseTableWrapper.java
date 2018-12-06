@@ -111,6 +111,14 @@ public class LeaseTableWrapper {
     }
   }
 
+  public LocalDateTime getLeaseDate() {
+    return lease.getDateLeased();
+  }
+
+  public LocalDateTime getReturnDate() {
+    return lease.getDateReturned();
+  }
+
   /**
    * Gets status.
    *
@@ -133,5 +141,7 @@ public class LeaseTableWrapper {
 
   }
 
-
+  public String getUsername() {
+    return lease.getBorrowingCustomer().getUsername();
+  }
 }
