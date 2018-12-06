@@ -2,11 +2,19 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.manager.CopyManager;
+import com.tawelib.groupfive.manager.RequestManager;
+import com.tawelib.groupfive.manager.ResourceManager;
+import com.tawelib.groupfive.manager.UserManager;
 import com.tawelib.groupfive.tablewrapper.CopiesTableWrapper;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.time.LocalDateTime;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +37,9 @@ public class ResourceCopiesController extends BaseFxmlController {
 
   @FXML
   private TableColumn<CopiesTableWrapper, LocalDateTime> dueDateTableColumn;
+
+  @FXML
+  private Button requestCopyButton;
 
   /**
    * Initializes the gui.
@@ -63,10 +74,22 @@ public class ResourceCopiesController extends BaseFxmlController {
           )
       );
     }
+
+    requestCopyButton.setVisible(isCustomerLoggedIn());
   }
 
+  /**
+   * Requests a currently selected resource.
+   */
   public void request() {
+    RequestManager.createRequest(
+        library,
+        (Customer) loggedInUser,
+        selectedResource
+    );
 
+    AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
+    back();
   }
 
   public void back() {
