@@ -10,6 +10,7 @@ import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -58,7 +59,7 @@ public class UserInformationController extends BaseFxmlController {
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, String> dueDateTableColumn;
+  public TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
 
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
@@ -71,20 +72,17 @@ public class UserInformationController extends BaseFxmlController {
    */
   @FXML
   public void initialize() {
-    resourceIdTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("resourceId"));
+    resourceIdTableColumn
+        .setCellValueFactory(new PropertyValueFactory<>("resourceId"));
 
-    copyIdTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("copyId"));
+    copyIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
 
-    titleTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("title"));
+    titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-    dueDateTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("dueDate"));
+    dueDateTableColumn
+        .setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 
-    statusTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("status"));
+    statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
   }
 
   /**
@@ -93,48 +91,57 @@ public class UserInformationController extends BaseFxmlController {
   @Override
   public void refresh() {
 
-    userProfileImageView.setImage(ResourceHelper
-        .getUserProfileImage(selectedUser));
-    firstNameTextField.setText(selectedUser.getFirstName());
-    lastNameTextField.setText(selectedUser.getLastName());
-    usernameTextField.setText(selectedUser.getUsername());
-    addressTextField.setText(selectedUser.getAddress().toString());
+    if (isCustomerLoggedIn()) {
+      Customer loggedInCustomer = (Customer) loggedInUser;
 
-    if (selectedUser.getClass().equals(Customer.class)) {
-      Customer selectedCustomer = (Customer) selectedUser;
-      balanceTextField.setText(
-          String.format(
-              "£ %.2f",
-              selectedCustomer.getAccountBalanceInPounds()
-          )
-      );
+      userProfileImageView
+          .setImage(ResourceHelper.getUserProfileImage(loggedInCustomer));
+      firstNameTextField.setText(loggedInCustomer.getFirstName());
+      lastNameTextField.setText(loggedInCustomer.getLastName());
+      usernameTextField.setText(loggedInCustomer.getUsername());
+      addressTextField.setText(loggedInCustomer.getAddress().toString());
 
-      setNodeVisibilities(
-          new Node[]{
-              balanceLabel,
-              balanceTextField
-          },
-          true
-      );
+      balanceTextField.setText(String
+          .format("£ %.2f", loggedInCustomer.getAccountBalanceInPounds()));
 
-      setTableContents(
-          library.getLeaseRepository().getCustomerLeaseHistory(selectedCustomer),
-          library.getRequestRepository().getOpenCustomerRequests(selectedCustomer),
-          library.getRequestRepository().getCustomerReserved(selectedCustomer));
+      setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
 
+
+      setTableContents(library.getLeaseRepository()
+              .getCustomerLeaseHistory(loggedInCustomer),
+          library.getRequestRepository()
+              .getOpenCustomerRequests(loggedInCustomer),
+          library.getRequestRepository().getCustomerReserved(loggedInCustomer));
     } else {
-      setNodeVisibilities(
-          new Node[]{
-              balanceLabel,
-              balanceTextField
-          },
-          false
-      );
+      userProfileImageView
+          .setImage(ResourceHelper.getUserProfileImage(selectedUser));
+      firstNameTextField.setText(selectedUser.getFirstName());
+      lastNameTextField.setText(selectedUser.getLastName());
+      usernameTextField.setText(selectedUser.getUsername());
+      addressTextField.setText(selectedUser.getAddress().toString());
+
+      if (selectedUser.getClass().equals(Customer.class)) {
+        Customer selectedCustomer = (Customer) selectedUser;
+        balanceTextField.setText(String
+            .format("£ %.2f", selectedCustomer.getAccountBalanceInPounds()));
+
+        setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
+
+        setTableContents(library.getLeaseRepository()
+                .getCustomerLeaseHistory(selectedCustomer),
+            library.getRequestRepository()
+                .getOpenCustomerRequests(selectedCustomer),
+            library.getRequestRepository()
+                .getCustomerReserved(selectedCustomer));
+
+      } else {
+        setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, false);
+      }
     }
 
 
-
   }
+
 
   private void setTableContents(List<Lease> customerLeases,
       List<Request> customerRequests, List<Request> customerReserved) {

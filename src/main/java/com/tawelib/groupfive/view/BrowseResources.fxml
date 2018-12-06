@@ -57,7 +57,7 @@ table and change it's schema depending on what Resource Type is selected.
                 </BorderPane>
                 <Button fx:id="btnBack" layoutX="18.0" layoutY="23.0" mnemonicParsing="false" onAction="#back" text="Back" />
             <ComboBox fx:id="cmbResourceType" layoutX="297.0" layoutY="123.0" onAction="#search" prefWidth="150.0" promptText="Resource Type" />
-            <Button layoutX="744.0" layoutY="23.0" mnemonicParsing="false" onAction="#createNew" text="Create New" />
+            <Button fx:id="createNewButton" layoutX="744.0" layoutY="23.0" mnemonicParsing="false" onAction="#createNew" text="Create New" />
             </children>
         </Pane>
     </center>

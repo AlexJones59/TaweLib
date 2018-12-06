@@ -4,6 +4,8 @@ import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -98,11 +100,10 @@ public class LeaseTableWrapper {
    *
    * @return the due date
    */
-  public String getDueDate() {
+  public LocalDateTime getDueDate() {
     switch (argument) {
       case "Lease" : {
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
-        return dateFormat.format(lease.getDueDate());
+        return lease.getDueDate();
       }
       default : {
         return null;

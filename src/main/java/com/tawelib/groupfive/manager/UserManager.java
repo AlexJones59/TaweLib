@@ -6,6 +6,7 @@ import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.entity.User;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -51,7 +52,7 @@ public class UserManager {
    * @param postcode the postcode
    */
   public static void createLibrarianAccount(Library library, String firstName,
-      String lastName, Date employmentDate, String phoneNumber,
+      String lastName, LocalDateTime employmentDate, String phoneNumber,
       String houseNumber, String street, String city, String postcode) {
     Librarian newLibrarian = new Librarian(firstName, lastName, phoneNumber,
         houseNumber, street, city, postcode, employmentDate);

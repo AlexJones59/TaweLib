@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.entity;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,8 +23,12 @@ public class Fine implements Serializable {
    * @param amount Amount.
    */
   public Fine(Lease lease, int amount) {
-    this.lease = lease;
-    this.amount = amount;
+    if (lease.getDateReturned() != null) {
+      this.lease = lease;
+      this.amount = amount;
+    } else {
+      throw new IllegalStateException();
+    }
   }
 
   /**
@@ -43,7 +49,16 @@ public class Fine implements Serializable {
     return lease;
   }
 
+  /**
+   * Gets days overdue.
+   *
+   * @param lease lease
+   */
+  public static int getDaysOverdue(Lease lease) {
 
+    long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
+    return (int) diff;
+  }
 
 
 }

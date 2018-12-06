@@ -186,4 +186,10 @@ public abstract class BaseFxmlController {
       return loggedInUser.getClass().equals(Customer.class);
     }
   }
+
+  /**
+   * Returns to the previous screen.
+   */
+  public void back() {
+  }
 }

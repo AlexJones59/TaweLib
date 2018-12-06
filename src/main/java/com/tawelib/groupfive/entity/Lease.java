@@ -1,9 +1,8 @@
 package com.tawelib.groupfive.entity;
 
-import com.tawelib.groupfive.repository.CopyRepository;
-
+import com.tawelib.groupfive.Main;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Lease.java The ‘Lease’ class is the class that stores the information about
@@ -15,9 +14,9 @@ import java.util.Date;
  */
 public class Lease implements Serializable {
 
-  private Date dateLeased;
-  private Date dateReturned;
-  private Date dueDate;
+  private LocalDateTime dateLeased;
+  private LocalDateTime dateReturned;
+  private LocalDateTime dueDate;
   private final Copy copy;
   private final Customer borrowingCustomer;
 
@@ -31,7 +30,7 @@ public class Lease implements Serializable {
   public Lease(Customer customer, Copy copy) {
     this.borrowingCustomer = customer;
     this.copy = copy;
-    this.dateLeased = new Date();
+    this.dateLeased = LocalDateTime.now();
   }
 
   /**
@@ -39,8 +38,19 @@ public class Lease implements Serializable {
    *
    * @return the date leased
    */
-  public Date getDateLeased() {
+  public LocalDateTime getDateLeased() {
     return dateLeased;
+  }
+
+  /**
+   * Development method only.
+   *
+   * @param date Date.
+   */
+  public void dev_setDateLeased(LocalDateTime date) {
+    if (Main.DEV_MODE) {
+      dateLeased = date;
+    }
   }
 
   /**
@@ -48,7 +58,7 @@ public class Lease implements Serializable {
    *
    * @return the date returned
    */
-  public Date getDateReturned() {
+  public LocalDateTime getDateReturned() {
     return dateReturned;
   }
 
@@ -56,7 +66,18 @@ public class Lease implements Serializable {
    * Sets date returned.
    */
   public void setDateReturned() {
-    this.dateReturned = new Date();
+    this.dateReturned = LocalDateTime.now();
+  }
+
+  /**
+   * Development method only.
+   *
+   * @param date Date.
+   */
+  public void dev_setDateReturned(LocalDateTime date) {
+    if (Main.DEV_MODE) {
+      dateReturned = date;
+    }
   }
 
   /**
@@ -64,7 +85,7 @@ public class Lease implements Serializable {
    *
    * @return the due date
    */
-  public Date getDueDate() {
+  public LocalDateTime getDueDate() {
     return dueDate;
   }
 
@@ -73,7 +94,7 @@ public class Lease implements Serializable {
    *
    * @param dueDate the due date
    */
-  public void setDueDate(Date dueDate) {
+  public void setDueDate(LocalDateTime dueDate) {
     this.dueDate = dueDate;
   }
 

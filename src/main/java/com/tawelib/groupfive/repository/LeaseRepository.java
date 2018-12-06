@@ -6,6 +6,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Resource;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -129,10 +130,10 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   public List<Lease> getOverdueLeases() {
     ArrayList<Lease> result = new ArrayList<>();
-    Date currentDate = new Date();
+    LocalDateTime currentDate = LocalDateTime.now();
 
     for (Lease lease : leases) {
-      if (lease.getDueDate().after(currentDate)) {
+      if (lease.getDueDate().isAfter(currentDate)) {
         result.add(lease);
       }
     }

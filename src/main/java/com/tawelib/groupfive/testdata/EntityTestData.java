@@ -4,14 +4,19 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.entity.RequestStatus;
+import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +31,8 @@ public class EntityTestData {
   public static void populateLibrary(Library library) {
     LibrarianRepository librarianRepository = library.getLibrarianRepository();
     CustomerRepository customerRepository = library.getCustomerRepository();
-
+    //[LIBRARIAN]
+    // ---------------------------------------------------------------------------------------------
     librarianRepository.add(
         new Librarian(
             "System",
@@ -36,7 +42,7 @@ public class EntityTestData {
             "The street",
             "Swansea",
             "SA28PJ",
-            new Date()
+            LocalDateTime.now()
         )
     );
 
@@ -49,9 +55,11 @@ public class EntityTestData {
             "The better street",
             "Cardiff",
             "SA1 4LL",
-            new Date()
+            LocalDateTime.now()
         )
     );
+    //[CUSTOMER]
+    // ---------------------------------------------------------------------------------------------
     customerRepository.add(
         new Customer(
             "Nice",
@@ -76,8 +84,10 @@ public class EntityTestData {
         )
     );
 
+    // [BOOK]
+    // ---------------------------------------------------------------------------------------------
     Book book = new Book(
-        "The tiTTle",
+        "Book1",
         2010,
         null,
         "Theeee Author",
@@ -102,12 +112,15 @@ public class EntityTestData {
 
     library.getResourceRepository().add(book1);
 
+    // [DVD]
+    // ---------------------------------------------------------------------------------------------
+
     ArrayList<String> l1 = new ArrayList<>();
 
-    l1.add("Englih");
+    l1.add("English");
 
     Dvd dvd = new Dvd(
-        "DVDdddD",
+        "DVD1",
         2018,
         null,
         "Director",
@@ -124,7 +137,7 @@ public class EntityTestData {
 
     ArrayList<String> l3 = new ArrayList<>();
 
-    l3.add("Engrish");
+    l3.add("English");
 
 
     Dvd dvd1 = new Dvd(
@@ -138,6 +151,9 @@ public class EntityTestData {
     );
 
     library.getResourceRepository().add(dvd1);
+
+    // [LAPTOP]
+    // ---------------------------------------------------------------------------------------------
 
     Laptop laptop = new Laptop(
         "New Laptop",
@@ -161,18 +177,41 @@ public class EntityTestData {
 
     library.getResourceRepository().add(laptop1);
 
-    //Creates lease after creating copy of book
+    // [COPY]
+    // ---------------------------------------------------------------------------------------------
+
     Copy copy = new Copy(book);
     library.getCopyRepository().add(copy);
 
+    Copy copy2 = new Copy(dvd);
+    library.getCopyRepository().add(copy2);
+
+    Copy copy3 = new Copy(laptop);
+    library.getCopyRepository().add(copy3);
+
+    // [LEASE]
+    // ---------------------------------------------------------------------------------------------
+
+
     Lease lease = new Lease(
-        library.getCustomerRepository().getAll().get(0),
+        library.getCustomerRepository().getSpecific("nice.customer"),
         copy
     );
-    lease.setDueDate(new Date());
+    lease.dev_setDateLeased(LocalDateTime.of(2018, 11, 5, 12, 0));
+    lease.setDueDate(LocalDateTime.of(2018, 11, 15, 12, 0));
+    lease.dev_setDateReturned(LocalDateTime.of(2018, 12, 5, 12, 0));
     library.getLeaseRepository().add(lease);
 
-    //Creates request
+
+    Lease lease2 = new Lease(
+        library.getCustomerRepository().getAll().get(0),
+        copy2
+    );
+    library.getLeaseRepository().add(lease2);
+
+    // [REQUEST]
+    // ---------------------------------------------------------------------------------------------
+
     Request newRequest = new Request(
         library.getCustomerRepository().getAll().get(0),
         book1
@@ -180,16 +219,28 @@ public class EntityTestData {
 
     library.getRequestRepository().add(newRequest);
 
-    library.getCustomerRepository().getSpecific("nice.customer").decreaseAccountBalance(30000);
 
-    /*//Create a overdue lease
-    Copy copy1 = new Copy(book1);
-    library.getCopyRepository().add(copy1);
-
-    Lease lease1 = new Lease(
+    Request newRequest2 = new Request(
         library.getCustomerRepository().getAll().get(0),
-        copy
+        dvd1
     );
-    lease1.setDueDate(new Date()); */
+    newRequest2.setStatus(RequestStatus.RESERVED);
+
+    library.getRequestRepository().add(newRequest2);
+
+    // [FINE]
+    //----------------------------------------------------------------------------------------------
+
+    Fine fine = new Fine(lease, 3);
+
+    library.getFineRepository().add(fine);
+
+    // [TRANSACTION]
+    //----------------------------------------------------------------------------------------------
+
+    Transaction transaction = new Transaction(5,
+        library.getCustomerRepository().getSpecific("nice.customer"));
+
+    library.getTransactionRepository().add(transaction);
   }
 }

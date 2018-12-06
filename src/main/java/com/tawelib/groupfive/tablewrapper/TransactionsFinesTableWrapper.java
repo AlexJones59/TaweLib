@@ -1,11 +1,11 @@
 package com.tawelib.groupfive.tablewrapper;
 
-import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Transaction;
-import java.text.DateFormat;
+import com.tawelib.groupfive.manager.CopyManager;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The type Transactions fines table wrapper.
@@ -45,17 +45,16 @@ public class TransactionsFinesTableWrapper {
    *
    * @return the time issued
    */
-  public String getTimeIssued() {
-    DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy hh:mm:ss");
+  public LocalDateTime getTimeIssued() {
     switch (argument) {
       case "Fine" : {
-        return dateFormat.format(fine.getLease().getDueDate());
+        return fine.getLease().getDueDate();
       }
       case "Transaction" : {
-        return dateFormat.format(transaction.getDatePaid());
+        return transaction.getDatePaid();
       }
       default : {
-        return "";
+        return null;
       }
     }
   }
