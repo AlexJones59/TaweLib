@@ -203,6 +203,7 @@ public class EntityTestData {
         "nice.customer"
     );
 
+    CopyManager
     Lease lease2 = new Lease(
         library.getCustomerRepository().getAll().get(0),
         copy2

@@ -147,4 +147,8 @@ public class LeaseTableWrapper {
   public String getUsername() {
     return lease.getBorrowingCustomer().getUsername();
   }
+
+  public String getArgument() {
+    return argument;
+  }
 }

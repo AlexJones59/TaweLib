@@ -106,6 +106,9 @@ public class UserInformationController extends BaseFxmlController {
   @FXML
   private Button returnCopyButton;
 
+  @FXML
+  private Button btnPickUpReserved;
+
   /**
    * Instantiates a new User information controller.
    */
@@ -245,14 +248,44 @@ public class UserInformationController extends BaseFxmlController {
   public void returnCopy() {
     if (selectedUser.getClass().equals(Customer.class)) {
       if (true) {
-        CopyManager.returnResourceCopy(
-            library,
-            resourceTableView.getSelectionModel().getSelectedItem().getCopyId()
-        );
+        if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+            .equals("BORROWED")) {
+          CopyManager.returnResourceCopy(library,
+              resourceTableView.getSelectionModel().getSelectedItem()
+                  .getCopyId());
 
-        AlertHelper.alert(AlertType.INFORMATION, "Returned.");
+          AlertHelper.alert(AlertType.INFORMATION, "Returned.");
 
-        refresh();
+          refresh();
+        } else {
+          AlertHelper.alert(AlertType.ERROR, "Lease selected is not a "
+              + "returnable object");
+        }
+      }
+    } else {
+      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+    }
+  }
+
+  /**
+   * Pick up reserved.
+   */
+  public void pickUpReserved() {
+    if (selectedUser.getClass().equals(Customer.class)) {
+      Customer selectedCustomer = (Customer) selectedUser;
+      if (true) {
+        if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+            .equals("BORROWED")) {
+          CopyManager.pickUpReservedCopy(library,
+              resourceTableView.getSelectionModel().getSelectedItem().getCopyId(),
+              selectedCustomer.getUsername());
+          AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+
+          refresh();
+        } else {
+          AlertHelper.alert(AlertType.ERROR, "Lease selected is not "
+              + "of a reserved copy.");
+        }
       }
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
@@ -262,6 +295,7 @@ public class UserInformationController extends BaseFxmlController {
   /**
    * Goes back to previous scene.
    */
+  @Override
   public void back() {
     if (loggedInUser.getClass().equals(Librarian.class)) {
       SceneHelper.setUpScene(this, "UserList");
