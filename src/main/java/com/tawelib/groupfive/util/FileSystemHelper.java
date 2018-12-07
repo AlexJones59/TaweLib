@@ -151,8 +151,23 @@ public class FileSystemHelper {
     return LIBRARY_SAVE_DIR + name;
   }
 
+  /**
+   * Returns a path to the resource's image.
+   *
+   * @param resource User.
+   * @return Path to the resource's image.
+   */
   public static String getResourcePicturePath(Resource resource) {
-    return ".";
-    //TODO: Add custom resource images.
+    if (resource == null) {
+      //For development purposes.
+      String directory = IMAGES_SAVE_DIR + "resource/default/";
+      createDirectoryIfNotExist(directory);
+      return directory + "temp." + Drawing.IMAGE_FORMAT;
+    } else {
+      String directory = IMAGES_SAVE_DIR + "resource/custom/";
+      createDirectoryIfNotExist(directory);
+      return directory + resource.getResourceId() + "."
+          + Drawing.IMAGE_FORMAT;
+    }
   }
 }

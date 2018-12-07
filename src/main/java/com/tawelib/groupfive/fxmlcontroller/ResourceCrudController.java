@@ -8,8 +8,12 @@ import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.manager.ResourceManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
+import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
@@ -20,6 +24,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 public class ResourceCrudController extends BaseFxmlController {
 
@@ -286,6 +292,35 @@ public class ResourceCrudController extends BaseFxmlController {
 
     newController.setSelectedResource(selectedResource);
     newController.refresh();
+  }
+
+  /**
+   * The method creates the window with selecting the image to set as a profile
+   * Called from pressing a buttom chooseFileImg, accepts only png format.
+   */
+  public void chooseImage() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters()
+        .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+    File file = fileChooser.showOpenDialog(getPrimaryStage());
+    if (file != null) {
+      try {
+        File currProfImg = new File(
+            FileSystemHelper.getResourcePicturePath(selectedResource));
+        BufferedImage tempImg = ImageIO.read(file);
+        ImageIO.write(tempImg, "png", currProfImg);
+      } catch (IOException e) {
+        AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
+      }
+
+      AlertHelper.alert(
+          AlertType.INFORMATION,
+          "Resource image set successfully."
+      );
+      resourceImageView.setImage(
+          ResourceHelper.getResourceImage(selectedResource)
+      );
+    }
   }
 
   /**
