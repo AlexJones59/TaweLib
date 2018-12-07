@@ -5,9 +5,8 @@ import com.tawelib.groupfive.view.Library;
 
 /**
  * This class is the entry point to the application. It checks whether the
- * application is activated. In case it is it launches the Tawe-Lib
- * application. In case it is not it launches the activation
- * tool.
+ * application is activated. In case it is it launches the Tawe-Lib application.
+ * In case it is not it announces the fact and terminates.
  *
  * @author Petr Hoffmann
  * @version 0.1
@@ -17,9 +16,9 @@ public class Main {
   public static final boolean DEV_MODE = true;
 
   /**
-   * This method checks whether the application is activated. In case it is,
-   * it launches the Tawe-Lib application. In case it is not, it announces
-   * the fact and terminates.
+   * This method checks whether the application is activated. In case it is, it
+   * launches the Tawe-Lib application. In case it is not, it announces the fact
+   * and terminates.
    *
    * @param args Arguments
    */
