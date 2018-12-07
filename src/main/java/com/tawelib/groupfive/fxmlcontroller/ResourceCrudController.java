@@ -8,6 +8,7 @@ import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.manager.ResourceManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
+import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Arrays;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class ResourceCrudController extends BaseFxmlController {
@@ -88,6 +90,9 @@ public class ResourceCrudController extends BaseFxmlController {
   private Button showCopiesButton;
 
   @FXML
+  private ImageView resourceImageView;
+
+  @FXML
   private ComboBox<ResourceType> resourceTypeComboBox;
 
   private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
@@ -137,6 +142,9 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   private void populateResource() {
+    resourceImageView.setImage(
+        ResourceHelper.getResourceImage(selectedResource)
+    );
     idLabel.setText(selectedResource.getResourceId());
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
