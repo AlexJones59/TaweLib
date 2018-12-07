@@ -11,16 +11,18 @@ import java.util.List;
  * File Name - FineRepository.java The Fine repository class handles instances of Fines.
  *
  * @author Shree Desai
- * @version 0.5
+ * @version 1.0
  */
 public class FineRepository implements BaseRepository<Fine> {
 
   private ArrayList<Fine> fines;
 
+  /**
+   * Constructs a new FineRepository.
+   */
   public FineRepository() {
     fines = new ArrayList<>();
   }
-
 
   /**
    * Gets customer fines.
@@ -57,6 +59,4 @@ public class FineRepository implements BaseRepository<Fine> {
       fines.add(fine);
     }
   }
-
-
 }

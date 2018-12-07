@@ -10,12 +10,15 @@ import java.util.List;
  * handles transaction details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.5
+ * @version 1.0
  */
 public class TransactionRepository implements BaseRepository<Transaction> {
 
   private ArrayList<Transaction> transactions;
 
+  /**
+   * Initiates a new TransactionRepository.
+   */
   public TransactionRepository() {
     transactions = new ArrayList<>();
   }
@@ -38,11 +41,17 @@ public class TransactionRepository implements BaseRepository<Transaction> {
     return result;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public List<Transaction> getAll() {
     return transactions;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void add(Transaction transaction) {
     if (!transactions.contains(transaction)) {

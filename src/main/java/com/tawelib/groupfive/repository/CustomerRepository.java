@@ -13,7 +13,7 @@ import java.util.List;
  * customer details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.6
+ * @version 1.0
  */
 public class CustomerRepository implements UserRepository<Customer> {
 
@@ -79,7 +79,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   /**
    * Generates a customer unique username.
    */
-  public void generateUsername(Customer customer) {
+  private void generateUsername(Customer customer) {
     String baseUsername = String.format("%s.%s",
         customer.getFirstName().toLowerCase(),
         customer.getLastName().toLowerCase()

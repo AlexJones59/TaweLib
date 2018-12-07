@@ -14,7 +14,7 @@ import java.util.List;
  * details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.6
+ * @version 1.0
  */
 public class LeaseRepository implements BaseRepository<Lease> {
 
@@ -22,6 +22,9 @@ public class LeaseRepository implements BaseRepository<Lease> {
 
   private int lastLeaseId = 0;
 
+  /**
+   * Initializes a new LeaseRepository.
+   */
   public LeaseRepository() {
     leases = new ArrayList<>();
   }
