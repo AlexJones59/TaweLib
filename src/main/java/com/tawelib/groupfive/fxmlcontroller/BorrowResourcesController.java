@@ -1,6 +1,9 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
@@ -10,7 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Allows Librarians to let loan resources to customers that have above minimum account balance.
+ * Allows Librarians to let loan resources to customers that have above minimum
+ * account balance.
  *
  * @author Nayeem
  * @version 0.1
@@ -32,18 +36,38 @@ public class BorrowResourcesController extends BaseFxmlController {
   @FXML
   private Label lblResourceId;
 
-  private Customer selectedUser = (Customer) BaseFxmlController.selectedUser;
+  private Customer selectedCustomer = (Customer) BaseFxmlController.selectedUser;
 
   /**
-   * Checks whether user can borrow a resource and then lets them borrow specified resource.
+   * Checks whether user can borrow a resource and then lets them borrow
+   * specified resource.
    */
   public void borrow() {
-    if (selectedUser.getAccountBalance() < 0) {
-      AlertHelper.alert(AlertType.WARNING, "Your balance is below the minimum.");
-    } /*else {
-      //if (CopyManager.borrowResourceCopy.txtResourceCopyId.getText()) <<
+    if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
+        != null) {
 
-      CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(), selectedUser);*/
+      if (selectedCustomer.getAccountBalance() >= 0) {
+        if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
+            .getStatus().equals(CopyStatus.AVAILABLE)) {
+          CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(),
+              selectedCustomer.getUsername());
+          AlertHelper.alert(AlertType.INFORMATION,
+              "Borrowed.");
+          SceneHelper.setUpScene(this, "UserInformation");
+        } else {
+          AlertHelper.alert(AlertType.ERROR,
+              "This copy is not available to " + "borrow.");
+          SceneHelper.setUpScene(this, "UserInformation");
+        }
+      } else {
+        AlertHelper
+            .alert(AlertType.ERROR, "Your balance is below the minimum.");
+        SceneHelper.setUpScene(this, "UserInformation");
+      }
+
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "Copy ID is no valid.");
+    }
   }
 
 
