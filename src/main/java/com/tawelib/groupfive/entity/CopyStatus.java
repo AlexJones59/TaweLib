@@ -20,5 +20,9 @@ public enum CopyStatus implements Serializable {
   /**
    * When Copy is Reserved.
    */
-  RESERVED
+  RESERVED,
+  /**
+   * When User has lost a copy.
+   */
+  LOST
 }

@@ -130,6 +130,34 @@ public class CopyManager {
   }
 
   /**
+   * Deals with lost copies.
+   *
+   * @param library library
+   * @param copyId lost copy ID
+   */
+
+  public static void lostCopy(Library library, String copyId) {
+    //Gets Copy
+    Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
+    Lease currentLease = library.getLeaseRepository()
+        .getCopyCurrentLease(lostCopy);
+
+    /* Creates Fine with max fine amount, and decreases it from Customer's
+    account */
+    int amount = lostCopy.getResource().getType().getMaxFine();
+    Fine newFine = new Fine(currentLease, amount);
+    library.getFineRepository().add(newFine);
+    library.getCustomerRepository()
+        .getSpecific(currentLease.getBorrowingCustomer().getUsername())
+        .decreaseAccountBalance(newFine.getAmount());
+
+    //Sets Copy as Lost.
+    library.getCopyRepository()
+        .getSpecific(currentLease.getBorrowedCopy().getId())
+        .setStatus(CopyStatus.LOST);
+  }
+
+  /**
    * Pick up reserved Copy.
    *
    * @param library the library
