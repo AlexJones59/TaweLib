@@ -13,7 +13,7 @@ import java.util.List;
  * resources.
  *
  * @author Themis Mouyiasis, Shree Desai
- * @version 0.6
+ * @version 1.0
  */
 public class ResourceRepository implements BaseRepository<Resource> {
 
@@ -23,6 +23,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
   private int lastDvdNumber = 0;
   private int lastLaptopNumber = 0;
 
+  /**
+   * Initiates a new ResourceRepository.
+   */
   public ResourceRepository() {
     resources = new ArrayList<>();
   }
@@ -73,7 +76,6 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Book".
-   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -103,7 +105,6 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "DVD".
-   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query
@@ -154,7 +155,6 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
   /**
    * Search through resources of type "Laptop".
-   *TODO: Refactor: use searchResource(String query)
    *
    * @param query the query
    * @return the list of resources fulfilling search query

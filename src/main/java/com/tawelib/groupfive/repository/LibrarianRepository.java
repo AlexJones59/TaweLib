@@ -12,8 +12,8 @@ import java.util.List;
  * The Librarian repository class holds the Librarians and performs manipulative
  * operations on them.
  *
- * @author Themis Mouyiasis, Modified by Petr Hoffmann
- * @version 0.5
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 public class LibrarianRepository implements UserRepository<Librarian> {
 
@@ -21,6 +21,9 @@ public class LibrarianRepository implements UserRepository<Librarian> {
 
   private int lastLibrarianNumber = 0;
 
+  /**
+   * Instantiates a new LibrarianRepository.
+   */
   public LibrarianRepository() {
     librarians = new ArrayList<>();
   }

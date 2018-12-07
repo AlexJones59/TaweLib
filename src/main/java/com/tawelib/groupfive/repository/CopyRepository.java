@@ -13,7 +13,7 @@ import java.util.List;
  * details.
  *
  * @author Created by Themis, Modified by Shree Desai
- * @version 0.6
+ * @version 1.0
  */
 public class CopyRepository implements BaseRepository<Copy> {
 
@@ -41,11 +41,10 @@ public class CopyRepository implements BaseRepository<Copy> {
     } finally {
       lastCopyId++;
     }
-
   }
 
   /**
-   * Gets specific.
+   * Gets a specific copy.
    *
    * @param copyId the copy id
    * @return the specific

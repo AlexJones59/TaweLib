@@ -12,7 +12,7 @@ import java.util.List;
  * instances of requests.
  *
  * @author Themis Mouyiasis, Modified by Shree Desai.
- * @version 0.5
+ * @version 1.0
  */
 public class RequestRepository implements BaseRepository<Request> {
 
