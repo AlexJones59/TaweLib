@@ -4,14 +4,14 @@ import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.ResourceType;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 
 /**
  * This class wraps information about Copies that is shown in an FXML table.
+ *
+ * @author Petr Hoffmann, Shree Desai
+ * @version 1.0
  */
 public class LeaseTableWrapper {
 
@@ -113,10 +113,20 @@ public class LeaseTableWrapper {
     }
   }
 
+  /**
+   * Returns the lease date.
+   *
+   * @return The lease date.
+   */
   public LocalDateTime getLeaseDate() {
     return lease.getDateLeased();
   }
 
+  /**
+   * Returns the return date.
+   *
+   * @return Return date.
+   */
   public LocalDateTime getReturnDate() {
     return lease.getDateReturned();
   }
@@ -146,14 +156,29 @@ public class LeaseTableWrapper {
 
   }
 
+  /**
+   * Returns the resource type.
+   *
+   * @return Resource type.
+   */
   public ResourceType getType() {
     return lease.getBorrowedCopy().getResource().getType();
   }
 
+  /**
+   * Returns the username of the borrowing customer.
+   *
+   * @return Username of the borrowing customer.
+   */
   public String getUsername() {
     return lease.getBorrowingCustomer().getUsername();
   }
 
+  /**
+   * Returns the argument.
+   *
+   * @return The argument.
+   */
   public String getArgument() {
     return argument;
   }
