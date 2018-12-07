@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * File Name - Fine.java The ‘Fine’ class is the class that stores information
- * regarding a fine, which is created automatically when a copy is overdue.
+ * Fine.java The ‘Fine’ class is the class that stores information regarding a fine, which is
+ * created automatically when a copy is overdue.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Fine implements Serializable {
 
@@ -18,7 +18,7 @@ public class Fine implements Serializable {
   private final Lease lease;
 
   /**
-   * Instantiates a new Fine for resources that overdue.
+   * Instantiates a new Fine for resources that is overdue.
    *
    * @param amount Amount.
    */
@@ -32,7 +32,7 @@ public class Fine implements Serializable {
   }
 
   /**
-   * Gets amount.
+   * Gets the amount of the fine.
    *
    * @return the amount
    */
@@ -41,7 +41,7 @@ public class Fine implements Serializable {
   }
 
   /**
-   * Gets amount in pounds.
+   * Gets the amount of the fine in pounds.
    *
    * @return the amount
    */
@@ -57,17 +57,4 @@ public class Fine implements Serializable {
   public Lease getLease() {
     return lease;
   }
-
-  /**
-   * Gets days overdue.
-   *
-   * @param lease lease
-   */
-  public static int getDaysOverdue(Lease lease) {
-
-    long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
-    return (int) diff;
-  }
-
-
 }
