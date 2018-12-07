@@ -68,7 +68,9 @@ public class Address implements Serializable {
   }
 
   /**
-   * Brings all the individual address elements into one statement to output {@inheritDoc}
+   * Brings all the individual address elements into one statement to output.
+   *
+   * {@inheritDoc}
    */
   @Override
   public String toString() {
