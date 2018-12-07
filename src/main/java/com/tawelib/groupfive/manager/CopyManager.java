@@ -172,7 +172,7 @@ public class CopyManager {
 
     /* Creates Fine with max fine amount, and decreases it from Customer's
     account */
-    int amount = (lostCopy.getResource().getType().getMaxFine())*100;
+    int amount = (lostCopy.getResource().getType().getMaxFine()) * 100;
     Fine newFine = new Fine(currentLease, amount);
     library.getFineRepository().add(newFine);
     library.getCustomerRepository()
