@@ -7,6 +7,7 @@ import com.tawelib.groupfive.entity.Lease;
  */
 public class OverdueCopiesTableWrapper {
 
+  @Deprecated
   public OverdueCopiesTableWrapper(Lease lease) {
 
 
