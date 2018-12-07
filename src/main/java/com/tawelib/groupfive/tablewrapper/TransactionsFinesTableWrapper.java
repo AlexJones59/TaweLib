@@ -3,12 +3,13 @@ package com.tawelib.groupfive.tablewrapper;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.manager.CopyManager;
-import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
- * The type Transactions fines table wrapper.
+ * Wraps transactions and fines to be shown in a table.
+ *
+ * @author Shree Desai
+ * @version 1.0
  */
 public class TransactionsFinesTableWrapper {
 
@@ -133,15 +134,14 @@ public class TransactionsFinesTableWrapper {
     switch (argument) {
       case "Fine": {
 
-        return String.format("£ %.2f", fine.getAmountInPounds());
+        return String.format(Fine.CURRENCY_FORMAT, fine.getAmountInPounds());
       }
       case "Transaction": {
-        return String.format("£ %.2f", transaction.getAmountInPounds());
+        return String.format(Fine.CURRENCY_FORMAT, transaction.getAmountInPounds());
       }
       default: {
         return "";
       }
     }
   }
-
 }
