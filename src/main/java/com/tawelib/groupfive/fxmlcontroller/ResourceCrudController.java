@@ -299,27 +299,29 @@ public class ResourceCrudController extends BaseFxmlController {
    * Called from pressing a buttom chooseFileImg, accepts only png format.
    */
   public void chooseImage() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.getExtensionFilters()
-        .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
-    File file = fileChooser.showOpenDialog(getPrimaryStage());
-    if (file != null) {
-      try {
-        File currProfImg = new File(
-            FileSystemHelper.getResourcePicturePath(selectedResource));
-        BufferedImage tempImg = ImageIO.read(file);
-        ImageIO.write(tempImg, "png", currProfImg);
-      } catch (IOException e) {
-        AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
-      }
+    if (isLibrarianLoggedIn()) {
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.getExtensionFilters()
+          .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+      File file = fileChooser.showOpenDialog(getPrimaryStage());
+      if (file != null) {
+        try {
+          File currProfImg = new File(
+              FileSystemHelper.getResourcePicturePath(selectedResource));
+          BufferedImage tempImg = ImageIO.read(file);
+          ImageIO.write(tempImg, "png", currProfImg);
+        } catch (IOException e) {
+          AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
+        }
 
-      AlertHelper.alert(
-          AlertType.INFORMATION,
-          "Resource image set successfully."
-      );
-      resourceImageView.setImage(
-          ResourceHelper.getResourceImage(selectedResource)
-      );
+        AlertHelper.alert(
+            AlertType.INFORMATION,
+            "Resource image set successfully."
+        );
+        resourceImageView.setImage(
+            ResourceHelper.getResourceImage(selectedResource)
+        );
+      }
     }
   }
 
