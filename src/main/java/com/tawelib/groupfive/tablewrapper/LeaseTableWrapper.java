@@ -2,6 +2,7 @@ package com.tawelib.groupfive.tablewrapper;
 
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.entity.ResourceType;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -142,6 +143,10 @@ public class LeaseTableWrapper {
     }
 
 
+  }
+
+  public ResourceType getType() {
+    return lease.getBorrowedCopy().getResource().getType();
   }
 
   public String getUsername() {
