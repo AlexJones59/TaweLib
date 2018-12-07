@@ -3,10 +3,10 @@ package com.tawelib.groupfive.entity;
 import java.io.Serializable;
 
 /**
- * The enum Request status. This is used by the request class.
+ * Enum RequestStatus. The enum Request status which is used by the Request Class.
  *
  * @author Shree Desai
- * @version 0.1
+ * @version 1.0
  */
 public enum RequestStatus implements Serializable {
   /**
@@ -18,8 +18,7 @@ public enum RequestStatus implements Serializable {
    */
   RESERVED,
   /**
-   * Closed - Once the customer received a copy of resource/ no long needs a
-   * copy.
+   * Closed - Once the customer received a copy of resource/ no long needs a copy.
    */
   CLOSED
 }
