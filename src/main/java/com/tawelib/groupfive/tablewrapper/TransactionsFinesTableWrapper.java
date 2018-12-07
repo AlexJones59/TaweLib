@@ -47,13 +47,13 @@ public class TransactionsFinesTableWrapper {
    */
   public LocalDateTime getTimeIssued() {
     switch (argument) {
-      case "Fine" : {
+      case "Fine": {
         return fine.getLease().getDueDate();
       }
-      case "Transaction" : {
+      case "Transaction": {
         return transaction.getDatePaid();
       }
-      default : {
+      default: {
         return null;
       }
     }
@@ -66,10 +66,10 @@ public class TransactionsFinesTableWrapper {
    */
   public String getResourceId() {
     switch (argument) {
-      case "Fine" : {
+      case "Fine": {
         return fine.getLease().getBorrowedCopy().getResource().getResourceId();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -82,10 +82,10 @@ public class TransactionsFinesTableWrapper {
    */
   public String getResourceName() {
     switch (argument) {
-      case "Fine" : {
+      case "Fine": {
         return fine.getLease().getBorrowedCopy().getResource().getTitle();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -98,11 +98,11 @@ public class TransactionsFinesTableWrapper {
    */
   public String getResourceType() {
     switch (argument) {
-      case "Fine" : {
-        return fine.getLease().getBorrowedCopy().getResource()
-            .getType().toString();
+      case "Fine": {
+        return fine.getLease().getBorrowedCopy().getResource().getType()
+            .toString();
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -115,10 +115,10 @@ public class TransactionsFinesTableWrapper {
    */
   public String getDaysOverdue() {
     switch (argument) {
-      case "Fine" : {
+      case "Fine": {
         return Integer.toString(CopyManager.getDaysOverdue(fine.getLease()));
       }
-      default : {
+      default: {
         return "";
       }
     }
@@ -130,15 +130,15 @@ public class TransactionsFinesTableWrapper {
    * @return the amount
    */
   public String getAmount() {
-    NumberFormat formatter = NumberFormat.getCurrencyInstance();
     switch (argument) {
-      case "Fine" : {
-        return formatter.format(fine.getAmount());
+      case "Fine": {
+
+        return String.format("£ %.2f", fine.getAmountInPounds());
       }
-      case "Transaction" : {
-        return formatter.format(transaction.getAmount());
+      case "Transaction": {
+        return String.format("£ %.2f", transaction.getAmountInPounds());
       }
-      default : {
+      default: {
         return "";
       }
     }

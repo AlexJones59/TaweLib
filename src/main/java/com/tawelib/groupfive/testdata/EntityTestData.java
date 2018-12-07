@@ -215,7 +215,7 @@ public class EntityTestData {
 
       //Sets due Date
       Field dueDate =
-          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dateLeased");
+          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dueDate");
       dueDate.setAccessible(true);
       dueDate.set(library.getLeaseRepository().getAll().get(0),
           LocalDateTime.of(2018, 12, 5, 12, 0));
@@ -243,7 +243,7 @@ public class EntityTestData {
     library.getRequestRepository().add(newRequest);
 
     //Returns copy so we can checkout reserved
-    CopyManager.returnResourceCopy(library, copy.getId());
+    //CopyManager.returnResourceCopy(library, copy.getId());
 
     Request newRequest2 = new Request(
         library.getCustomerRepository().getAll().get(0),
@@ -251,19 +251,5 @@ public class EntityTestData {
     );
     library.getRequestRepository().add(newRequest2);
 
-    // [FINE]
-    //----------------------------------------------------------------------------------------------
-
-    //    Fine fine = new Fine(lease, 3);
-
-    //    library.getFineRepository().add(fine);
-
-    // [TRANSACTION]
-    //----------------------------------------------------------------------------------------------
-
-    Transaction transaction = new Transaction(5,
-        library.getCustomerRepository().getSpecific("nice.customer"));
-
-    library.getTransactionRepository().add(transaction);
   }
 }

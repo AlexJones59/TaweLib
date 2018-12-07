@@ -14,9 +14,6 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-
 
 /**
  * File Name - CopyManager.java The CopyManager class controls data flow between
@@ -26,11 +23,6 @@ import java.util.List;
  * @version 0.2
  */
 public class CopyManager {
-
-  /**
-   * The constant DAYTOMILLISECONDS.
-   */
-  //public static final int DAYTOMILLISECONDS = 86400000;
 
   /**
    * Create resource copy.
@@ -129,33 +121,6 @@ public class CopyManager {
     }
   }
 
-  /**
-   * Deals with lost copies.
-   *
-   * @param library library
-   * @param copyId lost copy ID
-   */
-
-  public static void lostCopy(Library library, String copyId) {
-    //Gets Copy
-    Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
-    Lease currentLease = library.getLeaseRepository()
-        .getCopyCurrentLease(lostCopy);
-
-    /* Creates Fine with max fine amount, and decreases it from Customer's
-    account */
-    int amount = lostCopy.getResource().getType().getMaxFine();
-    Fine newFine = new Fine(currentLease, amount);
-    library.getFineRepository().add(newFine);
-    library.getCustomerRepository()
-        .getSpecific(currentLease.getBorrowingCustomer().getUsername())
-        .decreaseAccountBalance(newFine.getAmount());
-
-    //Sets Copy as Lost.
-    library.getCopyRepository()
-        .getSpecific(currentLease.getBorrowedCopy().getId())
-        .setStatus(CopyStatus.LOST);
-  }
 
   /**
    * Pick up reserved Copy.
@@ -188,6 +153,34 @@ public class CopyManager {
   }
 
   /**
+   * Deals with lost copies.
+   *
+   * @param library library
+   * @param copyId lost copy ID
+   */
+
+  public static void lostCopy(Library library, String copyId) {
+    //Gets Copy
+    Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
+    Lease currentLease = library.getLeaseRepository()
+        .getCopyCurrentLease(lostCopy);
+
+    /* Creates Fine with max fine amount, and decreases it from Customer's
+    account */
+    int amount = lostCopy.getResource().getType().getMaxFine();
+    Fine newFine = new Fine(currentLease, amount);
+    library.getFineRepository().add(newFine);
+    library.getCustomerRepository()
+        .getSpecific(currentLease.getBorrowingCustomer().getUsername())
+        .decreaseAccountBalance(newFine.getAmount());
+
+    //Sets Copy as Lost.
+    library.getCopyRepository()
+        .getSpecific(currentLease.getBorrowedCopy().getId())
+        .setStatus(CopyStatus.LOST);
+  }
+
+  /**
    * Generate Due Date.
    *
    * @param newLease new lease
@@ -213,11 +206,12 @@ public class CopyManager {
    */
   public static int generateFineAmount(Lease lease) {
     ResourceType resourceType = lease.getBorrowedCopy().getResource().getType();
-    int amount = (resourceType.getFine()) * (getDaysOverdue(lease));
-    if (amount <= resourceType.getMaxFine()) {
+    int amount = ((resourceType.getFine()) * (getDaysOverdue(lease)) * 100);
+    if (amount <= (resourceType.getMaxFine() * 100)) {
       return amount;
     } else {
-      return resourceType.getMaxFine();
+      amount = resourceType.getMaxFine() * 100;
+      return amount;
     }
   }
 
