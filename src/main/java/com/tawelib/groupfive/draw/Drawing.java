@@ -22,57 +22,80 @@ import javax.imageio.ImageIO;
 
 
 /**
- * The Drawing class creates a new window and allow to draw on its canvas and
- * save the result as a file. For drawing can be used point, line, rectangle and
- * oval shapes, also the closed chapes can be filled. The size of brush and
- * color can be changed. Native window resolution is 1920 x 1080p
+ * File Name - Drawing.java
+ * Description - The Drawing class creates a new window
+ * and allow to draw on its canvas and save the result as a file. For drawing
+ * can be used point, line, rectangle and oval shapes, also the closed chapes
+ * can be filled. The size of brush and color can be changed. Native window
+ * resolution is 1920 x 1080p.
+ *
+ * @author - Oskars Dervinis, Petr Hoffman
+ * @version - 1.0
  */
 public class Drawing extends Application {
 
+  /**
+   * The constant IMAGE_FORMAT.
+   */
   public static final String IMAGE_FORMAT = "png";
   private static final int WINDOW_HEIGHT = 1080;
   private static final int WINDOW_WIDTH = 1920;
   private static final int CANVAS_SIDE = 800;
   private Canvas canvas;
-  private GraphicsContext gc;
+  private GraphicsContext graphicsContext;
   private User user;
 
   /*An array of boolean which determines the shape selected and if
-  filling option is enabled(point,line,rect,oval,fill)*/
+  filling option is enabled(point,line,rect,oval,fill).*/
   private boolean[] shapes = new boolean[]{true, false, false, false, false};
 
   private Button saveButton = new Button("SAVE");
-  private Image imgOfCanvas;
 
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   */
   public static void main(String[] args) {
     launch(args);
   }
 
+  /**
+   * This method is used to launch this program.
+   *
+   * @param user the User whose Profile Image is being drawn.
+   */
   public void startWithUserReference(User user) {
     this.user = user;
     start(new Stage());
   }
 
-  @Override
+  /**
+   * Opens a window, and sets all tool choices and colour choices to default
+   * values.
+   */
   public void start(Stage stage) {
     stage.setTitle("Draw own image");
     stage.show();
     BorderPane root = new BorderPane();
 
+    // Sets Canvas of window to right position,
     canvas = new Canvas(CANVAS_SIDE, CANVAS_SIDE);
     root.setCenter(canvas);
 
-    gc = canvas.getGraphicsContext2D();
-    gc.setFill(WHITE);
-    gc.fillRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
+    graphicsContext = canvas.getGraphicsContext2D();
+    graphicsContext.setFill(WHITE);
+    graphicsContext.fillRect(0, 0, CANVAS_SIDE, CANVAS_SIDE);
 
     Scene scene = new Scene(root, WINDOW_WIDTH, WINDOW_HEIGHT);
     stage.setScene(scene);
 
-    ColorChoice colors = new ColorChoice(gc);//Color choosing palette
+    //Colour choosing palette is shown on right
+    ColorChoice colors = new ColorChoice(graphicsContext);
     root.setRight(colors.getPane());
 
-    ToolChoice tools = new ToolChoice(gc, shapes);//Tool/brush choosing buttons
+    //Tool/brush choosing buttons are shown on left.
+    ToolChoice tools = new ToolChoice(graphicsContext, shapes);
     root.setLeft(tools.getPane());
 
     mouseDraw();
@@ -83,51 +106,61 @@ public class Drawing extends Application {
   }
 
   /**
-   * The method uses MouseEvents to catch the users mouse pressed and draw on
-   * the canvas shapes according to the selected ones.
+   * The method catches User's mouse actions and displays the resulting shapes
+   * on the canvas based on selected options.
    */
   private void mouseDraw() {
-    canvas.setOnMousePressed((evt) -> {
+    canvas.setOnMousePressed(evt -> {
       double startPosX = evt.getX();
       double startPosY = evt.getY();
 
-      /*img Is an image of canvas before the mouse was pressed, needs
-      for inserting on canvas is case of not final position of the
-      shape.(To make effect of moving shape when mouse pressed) */
-
+      /*Image of canvas is taken on the mouse click event to show the start
+      position before mouse is dragged. */
       SnapshotParameters param = new SnapshotParameters();
       Image img = canvas.snapshot(param, null);
 
-      //If the mouse is moved when pressed
-      canvas.setOnMouseDragged((evt1) -> {
+      //If the mouse is moved during click.
+      canvas.setOnMouseDragged(evt1 -> {
 
-        if (shapes[0]) { //If the shape is Point
-          gc.fillOval(evt1.getX(), evt1.getY(), gc.getLineWidth(),
-              gc.getLineWidth());
+        /*  If the User has chosen "Point", it uses dots to show the particle
+            trace allowing you to draw on the canvas. */
+        if (shapes[0]) {
+          graphicsContext.fillOval(evt1.getX(), evt1.getY(),
+              graphicsContext.getLineWidth(), graphicsContext.getLineWidth());
         } else {
-          gc.drawImage(img, 0, 0);//refreshed the canvas in it previous state.
+          /*  If 'Point'is not chosen, it doesn't automatically keep the first
+              position displayed but instead refreshes the canvas in it's
+              previous state.*/
+          graphicsContext.drawImage(img, 0, 0);
           double width = startPosX - evt1.getX();
           double height = startPosY - evt1.getY();
           double[] posXAndY = getCorrectCoords(startPosX, startPosY, width,
               height);
 
-          if (shapes[1]) { //If the shape is Line
-            gc.strokeLine(startPosX, startPosY, evt1.getX(), evt1.getY());
-            //If the shape is unfilled Rectangle
+          if (shapes[1]) {
+            // 'Line' is chosen.
+            graphicsContext
+                .strokeLine(startPosX, startPosY, evt1.getX(), evt1.getY());
+
           } else if (shapes[2] && !shapes[shapes.length - 1]) {
-            gc.strokeRect(posXAndY[0], posXAndY[1], Math.abs(width),
-                Math.abs(height));
-            //If the shape is unfilled Oval
+            //Shape is unfilled Rectangle.
+            graphicsContext
+                .strokeRect(posXAndY[0], posXAndY[1], Math.abs(width),
+                    Math.abs(height));
           } else if (shapes[3] && !shapes[shapes.length - 1]) {
-            gc.strokeOval(posXAndY[0], posXAndY[1], Math.abs(width),
-                Math.abs(height));
-            //If the shape is filled Rectangle
+            //Shape is unfilled Oval.
+            graphicsContext
+                .strokeOval(posXAndY[0], posXAndY[1], Math.abs(width),
+                    Math.abs(height));
+
           } else if (shapes[2] && shapes[shapes.length - 1]) {
-            gc.fillRect(posXAndY[0], posXAndY[1], Math.abs(width),
+            //Shape is filled Rectangle.
+            graphicsContext.fillRect(posXAndY[0], posXAndY[1], Math.abs(width),
                 Math.abs(height));
-            //If the shape is filled Oval
+
           } else if (shapes[3] && shapes[shapes.length - 1]) {
-            gc.fillOval(posXAndY[0], posXAndY[1], Math.abs(width),
+            //Shape is filled Oval.
+            graphicsContext.fillOval(posXAndY[0], posXAndY[1], Math.abs(width),
                 Math.abs(height));
           }
         }
@@ -137,7 +170,7 @@ public class Drawing extends Application {
 
   /**
    * The method takes the position of the mouse pressed and the dimensions of
-   * the shape and return the adjusted x and y, as the shape can be drawn to the
+   * the shape and returns the adjusted x and y, as the shape can be drawn to
    * any side.
    *
    * @param x x position when mouse pressed
@@ -165,9 +198,12 @@ public class Drawing extends Application {
   }
 
 
+  /**
+   * Saves new drawing to file.
+   */
   private void saveAsFile() {
 
-    saveButton.setOnAction((evt) -> {
+    saveButton.setOnAction(evt -> {
 
       File file = new File(FileSystemHelper.getUserProfilePicturePath(user));
       WritableImage imgOfCanvas = new WritableImage(CANVAS_SIDE, CANVAS_SIDE);
@@ -176,7 +212,7 @@ public class Drawing extends Application {
       try {
         ImageIO.write(bufferedImage, IMAGE_FORMAT, file);
       } catch (IOException e) {
-        System.out.println("File not found");
+        e.printStackTrace();
       }
     });
   }
