@@ -104,6 +104,15 @@ public class UserInformationController extends BaseFxmlController {
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
   @FXML
+  private Button btnBorrow;
+
+  @FXML
+  private Button btnManageBalance;
+
+  @FXML
+  private Button btnEditUserInfo;
+
+  @FXML
   private Button returnCopyButton;
 
   @FXML
@@ -141,6 +150,10 @@ public class UserInformationController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+    btnEditUserInfo.setVisible(isLibrarianLoggedIn());
+    btnEditUserInfo.setVisible(isLibrarianLoggedIn());
+    btnBorrow.setVisible((isLibrarianLoggedIn()));
+    btnManageBalance.setVisible(isLibrarianLoggedIn());
     returnCopyButton.setVisible(isLibrarianLoggedIn());
     btnPickUpReserved.setVisible(isLibrarianLoggedIn());
     declareLostButton.setVisible(isLibrarianLoggedIn());
@@ -231,8 +244,7 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void borrowNewResource() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      SceneHelper
-          .setUpScene(this, "BorrowResource");
+      SceneHelper.setUpScene(this, "BorrowResource");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
@@ -283,10 +295,7 @@ public class UserInformationController extends BaseFxmlController {
         CopyManager.pickUpReservedCopy(library,
             resourceTableView.getSelectionModel().getSelectedItem()
                 .getResourceId(), selectedCustomer.getUsername());
-        AlertHelper.alert(
-            AlertType.INFORMATION,
-            "Picked up Reserved Copy"
-        );
+        AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
 
         refresh();
       } else {
