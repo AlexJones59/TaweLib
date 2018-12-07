@@ -7,7 +7,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
- * The class constructs a VBox of colors that can be selected for drawing.
+ * File Name - ColorChoice.java
+ * Description - The class constructs a VBox of colors that can be selected for
+ * drawing.
+ *
+ * @author - Oskars Dervinis
+ * @version - 1.0
  */
 public class ColorChoice {
 
@@ -20,6 +25,7 @@ public class ColorChoice {
   private Button brown = new Button();
   private Button pink = new Button();
 
+  //All options for colours.
   private Button[] buttons = {white, black, red, green, blue, yellow, brown,
       pink};
   private Pane colorPane;
@@ -56,7 +62,8 @@ public class ColorChoice {
   }
 
   /**
-   * The method paints all the buttons in their color and defines a style for them.
+   * The method paints all the buttons in their color and defines a style for
+   * them.
    */
   private void paintButtons() {
 
@@ -78,9 +85,8 @@ public class ColorChoice {
   }
 
   /**
-   * The method is called then one of the colored buttons is clicked and in the constructor. It
-   * gives a color to Graphic context according to the button pressed  and changes the style of this
-   * button.
+   * It gives a color to Graphic context according to the button pressed and
+   * changes the style of this button.
    */
   private void chooseColor() {
 
@@ -89,10 +95,10 @@ public class ColorChoice {
       buttons[i].setOnAction((evt) -> {
         paintButtons();
         pressedColor = (Button) evt.getSource();
-        gc.setStroke(Color.web(pressedColor.getStyle().subSequence(23, 29)
-            .toString()));
-        gc.setFill(Color.web(pressedColor.getStyle().subSequence(23, 29)
-            .toString()));
+        gc.setStroke(
+            Color.web(pressedColor.getStyle().subSequence(23, 29).toString()));
+        gc.setFill(
+            Color.web(pressedColor.getStyle().subSequence(23, 29).toString()));
         pressedColor.setStyle(pressedColor.getStyle() + BORDER_CSS_PRESSED);
       });
     }

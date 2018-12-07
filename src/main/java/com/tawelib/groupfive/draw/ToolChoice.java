@@ -8,12 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 /**
- * File Name - Tool Choice. Description - The class is an implementation of set of buttons that are
- * used to choose the tool for drawing, such as oval,rectangle, line or point; filling option for
- * them and the size of the brush. It is represented as VBox pane.
+ * File Name - Tool Choice. Description - The class is an implementation of a
+ * set of buttons that are used to choose the tool for drawing, filling option
+ * and the size of the brush.
  *
  * @author Oskars Dervinis
- * @version 0.7
+ * @version 1.0
  */
 public class ToolChoice {
 
@@ -48,14 +48,15 @@ public class ToolChoice {
    * Constructor of the pane of buttons.
    *
    * @param gc The graphic context used for drawing
-   * @param shapes list of boolean representing shapes as{shape,shape,shape,..., filling option}
+   * @param shapes list of boolean representing shapes & filling option
    */
   ToolChoice(GraphicsContext gc, boolean[] shapes) {
     this.gc = gc;
     this.shapes = shapes;
     brushChanges();
-    pane.getChildren().addAll(chooseLine, chooseRect, chooseOval, choosePoint,
-        sizeInput, chooseSize, isFilled, toolTypeText);
+    pane.getChildren()
+        .addAll(chooseLine, chooseRect, chooseOval, choosePoint, sizeInput,
+            chooseSize, isFilled, toolTypeText);
     styleButtons();
   }
 
@@ -69,8 +70,8 @@ public class ToolChoice {
   }
 
   /**
-   * A method that sets all shapes in list of boolean stored in this class to false before choosing
-   * another shape.
+   * A method that sets all shapes in list of boolean stored in this class to
+   * false before choosing another shape.
    */
   private void setAllShapesFalse() {
     //"-2" is because the last is filling option, not shape
@@ -80,8 +81,8 @@ public class ToolChoice {
   }
 
   /**
-   * A method that decides what shape will be selected, size and filling option according to the
-   * buttons.
+   * A method that decides what shape will be selected, size and filling option
+   * according to the buttons.
    */
   private void brushChanges() {
     gc.setLineWidth(size);
@@ -123,14 +124,16 @@ public class ToolChoice {
       } else {
         isFilled.setStyle(BORDER_COLOR_CSS_UNPRESSED);
       }
-      toolTypeText.setText("The tool is: " + currentTool + "\nFill enabled: "
-          + shapes[shapes.length - 1]);
+      toolTypeText.setText(
+          "The tool is: " + currentTool + "\nFill enabled: " + shapes[
+              shapes.length - 1]);
     });
 
   }
 
   /**
-   * The method unpressed all the buttons for shapes before next shape will be selected.
+   * The method unpressed all the buttons for shapes before next shape will be
+   * selected.
    */
   private void unpressShapeButtons() {
     for (int i = 0; i <= shapeButtons.length - 2; i++) {
@@ -155,16 +158,18 @@ public class ToolChoice {
   }
 
   /**
-   * The method sets all the shapes to false and unpresses all the buttons, changes the text
-   * displayed and gives the correct border to the button pressed.
+   * The method sets all the shapes to false and unpresses all the buttons,
+   * changes the text displayed and gives the correct border to the button
+   * pressed.
    *
    * @param b Is a button that is pressed as next shape.
    */
   private void prepareButtons(Button b) {
     setAllShapesFalse();
     unpressShapeButtons();
-    toolTypeText.setText("The tool is: " + currentTool + "\nFill enabled: "
-        + shapes[shapes.length - 1]);
+    toolTypeText.setText(
+        "The tool is: " + currentTool + "\nFill enabled: " + shapes[
+            shapes.length - 1]);
     b.setStyle(BORDER_COLOR_CSS_PRESSED);
   }
 }

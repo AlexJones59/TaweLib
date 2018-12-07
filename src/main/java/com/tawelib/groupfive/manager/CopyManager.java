@@ -16,31 +16,26 @@ import com.tawelib.groupfive.entity.ResourceType;
 import java.time.LocalDateTime;
 
 /**
- * File Name - CopyManager.java The CopyManager class controls data flow between
- * the Copy Repository and the GUI interfaces.
+ * File Name - CopyManager.java The Copy Manager class controls data flow
+ * betweenthe Copy Repository and the GUI interfaces.
  *
- * @author Nayeem Mohammed, Shree Desai
- * @version 0.2
+ * @author Shree Desai
+ * @version 1.0
  */
 public class CopyManager {
 
   /**
-   * Create resource copy.
+   * Creates a resource copy & persists it to the repository.
    *
    * @param library the library
    * @param resource the resource
-   * @param amount the amount
    */
-  public static void createResourceCopy(Library library, Resource resource,
-      int amount) {
-    for (int i = 1; i <= amount; i++) {
-      library.getCopyRepository().add(new Copy(resource));
-    }
-
+  public static void createResourceCopy(Library library, Resource resource) {
+    library.getCopyRepository().add(new Copy(resource));
   }
 
   /**
-   * Borrow resource copy.
+   * Borrow resource Copy.
    *
    * @param library the library
    * @param copyId the copy id
@@ -132,20 +127,18 @@ public class CopyManager {
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
       String customerUsername) {
+    //Gets info of copy and customer.
     Resource reservedResource = library.getResourceRepository()
         .getSpecific(resourceId);
-
     Customer customer = library.getCustomerRepository()
         .getSpecific(customerUsername);
-
     Copy reservedCopy = library.getCopyRepository()
         .getSpecificReserved(customer, reservedResource);
 
     //Sets Copy to Borrowed
-
     library.getCopyRepository().getSpecific(reservedCopy.getId())
         .setStatus(CopyStatus.BORROWED);
-
+    //Closes the request.
     library.getRequestRepository()
         .getSpecificReserved(customer, reservedCopy.getResource())
         .setStatus(RequestStatus.CLOSED);
@@ -159,7 +152,6 @@ public class CopyManager {
    * @param library library
    * @param copyId lost copy ID
    */
-
   public static void lostCopy(Library library, String copyId) {
     //Gets Copy
     Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
@@ -186,7 +178,8 @@ public class CopyManager {
   }
 
   /**
-   * Generate Due Date.
+   * Generates Due date for minimum loan duration for that resource type or
+   * tomorrow, if they have already have had it for that duration.
    *
    * @param newLease new lease
    */
@@ -204,7 +197,8 @@ public class CopyManager {
   }
 
   /**
-   * Generates fine amount.
+   * Generates fine amount, based on days overdue and resource type, while being
+   * being capped by max fine amount for that type of resource.
    *
    * @param lease lease
    * @return fine amount
@@ -224,11 +218,15 @@ public class CopyManager {
    * Gets days overdue.
    *
    * @param lease lease
+   * @return the days overdue
    */
   public static int getDaysOverdue(Lease lease) {
-
     long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
-    return (int) diff;
+    if (diff > 0) {
+      return (int) diff;
+    } else {
+      return 0;
+    }
   }
 
 
@@ -242,6 +240,7 @@ public class CopyManager {
   private static void createLease(Library library, Customer customer,
       Copy copy) {
     Lease newLease = new Lease(customer, copy);
+    //Checks to see if there are any requests for that resource.
     if (library.getRequestRepository()
         .getOpenResourceRequests(copy.getResource()) != null) {
       generateDueDate(newLease);

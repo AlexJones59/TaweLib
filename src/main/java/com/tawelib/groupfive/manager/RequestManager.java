@@ -8,16 +8,17 @@ import com.tawelib.groupfive.entity.Resource;
 import java.util.List;
 
 /**
- * File Name - RequestManager.java The Request Controller class handles data
+ * File Name - RequestManager.java The Request Manager class handles data
  * flow between the Request Repository and the GUI interfaces.
  *
- * @author Nayeem Mohammed, Shree Desai
- * @version 0.2
+ * @author Shree Desai
+ * @version 1.0
  */
 public class RequestManager {
 
   /**
-   * Create request.
+   * Create request for a resource while also setting due date of oldest
+   * borrowed copy.
    *
    * @param library the library
    * @param customer the customer

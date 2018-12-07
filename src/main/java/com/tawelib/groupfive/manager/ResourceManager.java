@@ -10,23 +10,27 @@ import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 /**
- * File Name - ResourceManager.java The resource manager class  handles controls
+ * File Name - ResourceManager.java The Resource Manager class  handles controls
  * data flow between the Resource Repository and the GUI interfaces.
  *
- * @author Nayeem Mohammed, Shree Desai
- * @version 0.2
+ * @author Shree Desai
+ * @version 1.0
  */
 public class ResourceManager {
 
   /**
-   * Create book.
+   * Create new instance of a book resource and persists it to the resource
+   * repository.
    *
+   * @param library the library
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
    * @param author the author
    * @param publisher the publisher
    * @param genre the genre
+   * @param isbn the isbn
+   * @param language the language
    */
   public static void createBook(Library library, String title, int year,
       Image thumbnailImage, String author, String publisher, String genre,
@@ -37,8 +41,10 @@ public class ResourceManager {
   }
 
   /**
-   * Create dvd.
+   * Create new instance of a DVD resource and persists it to the resource
+   * repository.
    *
+   * @param library the library
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
@@ -56,8 +62,10 @@ public class ResourceManager {
   }
 
   /**
-   * Create laptop.
+   * Create new instance of a laptop resource and persists it to the resource
+   * repository.
    *
+   * @param library the library
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
@@ -76,12 +84,16 @@ public class ResourceManager {
   /**
    * Update book.
    *
+   * @param library the library
+   * @param resourceId the resource id
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
    * @param author the author
    * @param publisher the publisher
    * @param genre the genre
+   * @param isbn the isbn
+   * @param language the language
    */
   public static void updateBook(Library library, String resourceId,
       String title, int year, Image thumbnailImage, String author,
@@ -104,6 +116,8 @@ public class ResourceManager {
   /**
    * Update dvd.
    *
+   * @param library the library
+   * @param resourceId the resource id
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image
@@ -132,6 +146,8 @@ public class ResourceManager {
   /**
    * Update laptop.
    *
+   * @param library the library
+   * @param resourceId the resource id
    * @param title the title
    * @param year the year
    * @param thumbnailImage the thumbnail image

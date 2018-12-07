@@ -127,7 +127,7 @@ public class ResourceCopiesController extends BaseFxmlController {
    * Creates a copy of currently selected resource.
    */
   public void createCopy() {
-    CopyManager.createResourceCopy(library, selectedResource, 1);
+    CopyManager.createResourceCopy(library, selectedResource);
     AlertHelper.alert(AlertType.INFORMATION, "Copy created.");
     refresh();
   }
