@@ -16,27 +16,23 @@ import com.tawelib.groupfive.entity.ResourceType;
 import java.time.LocalDateTime;
 
 /**
- * File Name - CopyManager.java The CopyManager class controls data flow between
- * the Copy Repository and the GUI interfaces.
+ * File Name - CopyManager.java
+ * The CopyManager class controls data flow betweenthe Copy Repository and
+ * the GUI interfaces.
  *
- * @author Nayeem Mohammed, Shree Desai
- * @version 0.2
+ * @author Shree Desai
+ * @version 1.0
  */
 public class CopyManager {
 
   /**
-   * Create resource copy.
+   * Creates a resource copy, persists to the repository.
    *
    * @param library the library
    * @param resource the resource
-   * @param amount the amount
    */
-  public static void createResourceCopy(Library library, Resource resource,
-      int amount) {
-    for (int i = 1; i <= amount; i++) {
-      library.getCopyRepository().add(new Copy(resource));
-    }
-
+  public static void createResourceCopy(Library library, Resource resource) {
+    library.getCopyRepository().add(new Copy(resource));
   }
 
   /**

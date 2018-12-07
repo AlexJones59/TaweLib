@@ -33,8 +33,10 @@ public class ToolChoice {
   private Button[] shapeButtons = new Button[]{chooseLine, chooseRect,
       chooseOval, choosePoint, isFilled};
 
-  private static final String BORDER_COLOR_CSS_PRESSED = "-fx-border-color: #483d8b; -fx-border-width: 3px";
-  private static final String BORDER_COLOR_CSS_UNPRESSED = "-fx-border-color: #00bfff; -fx-border-width: 3px";
+  private static final String BORDER_COLOR_CSS_PRESSED =
+      "-fx-border-color: #483d8b; -fx-border-width: 3px";
+  private static final String BORDER_COLOR_CSS_UNPRESSED =
+      "-fx-border-color: #00bfff; -fx-border-width: 3px";
   private static final double SQUARE_BUTTON_WIDTH = 80;
   private static final double THIN_BUTTON_HEIGHT = 40;
 
