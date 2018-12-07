@@ -122,7 +122,6 @@ public class CopyManager {
   }
 
 
-
   /**
    * Pick up reserved Copy.
    *
@@ -180,6 +179,7 @@ public class CopyManager {
         .getSpecific(currentLease.getBorrowedCopy().getId())
         .setStatus(CopyStatus.LOST);
   }
+
   /**
    * Generate Due Date.
    *
@@ -206,11 +206,11 @@ public class CopyManager {
    */
   public static int generateFineAmount(Lease lease) {
     ResourceType resourceType = lease.getBorrowedCopy().getResource().getType();
-    int amount = ((resourceType.getFine()) * (getDaysOverdue(lease))*100);
-    if (amount <= (resourceType.getMaxFine()*100)) {
+    int amount = ((resourceType.getFine()) * (getDaysOverdue(lease)) * 100);
+    if (amount <= (resourceType.getMaxFine() * 100)) {
       return amount;
     } else {
-      amount = resourceType.getMaxFine()*100;
+      amount = resourceType.getMaxFine() * 100;
       return amount;
     }
   }
