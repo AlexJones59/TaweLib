@@ -208,7 +208,7 @@ public class ResourceCrudController extends BaseFxmlController {
               directorTextField.getText(),
               Integer.parseInt(runtimeTextField.getText()),
               ExplosionHelper.explode(audioLanguagesTextArea.getText()),
-              ExplosionHelper.explode(audioLanguagesTextArea.getText()));
+              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
           break;
         case LAPTOP:
           ResourceManager.createLaptop(library, titleTextField.getText(),
