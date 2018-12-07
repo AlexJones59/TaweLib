@@ -15,6 +15,7 @@ import com.tawelib.groupfive.entity.ResourceType;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -132,19 +133,25 @@ public class CopyManager {
    * Pick up reserved Copy.
    *
    * @param library the library
-   * @param copyId the copy id
+   * @param resourceId resourceId
    * @param customerUsername the customer username
    */
-  public static void pickUpReservedCopy(Library library, String copyId,
+  public static void pickUpReservedCopy(Library library, String resourceId,
       String customerUsername) {
-
-    //Sets Copy to Borrowed
-    Copy reservedCopy = library.getCopyRepository().getSpecific(copyId);
-    library.getCopyRepository().getSpecific(copyId)
-        .setStatus(CopyStatus.BORROWED);
+    Resource reservedResource = library.getResourceRepository()
+        .getSpecific(resourceId);
 
     Customer customer = library.getCustomerRepository()
         .getSpecific(customerUsername);
+
+    Copy reservedCopy = library.getCopyRepository()
+        .getSpecificReserved(customer, reservedResource);
+
+    //Sets Copy to Borrowed
+
+    library.getCopyRepository().getSpecific(reservedCopy.getId())
+        .setStatus(CopyStatus.BORROWED);
+
     library.getRequestRepository()
         .getSpecificReserved(customer, reservedCopy.getResource())
         .setStatus(RequestStatus.CLOSED);
