@@ -46,6 +46,7 @@ public class CustomerRepository implements UserRepository<Customer> {
   /**
    * Gets a specific customer.
    *
+   * @param username Username.
    * @return the customer
    */
   public Customer getSpecific(String username) {

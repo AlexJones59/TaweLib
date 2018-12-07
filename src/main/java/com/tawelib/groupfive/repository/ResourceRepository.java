@@ -199,6 +199,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search the resources for a specific book.
    *
+   * @param resourceId Resource ID.
    * @return the specific book
    */
   public Book getSpecificBook(String resourceId) {
@@ -213,6 +214,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search resources for a specific dvd.
    *
+   * @param resourceId Resource ID.
    * @return the specific dvd
    */
   public Dvd getSpecificDvd(String resourceId) {
@@ -227,6 +229,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   /**
    * Search for a specific laptop.
    *
+   * @param resourceId Resource ID.
    * @return the specific laptop
    */
   public Laptop getSpecificLaptop(String resourceId) {

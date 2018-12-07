@@ -145,6 +145,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
   /**
    * Gets overdue leases.
    *
+   * @param query Query.
    * @return the overdue leases
    */
   public List<Lease> searchOverdueLeases(String query) {
