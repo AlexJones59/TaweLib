@@ -1,13 +1,9 @@
 package com.tawelib.groupfive.view;
 
-import com.tawelib.groupfive.entity.Customer;
-import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 import javafx.application.Application;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -40,8 +36,10 @@ public class Library extends Application {
           "Login"
       );
     } catch (Exception e) {
-      //TODO: Announce that the library could not be loaded nor created.
-      e.printStackTrace();
+      AlertHelper.alert(
+          AlertType.ERROR,
+          "Could not load nor create the library."
+      );
       System.exit(1);
     }
 
@@ -58,7 +56,10 @@ public class Library extends Application {
     try {
       FileSystemHelper.saveLibraryToFile(library);
     } catch (IOException e) {
-      //TODO: deal with this situation in a better way?
+      AlertHelper.alert(
+          AlertType.ERROR,
+          "Could not save the library. See error log for more details."
+      );
       e.printStackTrace();
       System.exit(1);
     }
