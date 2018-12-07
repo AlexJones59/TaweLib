@@ -326,14 +326,14 @@ public class AccountCrudController extends BaseFxmlController {
             LocalDateTime.of(dateEmploymentDate.getValue(), LocalTime.MIN),
             txtPhoneNo.getText(), txtHouseNo.getText(), txtStreet.getText(),
             txtCity.getText(), txtPostcode.getText());
-        AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
+        AlertHelper.alert(AlertType.INFORMATION, "User account created.");
         back();
       }
     } else {
       UserManager.createCustomerAccount(library, txtFirstName.getText(),
           txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
           txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
-      AlertHelper.alert(AlertType.CONFIRMATION, "User account created.");
+      AlertHelper.alert(AlertType.INFORMATION, "User account created.");
       back();
     }
 
