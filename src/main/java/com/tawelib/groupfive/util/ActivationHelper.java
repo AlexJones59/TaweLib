@@ -2,7 +2,6 @@ package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.exception.InvalidProductKeyException;
 import com.tawelib.groupfive.exception.UnsupportedSystemException;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,10 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Contains methods used to verify activation of the product and to activate it.
+ * Contains methods used to verify activation of the product and to activate
+ * it.
  *
  * @author Petr Hoffmann
- * @version 0.3
+ * @version 1.0
  */
 public class ActivationHelper {
 
@@ -33,8 +33,8 @@ public class ActivationHelper {
   }
 
   /**
-   * Checks whether the product is activated. Returns true if so,
-   * false otherwise.
+   * Checks whether the product is activated. Returns true if so, false
+   * otherwise.
    *
    * @return Activated.
    */
@@ -56,10 +56,9 @@ public class ActivationHelper {
   /**
    * Activates the product. Throws an exception when unable to.
    *
-   * @param productKey  Product key.
+   * @param productKey Product key.
    * @param controlHash Control hash.
-   * @throws InvalidProductKeyException When the given product key-hash
-   *                                    pair is invalid.
+   * @throws InvalidProductKeyException If the product key-hash is invalid.
    * @throws UnsupportedSystemException When the activation fails.
    */
   public static void activate(String productKey, String controlHash)
@@ -85,7 +84,7 @@ public class ActivationHelper {
   /**
    * Checks whether the product key matches the control hash.
    *
-   * @param productKey  Product key.
+   * @param productKey Product key.
    * @param controlHash Control hash.
    * @return Whether the product key matches the control hash.
    */
@@ -112,12 +111,12 @@ public class ActivationHelper {
   /**
    * Returns true if the product key-hash pair is valid, false otherwise.
    *
-   * @param productKey  Product key.
+   * @param productKey Product key.
    * @param controlHash Control hash.
    * @return Whether the product key-hash pair is valid.
    */
   private static boolean isProductKeyHashPairValid(String productKey,
-                                                   String controlHash) {
+      String controlHash) {
     Pattern pattern = Pattern.compile(PRODUCT_KEY_PATTERN);
     Matcher matcher = pattern.matcher(productKey);
     boolean matchesPattern = matcher.matches();

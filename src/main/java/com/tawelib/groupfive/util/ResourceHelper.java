@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
  * Locates the project's resources (assets).
  *
  * @author Petr Hoffmann
+ * @version 1.0
  */
 public class ResourceHelper {
 
@@ -24,13 +25,13 @@ public class ResourceHelper {
   private static final String DEFAULT_IMAGE = "default_0";
 
   /**
-   * Returns the URL of the requested resource.
+   * Returns the URL of the requested view.
    *
-   * @param resourceName The name of the resource.
+   * @param viewName The name of the resource.
    * @return URL of the view.
    * @throws MalformedURLException When unable to parse the URL.
    */
-  public static URL getViewUrl(String resourceName)
+  public static URL getViewUrl(String viewName)
       throws MalformedURLException {
     /*
     This approach was chosen because compatibility with Gradle and IntelliJ was
@@ -39,7 +40,7 @@ public class ResourceHelper {
     File file = new File(
         System.getProperty("user.dir")
             + FXML_VIEWS_DIR
-            + resourceName
+            + viewName
             + ".fxml"
     );
 

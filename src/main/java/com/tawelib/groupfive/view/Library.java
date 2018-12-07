@@ -12,6 +12,9 @@ import javafx.stage.Stage;
  * This class is the Library application. It loads a library from a file or
  * creates a new one. It shows the GUI and after closing the app windows it
  * saves the library in a file.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 public class Library extends Application {
 
