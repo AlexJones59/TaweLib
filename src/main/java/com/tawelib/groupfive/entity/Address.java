@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Address.java This class stores all the elements needed for an address.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Address implements Serializable {
 
@@ -19,12 +19,12 @@ public class Address implements Serializable {
    * Creates new instance of the Address Class.
    *
    * @param houseNumber the house number
-   * @param street      the street
-   * @param city        the city
-   * @param postCode    the post code
+   * @param street the street
+   * @param city the city
+   * @param postCode the post code
    */
   public Address(String houseNumber, String street, String city,
-                 String postCode) {
+      String postCode) {
     this.houseNumber = houseNumber;
     this.street = street;
     this.city = city;
@@ -41,30 +41,12 @@ public class Address implements Serializable {
   }
 
   /**
-   * Sets house number.
-   *
-   * @param houseNumber the house number
-   */
-  public void setHouseNumber(String houseNumber) {
-    this.houseNumber = houseNumber;
-  }
-
-  /**
    * Gets street.
    *
    * @return the street
    */
   public String getStreet() {
     return street;
-  }
-
-  /**
-   * Sets street.
-   *
-   * @param street the street
-   */
-  public void setStreet(String street) {
-    this.street = street;
   }
 
   /**
@@ -77,15 +59,6 @@ public class Address implements Serializable {
   }
 
   /**
-   * Sets city.
-   *
-   * @param city the city
-   */
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  /**
    * Gets post code.
    *
    * @return the post code
@@ -95,20 +68,10 @@ public class Address implements Serializable {
   }
 
   /**
-   * Sets post code.
-   *
-   * @param postCode the post code
-   */
-  public void setPostCode(String postCode) {
-    this.postCode = postCode;
-  }
-
-  /**
-   *
-   * {@inheritDoc}
+   * Brings all the individual address elements into one statement to output {@inheritDoc}
    */
   @Override
   public String toString() {
-    return  houseNumber + ", " + street + ", " + city + ", "  + postCode;
+    return houseNumber + ", " + street + ", " + city + ", " + postCode;
   }
 }
