@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * Manages switching between scenes and passing important references around.
  *
  * @author Petr Hoffmann
- * @version 0.2
+ * @version 1.0
  */
 public class SceneHelper {
 
@@ -22,15 +22,16 @@ public class SceneHelper {
   }
 
   /**
-   * Sets up a new scene. Saves important references in appropriate
-   * controllers. Returns the new controller.
+   * Sets up a new scene. Saves important references in appropriate controllers.
+   * Returns the new controller.
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
    * @param sceneName Scene name.
    * @throws IOException When unable to switch scenes.
    */
-  public static BaseFxmlController setUpScene(Stage primaryStage, Library library,
+  public static BaseFxmlController setUpScene(Stage primaryStage,
+      Library library,
       String sceneName)
       throws IOException {
     URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
@@ -60,7 +61,7 @@ public class SceneHelper {
   }
 
   /**
-   * Overloads for setUpScene(Stage primaryStage, Library library, String
+   * Overloads the setUpScene(Stage primaryStage, Library library, String
    * sceneName).
    *
    * @param controller Controller that initiates the switch.

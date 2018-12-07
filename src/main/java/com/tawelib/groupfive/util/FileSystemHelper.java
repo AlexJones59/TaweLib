@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * Takes care of all file system related operations.
  *
  * @author Petr Hoffmann
+ * @version 1.0
  */
 public class FileSystemHelper {
 
@@ -78,13 +80,20 @@ public class FileSystemHelper {
 
         library = createNewLibrary(name);
       } else {
-        throw e;
+        AlertHelper.alert(AlertType.ERROR, "Failed to load library.");
+        System.exit(1);
       }
     }
 
     return library;
   }
 
+  /**
+   * Creates a new library. Populates it if running in development mode.
+   *
+   * @param name Name of the library.
+   * @return Library.
+   */
   private static Library createNewLibrary(String name) {
     Library library = new Library(name);
 
@@ -102,7 +111,7 @@ public class FileSystemHelper {
    * @return Path to the user's profile image.
    */
   public static String getUserProfilePicturePath(User user) {
-    if (user == null) {
+    if (user == null && Main.DEV_MODE) {
       //For development purposes.
       String directory = IMAGES_SAVE_DIR + "profile/default/";
       createDirectoryIfNotExist(directory);
@@ -131,6 +140,7 @@ public class FileSystemHelper {
    * Reads a Library from the file system. If the file path supplied is null a
    * default path is used.
    *
+   * @param name Name of the library.
    * @return Library loaded from the file system.
    */
   private static Library loadLibraryFromFile(String name)
@@ -147,6 +157,12 @@ public class FileSystemHelper {
     }
   }
 
+  /**
+   * Returns the save path for a library with a given name.
+   *
+   * @param name Name of the library.
+   * @return Path to the library.
+   */
   private static String getLibraryPath(String name) {
     return LIBRARY_SAVE_DIR + name;
   }
@@ -158,7 +174,7 @@ public class FileSystemHelper {
    * @return Path to the resource's image.
    */
   public static String getResourcePicturePath(Resource resource) {
-    if (resource == null) {
+    if (resource == null && Main.DEV_MODE) {
       //For development purposes.
       String directory = IMAGES_SAVE_DIR + "resource/default/";
       createDirectoryIfNotExist(directory);
