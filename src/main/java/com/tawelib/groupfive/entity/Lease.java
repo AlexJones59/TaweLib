@@ -1,6 +1,5 @@
 package com.tawelib.groupfive.entity;
 
-import com.tawelib.groupfive.Main;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

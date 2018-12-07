@@ -10,6 +10,12 @@ import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.repository.TransactionRepository;
 import java.io.Serializable;
 
+/**
+ * Library.java Brings all the elements needed for the library together.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 public class Library implements Serializable {
 
   /**
@@ -62,7 +68,6 @@ public class Library implements Serializable {
    *
    * @param name The name of the library.
    */
-
   public Library(String name) {
     this.name = name;
     resourceRepository = new ResourceRepository();
