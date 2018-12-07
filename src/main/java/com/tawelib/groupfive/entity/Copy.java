@@ -1,16 +1,14 @@
 package com.tawelib.groupfive.entity;
 
-//import com.tawelib.groupfive.repository.LeaseRepository;
-
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * File Name - Copy.java The ‘Copy’ class is the class that stores information
- * about a particular copy of a resource.
+ * Copy.java The ‘Copy’ class is the class that stores information about a particular copy of a
+ * resource.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Copy implements Serializable {
 
@@ -40,7 +38,7 @@ public class Copy implements Serializable {
   }
 
   /**
-   * Gets status.
+   * Gets whether the copy is available or not.
    *
    * @return the status
    */
@@ -49,7 +47,7 @@ public class Copy implements Serializable {
   }
 
   /**
-   * Sets status.
+   * Sets whether a copy is available or not.
    *
    * @param status the status
    */
@@ -67,10 +65,20 @@ public class Copy implements Serializable {
     return resource;
   }
 
+  /**
+   * Gets customer who has taken out the copy.
+   *
+   * @return the customer who is borrowing the copy
+   */
   public Customer getBorrowingCustomer() {
     return borrowingCustomer;
   }
 
+  /**
+   * Sets customer who has taken out the copy.
+   *
+   * @param borrowingCustomer the customer who is borrowing the copy
+   */
   public void setBorrowingCustomer(Customer borrowingCustomer) {
     this.borrowingCustomer = borrowingCustomer;
   }
