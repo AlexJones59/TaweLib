@@ -15,6 +15,7 @@ import com.tawelib.groupfive.entity.Transaction;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -203,29 +204,51 @@ public class EntityTestData {
         "nice.customer"
     );
 
-    CopyManager
-    Lease lease2 = new Lease(
-        library.getCustomerRepository().getAll().get(0),
-        copy2
+    try {
+      //Sets date Leased
+      Field dateLeased =
+          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dateLeased");
+      dateLeased.setAccessible(true);
+      dateLeased.set(library.getLeaseRepository().getAll().get(0),
+          LocalDateTime.of(2018, 12, 5, 12, 0));
+      dateLeased.setAccessible(false);
+
+      //Sets due Date
+      Field dueDate =
+          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dateLeased");
+      dueDate.setAccessible(true);
+      dueDate.set(library.getLeaseRepository().getAll().get(0),
+          LocalDateTime.of(2018, 12, 5, 12, 0));
+      dueDate.setAccessible(false);
+
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    }
+
+
+    CopyManager.borrowResourceCopy(
+        library,
+        copy2.getId(),
+        "nice.customer"
     );
-    library.getLeaseRepository().add(lease2);
 
     // [REQUEST]
     // ---------------------------------------------------------------------------------------------
 
     Request newRequest = new Request(
-        library.getCustomerRepository().getAll().get(0),
-        book1
+        library.getCustomerRepository().getAll().get(1),
+        book
     );
 
     library.getRequestRepository().add(newRequest);
+
+    //Returns copy so we can checkout reserved
+    CopyManager.returnResourceCopy(library, copy.getId());
 
     Request newRequest2 = new Request(
         library.getCustomerRepository().getAll().get(0),
         dvd1
     );
-    newRequest2.setStatus(RequestStatus.RESERVED);
-
     library.getRequestRepository().add(newRequest2);
 
     // [FINE]

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
 import java.lang.reflect.Field;
@@ -28,10 +29,7 @@ public class CopyRepository implements BaseRepository<Copy> {
    * Generates a unique id for copies.
    */
   private void generateId(Copy copy) {
-    String generatedCopyId = String.format(
-        "C%d",
-        lastCopyId
-    );
+    String generatedCopyId = String.format("C%d", lastCopyId);
 
     try {
       Field idField = copy.getClass().getDeclaredField("id");
@@ -77,6 +75,23 @@ public class CopyRepository implements BaseRepository<Copy> {
     }
 
     return result;
+  }
+
+  /**
+   * Gets specific reserved.
+   *
+   * @param customer the customer
+   * @param resource the resource
+   * @return the specific reserved
+   */
+  public Copy getSpecificReserved(Customer customer, Resource resource) {
+    for (Copy copy : getResourceCopies(resource)) {
+      if (copy.getBorrowingCustomer() == customer && copy.getStatus()
+          .equals(CopyStatus.RESERVED)) {
+        return copy;
+      }
+    }
+    return null;
   }
 
   /**

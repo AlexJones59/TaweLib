@@ -182,6 +182,21 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
+   * Gets specific.
+   *
+   * @param resourceId the resource id
+   * @return the specific
+   */
+  public Resource getSpecific(String resourceId) {
+    for (Resource resource : resources) {
+      if (resource.getResourceId().equals(resourceId)) {
+        return resource;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Search the resources for a specific book.
    *
    * @return the specific book
