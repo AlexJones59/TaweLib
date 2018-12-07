@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
@@ -227,7 +228,8 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void borrowNewResource() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      SceneHelper.setUpScene(this, "BorrowResource");
+      SceneHelper
+          .setUpScene(this, "BorrowResource");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
