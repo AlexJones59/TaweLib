@@ -1,6 +1,5 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
@@ -110,6 +109,9 @@ public class UserInformationController extends BaseFxmlController {
   @FXML
   private Button btnPickUpReserved;
 
+  @FXML
+  private Button declareLostButton;
+
   /**
    * Instantiates a new User information controller.
    */
@@ -141,6 +143,7 @@ public class UserInformationController extends BaseFxmlController {
   public void refresh() {
     returnCopyButton.setVisible(isLibrarianLoggedIn());
     btnPickUpReserved.setVisible(isLibrarianLoggedIn());
+    declareLostButton.setVisible(isLibrarianLoggedIn());
 
     if (isCustomerLoggedIn()) {
       Customer loggedInCustomer = (Customer) loggedInUser;
@@ -280,7 +283,10 @@ public class UserInformationController extends BaseFxmlController {
         CopyManager.pickUpReservedCopy(library,
             resourceTableView.getSelectionModel().getSelectedItem()
                 .getResourceId(), selectedCustomer.getUsername());
-        AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+        AlertHelper.alert(
+            AlertType.INFORMATION,
+            "Picked up Reserved Copy"
+        );
 
         refresh();
       } else {
@@ -294,6 +300,16 @@ public class UserInformationController extends BaseFxmlController {
   }
 
   /**
+   * Declares a copy as lost.
+   */
+  public void declareLost() {
+    String copyId = resourceTableView.getSelectionModel().getSelectedItem()
+        .getCopyId();
+    AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+    CopyManager.lostCopy(library, copyId);
+  }
+
+  /**
    * Goes back to previous scene.
    */
   @Override
@@ -303,7 +319,5 @@ public class UserInformationController extends BaseFxmlController {
     } else {
       SceneHelper.setUpScene(this, "UserDashboard");
     }
-
-
   }
 }

@@ -22,6 +22,7 @@
                 <Button fx:id="btnDelete" layoutX="365.0" layoutY="102.0" mnemonicParsing="false" text="Delete" visible="false" />
                 <Button fx:id="btnHistory" layoutX="106.0" layoutY="102.0" mnemonicParsing="false" text="History" visible="false" />
                 <Button fx:id="requestCopyButton" layoutX="631.0" layoutY="102.0" mnemonicParsing="false" onAction="#request" text="Request Copy" />
+            <Button fx:id="declareLostButton" layoutX="517.0" layoutY="102.0" mnemonicParsing="false" onAction="#declareLost" text="Declare Lost" />
             </children>
         </Pane>
     </bottom>

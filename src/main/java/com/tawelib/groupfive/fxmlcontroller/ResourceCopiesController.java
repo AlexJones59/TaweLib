@@ -41,6 +41,9 @@ public class ResourceCopiesController extends BaseFxmlController {
   private Button requestCopyButton;
 
   @FXML
+  private Button declareLostButton;
+
+  @FXML
   private Button createCopyButton;
 
   @FXML
@@ -100,6 +103,7 @@ public class ResourceCopiesController extends BaseFxmlController {
     totalCopiesLabel.setText(Integer.toString(totalCopies));
     availableCopiesLabel.setText(Integer.toString(availableCopies));
 
+    declareLostButton.setVisible(isLibrarianLoggedIn());
     historyButton.setVisible(isLibrarianLoggedIn());
     requestCopyButton.setVisible(isCustomerLoggedIn());
     createCopyButton.setVisible(isLibrarianLoggedIn());
@@ -156,5 +160,19 @@ public class ResourceCopiesController extends BaseFxmlController {
   public void setSelectedResource(
       Resource selectedResource) {
     this.selectedResource = selectedResource;
+  }
+
+  /**
+   * Declares a copy as lost.
+   */
+  public void declareLost() {
+    CopiesTableWrapper copiesWrapper = copiesTableView.getSelectionModel()
+        .getSelectedItem();
+
+    if (copiesWrapper != null) {
+      String copyId = copiesWrapper.getCopy().getId();
+      AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+      CopyManager.lostCopy(library, copyId);
+    }
   }
 }
