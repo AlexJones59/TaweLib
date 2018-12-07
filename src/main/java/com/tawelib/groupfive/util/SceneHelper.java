@@ -28,6 +28,7 @@ public class SceneHelper {
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
    * @param sceneName Scene name.
+   * @return New scene controller.
    * @throws IOException When unable to switch scenes.
    */
   public static BaseFxmlController setUpScene(Stage primaryStage,
@@ -66,6 +67,7 @@ public class SceneHelper {
    *
    * @param controller Controller that initiates the switch.
    * @param sceneName Scene name to switch to.
+   * @return New scene controller.
    */
   public static BaseFxmlController setUpScene(BaseFxmlController controller,
       String sceneName) {
