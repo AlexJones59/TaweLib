@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Fine implements Serializable {
 
-  private final int amount;
+  private final int amount;// Stored in pennies.
   private final Lease lease;
 
   /**
@@ -38,6 +38,15 @@ public class Fine implements Serializable {
    */
   public int getAmount() {
     return amount;
+  }
+
+  /**
+   * Gets amount in pounds.
+   *
+   * @return the amount
+   */
+  public float getAmountInPounds() {
+    return ((float) amount) / 100;
   }
 
   /**

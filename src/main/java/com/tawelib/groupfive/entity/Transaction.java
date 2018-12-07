@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Transaction implements Serializable {
 
-  private int amount;
+  private int amount; //Stored in pennies.
   private LocalDateTime datePaid;
   private Customer payee;
 
@@ -37,6 +37,15 @@ public class Transaction implements Serializable {
    */
   public int getAmount() {
     return amount;
+  }
+
+  /**
+   * Gets amount in pounds.
+   *
+   * @return the amount
+   */
+  public float getAmountInPounds() {
+    return ((float) amount) / 100;
   }
 
   /**
