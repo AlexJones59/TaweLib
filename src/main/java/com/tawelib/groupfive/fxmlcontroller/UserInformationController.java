@@ -303,6 +303,7 @@ public class UserInformationController extends BaseFxmlController {
     String copyId = resourceTableView.getSelectionModel().getSelectedItem()
         .getCopyId();
     AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+    CopyManager.lostCopy(library, copyId);
   }
 
   /**

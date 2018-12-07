@@ -169,6 +169,7 @@ public class ResourceCopiesController extends BaseFxmlController {
     if (copiesWrapper != null){
       String copyId = copiesWrapper.getCopy().getId();
       AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+      CopyManager.lostCopy(library, copyId);
     }
   }
 }
