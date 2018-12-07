@@ -10,16 +10,17 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * File Name - UserManager.java The User Controller class controls data flow
+ * File Name - UserManager.java The User Manager class controls data flow
  * between the Customer and Librarian Repository and the GUI interfaces.
  *
- * @author Shree Desai
- * @version 0.2
+ * @author Shree Desai, Petr Hoffman
+ * @version 1.0
  */
 public class UserManager {
 
   /**
-   * Create customer account.
+   * Create new instance of a Customer and persists it to the resource
+   * repository.
    *
    * @param library the library
    * @param firstName the first name
@@ -39,7 +40,8 @@ public class UserManager {
   }
 
   /**
-   * Create librarian account.
+   * Create new instance of a Librarian and persists it to the resource
+   * repository.
    *
    * @param library the library
    * @param firstName the first name
@@ -74,9 +76,9 @@ public class UserManager {
    * @param postcode the postcode
    */
   @Deprecated
-  public static void updateCustomerAccount(Library library,
-      String username, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode) {
+  public static void updateCustomerAccount(Library library, String username,
+      String firstName, String lastName, String phoneNumber, String houseNumber,
+      String street, String city, String postcode) {
     library.getCustomerRepository().getSpecific(username)
         .setFirstName(firstName);
     library.getCustomerRepository().getSpecific(username).setLastName(lastName);
@@ -100,13 +102,11 @@ public class UserManager {
    * @param city the city
    * @param postcode the postcode
    */
-  public static void updateCustomerAccount(Library library,
-      Customer customer, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode) {
-    updateUserAccount(
-        library, customer, firstName, lastName, phoneNumber, houseNumber,
-        street, city, postcode
-    );
+  public static void updateCustomerAccount(Library library, Customer customer,
+      String firstName, String lastName, String phoneNumber, String houseNumber,
+      String street, String city, String postcode) {
+    updateUserAccount(library, customer, firstName, lastName, phoneNumber,
+        houseNumber, street, city, postcode);
   }
 
   /**
@@ -123,9 +123,9 @@ public class UserManager {
    * @param postcode the postcode
    */
   @Deprecated
-  public static void updateLibrarianAccount(Library library,
-      String username, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode) {
+  public static void updateLibrarianAccount(Library library, String username,
+      String firstName, String lastName, String phoneNumber, String houseNumber,
+      String street, String city, String postcode) {
     library.getLibrarianRepository().getSpecific(username)
         .setFirstName(firstName);
     library.getLibrarianRepository().getSpecific(username)
@@ -152,8 +152,8 @@ public class UserManager {
    */
   public static void updateLibrarianAccount(Library library,
       Librarian librarian, String firstName, String lastName,
-      String phoneNumber,
-      String houseNumber, String street, String city, String postcode) {
+      String phoneNumber, String houseNumber, String street, String city,
+      String postcode) {
     updateUserAccount(library, librarian, firstName, lastName, phoneNumber,
         houseNumber, street, city, postcode);
   }
@@ -171,9 +171,9 @@ public class UserManager {
    * @param city City.
    * @param postcode Post code.
    */
-  public static void updateUserAccount(Library library,
-      User user, String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postcode) {
+  public static void updateUserAccount(Library library, User user,
+      String firstName, String lastName, String phoneNumber, String houseNumber,
+      String street, String city, String postcode) {
     user.setFirstName(firstName);
     user.setLastName(lastName);
     user.setPhoneNumber(phoneNumber);
@@ -189,8 +189,7 @@ public class UserManager {
    * @param amount the amount
    */
   public static void topUpAccountBalance(Library library,
-      String customerUsername,
-      int amount) {
+      String customerUsername, int amount) {
     Customer payee = library.getCustomerRepository()
         .getSpecific(customerUsername);
     Transaction newTransaction = new Transaction(amount, payee);
