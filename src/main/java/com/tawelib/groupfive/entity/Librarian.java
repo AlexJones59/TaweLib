@@ -1,15 +1,13 @@
 package com.tawelib.groupfive.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * File Name: Librarian.java Librarian class stores personal information for the
- * Librarian account.
+ * Librarian.java Stores personal information for the Librarian account, inherits from superclass
+ * User.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Librarian extends User {
 
@@ -29,20 +27,11 @@ public class Librarian extends User {
    * @param employmentDate the employment date
    */
   public Librarian(String firstName, String lastName, String phoneNumber,
-                   String houseNumber, String street, String city,
-                   String postCode, LocalDateTime employmentDate) {
+      String houseNumber, String street, String city,
+      String postCode, LocalDateTime employmentDate) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
     this.employmentDate = employmentDate;
-  }
-
-  /**
-   * Gets employment date.
-   *
-   * @return the employment date
-   */
-  public LocalDateTime getEmploymentDate() {
-    return employmentDate;
   }
 
   /**
@@ -52,14 +41,5 @@ public class Librarian extends User {
    */
   public int getStaffNumber() {
     return staffNumber;
-  }
-
-  /**
-   * Sets staff number.
-   *
-   * @param staffNumber the staff number
-   */
-  public void setStaffNumber(int staffNumber) {
-    this.staffNumber = staffNumber;
   }
 }
