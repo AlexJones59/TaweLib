@@ -20,7 +20,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Controls the Account Creation screen.
+ * Account Crud controller controls the Account Crud Screen. This is used to to
+ * create and update user account info, while having checks for all the fields,
+ * to make sure all input are valid, in terms of style needed for the
+ * attribute.
  *
  * @author Dearbhla Jackson, Shree Desai
  * @version 0.4
@@ -28,6 +31,9 @@ import javafx.scene.control.TextField;
 public class AccountCrudController extends BaseFxmlController {
 
   private CrudAction crudAction;
+  /**
+   * Constant that holds standard message if invalid dta is entered.
+   */
   private static final String VALID_DATA_ERROR =
       "This is not valid data for " + "this field.";
 
@@ -134,6 +140,10 @@ public class AccountCrudController extends BaseFxmlController {
   public AccountCrudController() {
   }
 
+  /**
+   * This method resets the scene, and populates the text fields, if a user has
+   * been selected and screen is being use dto update.
+   */
   @Override
   public void refresh() {
     setFieldVisibilities();
@@ -143,6 +153,10 @@ public class AccountCrudController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Sets all the visibilities of the buttons, based upon what the screen is
+   * being used for.
+   */
   private void setFieldVisibilities() {
     if (crudAction == CrudAction.CREATE) {
       btnCreate.setVisible(true);
@@ -154,6 +168,9 @@ public class AccountCrudController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Gets data related the user passed in and displays it in the text fields.
+   */
   private void populateFields() {
     cbxLibrarian.setSelected(selectedUser.getClass().equals(Librarian.class));
     txtFirstName.setText(selectedUser.getFirstName());
@@ -184,7 +201,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * First name check.
+   * First name check done while you are typing.
    */
   public void firstNameCheck() {
     if (txtFirstName.getText().length() != 0) {
@@ -197,7 +214,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * Last name check.
+   * Last name check done while you are typing.
    */
   public void lastNameCheck() {
     if (txtLastName.getText().length() != 0) {
@@ -210,7 +227,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * Phone no check.
+   * Phone number check done while you are typing.
    */
   public void phoneNoCheck() {
     if (txtPhoneNo.getText().length() != 0) {
@@ -223,7 +240,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * House no check.
+   * House number check done while you are typing.
    */
   public void houseNoCheck() {
     if (txtHouseNo.getText().length() != 0) {
@@ -237,7 +254,7 @@ public class AccountCrudController extends BaseFxmlController {
 
 
   /**
-   * Street check.
+   * Street check done while you are typing.
    */
   public void streetCheck() {
     if (txtStreet.getText().length() != 0) {
@@ -250,7 +267,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * City check.
+   * City check done while you are typing.
    */
   public void cityCheck() {
     if (txtCity.getText().length() != 0) {
@@ -264,8 +281,7 @@ public class AccountCrudController extends BaseFxmlController {
 
 
   /**
-   * Postcode check. //TODO: Check why alerts do not just are making it go to
-   * dashboard.
+   * Postcode check done while you are typing.
    */
   public void postcodeCheck() {
     if (txtPostcode.getText().length() != 0) {
@@ -279,7 +295,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * Postcode check.
+   * Employment Date check by making sure it was before today.
    */
   public void employmentDateCheck() {
     LocalDateTime currentDate = LocalDateTime.now();
@@ -298,6 +314,7 @@ public class AccountCrudController extends BaseFxmlController {
    * Creates an appropriate account.
    */
   public void createAccount() {
+    //Checks if text fields are empty, or displays alert.
     if (txtFirstName.getText().equals("") || txtLastName.getText().equals("")
         || txtPhoneNo.getText().equals("") || txtHouseNo.getText().equals("")
         || txtStreet.getText().equals("") || txtCity.getText().equals("")
@@ -313,14 +330,18 @@ public class AccountCrudController extends BaseFxmlController {
         .equals(VALID_DATA_ERROR)) {
       AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
           + "Please check your input and rectify to pass check.");
+      // Checks if Librarian account is being created.
     } else if (cbxLibrarian.isSelected()) {
+      //Checks if employmentDate is selected, else displays alert.
       if (dateEmploymentDate.getValue() == null) {
         AlertHelper.alert(AlertType.ERROR, "You have unfilled Text fields. \n"
             + "Please fill them in before trying to create user.");
+        //Checks if employmentDate is valid.
       } else if (lblEmploymentDateCheck.getText().equals(VALID_DATA_ERROR)) {
         AlertHelper.alert(AlertType.ERROR, "Input Data is not valid. \n"
             + "Please check your input and rectify to pass check.");
       } else {
+        //Creates Librarian account.
         UserManager.createLibrarianAccount(library, txtFirstName.getText(),
             txtLastName.getText(),
             LocalDateTime.of(dateEmploymentDate.getValue(), LocalTime.MIN),
@@ -330,19 +351,18 @@ public class AccountCrudController extends BaseFxmlController {
         back();
       }
     } else {
+      //Creates Customer Account.
       UserManager.createCustomerAccount(library, txtFirstName.getText(),
           txtLastName.getText(), txtPhoneNo.getText(), txtHouseNo.getText(),
           txtStreet.getText(), txtCity.getText(), txtPostcode.getText());
       AlertHelper.alert(AlertType.INFORMATION, "User account created.");
       back();
     }
-
-
   }
 
 
   /**
-   * Creates an appropriate account.
+   * Updates user account.
    */
   public void updateAccount() {
     UserManager.updateUserAccount(library, selectedUser, txtFirstName.getText(),
@@ -361,10 +381,20 @@ public class AccountCrudController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
+  /**
+   * Gets what the screen is being used.
+   *
+   * @return crudAction
+   */
   public CrudAction getCrudAction() {
     return crudAction;
   }
 
+  /**
+   * Sets crud Action.
+   *
+   * @param crudAction Crud Action
+   */
   public void setCrudAction(CrudAction crudAction) {
     this.crudAction = crudAction;
   }
