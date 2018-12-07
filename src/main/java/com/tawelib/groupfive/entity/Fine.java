@@ -17,6 +17,8 @@ public class Fine implements Serializable {
   private final int amount;// Stored in pennies.
   private final Lease lease;
 
+  public static final String CURRENCY_FORMAT = "£ %.2f";
+
   /**
    * Instantiates a new Fine for resources that overdue.
    *
