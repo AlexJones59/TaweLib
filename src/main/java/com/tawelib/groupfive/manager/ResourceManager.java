@@ -1,58 +1,54 @@
-package com.tawelib.groupfive.controller;
+package com.tawelib.groupfive.manager;
 
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Library;
-import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
 
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
 
 /**
- * File Name - ResourceController.java
- * The resource controller class  handles controls data flow between the
- * Resource Repository
- * and the GUI interfaces.
+ * File Name - ResourceManager.java The resource manager class  handles controls
+ * data flow between the Resource Repository and the GUI interfaces.
  *
  * @author Nayeem Mohammed, Shree Desai
  * @version 0.2
  */
-public class ResourceController {
+public class ResourceManager {
 
   /**
    * Create book.
    *
-   * @param title          the title
-   * @param year           the year
+   * @param title the title
+   * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param author         the author
-   * @param publisher      the publisher
-   * @param genre          the genre
+   * @param author the author
+   * @param publisher the publisher
+   * @param genre the genre
    */
-  public void createBook(Library library,String title, int year,
-      Image thumbnailImage, String author, String publisher,
-      String genre, String isbn, String language) {
-    Book newBook = new Book(title, year, thumbnailImage, author,
-        publisher, genre, isbn, language);
+  public static void createBook(Library library, String title, int year,
+      Image thumbnailImage, String author, String publisher, String genre,
+      String isbn, String language) {
+    Book newBook = new Book(title, year, thumbnailImage, author, publisher,
+        genre, isbn, language);
     library.getResourceRepository().add(newBook);
   }
 
   /**
    * Create dvd.
    *
-   * @param title             the title
-   * @param year              the year
-   * @param thumbnailImage    the thumbnail image
-   * @param director          the director
-   * @param runtime           the runtime
-   * @param languages         the languages
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param director the director
+   * @param runtime the runtime
+   * @param languages the languages
    * @param subtitleLanguages the subtitle languages
    */
-  public void createDvd(Library library,String title, int year,
-      Image thumbnailImage,String director, int runtime,
+  public static void createDvd(Library library, String title, int year,
+      Image thumbnailImage, String director, int runtime,
       ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
     Dvd newDvd = new Dvd(title, year, thumbnailImage, director, runtime,
         languages, subtitleLanguages);
@@ -62,18 +58,18 @@ public class ResourceController {
   /**
    * Create laptop.
    *
-   * @param title                    the title
-   * @param year                     the year
-   * @param thumbnailImage           the thumbnail image
-   * @param manufacturer             the manufacturer
-   * @param model                    the model
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param manufacturer the manufacturer
+   * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  public void createLaptop(Library library, String title, int year,
+  public static void createLaptop(Library library, String title, int year,
       Image thumbnailImage, String manufacturer, String model,
       String installedOperatingSystem) {
-    Laptop newLaptop = new Laptop(title, year, thumbnailImage,
-        manufacturer, model, installedOperatingSystem);
+    Laptop newLaptop = new Laptop(title, year, thumbnailImage, manufacturer,
+        model, installedOperatingSystem);
     library.getResourceRepository().add(newLaptop);
   }
 
@@ -87,8 +83,8 @@ public class ResourceController {
    * @param publisher the publisher
    * @param genre the genre
    */
-  public void updateBook(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, String author,
+  public static void updateBook(Library library, String resourceId,
+      String title, int year, Image thumbnailImage, String author,
       String publisher, String genre, String isbn, String language) {
     library.getResourceRepository().getSpecificBook(resourceId).setTitle(title);
     library.getResourceRepository().getSpecificBook(resourceId).setYear(year);
@@ -116,7 +112,7 @@ public class ResourceController {
    * @param languages the languages
    * @param subtitleLanguages the subtitle languages
    */
-  public void updateDvd(Library library, String resourceId, String title,
+  public static void updateDvd(Library library, String resourceId, String title,
       int year, Image thumbnailImage, String director, int runtime,
       ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
     library.getResourceRepository().getSpecificDvd(resourceId).setTitle(title);
@@ -143,8 +139,8 @@ public class ResourceController {
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  public void updateLaptop(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, String manufacturer,
+  public static void updateLaptop(Library library, String resourceId,
+      String title, int year, Image thumbnailImage, String manufacturer,
       String model, String installedOperatingSystem) {
     library.getResourceRepository().getSpecificLaptop(resourceId)
         .setTitle(title);

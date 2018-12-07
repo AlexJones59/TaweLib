@@ -2,67 +2,83 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.ResourceType;
-import com.tawelib.groupfive.tablewrapper.OverdueCopiesTableWrapper;
+import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.Date;
-import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OverdueCopiesController extends BaseFxmlController {
-
-  @FXML
-  private Button btnBack;
-
-  @FXML
-  private Label lblScreenTitle;
 
   @FXML
   private TextField txtSearchQuery;
 
   @FXML
-  private Label lblSearch;
+  private TableView<LeaseTableWrapper> tblOverdueCopies;
 
   @FXML
-  private TableView<OverdueCopiesTableWrapper> tblOverdueCopies;
+  private TableColumn<LeaseTableWrapper, String> usernameColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> usernameColumn;
+  private TableColumn<LeaseTableWrapper, String> titleColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> titleColumn;
+  private TableColumn<LeaseTableWrapper, String> copyIdColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> idColumn;
+  private TableColumn<LeaseTableWrapper, ResourceType> typeColumn;
 
   @FXML
-  private TableColumn<OverdueCopiesTableWrapper, ResourceType> typeColumn;
-
-  @FXML
-  private TableColumn<OverdueCopiesTableWrapper, Date> dateColumn;
-
-  @FXML
-  private TableColumn<OverdueCopiesTableWrapper, String> fineColumn;
+  private TableColumn<LeaseTableWrapper, Date> dateColumn;
 
 
   public OverdueCopiesController() {
   }
 
+  /**
+   * Initializes the gui.
+   */
+  public void initialize() {
+    usernameColumn.setCellValueFactory(
+        new PropertyValueFactory<>("username"));
 
+    titleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("title"));
+
+    copyIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("copyId"));
+
+    typeColumn.setCellValueFactory(
+        new PropertyValueFactory<>("type"));
+
+    dateColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dueDate"));
+  }
 
   /**
    * Sets the dynamic fields.
    */
   @Override
   public void refresh() {
-    //TODO: Populate the table, etc.
+    if (!tblOverdueCopies.getItems().isEmpty()) {
+      tblOverdueCopies.getItems().clear();
+    }
+
+    for (Lease overdueLease : library.getLeaseRepository().getOverdueLeases()) {
+      tblOverdueCopies.getItems().add(
+          new LeaseTableWrapper(overdueLease)
+      );
+    }
   }
 
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
+  }
+
+  public void search() {
+
   }
 }

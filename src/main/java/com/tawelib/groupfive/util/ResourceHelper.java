@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.util;
 
 import com.tawelib.groupfive.draw.Drawing;
+import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.User;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -58,8 +59,29 @@ public class ResourceHelper {
     if (imageFile.isFile()) {
       return new Image("file:" + profilePicturePath);
     } else {
-      String dir = "file:" + FileSystemHelper.IMAGES_SAVE_DIR + "profile/default/"
-          + DEFAULT_IMAGE + "." + Drawing.IMAGE_FORMAT;
+      String dir = "file:" + FileSystemHelper.IMAGES_SAVE_DIR
+          + "profile/default/" + DEFAULT_IMAGE + "." + Drawing.IMAGE_FORMAT;
+      return new Image(dir);
+    }
+  }
+
+  /**
+   * Returns an image for a given resource.
+   *
+   * @param resource Resource.
+   * @return Resource image of a given resource.
+   */
+  public static Image getResourceImage(Resource resource) {
+    String profilePicturePath = FileSystemHelper
+        .getResourcePicturePath(resource);
+    File imageFile = new File(profilePicturePath);
+
+    if (imageFile.isFile()) {
+      return new Image("file:" + profilePicturePath);
+    } else {
+      String resourceFilename = resource.getType().toString().toLowerCase();
+      String dir = "file:" + FileSystemHelper.IMAGES_SAVE_DIR
+          + "resource/default/" + resourceFilename + "." + Drawing.IMAGE_FORMAT;
       return new Image(dir);
     }
   }

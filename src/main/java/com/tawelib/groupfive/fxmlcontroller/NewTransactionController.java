@@ -1,6 +1,8 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.manager.UserManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
@@ -36,19 +38,14 @@ public class NewTransactionController extends BaseFxmlController {
 
         int fundsInPennies = (int) (fundsBeingAdded * 100);
 
-        selectedCustomer.increaseAccountBalance(fundsInPennies);
+        UserManager.topUpAccountBalance(library, selectedCustomer.getUsername(),
+            fundsInPennies);
 
-        AlertHelper.alert(
-            AlertType.INFORMATION,
-            "Funds added!"
-        );
+        AlertHelper.alert(AlertType.INFORMATION, "Funds added!");
 
         back();
       } catch (NumberFormatException e) {
-        AlertHelper.alert(
-            AlertType.WARNING,
-            "You must enter a number."
-        );
+        AlertHelper.alert(AlertType.WARNING, "You must enter a number.");
       }
     }
   }

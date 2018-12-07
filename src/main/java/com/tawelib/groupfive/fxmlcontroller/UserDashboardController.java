@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
@@ -59,6 +60,12 @@ public class UserDashboardController extends BaseFxmlController {
   public Button manageUsersButton;
 
   @FXML
+  private TextField accountBalanceTextField;
+
+  @FXML
+  private Label accountBalanceLabel;
+
+  @FXML
   public ImageView profileImageImageView;
 
   public UserDashboardController() {
@@ -94,7 +101,9 @@ public class UserDashboardController extends BaseFxmlController {
 
     customerNodes = new Node[]{
         transactionsAndFinesButton,
-        manageAccountButton
+        manageAccountButton,
+        accountBalanceLabel,
+        accountBalanceTextField
     };
   }
 
@@ -121,7 +130,12 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   private void setGuiForCustomers() {
-
+    accountBalanceTextField.setText(
+        String.format(
+            "£ %.2f",
+            ((Customer) loggedInUser).getAccountBalanceInPounds()
+        )
+    );
   }
 
   /**

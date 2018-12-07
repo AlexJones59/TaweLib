@@ -3,6 +3,7 @@ package com.tawelib.groupfive.util;
 import com.tawelib.groupfive.Main;
 import com.tawelib.groupfive.draw.Drawing;
 import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.testdata.EntityTestData;
 import java.io.File;
@@ -148,5 +149,25 @@ public class FileSystemHelper {
 
   private static String getLibraryPath(String name) {
     return LIBRARY_SAVE_DIR + name;
+  }
+
+  /**
+   * Returns a path to the resource's image.
+   *
+   * @param resource User.
+   * @return Path to the resource's image.
+   */
+  public static String getResourcePicturePath(Resource resource) {
+    if (resource == null) {
+      //For development purposes.
+      String directory = IMAGES_SAVE_DIR + "resource/default/";
+      createDirectoryIfNotExist(directory);
+      return directory + "temp." + Drawing.IMAGE_FORMAT;
+    } else {
+      String directory = IMAGES_SAVE_DIR + "resource/custom/";
+      createDirectoryIfNotExist(directory);
+      return directory + resource.getResourceId() + "."
+          + Drawing.IMAGE_FORMAT;
+    }
   }
 }

@@ -1,19 +1,21 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,47 +23,107 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
+/**
+ * The type User information controller.
+ */
 public class UserInformationController extends BaseFxmlController {
 
   @FXML
   private ImageView userProfileImageView;
 
+  /**
+   * The First name text field.
+   */
   @FXML
   public TextField firstNameTextField;
 
+  /**
+   * The Last name text field.
+   */
   @FXML
   public TextField lastNameTextField;
 
+  /**
+   * The Username text field.
+   */
   @FXML
   public TextField usernameTextField;
 
+  /**
+   * The Address text field.
+   */
   @FXML
   public TextField addressTextField;
 
+  /**
+   * The Balance label.
+   */
   @FXML
   public Label balanceLabel;
 
+  /**
+   * The Balance text field.
+   */
   @FXML
   public TextField balanceTextField;
 
+  /**
+   * The Resource table view.
+   */
   @FXML
   public TableView<LeaseTableWrapper> resourceTableView;
 
+  /**
+   * The Resource id table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
 
+  /**
+   * The Copy id table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
 
+  /**
+   * The Title table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
+  /**
+   * The Due date table column.
+   */
   @FXML
-  public TableColumn<LeaseTableWrapper, Date> dueDateTableColumn;
+  public TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
 
+  /**
+   * The Status table column.
+   */
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
+  @FXML
+  private Button btnBorrow;
+
+  @FXML
+  private Button btnManageBalance;
+
+  @FXML
+  private Button btnEditUserInfo;
+
+  @FXML
+  private Button returnCopyButton;
+
+  @FXML
+  private Button btnPickUpReserved;
+
+  @FXML
+  private Button declareLostButton;
+
+  /**
+   * Instantiates a new User information controller.
+   */
   public UserInformationController() {
   }
 
@@ -70,20 +132,17 @@ public class UserInformationController extends BaseFxmlController {
    */
   @FXML
   public void initialize() {
-    resourceIdTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("resourceId"));
+    resourceIdTableColumn
+        .setCellValueFactory(new PropertyValueFactory<>("resourceId"));
 
-    copyIdTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("copyId"));
+    copyIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("copyId"));
 
-    titleTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("title"));
+    titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-    dueDateTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("dueDate"));
+    dueDateTableColumn
+        .setCellValueFactory(new PropertyValueFactory<>("dueDate"));
 
-    statusTableColumn.setCellValueFactory(
-        new PropertyValueFactory<>("status"));
+    statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
   }
 
   /**
@@ -91,54 +150,82 @@ public class UserInformationController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+    btnEditUserInfo.setVisible(isLibrarianLoggedIn());
+    btnEditUserInfo.setVisible(isLibrarianLoggedIn());
+    btnBorrow.setVisible((isLibrarianLoggedIn()));
+    btnManageBalance.setVisible(isLibrarianLoggedIn());
+    returnCopyButton.setVisible(isLibrarianLoggedIn());
+    btnPickUpReserved.setVisible(isLibrarianLoggedIn());
+    declareLostButton.setVisible(isLibrarianLoggedIn());
 
-    userProfileImageView.setImage(ResourceHelper
-        .getUserProfileImage(selectedUser));
-    firstNameTextField.setText(selectedUser.getFirstName());
-    lastNameTextField.setText(selectedUser.getLastName());
-    usernameTextField.setText(selectedUser.getUsername());
-    addressTextField.setText(selectedUser.getAddress().toString());
+    if (isCustomerLoggedIn()) {
+      Customer loggedInCustomer = (Customer) loggedInUser;
 
-    if (selectedUser.getClass().equals(Customer.class)) {
-      Customer selectedCustomer = (Customer) selectedUser;
-      balanceTextField.setText(
-          String.format(
-              "£ %.2f",
-              selectedCustomer.getAccountBalanceInPounds()
-          )
-      );
+      userProfileImageView
+          .setImage(ResourceHelper.getUserProfileImage(loggedInCustomer));
+      firstNameTextField.setText(loggedInCustomer.getFirstName());
+      lastNameTextField.setText(loggedInCustomer.getLastName());
+      usernameTextField.setText(loggedInCustomer.getUsername());
+      addressTextField.setText(loggedInCustomer.getAddress().toString());
 
-      setNodeVisibilities(
-          new Node[]{
-              balanceLabel,
-              balanceTextField
-          },
-          true
-      );
+      balanceTextField.setText(String
+          .format("£ %.2f", loggedInCustomer.getAccountBalanceInPounds()));
+
+      setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
 
       setTableContents(library.getLeaseRepository()
-          .getCustomerLeaseHistory(selectedCustomer));
-
+              .getCustomerLeaseHistory(loggedInCustomer),
+          library.getRequestRepository()
+              .getOpenCustomerRequests(loggedInCustomer),
+          library.getRequestRepository().getCustomerReserved(loggedInCustomer));
     } else {
-      setNodeVisibilities(
-          new Node[]{
-              balanceLabel,
-              balanceTextField
-          },
-          false
-      );
-    }
+      userProfileImageView
+          .setImage(ResourceHelper.getUserProfileImage(selectedUser));
+      firstNameTextField.setText(selectedUser.getFirstName());
+      lastNameTextField.setText(selectedUser.getLastName());
+      usernameTextField.setText(selectedUser.getUsername());
+      addressTextField.setText(selectedUser.getAddress().toString());
 
+      if (selectedUser.getClass().equals(Customer.class)) {
+        Customer selectedCustomer = (Customer) selectedUser;
+        balanceTextField.setText(String
+            .format("£ %.2f", selectedCustomer.getAccountBalanceInPounds()));
+
+        setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
+
+        setTableContents(library.getLeaseRepository()
+                .getCustomerLeaseHistory(selectedCustomer),
+            library.getRequestRepository()
+                .getOpenCustomerRequests(selectedCustomer),
+            library.getRequestRepository()
+                .getCustomerReserved(selectedCustomer));
+
+      } else {
+        setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, false);
+      }
+    }
 
 
   }
 
-  private void setTableContents(List<Lease> customerLeases) {
+
+  private void setTableContents(List<Lease> customerLeases,
+      List<Request> customerRequests, List<Request> customerReserved) {
     resourceTableView.getItems().clear();
 
     for (Lease lease : customerLeases) {
       resourceTableView.getItems().add(new LeaseTableWrapper(lease));
     }
+
+    for (Request request : customerRequests) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(request));
+    }
+
+    for (Request reserved : customerReserved) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
+    }
+
+
   }
 
   /**
@@ -157,9 +244,7 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void borrowNewResource() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      //TODO: decide from which site to approach this (user first or COPY first)
-      //      SceneHelper.setUpScene(this, "BorrowResource");
-      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+      SceneHelper.setUpScene(this, "BorrowResource");
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
@@ -181,13 +266,68 @@ public class UserInformationController extends BaseFxmlController {
    */
   public void returnCopy() {
     if (selectedUser.getClass().equals(Customer.class)) {
-      AlertHelper.alert(AlertType.ERROR, "To be implemented.");
+      if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+          .equals("BORROWED")) {
+        CopyManager.returnResourceCopy(library,
+            resourceTableView.getSelectionModel().getSelectedItem()
+                .getCopyId());
+
+        AlertHelper.alert(AlertType.INFORMATION, "Returned.");
+
+        refresh();
+      } else {
+        AlertHelper.alert(AlertType.ERROR,
+            "Lease selected is not a " + "returnable object");
+      }
     } else {
       AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
     }
   }
 
+  /**
+   * Pick up reserved.
+   */
+  public void pickUpReserved() {
+    if (selectedUser.getClass().equals(Customer.class)) {
+      Customer selectedCustomer = (Customer) selectedUser;
+      if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+          .equals("RESERVED")) {
+        CopyManager.pickUpReservedCopy(library,
+            resourceTableView.getSelectionModel().getSelectedItem()
+                .getResourceId(), selectedCustomer.getUsername());
+        AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+
+        refresh();
+      } else {
+        AlertHelper.alert(AlertType.ERROR,
+            "Lease selected is not " + "of a reserved copy.");
+      }
+
+    } else {
+      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+    }
+  }
+
+  /**
+   * Declares a copy as lost.
+   */
+  public void declareLost() {
+    String copyId = resourceTableView.getSelectionModel().getSelectedItem()
+        .getCopyId();
+    AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+    CopyManager.lostCopy(library, copyId);
+    refresh();
+  }
+
+  /**
+   * Goes back to previous scene.
+   */
+  @Override
   public void back() {
-    SceneHelper.setUpScene(this, "UserList");
+    if (loggedInUser.getClass().equals(Librarian.class)) {
+      SceneHelper.setUpScene(this, "UserList");
+    } else {
+      SceneHelper.setUpScene(this, "UserDashboard");
+    }
   }
 }

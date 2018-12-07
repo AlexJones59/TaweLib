@@ -36,7 +36,7 @@ table and change it's schema depending on what Resource Type is selected.
                 <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="49.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
                 <ImageView fitHeight="135.0" fitWidth="161.0" layoutX="49.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" />
                 <TextField fx:id="txtSearch" layoutX="113.0" layoutY="125.0" onAction="#search" />
-                <Button fx:id="btnInfo" layoutX="707.0" layoutY="51.0" mnemonicParsing="false" onAction="#resourceInformation" prefHeight="39.0" prefWidth="81.0" text="Info" />
+                <Button fx:id="btnInfo" layoutX="757.0" layoutY="136.0" mnemonicParsing="false" onAction="#resourceInformation" prefHeight="39.0" prefWidth="81.0" text="Info" />
                 <BorderPane layoutX="17.0" layoutY="190.0" prefHeight="526.0" prefWidth="821.0">
                     <center>
                         <TableView fx:id="tblBrowseResourcesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -57,6 +57,7 @@ table and change it's schema depending on what Resource Type is selected.
                 </BorderPane>
                 <Button fx:id="btnBack" layoutX="18.0" layoutY="23.0" mnemonicParsing="false" onAction="#back" text="Back" />
             <ComboBox fx:id="cmbResourceType" layoutX="297.0" layoutY="123.0" onAction="#search" prefWidth="150.0" promptText="Resource Type" />
+            <Button fx:id="createNewButton" layoutX="744.0" layoutY="23.0" mnemonicParsing="false" onAction="#createNew" text="Create New" />
             </children>
         </Pane>
     </center>

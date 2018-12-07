@@ -4,18 +4,42 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.manager.ResourceManager;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
+import com.tawelib.groupfive.util.FileSystemHelper;
+import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 
 public class ResourceCrudController extends BaseFxmlController {
 
   private Resource selectedResource;
   private CrudAction crudAction;
+
+  @FXML
+  private AnchorPane bookAnchorPane;
+
+  @FXML
+  private AnchorPane dvdAnchorPane;
+
+  @FXML
+  private AnchorPane laptopAnchorPane;
 
   @FXML
   private Label idLabel;
@@ -45,7 +69,7 @@ public class ResourceCrudController extends BaseFxmlController {
   private TextField modelTextField;
 
   @FXML
-  private TextField manufacturedTextField;
+  private TextField manufacturerTextField;
 
   @FXML
   private TextField operatingSystemTextField;
@@ -68,23 +92,65 @@ public class ResourceCrudController extends BaseFxmlController {
   @FXML
   private Button updateButton;
 
+  @FXML
+  private Button showCopiesButton;
+
+  @FXML
+  private ImageView resourceImageView;
+
+  @FXML
+  private ComboBox<ResourceType> resourceTypeComboBox;
+
+  private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
+      ResourceType.LAPTOP};
+
   @Override
   public void refresh() {
-    if (isLibrarianLoggedIn()) {
-      if (crudAction == CrudAction.UPDATE) {
-        populateResource();
-
-        createButton.setVisible(false);
-      } else {
-        updateButton.setVisible(false);
+    if (crudAction == CrudAction.UPDATE) {
+      populateResource();
+    } else if (crudAction == CrudAction.CREATE) {
+      if (resourceTypeComboBox.getItems().isEmpty()) {
+        resourceTypeComboBox.getItems().addAll(Arrays.asList(resourceTypes));
+        resourceTypeComboBox.setValue(ResourceType.BOOK);
       }
-    } else {
-      createButton.setVisible(false);
-      updateButton.setVisible(false);
+
+      switch (resourceTypeComboBox.getValue()) {
+        case BOOK:
+          showSubtypePane(bookAnchorPane);
+          break;
+        case DVD:
+          showSubtypePane(dvdAnchorPane);
+          break;
+        case LAPTOP:
+          showSubtypePane(laptopAnchorPane);
+          break;
+        default:
+          break;
+      }
     }
+
+    showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
+    resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
+
+    createButton
+        .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);
+    updateButton
+        .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
+  }
+
+  private void showSubtypePane(AnchorPane pane) {
+    bookAnchorPane.setVisible(bookAnchorPane == pane);
+    bookAnchorPane.setManaged(bookAnchorPane == pane);
+    dvdAnchorPane.setVisible(dvdAnchorPane == pane);
+    dvdAnchorPane.setManaged(dvdAnchorPane == pane);
+    laptopAnchorPane.setVisible(laptopAnchorPane == pane);
+    laptopAnchorPane.setManaged(laptopAnchorPane == pane);
   }
 
   private void populateResource() {
+    resourceImageView.setImage(
+        ResourceHelper.getResourceImage(selectedResource)
+    );
     idLabel.setText(selectedResource.getResourceId());
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
@@ -92,12 +158,15 @@ public class ResourceCrudController extends BaseFxmlController {
     switch (selectedResource.getType()) {
       case BOOK:
         populateBook();
+        showSubtypePane(bookAnchorPane);
         break;
       case DVD:
         populateDvd();
+        showSubtypePane(dvdAnchorPane);
         break;
       case LAPTOP:
         populateLaptop();
+        showSubtypePane(laptopAnchorPane);
         break;
       default:
         break;
@@ -119,36 +188,145 @@ public class ResourceCrudController extends BaseFxmlController {
 
     directorTextField.setText(selectedDvd.getDirector());
     runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
-    audioLanguagesTextArea.setText(
-        ExplosionHelper.implode(selectedDvd.getLanguages())
-    );
-    subtitleLanguagesTextArea.setText(
-        ExplosionHelper.implode(selectedDvd.getSubtitleLanguages())
-    );
+    audioLanguagesTextArea
+        .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
+    subtitleLanguagesTextArea
+        .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
   }
 
   private void populateLaptop() {
     Laptop selectedLaptop = (Laptop) selectedResource;
 
     modelTextField.setText(selectedLaptop.getModel());
-    manufacturedTextField.setText(selectedLaptop.getModel());
-    operatingSystemTextField.setText(
-        selectedLaptop.getInstalledOperatingSystem()
-    );
+    manufacturerTextField.setText(selectedLaptop.getModel());
+    operatingSystemTextField
+        .setText(selectedLaptop.getInstalledOperatingSystem());
   }
 
+  /**
+   * Creates a new resource.
+   */
   public void create() {
+    try {
+      switch (resourceTypeComboBox.getValue()) {
+        case BOOK:
+          ResourceManager.createBook(library, titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              authorTextField.getText(), publisherTextField.getText(),
+              genreTextField.getText(), isbnTextField.getText(),
+              languageTextField.getText());
+          break;
+        case DVD:
+          ResourceManager.createDvd(library, titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+          break;
+        case LAPTOP:
+          ResourceManager.createLaptop(library, titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              manufacturerTextField.getText(), modelTextField.getText(),
+              operatingSystemTextField.getText());
+          break;
+        default:
+          break;
+      }
 
+      AlertHelper.alert(AlertType.INFORMATION, "Successfully created");
+      back();
+    } catch (NumberFormatException e) {
+      AlertHelper.alert(AlertType.ERROR, e.getMessage());
+    }
   }
 
+  /**
+   * Updates a resource.
+   */
   public void update() {
+    try {
+      switch (selectedResource.getType()) {
+        case BOOK:
+          ResourceManager.updateBook(library, selectedResource.getResourceId(),
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              authorTextField.getText(), publisherTextField.getText(),
+              genreTextField.getText(), isbnTextField.getText(),
+              languageTextField.getText());
+          break;
+        case DVD:
+          ResourceManager.updateDvd(library, selectedResource.getResourceId(),
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+          break;
+        case LAPTOP:
+          ResourceManager
+              .updateLaptop(library, selectedResource.getResourceId(),
+                  titleTextField.getText(),
+                  Integer.parseInt(yearTextField.getText()), null,
+                  manufacturerTextField.getText(), modelTextField.getText(),
+                  operatingSystemTextField.getText());
+          break;
+        default:
+          break;
+      }
 
+      AlertHelper.alert(AlertType.INFORMATION, "Successfully updated");
+      back();
+    } catch (NumberFormatException e) {
+      AlertHelper.alert(AlertType.ERROR, e.getMessage());
+    }
   }
 
+  /**
+   * Shows copies available for a resource.
+   */
   public void showCopies() {
+    ResourceCopiesController newController = (ResourceCopiesController) SceneHelper
+        .setUpScene(this, "ResourceCopies");
 
+    newController.setSelectedResource(selectedResource);
+    newController.refresh();
   }
 
+  /**
+   * The method creates the window with selecting the image to set as a profile
+   * Called from pressing a buttom chooseFileImg, accepts only png format.
+   */
+  public void chooseImage() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters()
+        .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+    File file = fileChooser.showOpenDialog(getPrimaryStage());
+    if (file != null) {
+      try {
+        File currProfImg = new File(
+            FileSystemHelper.getResourcePicturePath(selectedResource));
+        BufferedImage tempImg = ImageIO.read(file);
+        ImageIO.write(tempImg, "png", currProfImg);
+      } catch (IOException e) {
+        AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
+      }
+
+      AlertHelper.alert(
+          AlertType.INFORMATION,
+          "Resource image set successfully."
+      );
+      resourceImageView.setImage(
+          ResourceHelper.getResourceImage(selectedResource)
+      );
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
@@ -157,9 +335,7 @@ public class ResourceCrudController extends BaseFxmlController {
     return selectedResource;
   }
 
-  public void setSelectedResource(
-      Resource selectedResource
-  ) {
+  public void setSelectedResource(Resource selectedResource) {
     this.selectedResource = selectedResource;
   }
 

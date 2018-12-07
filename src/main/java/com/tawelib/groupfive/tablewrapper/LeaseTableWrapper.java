@@ -1,41 +1,160 @@
 package com.tawelib.groupfive.tablewrapper;
 
-import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Lease;
-import java.util.Date;
+import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.entity.ResourceType;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * This class wraps information about Copies that is shown in an FXML table.
  */
 public class LeaseTableWrapper {
 
+  /**
+   * Instantiates a new Lease table wrapper, while storing what the parameter's
+   * class type is.
+   *
+   * @param lease the lease
+   */
   public LeaseTableWrapper(Lease lease) {
     this.lease = lease;
+    this.argument = lease.getClass().getSimpleName();
+  }
+
+  /**
+   * Instantiates a new Lease table wrapper, while storing what the parameter's
+   * class type is.
+   *
+   * @param request the request
+   */
+  public LeaseTableWrapper(Request request) {
+    this.request = request;
+    this.argument = request.getClass().getSimpleName();
   }
 
   private Lease lease;
 
-  public Copy getCopy() {
-    return lease.getBorrowedCopy();
-  }
+  private Request request;
 
+  private String argument;
+
+  /**
+   * Gets resource id.
+   *
+   * @return the resource id
+   */
   public String getResourceId() {
-    return lease.getBorrowedCopy().getResource().getResourceId();
+    switch (argument) {
+      case "Lease": {
+        return lease.getBorrowedCopy().getResource().getResourceId();
+      }
+      case "Request": {
+        return request.getRequestedResource().getResourceId();
+      }
+      default: {
+        return "";
+      }
+    }
   }
 
+  /**
+   * Gets copy id.
+   *
+   * @return the copy id
+   */
   public String getCopyId() {
-    return lease.getBorrowedCopy().getId();
+    switch (argument) {
+      case "Lease": {
+        return lease.getBorrowedCopy().getId();
+      }
+      default: {
+        return "";
+      }
+    }
   }
 
+  /**
+   * Gets title.
+   *
+   * @return the title
+   */
   public String getTitle() {
-    return lease.getBorrowedCopy().getResource().getTitle();
+    switch (argument) {
+      case "Lease": {
+        return lease.getBorrowedCopy().getResource().getTitle();
+      }
+      case "Request": {
+        return request.getRequestedResource().getTitle();
+      }
+      default: {
+        return "";
+      }
+    }
   }
 
-  public Date getDueDate() {
-    return lease.getDueDate();
+  /**
+   * Gets due date.
+   *
+   * @return the due date
+   */
+  public LocalDateTime getDueDate() {
+    switch (argument) {
+      case "Lease": {
+        return lease.getDueDate();
+      }
+      default: {
+        return null;
+      }
+    }
   }
 
+  public LocalDateTime getLeaseDate() {
+    return lease.getDateLeased();
+  }
+
+  public LocalDateTime getReturnDate() {
+    return lease.getDateReturned();
+  }
+
+  /**
+   * Gets status.
+   *
+   * @return the status
+   */
   public String getStatus() {
-    return lease.getBorrowedCopy().getStatus().toString();
+    switch (argument) {
+      case "Lease": {
+        if (lease.getBorrowedCopy().getStatus().equals(CopyStatus.AVAILABLE)) {
+          return "RETURNED";
+        } else {
+          return lease.getBorrowedCopy().getStatus().toString();
+        }
+      }
+      case "Request": {
+        return request.getStatus().toString();
+      }
+      default: {
+        return "";
+      }
+    }
+
+
+  }
+
+  public ResourceType getType() {
+    return lease.getBorrowedCopy().getResource().getType();
+  }
+
+  public String getUsername() {
+    return lease.getBorrowingCustomer().getUsername();
+  }
+
+  public String getArgument() {
+    return argument;
   }
 }

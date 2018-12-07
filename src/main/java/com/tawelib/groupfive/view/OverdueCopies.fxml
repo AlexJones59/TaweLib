@@ -17,12 +17,11 @@
     <center>
         <TableView fx:id="tblOverdueCopies" prefHeight="259.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="usernameColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Username" />
-                <TableColumn fx:id="titleColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Title" />
-                <TableColumn fx:id="idColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Copy ID" />
+                <TableColumn fx:id="usernameColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="120.0" text="Username" />
+                <TableColumn fx:id="titleColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="110.0" text="Title" />
+                <TableColumn fx:id="copyIdColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="70.0" text="Copy ID" />
                 <TableColumn fx:id="typeColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Type" />
-                <TableColumn fx:id="dateColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Date" />
-                <TableColumn fx:id="fineColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Fine Amount" />
+                <TableColumn fx:id="dateColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="121.0" text="Due Date" />
             </columns>
         </TableView>
     </center>
@@ -35,7 +34,7 @@
                         <Font size="25.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txtSearchQuery" layoutX="160.0" layoutY="100.0" prefWidth="200.0" />
+                <TextField fx:id="txtSearchQuery" layoutX="160.0" layoutY="100.0" onAction="#search" prefWidth="200.0" />
                 <Label fx:id="lblSearch" layoutX="70.0" layoutY="100.0" text="Search:">
                     <font>
                         <Font size="20.0" />

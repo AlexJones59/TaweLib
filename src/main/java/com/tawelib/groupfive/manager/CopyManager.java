@@ -1,4 +1,6 @@
-package com.tawelib.groupfive.controller;
+package com.tawelib.groupfive.manager;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
@@ -11,23 +13,16 @@ import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 /**
- * File Name - CopyController.java The CopyController class controls data flow
- * between the Copy Repository and the GUI interfaces.
+ * File Name - CopyManager.java The CopyManager class controls data flow between
+ * the Copy Repository and the GUI interfaces.
  *
  * @author Nayeem Mohammed, Shree Desai
  * @version 0.2
  */
-public class CopyController {
-
-
-  /**
-   * The constant DAYTOMILLISECONDS.
-   */
-  public static final int DAYTOMILLISECONDS = 86400000;
+public class CopyManager {
 
   /**
    * Create resource copy.
@@ -36,8 +31,8 @@ public class CopyController {
    * @param resource the resource
    * @param amount the amount
    */
-  public void createResourceCopy(Library library, Resource resource,
-                                 int amount) {
+  public static void createResourceCopy(Library library, Resource resource,
+      int amount) {
     for (int i = 1; i <= amount; i++) {
       library.getCopyRepository().add(new Copy(resource));
     }
@@ -51,7 +46,7 @@ public class CopyController {
    * @param copyId the copy id
    * @param customerUsername the customer username
    */
-  public void borrowResourceCopy(Library library, String copyId,
+  public static void borrowResourceCopy(Library library, String copyId,
       String customerUsername) {
     //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
@@ -59,8 +54,8 @@ public class CopyController {
         .setStatus(CopyStatus.BORROWED);
 
     //Sets customer as Borrowing Customer.
-    Customer borrowingCustomer =
-        library.getCustomerRepository().getSpecific(customerUsername);
+    Customer borrowingCustomer = library.getCustomerRepository()
+        .getSpecific(customerUsername);
     library.getCopyRepository().getSpecific(copyId)
         .setBorrowingCustomer(borrowingCustomer);
 
@@ -74,8 +69,7 @@ public class CopyController {
    * @param library the library
    * @param copyId the copy id
    */
-  public void returnResourceCopy(Library library, String copyId) {
-    Date dateReturned = new Date();
+  public static void returnResourceCopy(Library library, String copyId) {
     Copy returnedCopy = library.getCopyRepository().getSpecific(copyId);
 
     //Sets date returned in Lease.
@@ -87,12 +81,13 @@ public class CopyController {
 
     /* Creates Fine if book is returned late, and decrease account balance of
        customer by fine amount.*/
-    if (currentLease.getDueDate().before(dateReturned)) {
+    if (currentLease.getDueDate().isBefore(
+        library.getLeaseRepository().getCopyCurrentLease(returnedCopy)
+            .getDateReturned())) {
       int amount = generateFineAmount(currentLease);
       Fine newFine = new Fine(currentLease, amount);
       library.getFineRepository().add(newFine);
-      Customer returningCustomer = currentLease
-          .getBorrowingCustomer();
+      Customer returningCustomer = currentLease.getBorrowingCustomer();
       library.getCustomerRepository()
           .getSpecific(returningCustomer.getUsername())
           .decreaseAccountBalance(newFine.getAmount());
@@ -127,27 +122,67 @@ public class CopyController {
     }
   }
 
+
   /**
    * Pick up reserved Copy.
    *
    * @param library the library
-   * @param copyId the copy id
+   * @param resourceId resourceId
    * @param customerUsername the customer username
    */
-  public void pickUpReservedCopy(Library library, String copyId,
+  public static void pickUpReservedCopy(Library library, String resourceId,
       String customerUsername) {
+    Resource reservedResource = library.getResourceRepository()
+        .getSpecific(resourceId);
+
+    Customer customer = library.getCustomerRepository()
+        .getSpecific(customerUsername);
+
+    Copy reservedCopy = library.getCopyRepository()
+        .getSpecificReserved(customer, reservedResource);
 
     //Sets Copy to Borrowed
-    Copy reservedCopy = library.getCopyRepository().getSpecific(copyId);
-    library.getCopyRepository().getSpecific(copyId)
+
+    library.getCopyRepository().getSpecific(reservedCopy.getId())
         .setStatus(CopyStatus.BORROWED);
 
-    Customer customer =
-        library.getCustomerRepository().getSpecific(customerUsername);
-    library.getRequestRepository().getSpecificReserved(customer,
-        reservedCopy.getResource()).setStatus(RequestStatus.CLOSED);
+    library.getRequestRepository()
+        .getSpecificReserved(customer, reservedCopy.getResource())
+        .setStatus(RequestStatus.CLOSED);
 
     createLease(library, customer, reservedCopy);
+  }
+
+  /**
+   * Deals with lost copies.
+   *
+   * @param library library
+   * @param copyId lost copy ID
+   */
+
+  public static void lostCopy(Library library, String copyId) {
+    //Gets Copy
+    Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
+    Lease currentLease = library.getLeaseRepository()
+        .getCopyCurrentLease(lostCopy);
+
+    //Sets  date returned.
+    library.getLeaseRepository().getCopyCurrentLease(lostCopy)
+        .setDateReturned();
+
+    /* Creates Fine with max fine amount, and decreases it from Customer's
+    account */
+    int amount = (lostCopy.getResource().getType().getMaxFine()) * 100;
+    Fine newFine = new Fine(currentLease, amount);
+    library.getFineRepository().add(newFine);
+    library.getCustomerRepository()
+        .getSpecific(currentLease.getBorrowingCustomer().getUsername())
+        .decreaseAccountBalance(newFine.getAmount());
+
+    //Sets Copy as Lost.
+    library.getCopyRepository()
+        .getSpecific(currentLease.getBorrowedCopy().getId())
+        .setStatus(CopyStatus.LOST);
   }
 
   /**
@@ -155,13 +190,16 @@ public class CopyController {
    *
    * @param newLease new lease
    */
-  private static void generateDueDate(Lease newLease) {
-    ResourceType resourceType =
-        newLease.getBorrowedCopy().getResource().getType();
-    long dueDateMilli = newLease.getDateLeased().getTime()
-        + ((resourceType.getLoanDuration()) * DAYTOMILLISECONDS);
-    Date dueDate = new Date(dueDateMilli);
-    newLease.setDueDate(dueDate);
+  public static void generateDueDate(Lease newLease) {
+    ResourceType resourceType = newLease.getBorrowedCopy().getResource()
+        .getType();
+    LocalDateTime dueDate = newLease.getDateLeased()
+        .plusDays(resourceType.getLoanDuration());
+    if (dueDate.isAfter(LocalDateTime.now())) {
+      newLease.setDueDate(dueDate);
+    } else {
+      newLease.setDueDate((LocalDateTime.now()).plusDays(1));
+    }
 
   }
 
@@ -171,13 +209,14 @@ public class CopyController {
    * @param lease lease
    * @return fine amount
    */
-  private static int generateFineAmount(Lease lease) {
+  public static int generateFineAmount(Lease lease) {
     ResourceType resourceType = lease.getBorrowedCopy().getResource().getType();
-    int amount = (resourceType.getFine()) * (getDaysOverdue(lease));
-    if (amount <= resourceType.getMaxFine()) {
+    int amount = ((resourceType.getFine()) * (getDaysOverdue(lease)) * 100);
+    if (amount <= (resourceType.getMaxFine() * 100)) {
       return amount;
     } else {
-      return resourceType.getMaxFine();
+      amount = resourceType.getMaxFine() * 100;
+      return amount;
     }
   }
 
@@ -186,16 +225,12 @@ public class CopyController {
    *
    * @param lease lease
    */
-  private static int getDaysOverdue(Lease lease) {
-    long diffInMilli =
-        lease.getDueDate().getTime() - lease.getDateReturned().getTime();
+  public static int getDaysOverdue(Lease lease) {
 
-    if (diffInMilli > 84600 * 1000) {
-      return (int) ((((diffInMilli / 1000) / 60) / 60) / 24);
-    } else {
-      return 0;
-    }
+    long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
+    return (int) diff;
   }
+
 
   /**
    * Creates lease while checking to see if due date needs to be added.

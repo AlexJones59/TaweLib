@@ -39,6 +39,9 @@ public class BrowseResourcesController extends BaseFxmlController {
   private Button btnInfo;
 
   @FXML
+  private Button createNewButton;
+
+  @FXML
   private ComboBox<ResourceType> cmbResourceType;
 
   private ResourceType[] resourceTypes = {
@@ -94,6 +97,8 @@ public class BrowseResourcesController extends BaseFxmlController {
     setTableContents(
         library.getResourceRepository().getAll()
     );
+
+    createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
   /**
@@ -150,17 +155,28 @@ public class BrowseResourcesController extends BaseFxmlController {
    */
   public void resourceInformation() {
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
-      ResourceCrudController newController =
-          (ResourceCrudController) SceneHelper.setUpScene(
-              this,
-              "ResourceCrud");
+      setUpResourceCrud(CrudAction.UPDATE);
+    }
+  }
 
+  public void createNew() {
+    setUpResourceCrud(CrudAction.CREATE);
+  }
+
+  private void setUpResourceCrud(CrudAction crudAction) {
+    ResourceCrudController newController =
+        (ResourceCrudController) SceneHelper.setUpScene(
+            this,
+            "ResourceCrud");
+
+    if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
       newController.setSelectedResource(
           tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
               .getResource()
       );
-      newController.setCrudAction(CrudAction.UPDATE);
-      newController.refresh();
     }
+
+    newController.setCrudAction(crudAction);
+    newController.refresh();
   }
 }

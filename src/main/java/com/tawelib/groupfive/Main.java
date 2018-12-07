@@ -18,8 +18,8 @@ public class Main {
 
   /**
    * This method checks whether the application is activated. In case it is,
-   * it launches the Tawe-Lib application. In case it is not, it launches
-   * the activation tool.
+   * it launches the Tawe-Lib application. In case it is not, it announces
+   * the fact and terminates.
    *
    * @param args Arguments
    */
@@ -27,8 +27,7 @@ public class Main {
     if (ActivationHelper.isActivated()) {
       Library.main(args);
     } else {
-      //TODO: launch the activation tool
-      System.out.println("TODO: launch the activation tool");
+      Library.launchAnnounce("Software is not activated.");
     }
   }
 }

@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.UserInformationController">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.UserInformationController">
     <center>
-        <Pane fx:id="btnBorrow" prefHeight="200.0" prefWidth="200.0">
+        <Pane prefHeight="200.0" prefWidth="200.0">
             <children>
                 <Label fx:id="lblFirstName" layoutX="209.0" layoutY="39.0" text="First Name:" />
                 <Label fx:id="lblLastName" layoutX="209.0" layoutY="60.0" text="Last Name:" />
@@ -38,10 +34,12 @@
                 <TextField fx:id="addressTextField" editable="false" layoutX="293.0" layoutY="100.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
                 <TextField fx:id="balanceTextField" editable="false" layoutX="293.0" layoutY="120.0" maxHeight="-Infinity" prefHeight="20.0" prefWidth="200.0" />
                 <Button fx:id="btnManageBalance" layoutX="48.0" layoutY="399.0" mnemonicParsing="false" onAction="#manageBalance" text="Manage Balance" />
-                <Button fx:id="tbnBorrow" layoutX="207.0" layoutY="399.0" mnemonicParsing="false" onAction="#borrowNewResource" text="Borrow New Resource" />
-                <Button fx:id="btnEditUserInfo" layoutX="403.0" layoutY="399.0" mnemonicParsing="false" onAction="#editUserInfo" text="Edit User Info" />
-                <Button fx:id="btnReturn" layoutX="546.0" layoutY="399.0" mnemonicParsing="false" onAction="#returnCopy" text="Return Copy" />
+                <Button fx:id="btnBorrow" layoutX="48.0" layoutY="460.0" mnemonicParsing="false" onAction="#borrowNewResource" text="Borrow New Resource" />
+                <Button fx:id="btnEditUserInfo" layoutX="191.0" layoutY="399.0" mnemonicParsing="false" onAction="#editUserInfo" text="Edit User Info" />
+                <Button fx:id="returnCopyButton" layoutX="230.0" layoutY="460.0" mnemonicParsing="false" onAction="#returnCopy" text="Return Copy" />
             <ImageView fx:id="userProfileImageView" fitHeight="118.0" fitWidth="159.0" layoutX="40.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="btnPickUpReserved" layoutX="493.0" layoutY="460.0" mnemonicParsing="false" onAction="#pickUpReserved" text="Pick Up Reserved Resource" />
+            <Button fx:id="declareLostButton" layoutX="366.0" layoutY="460.0" mnemonicParsing="false" onAction="#declareLost" text="Declare Lost" />
             </children>
         </Pane>
     </center>

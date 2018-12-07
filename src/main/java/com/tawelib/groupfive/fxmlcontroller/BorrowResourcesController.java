@@ -1,0 +1,78 @@
+package com.tawelib.groupfive.fxmlcontroller;
+
+import com.tawelib.groupfive.entity.Copy;
+import com.tawelib.groupfive.entity.CopyStatus;
+import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.manager.CopyManager;
+import com.tawelib.groupfive.util.AlertHelper;
+import com.tawelib.groupfive.util.SceneHelper;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+/**
+ * Allows Librarians to let loan resources to customers that have above minimum
+ * account balance.
+ *
+ * @author Nayeem
+ * @version 0.1
+ */
+public class BorrowResourcesController extends BaseFxmlController {
+
+  @FXML
+  private Button btnCancel;
+
+  @FXML
+  private Label lblScreenTitle;
+
+  @FXML
+  private Button btnBorrow;
+
+  @FXML
+  private TextField txtResourceCopyId;
+
+  @FXML
+  private Label lblResourceId;
+
+  private Customer selectedCustomer = (Customer) BaseFxmlController.selectedUser;
+
+  /**
+   * Checks whether user can borrow a resource and then lets them borrow
+   * specified resource.
+   */
+  public void borrow() {
+    if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
+        != null) {
+
+      if (selectedCustomer.getAccountBalance() >= 0) {
+        if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
+            .getStatus().equals(CopyStatus.AVAILABLE)) {
+          CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(),
+              selectedCustomer.getUsername());
+          AlertHelper.alert(AlertType.INFORMATION,
+              "Borrowed.");
+          SceneHelper.setUpScene(this, "UserInformation");
+        } else {
+          AlertHelper.alert(AlertType.ERROR,
+              "This copy is not available to " + "borrow.");
+          SceneHelper.setUpScene(this, "UserInformation");
+        }
+      } else {
+        AlertHelper
+            .alert(AlertType.ERROR, "Your balance is below the minimum.");
+        SceneHelper.setUpScene(this, "UserInformation");
+      }
+
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "Copy ID is no valid.");
+    }
+  }
+
+
+  public void cancel() {
+    SceneHelper.setUpScene(this, "UserInformation");
+  }
+
+}

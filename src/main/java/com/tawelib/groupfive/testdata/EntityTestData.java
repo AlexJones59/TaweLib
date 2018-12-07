@@ -4,17 +4,20 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.entity.RequestStatus;
+import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
-
+import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class EntityTestData {
 
@@ -26,7 +29,8 @@ public class EntityTestData {
   public static void populateLibrary(Library library) {
     LibrarianRepository librarianRepository = library.getLibrarianRepository();
     CustomerRepository customerRepository = library.getCustomerRepository();
-
+    //[LIBRARIAN]
+    // ---------------------------------------------------------------------------------------------
     librarianRepository.add(
         new Librarian(
             "System",
@@ -36,7 +40,7 @@ public class EntityTestData {
             "The street",
             "Swansea",
             "SA28PJ",
-            new Date()
+            LocalDateTime.now()
         )
     );
 
@@ -49,9 +53,11 @@ public class EntityTestData {
             "The better street",
             "Cardiff",
             "SA1 4LL",
-            new Date()
+            LocalDateTime.now()
         )
     );
+    //[CUSTOMER]
+    // ---------------------------------------------------------------------------------------------
     customerRepository.add(
         new Customer(
             "Nice",
@@ -76,8 +82,10 @@ public class EntityTestData {
         )
     );
 
+    // [BOOK]
+    // ---------------------------------------------------------------------------------------------
     Book book = new Book(
-        "The tiTTle",
+        "Book1",
         2010,
         null,
         "Theeee Author",
@@ -102,12 +110,15 @@ public class EntityTestData {
 
     library.getResourceRepository().add(book1);
 
+    // [DVD]
+    // ---------------------------------------------------------------------------------------------
+
     ArrayList<String> l1 = new ArrayList<>();
 
-    l1.add("Englih");
+    l1.add("English");
 
     Dvd dvd = new Dvd(
-        "DVDdddD",
+        "DVD1",
         2018,
         null,
         "Director",
@@ -124,8 +135,7 @@ public class EntityTestData {
 
     ArrayList<String> l3 = new ArrayList<>();
 
-    l3.add("Engrish");
-
+    l3.add("English");
 
     Dvd dvd1 = new Dvd(
         "Intersteller",
@@ -138,6 +148,9 @@ public class EntityTestData {
     );
 
     library.getResourceRepository().add(dvd1);
+
+    // [LAPTOP]
+    // ---------------------------------------------------------------------------------------------
 
     Laptop laptop = new Laptop(
         "New Laptop",
@@ -161,23 +174,82 @@ public class EntityTestData {
 
     library.getResourceRepository().add(laptop1);
 
-    //Creates lease after creating copy of book
+    // [COPY]
+    // ---------------------------------------------------------------------------------------------
+
     Copy copy = new Copy(book);
     library.getCopyRepository().add(copy);
 
-    Lease lease = new Lease(
-        library.getCustomerRepository().getAll().get(0),
-        copy
-    );
-    lease.setDueDate(new Date());
-    library.getLeaseRepository().add(lease);
+    Copy copy2 = new Copy(dvd);
+    library.getCopyRepository().add(copy2);
 
-    //Creates request
+    Copy copy3 = new Copy(laptop);
+    library.getCopyRepository().add(copy3);
+
+    // [LEASE]
+    // ---------------------------------------------------------------------------------------------
+
+    //    Lease lease = new Lease(
+    //        library.getCustomerRepository().getSpecific("nice.customer"),
+    //        copy
+    //    );
+    //    lease.dev_setDateLeased(LocalDateTime.of(2018, 11, 5, 12, 0));
+    //    lease.setDueDate(LocalDateTime.of(2018, 11, 15, 12, 0));
+    //    lease.dev_setDateReturned(LocalDateTime.of(2018, 12, 5, 12, 0));
+    //    library.getLeaseRepository().add(lease);
+
+    CopyManager.borrowResourceCopy(
+        library,
+        copy.getId(),
+        "nice.customer"
+    );
+
+    try {
+      //Sets date Leased
+      Field dateLeased =
+          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dateLeased");
+      dateLeased.setAccessible(true);
+      dateLeased.set(library.getLeaseRepository().getAll().get(0),
+          LocalDateTime.of(2018, 12, 5, 12, 0));
+      dateLeased.setAccessible(false);
+
+      //Sets due Date
+      Field dueDate =
+          library.getLeaseRepository().getAll().get(0).getClass().getDeclaredField("dueDate");
+      dueDate.setAccessible(true);
+      dueDate.set(library.getLeaseRepository().getAll().get(0),
+          LocalDateTime.of(2018, 12, 5, 12, 0));
+      dueDate.setAccessible(false);
+
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    }
+
+
+    CopyManager.borrowResourceCopy(
+        library,
+        copy2.getId(),
+        "nice.customer"
+    );
+
+    // [REQUEST]
+    // ---------------------------------------------------------------------------------------------
+
     Request newRequest = new Request(
-        library.getCustomerRepository().getAll().get(0),
-        book1
+        library.getCustomerRepository().getAll().get(1),
+        book
     );
 
     library.getRequestRepository().add(newRequest);
+
+    //Returns copy so we can checkout reserved
+    //CopyManager.returnResourceCopy(library, copy.getId());
+
+    Request newRequest2 = new Request(
+        library.getCustomerRepository().getAll().get(0),
+        dvd1
+    );
+    library.getRequestRepository().add(newRequest2);
+
   }
 }
