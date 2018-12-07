@@ -3,11 +3,10 @@ package com.tawelib.groupfive.entity;
 import javafx.scene.image.Image;
 
 /**
- * File name: Book.java Book class saves all  info pertaining to a book
- * resource.
+ * Book.java Book class saves all  info pertaining to a book resource.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Book extends Resource {
 
@@ -20,13 +19,13 @@ public class Book extends Resource {
   /**
    * Instantiates a new Book.
    *
-   * @param title          the title
-   * @param year           the year
+   * @param title the title
+   * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param author         the author
-   * @param publisher      the publisher
-   * @param genre          the genre
-   * @param language       the languag
+   * @param author the author
+   * @param publisher the publisher
+   * @param genre the genre
+   * @param language the language
    */
   public Book(String title, int year, Image thumbnailImage,
       String author, String publisher, String genre, String isbn,
@@ -94,9 +93,9 @@ public class Book extends Resource {
   }
 
   /**
-   * Gets isbn.
+   * Gets ISBN.
    *
-   * @return the isbn
+   * @return the ISBN
    */
   public String getIsbn() {
     return isbn;
