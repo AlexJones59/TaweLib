@@ -3,7 +3,7 @@ package com.tawelib.groupfive.entity;
 import java.io.Serializable;
 
 /**
- * CopyStatus.java The enum Copy status which is used by the Copy Class.
+ * Enum CopyStatus The enum Copy status which is used by the Copy Class.
  *
  * @author Shree Desai
  * @version 1.0
