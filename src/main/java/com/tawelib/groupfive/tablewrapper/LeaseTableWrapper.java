@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.tablewrapper;
 
+import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.ResourceType;
@@ -128,7 +129,7 @@ public class LeaseTableWrapper {
   public String getStatus() {
     switch (argument) {
       case "Lease": {
-        if (lease.getDateReturned() != null) {
+        if (lease.getBorrowedCopy().getStatus().equals(CopyStatus.AVAILABLE)) {
           return "RETURNED";
         } else {
           return lease.getBorrowedCopy().getStatus().toString();

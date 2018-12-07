@@ -70,7 +70,6 @@ public class CopyManager {
    * @param copyId the copy id
    */
   public static void returnResourceCopy(Library library, String copyId) {
-    LocalDateTime dateReturned = LocalDateTime.now();
     Copy returnedCopy = library.getCopyRepository().getSpecific(copyId);
 
     //Sets date returned in Lease.
@@ -82,7 +81,9 @@ public class CopyManager {
 
     /* Creates Fine if book is returned late, and decrease account balance of
        customer by fine amount.*/
-    if (currentLease.getDueDate().isBefore(dateReturned)) {
+    if (currentLease.getDueDate().isBefore(
+        library.getLeaseRepository().getCopyCurrentLease(returnedCopy)
+            .getDateReturned())) {
       int amount = generateFineAmount(currentLease);
       Fine newFine = new Fine(currentLease, amount);
       library.getFineRepository().add(newFine);
@@ -165,9 +166,13 @@ public class CopyManager {
     Lease currentLease = library.getLeaseRepository()
         .getCopyCurrentLease(lostCopy);
 
+    //Sets  date returned.
+    library.getLeaseRepository().getCopyCurrentLease(lostCopy)
+        .setDateReturned();
+
     /* Creates Fine with max fine amount, and decreases it from Customer's
     account */
-    int amount = lostCopy.getResource().getType().getMaxFine();
+    int amount = (lostCopy.getResource().getType().getMaxFine()) * 100;
     Fine newFine = new Fine(currentLease, amount);
     library.getFineRepository().add(newFine);
     library.getCustomerRepository()
