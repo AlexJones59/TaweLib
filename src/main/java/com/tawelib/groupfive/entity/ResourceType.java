@@ -3,11 +3,10 @@ package com.tawelib.groupfive.entity;
 import java.io.Serializable;
 
 /**
- * ResourceType is an Enum to differentiate between different types of
- * resources.
+ * Enum ResourceType Enum to differentiate between different types of resources.
  *
  * @author Shree Desai
- * @version 0.1
+ * @version 1.0
  */
 public enum ResourceType implements Serializable {
   /**
