@@ -1,11 +1,10 @@
 package com.tawelib.groupfive.entity;
 
 /**
- * File Name: Customer.java Customer class stores personal information for the
- * Customer account.
+ * Customer.java Customer class stores personal information for the Customer account.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Customer extends User {
 
@@ -38,12 +37,17 @@ public class Customer extends User {
     return accountBalance;
   }
 
+  /**
+   * Changes the format of the account balance into pounds.
+   *
+   * @return the account balance in pounds
+   */
   public double getAccountBalanceInPounds() {
     return ((double) accountBalance) / 100;
   }
 
   /**
-   * Increase account balance.
+   * Increases account balance by 'amount'.
    *
    * @param amount increments to account balance
    */
@@ -52,9 +56,9 @@ public class Customer extends User {
   }
 
   /**
-   * Decrease account balance.
+   * Decreases account balance by amount.
    *
-   * @param amount increments to account balance
+   * @param amount decrements to account balance
    */
   public void decreaseAccountBalance(int amount) {
     this.accountBalance -= Math.abs(amount);
