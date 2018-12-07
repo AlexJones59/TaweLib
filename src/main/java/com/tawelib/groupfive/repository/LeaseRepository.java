@@ -4,15 +4,14 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
-import com.tawelib.groupfive.entity.Resource;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
- * File Name - LeaseRepository.java The Lease repository class handles lease details.
+ * File Name - LeaseRepository.java The Lease repository class handles lease
+ * details.
  *
  * @author Created by Themis, Modified by Shree Desai
  * @version 0.6
@@ -91,7 +90,6 @@ public class LeaseRepository implements BaseRepository<Lease> {
    *
    * @param customer the customer
    * @return the customer current leases
-   *
    */
 
   public List<Lease> getCustomerCurrentLeases(Customer customer) {
@@ -142,10 +140,31 @@ public class LeaseRepository implements BaseRepository<Lease> {
   }
 
   /**
+   * Gets overdue leases.
+   *
+   * @return the overdue leases
+   */
+  public List<Lease> searchOverdueLeases(String query) {
+    ArrayList<Lease> result = new ArrayList<>();
+
+    for (Lease lease : getOverdueLeases()) {
+      if (query.isEmpty()
+          || lease.getBorrowingCustomer().getUsername().contains(query)
+          || lease.getBorrowedCopy().getId().contains(query)
+          || lease.getBorrowedCopy().getResource().getTitle()
+          .contains(query)
+      ) {
+        result.add(lease);
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Generates a unique id for the request.
    *
    * @param lease lease
-   *
    * @deprecated Use reference.
    */
   @Deprecated

@@ -67,7 +67,10 @@ public class OverdueCopiesController extends BaseFxmlController {
       tblOverdueCopies.getItems().clear();
     }
 
-    for (Lease overdueLease : library.getLeaseRepository().getOverdueLeases()) {
+    for (Lease overdueLease
+        : library.getLeaseRepository()
+        .searchOverdueLeases(txtSearchQuery.getText())
+    ) {
       tblOverdueCopies.getItems().add(
           new LeaseTableWrapper(overdueLease)
       );
@@ -79,6 +82,6 @@ public class OverdueCopiesController extends BaseFxmlController {
   }
 
   public void search() {
-
+    refresh();
   }
 }
