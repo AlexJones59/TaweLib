@@ -26,7 +26,7 @@ public class ToolChoice {
   private Button chooseOval = new Button("Oval");
   private Button choosePoint = new Button("Point");
   private TextField sizeInput = new TextField("5");
-  private Button chooseSize = new Button("Choose");
+  private Button chooseSize = new Button("Confirm");
   private Button isFilled = new Button("Fill");
   double size = 5;
 
