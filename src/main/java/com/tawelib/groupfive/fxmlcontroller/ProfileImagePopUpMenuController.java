@@ -63,10 +63,18 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
             BufferedImage bufferedImage = SwingFXUtils
                 .fromFXImage(((ImageView) evt.getSource()).getImage(), null);
             ImageIO.write(bufferedImage, "png", file);
+
+            AlertHelper.alert(
+                AlertType.INFORMATION,
+                "Profile image set successfully."
+            );
+            back();
           } catch (IOException e) {
-            System.out.println("File not found");
+            AlertHelper.alert(
+                AlertType.ERROR,
+                "Error setting image."
+            );
           }
-          back();
         });
       }
     }
@@ -113,6 +121,8 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
           AlertType.INFORMATION,
           "Profile image set successfully."
       );
+
+      back();
     }
   }
 }
