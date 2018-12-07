@@ -14,4 +14,5 @@ public class ExplosionHelper {
   public static String implode(ArrayList<String> strings) {
     return String.join(DELIMITER, strings);
   }
+
 }
