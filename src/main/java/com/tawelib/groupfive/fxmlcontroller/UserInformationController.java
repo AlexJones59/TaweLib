@@ -299,6 +299,9 @@ public class UserInformationController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Declares a copy as lost.
+   */
   public void declareLost() {
     String copyId = resourceTableView.getSelectionModel().getSelectedItem()
         .getCopyId();

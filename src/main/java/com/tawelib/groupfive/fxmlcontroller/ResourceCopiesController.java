@@ -162,11 +162,14 @@ public class ResourceCopiesController extends BaseFxmlController {
     this.selectedResource = selectedResource;
   }
 
+  /**
+   * Declares a copy as lost.
+   */
   public void declareLost() {
     CopiesTableWrapper copiesWrapper = copiesTableView.getSelectionModel()
         .getSelectedItem();
 
-    if (copiesWrapper != null){
+    if (copiesWrapper != null) {
       String copyId = copiesWrapper.getCopy().getId();
       AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
       CopyManager.lostCopy(library, copyId);
