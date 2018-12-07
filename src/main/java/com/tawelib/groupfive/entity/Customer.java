@@ -13,17 +13,17 @@ public class Customer extends User {
   /**
    * Instantiates a new Customer.
    *
-   * @param firstName   the first name
-   * @param lastName    the last name
+   * @param firstName the first name
+   * @param lastName the last name
    * @param phoneNumber the phone number
    * @param houseNumber the house number
-   * @param street      the street
-   * @param city        the city
-   * @param postCode    the post code
+   * @param street the street
+   * @param city the city
+   * @param postCode the post code
    */
   public Customer(String firstName, String lastName, String phoneNumber,
-                  String houseNumber, String street, String city,
-                  String postCode) {
+      String houseNumber, String street, String city,
+      String postCode) {
     super(firstName, lastName, phoneNumber, houseNumber, street, city,
         postCode);
   }

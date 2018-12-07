@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 /**
- * File name: Resource.java Dvd class saves all info pertaining to a Dvd.
+ * Dvd.java Dvd class saves all information pertaining to a Dvd.
  *
  * @author Shree Desai
- * @version 0.5
+ * @version 1.0
  */
 public class Dvd extends Resource {
 
@@ -26,7 +26,7 @@ public class Dvd extends Resource {
    * @param director the director
    * @param runtime the runtime
    * @param languages languages
-   * @param subtitleLanguages  subtitle languages
+   * @param subtitleLanguages subtitle languages
    */
   public Dvd(String title, int year, Image thumbnailImage,
       String director, int runtime, ArrayList<String> languages,
@@ -75,7 +75,7 @@ public class Dvd extends Resource {
   }
 
   /**
-   * Gets languages.
+   * Gets languages the dvd is available in.
    *
    * @return the languages
    */
@@ -84,7 +84,7 @@ public class Dvd extends Resource {
   }
 
   /**
-   * Adds languages.
+   * Adds languages that the dvd is available in.
    *
    * @param languages the languages
    */
