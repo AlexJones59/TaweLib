@@ -101,3 +101,4 @@ checkstyleTest {
 }
 
 mainClassName = 'com.tawelib.groupfive.Main'
+compileJava.options.encoding = 'UTF-8'
