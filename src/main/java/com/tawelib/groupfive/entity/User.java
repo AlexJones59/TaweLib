@@ -3,11 +3,11 @@ package com.tawelib.groupfive.entity;
 import java.io.Serializable;
 
 /**
- * File name: User.java User class stores personal information for the account
- * holder (either the Customer or Librarian).
+ * User.java User class stores personal information for the account holder (either a Customer or
+ * Librarian).
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class User implements Serializable {
 
@@ -20,16 +20,16 @@ public class User implements Serializable {
   /**
    * Creates an instance of the User class.
    *
-   * @param firstName   the first name
-   * @param lastName    the last name
+   * @param firstName the first name
+   * @param lastName the last name
    * @param phoneNumber the phone number
    * @param houseNumber the house number
-   * @param street      the street
-   * @param city        the city
-   * @param postCode    the post code
+   * @param street the street
+   * @param city the city
+   * @param postCode the post code
    */
   public User(String firstName, String lastName, String phoneNumber,
-              String houseNumber, String street, String city, String postCode) {
+      String houseNumber, String street, String city, String postCode) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;

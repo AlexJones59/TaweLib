@@ -5,12 +5,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * File Name - Transaction.java The ‘Transaction’ class is the class that
- * records every time a customer pays funds to the Library to change their
- * account balance.
+ * Transaction.java Records every time a customer pays funds to the Library to change their account
+ * balance.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Transaction implements Serializable {
 
@@ -22,7 +21,7 @@ public class Transaction implements Serializable {
    * Instantiates a new Transaction.
    *
    * @param amount the amount
-   * @param payee  the customer paying
+   * @param payee the customer paying
    */
   public Transaction(int amount, Customer payee) {
     this.amount = amount;
