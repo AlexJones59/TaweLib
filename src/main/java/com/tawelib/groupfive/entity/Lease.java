@@ -5,12 +5,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Lease.java The ‘Lease’ class is the class that stores the information about
- * every loan, linking the relevant instance of the ‘Customer’ class and
- * instance of the ‘Copy’ class.
+ * Lease.java Stores the information about every loan, linking the relevant customer and copy
+ * information.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Lease implements Serializable {
 
@@ -43,17 +42,6 @@ public class Lease implements Serializable {
   }
 
   /**
-   * Development method only.
-   *
-   * @param date Date.
-   */
-  public void dev_setDateLeased(LocalDateTime date) {
-    if (Main.DEV_MODE) {
-      dateLeased = date;
-    }
-  }
-
-  /**
    * Gets date returned.
    *
    * @return the date returned
@@ -67,17 +55,6 @@ public class Lease implements Serializable {
    */
   public void setDateReturned() {
     this.dateReturned = LocalDateTime.now();
-  }
-
-  /**
-   * Development method only.
-   *
-   * @param date Date.
-   */
-  public void dev_setDateReturned(LocalDateTime date) {
-    if (Main.DEV_MODE) {
-      dateReturned = date;
-    }
   }
 
   /**
@@ -98,7 +75,6 @@ public class Lease implements Serializable {
     this.dueDate = dueDate;
   }
 
-
   /**
    * Returns the borrowed copy.
    *
@@ -107,7 +83,6 @@ public class Lease implements Serializable {
   public Copy getBorrowedCopy() {
     return copy;
   }
-
 
   /**
    * Gets borrowing customer.

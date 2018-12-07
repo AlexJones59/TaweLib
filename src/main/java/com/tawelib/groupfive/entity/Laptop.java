@@ -3,11 +3,10 @@ package com.tawelib.groupfive.entity;
 import javafx.scene.image.Image;
 
 /**
- * File name: Laptop.java Laptop class saves all  info pertaining to a Laptop
- * resource.
+ * Laptop.java Laptop class saves all information pertaining to a Laptop.
  *
  * @author Shree Desai
- * @version 0.2
+ * @version 1.0
  */
 public class Laptop extends Resource {
 
