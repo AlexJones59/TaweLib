@@ -8,7 +8,8 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
- * Holds important runtime references and controls the GUI actions.
+ * Holds important runtime references and controls the GUI actions. This is the superclass for all
+ * of the screens in this system.
  *
  * @author Petr Hoffmann
  * @version 1.0

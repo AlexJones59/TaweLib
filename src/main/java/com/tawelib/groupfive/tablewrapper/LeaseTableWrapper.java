@@ -30,6 +30,7 @@ public class LeaseTableWrapper {
    * class type is.
    *
    * @param lease the lease
+   * @param selectedCustomer the selected customer
    */
   public LeaseTableWrapper(Lease lease, Customer selectedCustomer) {
     this.lease = lease;
