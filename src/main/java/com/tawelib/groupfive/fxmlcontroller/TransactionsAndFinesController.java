@@ -20,7 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * The type Transactions and fines controller.
  *
- * @author unknown
+ * @author Shree Desai
  * @version 1.0
  */
 public class TransactionsAndFinesController extends BaseFxmlController {

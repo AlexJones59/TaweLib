@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 /**
  * The type Browse resources controller.
  *
- * @author unknown
+ * @author Petr Hoffman, Nayeem Mohammed
  * @version 1.0
  */
 public class BrowseResourcesController extends BaseFxmlController {

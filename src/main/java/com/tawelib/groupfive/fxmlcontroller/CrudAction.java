@@ -1,12 +1,12 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import java.io.Serializable;
-//TODO author of this class
 
 /**
- * The enum Crud action.
+ * The enum Crud action is used to determine what the crud screens are being
+ * used for.
  *
- * @author unknown
+ * @author Petr Hoffman
  * @version 1.0
  */
 public enum CrudAction implements Serializable {

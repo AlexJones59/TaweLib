@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 /**
  * The type Profile image pop up menu controller.
  *
- * @author unknown
+ * @author Oskars Dervinis, Petr Hoffman
  * @version 1.0
  */
 public class ProfileImagePopUpMenuController extends BaseFxmlController {
@@ -76,16 +76,11 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
                 .fromFXImage(((ImageView) evt.getSource()).getImage(), null);
             ImageIO.write(bufferedImage, "png", file);
 
-            AlertHelper.alert(
-                AlertType.INFORMATION,
-                "Profile image set successfully."
-            );
+            AlertHelper.alert(AlertType.INFORMATION,
+                "Profile image set successfully.");
             back();
           } catch (IOException e) {
-            AlertHelper.alert(
-                AlertType.ERROR,
-                "Error setting image."
-            );
+            AlertHelper.alert(AlertType.ERROR, "Error setting image.");
           }
         });
       }
@@ -114,8 +109,8 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
   }
 
   /**
-   * The method creates the window with selecting the image to set as a profile Called from pressing
-   * a button chooseFileImg, accepts only png format.
+   * The method creates the window with selecting the image to set as a profile
+   * Called from pressing a button chooseFileImg, accepts only png format.
    */
   public void choosePicture() {
     FileChooser fileChooser = new FileChooser();
@@ -132,10 +127,8 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
         AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
       }
 
-      AlertHelper.alert(
-          AlertType.INFORMATION,
-          "Profile image set successfully."
-      );
+      AlertHelper
+          .alert(AlertType.INFORMATION, "Profile image set successfully.");
 
       back();
     }

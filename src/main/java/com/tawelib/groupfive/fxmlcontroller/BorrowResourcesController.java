@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 /**
  * Allows Librarians to let loan resources to customers that have above minimum account balance.
  *
- * @author Nayeem Mohammed, Shree Desai
+ * @author Shree Desai, Nayeem Mohammed
  * @version 1.0
  */
 public class BorrowResourcesController extends BaseFxmlController {
