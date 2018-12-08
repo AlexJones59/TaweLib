@@ -35,7 +35,7 @@ public class EntityTestData {
         new Librarian(
             "System",
             "Admin",
-            "Phone #",
+            "5751236485",
             "1",
             "The street",
             "Swansea",
@@ -46,9 +46,9 @@ public class EntityTestData {
 
     librarianRepository.add(
         new Librarian(
-            "happy",
-            "Admin",
-            "Phone # :D",
+            "Default",
+            "Librarian",
+            "6124856473",
             "2",
             "The better street",
             "Cardiff",
@@ -62,7 +62,7 @@ public class EntityTestData {
         new Customer(
             "Nice",
             "Customer",
-            "000000000",
+            "6321546875",
             "56",
             "Swansea Uni",
             "Swansea",
@@ -74,10 +74,10 @@ public class EntityTestData {
         new Customer(
             "Sombrero",
             "Customer",
-            "pon nombrero",
-            "uno",
+            "3211624486",
+            "55",
             "Some street",
-            "MEXICOOO",
+            "Mexico",
             "MX03 2UT"
         )
     );
@@ -85,14 +85,14 @@ public class EntityTestData {
     // [BOOK]
     // ---------------------------------------------------------------------------------------------
     Book book = new Book(
-        "Book1",
-        2010,
+        "The Hobbit",
+        1973,
         null,
-        "Theeee Author",
-        "Publisheeeer",
-        "Genreeeeeeeeeee",
-        "IZBNN",
-        "C#"
+        "J. R. R. Tolkien",
+        "Publisher",
+        "Fantasy",
+        "0-8020-9086-9",
+        "English"
     );
 
     library.getResourceRepository().add(book);
@@ -118,11 +118,11 @@ public class EntityTestData {
     l1.add("English");
 
     Dvd dvd = new Dvd(
-        "DVD1",
-        2018,
+        "The Prestige",
+        2006,
         null,
-        "Director",
-        60,
+        "Christopher Nolan",
+        195,
         l1,
         l1
     );
@@ -153,12 +153,12 @@ public class EntityTestData {
     // ---------------------------------------------------------------------------------------------
 
     Laptop laptop = new Laptop(
-        "New Laptop",
+        "The Beast",
         2016,
         null,
-        "Manufaturer",
-        "Model",
-        "installedOperatingSystem"
+        "Lenoto",
+        "X7",
+        "Ubuntu"
     );
 
     library.getResourceRepository().add(laptop);
@@ -168,8 +168,8 @@ public class EntityTestData {
         2018,
         null,
         "HP",
-        "HP 5000 ?",
-        "Windows (Better than Linux)"
+        "HP 5000",
+        "Windows"
     );
 
     library.getResourceRepository().add(laptop1);
