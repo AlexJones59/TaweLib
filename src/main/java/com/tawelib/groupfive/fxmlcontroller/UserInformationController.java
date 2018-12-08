@@ -24,7 +24,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 /**
- * The type User information controller.
+ * The type User information controller. Here a user can see the all the information linked to their
+ * account. This screen will let users edit their account information, borrow resources, manage
+ * balance, and other actions relating to their account.
  *
  * @author Shree Desai
  * @version 1.0

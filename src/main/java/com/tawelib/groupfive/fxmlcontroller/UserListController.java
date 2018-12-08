@@ -7,10 +7,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-//TODO get author
 
 /**
- * The type User list controller.
+ * The type User list controller. This brings up a list of all users of the system to librarians to
+ * allow them to search for and select a user to view more information about.
  *
  * @author Petr Hoffman
  * @version 1.0

@@ -17,10 +17,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-//TODO get author for this class
 
 /**
- * The type Resource copies controller.
+ * The type Resource copies controller. This lets a user see the all the information of a specific
+ * copy of a resource. They can see the total number of copies and the number of available copies
+ * for the resource. From here a user can declare a copy as lost, request to check it out, create
+ * another copy of the chosen resource, or view the history of a selected copy.
  *
  * @author Petr Hoffman
  * @version 1.0

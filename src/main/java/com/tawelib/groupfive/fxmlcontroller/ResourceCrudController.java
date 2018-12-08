@@ -26,10 +26,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
-//TODO get author
 
 /**
- * The type Resource crud controller.
+ * The type Resource crud controller. From here all different types of resources have a screen that
+ * can be viewed by the user in a neat format and is populated based on previous actions they
+ * have selected.
  *
  * @author Petr Hoffman
  * @version 1.0

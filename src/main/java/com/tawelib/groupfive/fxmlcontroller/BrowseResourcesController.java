@@ -17,7 +17,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-//TODO get author for this class
 
 /**
  * This controls the Browse Resource screen. This is used to search through the library's resources.
