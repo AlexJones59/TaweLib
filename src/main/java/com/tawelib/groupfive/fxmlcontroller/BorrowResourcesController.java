@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 /**
  * Allows Librarians to let loan resources to customers that have above minimum account balance.
  *
- * @author Nayeem Mohammed
+ * @author Nayeem Mohammed, Shree Desai
  * @version 1.0
  */
 public class BorrowResourcesController extends BaseFxmlController {
@@ -41,12 +41,15 @@ public class BorrowResourcesController extends BaseFxmlController {
    * then lets them borrow specified resource if allowed.
    */
   public void borrow() {
+    // Checks if Copy exists, or throws Error Alert.
     if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
         != null) {
-
+      // Checks if AccountBalance is in positive, else throws Error Alert.
       if (selectedCustomer.getAccountBalance() >= 0) {
+        //Checks if copy is available to be borrowed.
         if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
             .getStatus().equals(CopyStatus.AVAILABLE)) {
+          //Borrows copy.
           CopyManager.borrowResourceCopy(library, txtResourceCopyId.getText(),
               selectedCustomer.getUsername());
           AlertHelper.alert(AlertType.INFORMATION,

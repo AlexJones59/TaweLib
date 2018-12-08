@@ -189,7 +189,7 @@ public class UserInformationController extends BaseFxmlController {
     resourceTableView.getItems().clear();
 
     for (Lease lease : customerLeases) {
-      resourceTableView.getItems().add(new LeaseTableWrapper(lease));
+      resourceTableView.getItems().add(new LeaseTableWrapper(lease, (Customer) selectedUser));
     }
 
     for (Request request : customerRequests) {

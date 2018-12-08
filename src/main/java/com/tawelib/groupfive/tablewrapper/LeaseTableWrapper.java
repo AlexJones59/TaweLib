@@ -1,6 +1,8 @@
 package com.tawelib.groupfive.tablewrapper;
 
+import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
+import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.ResourceType;
@@ -14,6 +16,26 @@ import java.time.LocalDateTime;
  * @version 1.0
  */
 public class LeaseTableWrapper {
+
+  private Lease lease;
+
+  private Request request;
+
+  private String argument;
+
+  Customer selectedCustomer;
+
+  /**
+   * Instantiates a new Lease table wrapper, while storing what the parameter's
+   * class type is.
+   *
+   * @param lease the lease
+   */
+  public LeaseTableWrapper(Lease lease, Customer selectedCustomer) {
+    this.lease = lease;
+    this.argument = lease.getClass().getSimpleName();
+    this.selectedCustomer = selectedCustomer;
+  }
 
   /**
    * Instantiates a new Lease table wrapper, while storing what the parameter's
@@ -36,12 +58,6 @@ public class LeaseTableWrapper {
     this.request = request;
     this.argument = request.getClass().getSimpleName();
   }
-
-  private Lease lease;
-
-  private Request request;
-
-  private String argument;
 
   /**
    * Gets resource id.
@@ -139,7 +155,16 @@ public class LeaseTableWrapper {
   public String getStatus() {
     switch (argument) {
       case "Lease": {
-        if (lease.getBorrowedCopy().getStatus().equals(CopyStatus.AVAILABLE)) {
+        Copy copy = lease.getBorrowedCopy();
+        if (
+            copy.getStatus() == CopyStatus.AVAILABLE
+                || copy.getStatus() == CopyStatus.RESERVED
+                ||
+                (
+                    copy.getStatus() == CopyStatus.BORROWED
+                        && copy.getBorrowingCustomer() != selectedCustomer
+                )
+        ) {
           return "RETURNED";
         } else {
           return lease.getBorrowedCopy().getStatus().toString();

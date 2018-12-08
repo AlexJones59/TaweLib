@@ -241,8 +241,8 @@ public class CopyManager {
       Copy copy) {
     Lease newLease = new Lease(customer, copy);
     //Checks to see if there are any requests for that resource.
-    if (library.getRequestRepository()
-        .getOpenResourceRequests(copy.getResource()) != null) {
+    if (!library.getRequestRepository()
+        .getOpenResourceRequests(copy.getResource()).isEmpty()) {
       generateDueDate(newLease);
     }
     library.getLeaseRepository().add(newLease);
