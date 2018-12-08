@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-//TODO get author of this class
 
 /**
  * The type Fine information controller.
  *
- * @author unknown
+ * @author Dearbhla Jackson
  * @version 1.0
  */
+@Deprecated
 public class FineInformationController extends BaseFxmlController {
 
   @FXML

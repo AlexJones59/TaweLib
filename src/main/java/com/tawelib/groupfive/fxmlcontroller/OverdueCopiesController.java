@@ -10,12 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-//TODO get author of this class
+
 
 /**
  * The type Overdue copies controller.
  *
- * @author unknown
+ * @author Petr Hoffman
  * @version 1.0
  */
 public class OverdueCopiesController extends BaseFxmlController {

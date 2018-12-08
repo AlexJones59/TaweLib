@@ -2,7 +2,6 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Lease;
-import com.tawelib.groupfive.tablewrapper.CopiesTableWrapper;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.time.LocalDateTime;
@@ -10,12 +9,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-//TODO get author for this class
 
 /**
- * The type Copy history controller.
+ * Copy history controller holds the actions for the Copy history screen,
+ * where the all leases for the copy can be seen.
  *
- * @author unknown
+ * @author Petr Hoffmann
  * @version 1.0
  */
 public class CopyHistoryController extends BaseFxmlController {

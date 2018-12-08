@@ -23,12 +23,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
-//TODO get author
-
 /**
  * The type User information controller.
  *
- * @author unknown
+ * @author Shree Desai
  * @version 1.0
  */
 public class UserInformationController extends BaseFxmlController {

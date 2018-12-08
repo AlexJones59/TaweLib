@@ -19,6 +19,13 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Entity Test Data Class is used to populate the library for demonstration
+ * purposes.
+ *
+ * @author Nayeem Mohammed, Shree Desai
+ *
+ */
 public class EntityTestData {
 
   /**

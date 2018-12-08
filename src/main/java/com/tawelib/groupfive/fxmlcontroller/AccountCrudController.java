@@ -25,8 +25,8 @@ import javafx.scene.control.TextField;
  * to make sure all input are valid, in terms of style needed for the
  * attribute.
  *
- * @author Dearbhla Jackson, Shree Desai
- * @version 0.4
+ * @author Shree Desai, Petr Hoffmann
+ * @version 1.0
  */
 public class AccountCrudController extends BaseFxmlController {
 

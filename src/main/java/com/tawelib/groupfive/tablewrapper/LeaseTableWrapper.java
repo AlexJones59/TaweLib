@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * This class wraps information about Copies that is shown in an FXML table.
  *
- * @author Petr Hoffmann, Shree Desai
+ * @author  Shree Desai, Petr Hoffmann
  * @version 1.0
  */
 public class LeaseTableWrapper {
