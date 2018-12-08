@@ -2,9 +2,11 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -42,11 +44,16 @@ public class BorrowResourcesController extends BaseFxmlController {
    * then lets them borrow specified resource if allowed.
    */
   public void borrow() {
+    List<Lease> overdueLeases = library.getLeaseRepository().getCustomerOverdueLeases(selectedCustomer);
+
     // Checks if Copy exists, or throws Error Alert.
     if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
         != null) {
       // Checks if AccountBalance is in positive, else throws Error Alert.
-      if (selectedCustomer.getAccountBalance() >= 0) {
+      if (
+          selectedCustomer.getAccountBalance() >= 0
+          && overdueLeases.isEmpty()
+      ) {
         //Checks if copy is available to be borrowed.
         if (library.getCopyRepository().getSpecific(txtResourceCopyId.getText())
             .getStatus().equals(CopyStatus.AVAILABLE)) {
@@ -63,12 +70,12 @@ public class BorrowResourcesController extends BaseFxmlController {
         }
       } else {
         AlertHelper
-            .alert(AlertType.ERROR, "Your balance is below the minimum.");
+            .alert(AlertType.ERROR, "Your balance is below the minimum or you have overdue copies.");
         SceneHelper.setUpScene(this, "UserInformation");
       }
 
     } else {
-      AlertHelper.alert(AlertType.ERROR, "Copy ID is no valid.");
+      AlertHelper.alert(AlertType.ERROR, "Copy ID is not valid.");
     }
   }
 

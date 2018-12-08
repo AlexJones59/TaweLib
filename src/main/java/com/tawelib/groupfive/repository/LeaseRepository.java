@@ -134,7 +134,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
     LocalDateTime currentDate = LocalDateTime.now();
 
     for (Lease lease : leases) {
-      if (lease.getDueDate().isAfter(currentDate)) {
+      if (lease.getDueDate() != null && currentDate.isAfter(lease.getDueDate())) {
         result.add(lease);
       }
     }
