@@ -12,7 +12,6 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
-
 import java.time.LocalDateTime;
 
 /**
@@ -76,9 +75,13 @@ public class CopyManager {
 
     /* Creates Fine if book is returned late, and decrease account balance of
        customer by fine amount.*/
-    if (currentLease.getDueDate().isBefore(
-        library.getLeaseRepository().getCopyCurrentLease(returnedCopy)
-            .getDateReturned())) {
+    if (
+        currentLease.getDueDate() != null
+            && currentLease.getDueDate().isBefore(
+            library.getLeaseRepository().getCopyCurrentLease(returnedCopy)
+                .getDateReturned()
+        )
+    ) {
       int amount = generateFineAmount(currentLease);
       Fine newFine = new Fine(currentLease, amount);
       library.getFineRepository().add(newFine);
