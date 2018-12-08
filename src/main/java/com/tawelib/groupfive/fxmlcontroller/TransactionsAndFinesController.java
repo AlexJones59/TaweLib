@@ -15,7 +15,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+//TODO get author
 
+/**
+ * The type Transactions and fines controller.
+ *
+ * @author unknown
+ * @version 1.0
+ */
 public class TransactionsAndFinesController extends BaseFxmlController {
 
   @FXML
@@ -58,6 +65,9 @@ public class TransactionsAndFinesController extends BaseFxmlController {
   private TableColumn<TransactionsFinesTableWrapper, String> amountTableColumn;
 
 
+  /**
+   * Instantiates a new Transactions and fines controller.
+   */
   public TransactionsAndFinesController() {
   }
 
@@ -87,7 +97,7 @@ public class TransactionsAndFinesController extends BaseFxmlController {
     Customer customer = (Customer) loggedInUser;
     txtUsername.setText(customer.getUsername());
     txtBalance.setText(String.format("£ %.2f",
-            customer.getAccountBalanceInPounds()));
+        customer.getAccountBalanceInPounds()));
 
     setTableContents(
         library.getTransactionRepository().getTransactions(customer),
@@ -96,6 +106,12 @@ public class TransactionsAndFinesController extends BaseFxmlController {
 
   }
 
+  /**
+   * Populates the table.
+   *
+   * @param transactions list of transactions
+   * @param fines list of fines
+   */
   private void setTableContents(List<Transaction> transactions,
       List<Fine> fines) {
     tblTransactionsFines.getItems().clear();
@@ -105,12 +121,11 @@ public class TransactionsAndFinesController extends BaseFxmlController {
           TransactionsFinesTableWrapper(transaction));
     }
 
-    for (Fine fine: fines) {
+    for (Fine fine : fines) {
       tblTransactionsFines.getItems().add(new
           TransactionsFinesTableWrapper(fine));
     }
   }
-
 
 
   public void back() {

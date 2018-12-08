@@ -17,6 +17,9 @@ public class Laptop extends Resource {
   /**
    * Instantiates a new Laptop.
    *
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
    * @param manufacturer the manufacturer
    * @param model the model
    * @param installedOperatingSystem the installed operating system

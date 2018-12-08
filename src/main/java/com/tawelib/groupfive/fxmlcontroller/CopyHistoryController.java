@@ -10,9 +10,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+//TODO get author for this class
 
+/**
+ * The type Copy history controller.
+ *
+ * @author unknown
+ * @version 1.0
+ */
 public class CopyHistoryController extends BaseFxmlController {
 
+  /**
+   * The Selected copy.
+   */
   Copy selectedCopy;
 
   @FXML
@@ -58,15 +68,28 @@ public class CopyHistoryController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Returns to the browse resource screen.
+   */
   @Override
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
+  /**
+   * Gets selected copy.
+   *
+   * @return the selected copy
+   */
   public Copy getSelectedCopy() {
     return selectedCopy;
   }
 
+  /**
+   * Sets selected copy.
+   *
+   * @param selectedCopy the selected copy
+   */
   public void setSelectedCopy(Copy selectedCopy) {
     this.selectedCopy = selectedCopy;
   }

@@ -1,6 +1,5 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.manager.CopyManager;
@@ -13,8 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Allows Librarians to let loan resources to customers that have above minimum
- * account balance.
+ * Allows Librarians to let loan resources to customers that have above minimum account balance.
  *
  * @author Nayeem Mohammed, Shree Desai
  * @version 1.0
@@ -39,8 +37,8 @@ public class BorrowResourcesController extends BaseFxmlController {
   private Customer selectedCustomer = (Customer) BaseFxmlController.selectedUser;
 
   /**
-   * Checks whether user can borrow a resource and then lets them borrow
-   * specified resource.
+   * Checks whether user can borrow a resource based on availability or their account balance and
+   * then lets them borrow specified resource if allowed.
    */
   public void borrow() {
     // Checks if Copy exists, or throws Error Alert.
@@ -75,7 +73,7 @@ public class BorrowResourcesController extends BaseFxmlController {
 
 
   /**
-   * Goes back to last scene.
+   * Returns to the user information screen.
    */
   public void cancel() {
     SceneHelper.setUpScene(this, "UserInformation");

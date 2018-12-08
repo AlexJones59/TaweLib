@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
  * Controls the login screen.
  *
  * @author Petr Hoffmann
- * @version 0.1
+ * @version 1.0
  */
 public class LoginController extends BaseFxmlController {
 

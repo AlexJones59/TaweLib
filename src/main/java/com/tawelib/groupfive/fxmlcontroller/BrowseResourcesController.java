@@ -17,7 +17,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+//TODO get author for this class
 
+/**
+ * The type Browse resources controller.
+ *
+ * @author unknown
+ * @version 1.0
+ */
 public class BrowseResourcesController extends BaseFxmlController {
 
   @FXML
@@ -102,7 +109,7 @@ public class BrowseResourcesController extends BaseFxmlController {
   }
 
   /**
-   * Searches for resources and displays the result.
+   * Searches for resources by type and displays the result in the table.
    */
   public void search() {
     List<Resource> result;
@@ -136,6 +143,11 @@ public class BrowseResourcesController extends BaseFxmlController {
     );
   }
 
+  /**
+   * Populates the table.
+   *
+   * @param resources the resources in the library
+   */
   private void setTableContents(List<Resource> resources) {
     tblBrowseResourcesTable.getItems().clear();
 
@@ -146,12 +158,15 @@ public class BrowseResourcesController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Returns to the user dashboard screen.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
   /**
-   * Opens the resource CRUD screen if a resource is selected.
+   * Updates the resource CRUD screen if a resource is selected.
    */
   public void resourceInformation() {
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
@@ -159,10 +174,19 @@ public class BrowseResourcesController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Create new resource.
+   */
   public void createNew() {
     setUpResourceCrud(CrudAction.CREATE);
   }
 
+
+  /**
+   * Goes to resource crud screen for the selected resource.
+   *
+   * @param crudAction instance of crudAction
+   */
   private void setUpResourceCrud(CrudAction crudAction) {
     ResourceCrudController newController =
         (ResourceCrudController) SceneHelper.setUpScene(

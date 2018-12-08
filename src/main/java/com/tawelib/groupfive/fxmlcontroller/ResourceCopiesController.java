@@ -17,9 +17,19 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+//TODO get author for this class
 
+/**
+ * The type Resource copies controller.
+ *
+ * @author unknown
+ * @version 1.0
+ */
 public class ResourceCopiesController extends BaseFxmlController {
 
+  /**
+   * The Selected resource.
+   */
   Resource selectedResource;
 
   @FXML
@@ -100,6 +110,7 @@ public class ResourceCopiesController extends BaseFxmlController {
       }
     }
 
+    //declares text and visibilities depending on the above conditions
     totalCopiesLabel.setText(Integer.toString(totalCopies));
     availableCopiesLabel.setText(Integer.toString(availableCopies));
 
@@ -149,14 +160,27 @@ public class ResourceCopiesController extends BaseFxmlController {
     newController.refresh();
   }
 
+  /**
+   * Returns to the browse resources screen.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
+  /**
+   * Gets selected resource.
+   *
+   * @return the selected resource
+   */
   public Resource getSelectedResource() {
     return selectedResource;
   }
 
+  /**
+   * Sets selected resource.
+   *
+   * @param selectedResource the selected resource
+   */
   public void setSelectedResource(
       Resource selectedResource) {
     this.selectedResource = selectedResource;

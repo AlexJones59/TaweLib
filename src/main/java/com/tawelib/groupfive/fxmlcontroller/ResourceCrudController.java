@@ -26,7 +26,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+//TODO get author
 
+/**
+ * The type Resource crud controller.
+ *
+ * @author unknown
+ * @version 1.0
+ */
 public class ResourceCrudController extends BaseFxmlController {
 
   private Resource selectedResource;
@@ -104,6 +111,9 @@ public class ResourceCrudController extends BaseFxmlController {
   private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
       ResourceType.LAPTOP};
 
+  /**
+   * Sets the dynamic fields.
+   */
   @Override
   public void refresh() {
     if (crudAction == CrudAction.UPDATE) {
@@ -129,6 +139,7 @@ public class ResourceCrudController extends BaseFxmlController {
       }
     }
 
+    //sets visibilities based on the above conditions
     showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
@@ -138,6 +149,11 @@ public class ResourceCrudController extends BaseFxmlController {
         .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
   }
 
+  /**
+   * Set visibilities and actions for each resource type.
+   *
+   * @param pane the GUI pane for this screen
+   */
   private void showSubtypePane(AnchorPane pane) {
     bookAnchorPane.setVisible(bookAnchorPane == pane);
     bookAnchorPane.setManaged(bookAnchorPane == pane);
@@ -147,6 +163,9 @@ public class ResourceCrudController extends BaseFxmlController {
     laptopAnchorPane.setManaged(laptopAnchorPane == pane);
   }
 
+  /**
+   * populates the screen with information about the resource.
+   */
   private void populateResource() {
     resourceImageView.setImage(
         ResourceHelper.getResourceImage(selectedResource)
@@ -173,6 +192,9 @@ public class ResourceCrudController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Method used when populating the screen for a book.
+   */
   private void populateBook() {
     Book selectedBook = (Book) selectedResource;
 
@@ -183,6 +205,9 @@ public class ResourceCrudController extends BaseFxmlController {
     languageTextField.setText(selectedBook.getLanguage());
   }
 
+  /**
+   * Method used when populating the screen for a DVD.
+   */
   private void populateDvd() {
     Dvd selectedDvd = (Dvd) selectedResource;
 
@@ -194,6 +219,9 @@ public class ResourceCrudController extends BaseFxmlController {
         .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
   }
 
+  /**
+   * Method used when populating the screen for a laptop.
+   */
   private void populateLaptop() {
     Laptop selectedLaptop = (Laptop) selectedResource;
 
@@ -204,7 +232,7 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   /**
-   * Creates a new resource.
+   * Creates a new resource depending on the type of resource.
    */
   public void create() {
     try {
@@ -242,7 +270,7 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   /**
-   * Updates a resource.
+   * Updates a resource depending on the type of resource.
    */
   public void update() {
     try {
@@ -295,8 +323,8 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   /**
-   * The method creates the window with selecting the image to set as a profile
-   * Called from pressing a buttom chooseFileImg, accepts only png format.
+   * The method creates the window with selecting the image to set as a profile called from pressing
+   * a button chooseFileImg, accepts only png format.
    */
   public void chooseImage() {
     if (isLibrarianLoggedIn()) {
@@ -326,25 +354,45 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   /**
-   * {@inheritDoc}
+   * Returns to the browse resources screen.
    */
   @Override
   public void back() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
+  /**
+   * Gets selected resource.
+   *
+   * @return the selected resource
+   */
   public Resource getSelectedResource() {
     return selectedResource;
   }
 
+  /**
+   * Sets selected resource.
+   *
+   * @param selectedResource the selected resource
+   */
   public void setSelectedResource(Resource selectedResource) {
     this.selectedResource = selectedResource;
   }
 
+  /**
+   * Gets crud action.
+   *
+   * @return the crud action
+   */
   public CrudAction getCrudAction() {
     return crudAction;
   }
 
+  /**
+   * Sets crud action.
+   *
+   * @param crudAction the crud action
+   */
   public void setCrudAction(CrudAction crudAction) {
     this.crudAction = crudAction;
   }
