@@ -13,7 +13,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 
 /**
- * The type Overdue copies controller.
+ * The type Overdue copies controller. This screen allows a user to see all the overdue copies of
+ * resources in a library. They can search through these using the different attributes that a
+ * copy will have.
  *
  * @author Petr Hoffman
  * @version 1.0

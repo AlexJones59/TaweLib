@@ -12,7 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Controls the login screen.
+ * Controls the login screen where a user can choose to login as a librarian or not and access
+ * their account if the information they have entered is a valid user.
  *
  * @author Petr Hoffmann
  * @version 1.0

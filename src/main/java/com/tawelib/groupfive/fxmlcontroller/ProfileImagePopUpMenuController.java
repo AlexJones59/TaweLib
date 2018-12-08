@@ -15,10 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
-//TODO get author of this class
 
 /**
- * The type Profile image pop up menu controller.
+ * The type Profile image pop up menu controller. This screen lets the user see all the default
+ * images they can use for their profile. They are also given the option to select an image
+ * from the computer if it is in the correct format or draw their own image.
  *
  * @author Oskars Dervinis, Petr Hoffman
  * @version 1.0

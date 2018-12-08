@@ -13,7 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Controls the user dashboard screen.
+ * Controls the user dashboard screen. This is the main screen which a user can access their account
+ * details on. A librarian can see their own personal information and navigate to aspects of the
+ * system they have permission for, likewise for a customer.
  *
  * @author Petr Hoffmann
  * @version 1.0

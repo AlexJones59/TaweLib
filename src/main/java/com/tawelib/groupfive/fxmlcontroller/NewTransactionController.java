@@ -11,7 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * The type New transaction controller.
+ * The type New transaction controller. This allows the user to add money to their account if it is
+ * a valid amount, if not it outputs an error.
  *
  * @author Shree Desai, Petr Hoffman
  * @version 1.0

@@ -15,10 +15,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-//TODO get author
 
 /**
- * The type Transactions and fines controller.
+ * The type Transactions and fines controller. A user can view all their fines and information
+ * about them like the amount and what resource it is for. They can also see their
+ * balance on this screen.
  *
  * @author Shree Desai
  * @version 1.0
