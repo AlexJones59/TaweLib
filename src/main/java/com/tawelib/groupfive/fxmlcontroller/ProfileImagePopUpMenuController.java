@@ -15,7 +15,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+//TODO get author of this class
 
+/**
+ * The type Profile image pop up menu controller.
+ *
+ * @author
+ * @version 1.0
+ */
 public class ProfileImagePopUpMenuController extends BaseFxmlController {
 
   @FXML
@@ -36,6 +43,9 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
   @FXML
   public ImageView imgOption6;
 
+  /**
+   * Instantiates a new Profile image pop up menu controller.
+   */
   public ProfileImagePopUpMenuController() {
   }
 
@@ -44,6 +54,7 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
+    //sets the predefined images
     ImageView[] standartImg = new ImageView[6];
     standartImg[0] = imgOption1;
     standartImg[1] = imgOption2;
@@ -58,6 +69,7 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
         standartImg[i].setImage(img);
         standartImg[i].setOnMouseClicked((evt) -> {
           try {
+            //allows user to choose image file from their computer
             File file = new File(
                 FileSystemHelper.getUserProfilePicturePath(loggedInUser));
             BufferedImage bufferedImage = SwingFXUtils
@@ -80,6 +92,9 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Returns to the user dashboard.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
@@ -99,8 +114,8 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
   }
 
   /**
-   * The method creates the window with selecting the image to set as a profile
-   * Called from pressing a buttom chooseFileImg, accepts only png format.
+   * The method creates the window with selecting the image to set as a profile Called from pressing
+   * a button chooseFileImg, accepts only png format.
    */
   public void choosePicture() {
     FileChooser fileChooser = new FileChooser();

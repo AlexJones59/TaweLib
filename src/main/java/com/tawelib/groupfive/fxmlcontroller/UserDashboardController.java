@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  * Controls the user dashboard screen.
  *
  * @author Petr Hoffmann
- * @version 0.1
+ * @version 1.0
  */
 public class UserDashboardController extends BaseFxmlController {
 
@@ -86,8 +86,7 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   /**
-   * Sets nodes visible to only one type of users visible to the correct type of
-   * users only.
+   * Sets nodes visible to only one type of users visible to the correct type of users only.
    */
   @Override
   protected void configureVisibilities() {
@@ -107,6 +106,9 @@ public class UserDashboardController extends BaseFxmlController {
     };
   }
 
+  /**
+   * Loads the GUI with information for all users.
+   */
   private void setGuiForUsers() {
     usernameTextField.setText(loggedInUser.getUsername());
     fullNameTextField.setText(loggedInUser.getFullName());
@@ -120,6 +122,9 @@ public class UserDashboardController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Loads the GUI with information for a librarian.
+   */
   private void setGuiForLibrarians() {
     staffNumberTextField.setText(
         String.format(
@@ -129,6 +134,9 @@ public class UserDashboardController extends BaseFxmlController {
     );
   }
 
+  /**
+   * Load the GUI with information for a customer.
+   */
   private void setGuiForCustomers() {
     accountBalanceTextField.setText(
         String.format(
@@ -146,14 +154,23 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "Login");
   }
 
+  /**
+   * Takes the user to the browse resource screen.
+   */
   public void browseResources() {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
+  /**
+   * Takes the user to the account management screen.
+   */
   public void manageAccount() {
     SceneHelper.setUpScene(this, "UserInformation");
   }
 
+  /**
+   * Takes the user to the transaction and fine information screen.
+   */
   public void transactionsAndFines() {
     SceneHelper.setUpScene(this, "TransactionsAndFines");
   }
@@ -169,14 +186,23 @@ public class UserDashboardController extends BaseFxmlController {
     controller.refresh();
   }
 
+  /**
+   * Takes the user to the overdue copies screen.
+   */
   public void overdueCopies() {
     SceneHelper.setUpScene(this, "OverdueCopies");
   }
 
+  /**
+   * Takes the user to the list of users screen.
+   */
   public void manageUsers() {
     SceneHelper.setUpScene(this, "UserList");
   }
 
+  /**
+   * Takes the user to the profile images selection screen.
+   */
   public void changeProfileImage() {
     SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
   }

@@ -23,83 +23,52 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
+//TODO get author
+
 /**
  * The type User information controller.
+ *
+ * @author
+ * @version 1.0
  */
 public class UserInformationController extends BaseFxmlController {
 
   @FXML
   private ImageView userProfileImageView;
 
-  /**
-   * The First name text field.
-   */
   @FXML
   public TextField firstNameTextField;
 
-  /**
-   * The Last name text field.
-   */
   @FXML
   public TextField lastNameTextField;
 
-  /**
-   * The Username text field.
-   */
   @FXML
   public TextField usernameTextField;
 
-  /**
-   * The Address text field.
-   */
   @FXML
   public TextField addressTextField;
 
-  /**
-   * The Balance label.
-   */
   @FXML
   public Label balanceLabel;
 
-  /**
-   * The Balance text field.
-   */
   @FXML
   public TextField balanceTextField;
 
-  /**
-   * The Resource table view.
-   */
   @FXML
   public TableView<LeaseTableWrapper> resourceTableView;
 
-  /**
-   * The Resource id table column.
-   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
 
-  /**
-   * The Copy id table column.
-   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
 
-  /**
-   * The Title table column.
-   */
   @FXML
   public TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
-  /**
-   * The Due date table column.
-   */
   @FXML
   public TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
 
-  /**
-   * The Status table column.
-   */
   @FXML
   public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
@@ -158,6 +127,7 @@ public class UserInformationController extends BaseFxmlController {
     btnPickUpReserved.setVisible(isLibrarianLoggedIn());
     declareLostButton.setVisible(isLibrarianLoggedIn());
 
+    //sets the screen up for when a customer is logged in
     if (isCustomerLoggedIn()) {
       Customer loggedInCustomer = (Customer) loggedInUser;
 
@@ -179,6 +149,7 @@ public class UserInformationController extends BaseFxmlController {
               .getOpenCustomerRequests(loggedInCustomer),
           library.getRequestRepository().getCustomerReserved(loggedInCustomer));
     } else {
+      //sets the screen for when a librarian is logged in
       userProfileImageView
           .setImage(ResourceHelper.getUserProfileImage(selectedUser));
       firstNameTextField.setText(selectedUser.getFirstName());
@@ -204,11 +175,15 @@ public class UserInformationController extends BaseFxmlController {
         setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, false);
       }
     }
-
-
   }
 
-
+  /**
+   * Populates the table.
+   *
+   * @param customerLeases resources the customer has leased
+   * @param customerRequests resources the customer has requested to lease
+   * @param customerReserved respurces that are reserved for the customer
+   */
   private void setTableContents(List<Lease> customerLeases,
       List<Request> customerRequests, List<Request> customerReserved) {
     resourceTableView.getItems().clear();
@@ -224,8 +199,6 @@ public class UserInformationController extends BaseFxmlController {
     for (Request reserved : customerReserved) {
       resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
     }
-
-
   }
 
   /**
@@ -285,7 +258,7 @@ public class UserInformationController extends BaseFxmlController {
   }
 
   /**
-   * Pick up reserved.
+   * Allows a user to pick up a copy of a resource they have reserved.
    */
   public void pickUpReserved() {
     if (selectedUser.getClass().equals(Customer.class)) {

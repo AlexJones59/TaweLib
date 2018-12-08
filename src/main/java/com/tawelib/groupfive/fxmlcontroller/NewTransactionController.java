@@ -9,7 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+//TODO author for this class
+/**
+ * The type New transaction controller.
+ *
+ * @author
+ * @version 1.0
+ */
 public class NewTransactionController extends BaseFxmlController {
 
   @FXML
@@ -18,9 +24,15 @@ public class NewTransactionController extends BaseFxmlController {
   @FXML
   public TextField amountTextField;
 
+  /**
+   * Instantiates a new New transaction controller.
+   */
   public NewTransactionController() {
   }
 
+  /**
+   * Populates the username box correctly.
+   */
   @Override
   public void refresh() {
     usernameLabel.setText(selectedUser.getUsername());
@@ -50,6 +62,9 @@ public class NewTransactionController extends BaseFxmlController {
     }
   }
 
+  /**
+   * Returns to the user information screen.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "UserInformation");
   }

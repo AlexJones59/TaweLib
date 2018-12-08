@@ -7,7 +7,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+//TODO get author
 
+/**
+ * The type User list controller.
+ *
+ * @author
+ * @version 1.0
+ */
 public class UserListController extends BaseFxmlController {
 
   @FXML
@@ -16,12 +23,16 @@ public class UserListController extends BaseFxmlController {
   @FXML
   public TableView<User> userListTableView;
 
+
   @FXML
   public TableColumn<User, String> usernameTableColumn;
 
   @FXML
   public TableColumn<User, String> fullNameTableColumn;
 
+  /**
+   * Instantiates a new User list controller.
+   */
   public UserListController() {
   }
 
@@ -69,11 +80,17 @@ public class UserListController extends BaseFxmlController {
     );
   }
 
+  /**
+   * Takes the user to the user information screen based on what was selected.
+   */
   public void manageUser() {
     selectedUser = userListTableView.getSelectionModel().getSelectedItem();
     SceneHelper.setUpScene(this, "UserInformation");
   }
 
+  /**
+   * Returns to the user dashboard.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }

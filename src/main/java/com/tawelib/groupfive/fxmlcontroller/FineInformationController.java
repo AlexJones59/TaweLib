@@ -5,7 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+//TODO get author of this class
 
+/**
+ * The type Fine information controller.
+ *
+ * @author
+ * @version 1.0
+ */
 public class FineInformationController extends BaseFxmlController {
 
   @FXML
@@ -59,9 +66,15 @@ public class FineInformationController extends BaseFxmlController {
   @FXML
   private TextField txtResourceType;
 
+  /**
+   * Instantiates a new Fine information controller.
+   */
   public FineInformationController() {
   }
 
+  /**
+   * Returns to the Transactions and fines information screen.
+   */
   public void back() {
     SceneHelper.setUpScene(this, "TransactionsAndFines");
   }

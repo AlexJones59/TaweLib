@@ -10,7 +10,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+//TODO get author of this class
 
+/**
+ * The type Overdue copies controller.
+ *
+ * @author
+ * @version 1.0
+ */
 public class OverdueCopiesController extends BaseFxmlController {
 
   @FXML
@@ -35,6 +42,9 @@ public class OverdueCopiesController extends BaseFxmlController {
   private TableColumn<LeaseTableWrapper, Date> dateColumn;
 
 
+  /**
+   * Instantiates a new Overdue copies controller.
+   */
   public OverdueCopiesController() {
   }
 
@@ -81,6 +91,9 @@ public class OverdueCopiesController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
 
+  /**
+   * Search.
+   */
   public void search() {
     refresh();
   }
