@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 public class CopyManager {
 
   /**
-   * Creates a resource copy & persists it to the repository.
+   * Creates a resource copy and persists it to the repository.
    *
    * @param library the library
    * @param resource the resource

@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * The type Copy history controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class CopyHistoryController extends BaseFxmlController {

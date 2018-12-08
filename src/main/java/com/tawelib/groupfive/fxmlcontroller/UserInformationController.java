@@ -28,7 +28,7 @@ import javafx.scene.image.ImageView;
 /**
  * The type User information controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class UserInformationController extends BaseFxmlController {

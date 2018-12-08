@@ -22,7 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * The type Resource copies controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class ResourceCopiesController extends BaseFxmlController {

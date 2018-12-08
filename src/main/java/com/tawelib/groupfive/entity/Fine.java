@@ -23,6 +23,7 @@ public class Fine implements Serializable {
    * Instantiates a new Fine for resources that is overdue.
    *
    * @param amount Amount.
+   * @param lease lease.
    */
   public Fine(Lease lease, int amount) {
     if (lease.getDateReturned() != null) {

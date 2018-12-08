@@ -31,7 +31,7 @@ import javax.imageio.ImageIO;
 /**
  * The type Resource crud controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class ResourceCrudController extends BaseFxmlController {

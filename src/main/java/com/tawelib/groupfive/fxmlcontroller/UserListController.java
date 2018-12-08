@@ -12,7 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 /**
  * The type User list controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class UserListController extends BaseFxmlController {

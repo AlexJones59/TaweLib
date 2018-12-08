@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 /**
  * The type Fine information controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class FineInformationController extends BaseFxmlController {

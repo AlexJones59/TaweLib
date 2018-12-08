@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 /**
  * The type Profile image pop up menu controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class ProfileImagePopUpMenuController extends BaseFxmlController {

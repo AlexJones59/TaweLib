@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 /**
  * The type Browse resources controller.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public class BrowseResourcesController extends BaseFxmlController {
@@ -183,7 +183,7 @@ public class BrowseResourcesController extends BaseFxmlController {
 
 
   /**
-   * Goes to resource crud screen for the selected resource
+   * Goes to resource crud screen for the selected resource.
    *
    * @param crudAction instance of crudAction
    */

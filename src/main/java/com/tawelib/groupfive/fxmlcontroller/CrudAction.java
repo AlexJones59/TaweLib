@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * The enum Crud action.
  *
- * @author
+ * @author unknown
  * @version 1.0
  */
 public enum CrudAction implements Serializable {
