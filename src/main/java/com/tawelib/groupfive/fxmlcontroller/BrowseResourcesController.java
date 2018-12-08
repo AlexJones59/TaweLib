@@ -20,7 +20,9 @@ import javafx.scene.text.Text;
 //TODO get author for this class
 
 /**
- * The type Browse resources controller.
+ * This controls the Browse Resource screen. This is used to search through the library's resources.
+ * A user can search using different attributes of the resource using a text box, or search by the
+ * type of a resource using a list provided.
  *
  * @author unknown
  * @version 1.0

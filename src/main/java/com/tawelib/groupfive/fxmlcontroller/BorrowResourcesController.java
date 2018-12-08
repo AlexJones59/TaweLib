@@ -12,7 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Allows Librarians to let loan resources to customers that have above minimum account balance.
+ * This controls the Borrow Resource screen. This allows Librarians to loan resources to customers
+ * that have above minimum account balance. They loan a resource by entering its relevant copy ID.
  *
  * @author Nayeem Mohammed, Shree Desai
  * @version 1.0
