@@ -29,6 +29,10 @@ public enum ResourceType implements Serializable {
 
   /**
    * Enum Constructor for ResourceType.
+   *
+   * @param loanDuration Loan duration.
+   * @param fine Fine amount.
+   * @param maxFine Maximum fine.
    */
   private ResourceType(int loanDuration, int fine, int maxFine) {
     this.loanDuration = loanDuration;

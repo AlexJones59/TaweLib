@@ -48,7 +48,7 @@ public class ToolChoice {
    * Constructor of the pane of buttons.
    *
    * @param gc The graphic context used for drawing
-   * @param shapes list of boolean representing shapes & filling option
+   * @param shapes list of boolean representing shapes and filling option
    */
   ToolChoice(GraphicsContext gc, boolean[] shapes) {
     this.gc = gc;
