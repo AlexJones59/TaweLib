@@ -26,24 +26,6 @@ public class CopyRepository implements BaseRepository<Copy> {
   }
 
   /**
-   * Generates a unique id for copies.
-   */
-  private void generateId(Copy copy) {
-    String generatedCopyId = String.format("C%d", lastCopyId);
-
-    try {
-      Field idField = copy.getClass().getDeclaredField("id");
-      idField.setAccessible(true);
-      idField.set(copy, generatedCopyId);
-      idField.setAccessible(false);
-    } catch (IllegalAccessException | NoSuchFieldException e) {
-      e.printStackTrace();
-    } finally {
-      lastCopyId++;
-    }
-  }
-
-  /**
    * Gets a specific copy.
    *
    * @param copyId the copy id
@@ -127,6 +109,24 @@ public class CopyRepository implements BaseRepository<Copy> {
     if (!copies.contains((copy))) {
       generateId(copy);
       copies.add(copy);
+    }
+  }
+
+  /**
+   * Generates a unique id for copies.
+   */
+  private void generateId(Copy copy) {
+    String generatedCopyId = String.format("C%d", lastCopyId);
+
+    try {
+      Field idField = copy.getClass().getDeclaredField("id");
+      idField.setAccessible(true);
+      idField.set(copy, generatedCopyId);
+      idField.setAccessible(false);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    } finally {
+      lastCopyId++;
     }
   }
 }

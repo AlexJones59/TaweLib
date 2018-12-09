@@ -83,6 +83,26 @@ public class LibrarianRepository implements UserRepository<Librarian> {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<Librarian> getAll() {
+    return librarians;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void add(Librarian librarian) {
+    if (!librarians.contains(librarian)) {
+      generateUsername(librarian);
+      generateStaffNumber(librarian);
+      librarians.add(librarian);
+    }
+  }
+
+  /**
    * Generates a unique username for a librarian.
    *
    * @param librarian Librarian.
@@ -128,26 +148,6 @@ public class LibrarianRepository implements UserRepository<Librarian> {
       e.printStackTrace();
     } finally {
       lastLibrarianNumber++;
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public List<Librarian> getAll() {
-    return librarians;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void add(Librarian librarian) {
-    if (!librarians.contains(librarian)) {
-      generateUsername(librarian);
-      generateStaffNumber(librarian);
-      librarians.add(librarian);
     }
   }
 }

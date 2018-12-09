@@ -78,6 +78,25 @@ public class CustomerRepository implements UserRepository<Customer> {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<Customer> getAll() {
+    return customers;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void add(Customer customer) {
+    if (!customers.contains(customer)) {
+      generateUsername(customer);
+      customers.add(customer);
+    }
+  }
+
+  /**
    * Generates a customer unique username.
    */
   private void generateUsername(Customer customer) {
@@ -100,24 +119,4 @@ public class CustomerRepository implements UserRepository<Customer> {
         generatedUsername
     );
   }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public List<Customer> getAll() {
-    return customers;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void add(Customer customer) {
-    if (!customers.contains(customer)) {
-      generateUsername(customer);
-      customers.add(customer);
-    }
-  }
-
 }
