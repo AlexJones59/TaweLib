@@ -7,10 +7,10 @@ module com.tawelib.groupfive {
   requires javafx.swing;
   requires javafx.media;
 
-  exports com.tawelib.groupfive;
-  exports com.tawelib.groupfive.view to javafx.graphics;
-  exports com.tawelib.groupfive.draw to javafx.graphics;
-  opens com.tawelib.groupfive.fxmlcontroller to javafx.fxml;
+  opens com.tawelib.groupfive;
+  opens com.tawelib.groupfive.view;
+  opens com.tawelib.groupfive.draw;
+  opens com.tawelib.groupfive.fxmlcontroller;
   opens com.tawelib.groupfive.entity;
   opens com.tawelib.groupfive.tablewrapper;
 }
