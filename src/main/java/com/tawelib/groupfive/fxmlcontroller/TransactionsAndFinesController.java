@@ -107,6 +107,10 @@ public class TransactionsAndFinesController extends BaseFxmlController {
 
   }
 
+  public void back() {
+    SceneHelper.setUpScene(this, "UserDashboard");
+  }
+
   /**
    * Populates the table.
    *
@@ -118,18 +122,15 @@ public class TransactionsAndFinesController extends BaseFxmlController {
     tblTransactionsFines.getItems().clear();
 
     for (Transaction transaction : transactions) {
-      tblTransactionsFines.getItems().add(new
-          TransactionsFinesTableWrapper(transaction));
+      tblTransactionsFines.getItems().add(
+          new TransactionsFinesTableWrapper(transaction)
+      );
     }
 
     for (Fine fine : fines) {
-      tblTransactionsFines.getItems().add(new
-          TransactionsFinesTableWrapper(fine));
+      tblTransactionsFines.getItems().add(
+          new TransactionsFinesTableWrapper(fine)
+      );
     }
-  }
-
-
-  public void back() {
-    SceneHelper.setUpScene(this, "UserDashboard");
   }
 }

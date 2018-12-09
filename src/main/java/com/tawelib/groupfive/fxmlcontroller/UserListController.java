@@ -18,17 +18,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class UserListController extends BaseFxmlController {
 
   @FXML
-  public TextField searchTextField;
+  private TextField searchTextField;
 
   @FXML
-  public TableView<User> userListTableView;
-
-
-  @FXML
-  public TableColumn<User, String> usernameTableColumn;
+  private TableView<User> userListTableView;
 
   @FXML
-  public TableColumn<User, String> fullNameTableColumn;
+  private TableColumn<User, String> usernameTableColumn;
+
+  @FXML
+  private TableColumn<User, String> fullNameTableColumn;
 
   /**
    * Instantiates a new User list controller.

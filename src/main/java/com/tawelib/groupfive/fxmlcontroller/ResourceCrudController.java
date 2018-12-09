@@ -151,88 +151,6 @@ public class ResourceCrudController extends BaseFxmlController {
   }
 
   /**
-   * Set visibilities and actions for each resource type.
-   *
-   * @param pane the GUI pane for this screen
-   */
-  private void showSubtypePane(AnchorPane pane) {
-    bookAnchorPane.setVisible(bookAnchorPane == pane);
-    bookAnchorPane.setManaged(bookAnchorPane == pane);
-    dvdAnchorPane.setVisible(dvdAnchorPane == pane);
-    dvdAnchorPane.setManaged(dvdAnchorPane == pane);
-    laptopAnchorPane.setVisible(laptopAnchorPane == pane);
-    laptopAnchorPane.setManaged(laptopAnchorPane == pane);
-  }
-
-  /**
-   * populates the screen with information about the resource.
-   */
-  private void populateResource() {
-    resourceImageView.setImage(
-        ResourceHelper.getResourceImage(selectedResource)
-    );
-    idLabel.setText(selectedResource.getResourceId());
-    titleTextField.setText(selectedResource.getTitle());
-    yearTextField.setText(Integer.toString(selectedResource.getYear()));
-
-    switch (selectedResource.getType()) {
-      case BOOK:
-        populateBook();
-        showSubtypePane(bookAnchorPane);
-        break;
-      case DVD:
-        populateDvd();
-        showSubtypePane(dvdAnchorPane);
-        break;
-      case LAPTOP:
-        populateLaptop();
-        showSubtypePane(laptopAnchorPane);
-        break;
-      default:
-        break;
-    }
-  }
-
-  /**
-   * Method used when populating the screen for a book.
-   */
-  private void populateBook() {
-    Book selectedBook = (Book) selectedResource;
-
-    authorTextField.setText(selectedBook.getAuthor());
-    publisherTextField.setText(selectedBook.getPublisher());
-    genreTextField.setText(selectedBook.getGenre());
-    isbnTextField.setText(selectedBook.getIsbn());
-    languageTextField.setText(selectedBook.getLanguage());
-  }
-
-  /**
-   * Method used when populating the screen for a DVD.
-   */
-  private void populateDvd() {
-    Dvd selectedDvd = (Dvd) selectedResource;
-
-    directorTextField.setText(selectedDvd.getDirector());
-    runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
-    audioLanguagesTextArea
-        .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
-    subtitleLanguagesTextArea
-        .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
-  }
-
-  /**
-   * Method used when populating the screen for a laptop.
-   */
-  private void populateLaptop() {
-    Laptop selectedLaptop = (Laptop) selectedResource;
-
-    modelTextField.setText(selectedLaptop.getModel());
-    manufacturerTextField.setText(selectedLaptop.getModel());
-    operatingSystemTextField
-        .setText(selectedLaptop.getInstalledOperatingSystem());
-  }
-
-  /**
    * Creates a new resource depending on the type of resource.
    */
   public void create() {
@@ -396,5 +314,87 @@ public class ResourceCrudController extends BaseFxmlController {
    */
   public void setCrudAction(CrudAction crudAction) {
     this.crudAction = crudAction;
+  }
+
+  /**
+   * Set visibilities and actions for each resource type.
+   *
+   * @param pane the GUI pane for this screen
+   */
+  private void showSubtypePane(AnchorPane pane) {
+    bookAnchorPane.setVisible(bookAnchorPane == pane);
+    bookAnchorPane.setManaged(bookAnchorPane == pane);
+    dvdAnchorPane.setVisible(dvdAnchorPane == pane);
+    dvdAnchorPane.setManaged(dvdAnchorPane == pane);
+    laptopAnchorPane.setVisible(laptopAnchorPane == pane);
+    laptopAnchorPane.setManaged(laptopAnchorPane == pane);
+  }
+
+  /**
+   * populates the screen with information about the resource.
+   */
+  private void populateResource() {
+    resourceImageView.setImage(
+        ResourceHelper.getResourceImage(selectedResource)
+    );
+    idLabel.setText(selectedResource.getResourceId());
+    titleTextField.setText(selectedResource.getTitle());
+    yearTextField.setText(Integer.toString(selectedResource.getYear()));
+
+    switch (selectedResource.getType()) {
+      case BOOK:
+        populateBook();
+        showSubtypePane(bookAnchorPane);
+        break;
+      case DVD:
+        populateDvd();
+        showSubtypePane(dvdAnchorPane);
+        break;
+      case LAPTOP:
+        populateLaptop();
+        showSubtypePane(laptopAnchorPane);
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Method used when populating the screen for a book.
+   */
+  private void populateBook() {
+    Book selectedBook = (Book) selectedResource;
+
+    authorTextField.setText(selectedBook.getAuthor());
+    publisherTextField.setText(selectedBook.getPublisher());
+    genreTextField.setText(selectedBook.getGenre());
+    isbnTextField.setText(selectedBook.getIsbn());
+    languageTextField.setText(selectedBook.getLanguage());
+  }
+
+  /**
+   * Method used when populating the screen for a DVD.
+   */
+  private void populateDvd() {
+    Dvd selectedDvd = (Dvd) selectedResource;
+
+    directorTextField.setText(selectedDvd.getDirector());
+    runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
+    audioLanguagesTextArea
+        .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
+    subtitleLanguagesTextArea
+        .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
+  }
+
+  /**
+   * Method used when populating the screen for a laptop.
+   */
+  private void populateLaptop() {
+    Laptop selectedLaptop = (Laptop) selectedResource;
+
+    modelTextField.setText(selectedLaptop.getModel());
+    manufacturerTextField.setText(selectedLaptop.getModel());
+    operatingSystemTextField
+        .setText(selectedLaptop.getInstalledOperatingSystem());
   }
 }

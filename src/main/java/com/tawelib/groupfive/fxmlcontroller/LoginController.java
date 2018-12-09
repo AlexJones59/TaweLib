@@ -21,13 +21,13 @@ import javafx.scene.control.TextField;
 public class LoginController extends BaseFxmlController {
 
   @FXML
-  public TextField usernameTextField;
+  private TextField usernameTextField;
 
   @FXML
-  public Label usernameLabel;
+  private Label usernameLabel;
 
   @FXML
-  public CheckBox librarianCheckBox;
+  private CheckBox librarianCheckBox;
 
   public LoginController() {
   }

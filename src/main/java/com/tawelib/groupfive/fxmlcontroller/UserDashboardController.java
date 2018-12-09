@@ -23,43 +23,43 @@ import javafx.scene.image.ImageView;
 public class UserDashboardController extends BaseFxmlController {
 
   @FXML
-  public Button logOutButton;
+  private Button logOutButton;
 
   @FXML
-  public TextField usernameTextField;
+  private TextField usernameTextField;
 
   @FXML
-  public TextField fullNameTextField;
+  private TextField fullNameTextField;
 
   @FXML
-  public TextField addressTextField;
+  private TextField addressTextField;
 
   @FXML
-  public TextField phoneNumberTextField;
+  private TextField phoneNumberTextField;
 
   @FXML
-  public Label staffNumberLabel;
+  private Label staffNumberLabel;
 
   @FXML
-  public TextField staffNumberTextField;
+  private TextField staffNumberTextField;
 
   @FXML
-  public Button browseResourceButton;
+  private Button browseResourceButton;
 
   @FXML
-  public Button manageAccountButton;
+  private Button manageAccountButton;
 
   @FXML
-  public Button transactionsAndFinesButton;
+  private Button transactionsAndFinesButton;
 
   @FXML
-  public Button createNewAccountButton;
+  private Button createNewAccountButton;
 
   @FXML
-  public Button overdueCopiesButton;
+  private Button overdueCopiesButton;
 
   @FXML
-  public Button manageUsersButton;
+  private Button manageUsersButton;
 
   @FXML
   private TextField accountBalanceTextField;
@@ -68,9 +68,70 @@ public class UserDashboardController extends BaseFxmlController {
   private Label accountBalanceLabel;
 
   @FXML
-  public ImageView profileImageImageView;
+  private ImageView profileImageImageView;
 
   public UserDashboardController() {
+  }
+
+  /**
+   * Logs the user out.
+   */
+  public void logOut() {
+    loggedInUser = null;
+    SceneHelper.setUpScene(this, "Login");
+  }
+
+  /**
+   * Takes the user to the browse resource screen.
+   */
+  public void browseResources() {
+    SceneHelper.setUpScene(this, "BrowseResources");
+  }
+
+  /**
+   * Takes the user to the account management screen.
+   */
+  public void manageAccount() {
+    SceneHelper.setUpScene(this, "UserInformation");
+  }
+
+  /**
+   * Takes the user to the transaction and fine information screen.
+   */
+  public void transactionsAndFines() {
+    SceneHelper.setUpScene(this, "TransactionsAndFines");
+  }
+
+  /**
+   * Creates a new account.
+   */
+  public void createNewAccount() {
+    AccountCrudController controller = (AccountCrudController) SceneHelper
+        .setUpScene(this, "AccountCrud");
+
+    controller.setCrudAction(CrudAction.CREATE);
+    controller.refresh();
+  }
+
+  /**
+   * Takes the user to the overdue copies screen.
+   */
+  public void overdueCopies() {
+    SceneHelper.setUpScene(this, "OverdueCopies");
+  }
+
+  /**
+   * Takes the user to the list of users screen.
+   */
+  public void manageUsers() {
+    SceneHelper.setUpScene(this, "UserList");
+  }
+
+  /**
+   * Takes the user to the profile images selection screen.
+   */
+  public void changeProfileImage() {
+    SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
   }
 
   /**
@@ -146,66 +207,5 @@ public class UserDashboardController extends BaseFxmlController {
             ((Customer) loggedInUser).getAccountBalanceInPounds()
         )
     );
-  }
-
-  /**
-   * Logs the user out.
-   */
-  public void logOut() {
-    loggedInUser = null;
-    SceneHelper.setUpScene(this, "Login");
-  }
-
-  /**
-   * Takes the user to the browse resource screen.
-   */
-  public void browseResources() {
-    SceneHelper.setUpScene(this, "BrowseResources");
-  }
-
-  /**
-   * Takes the user to the account management screen.
-   */
-  public void manageAccount() {
-    SceneHelper.setUpScene(this, "UserInformation");
-  }
-
-  /**
-   * Takes the user to the transaction and fine information screen.
-   */
-  public void transactionsAndFines() {
-    SceneHelper.setUpScene(this, "TransactionsAndFines");
-  }
-
-  /**
-   * Creates a new account.
-   */
-  public void createNewAccount() {
-    AccountCrudController controller = (AccountCrudController) SceneHelper
-        .setUpScene(this, "AccountCrud");
-
-    controller.setCrudAction(CrudAction.CREATE);
-    controller.refresh();
-  }
-
-  /**
-   * Takes the user to the overdue copies screen.
-   */
-  public void overdueCopies() {
-    SceneHelper.setUpScene(this, "OverdueCopies");
-  }
-
-  /**
-   * Takes the user to the list of users screen.
-   */
-  public void manageUsers() {
-    SceneHelper.setUpScene(this, "UserList");
-  }
-
-  /**
-   * Takes the user to the profile images selection screen.
-   */
-  public void changeProfileImage() {
-    SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
   }
 }

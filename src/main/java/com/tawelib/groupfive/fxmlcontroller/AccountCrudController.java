@@ -30,108 +30,109 @@ import javafx.scene.control.TextField;
  */
 public class AccountCrudController extends BaseFxmlController {
 
-  private CrudAction crudAction;
   /**
    * Constant that holds standard message if invalid dta is entered.
    */
   private static final String VALID_DATA_ERROR =
       "This is not valid data for " + "this field.";
 
-  @FXML
-  public ResourceBundle resources;
+  private CrudAction crudAction;
 
   @FXML
-  public URL location;
+  private ResourceBundle resources;
 
   @FXML
-  public Button btnBack;
+  private URL location;
 
   @FXML
-  public Button btnCreate;
+  private Button btnBack;
 
   @FXML
-  public Button btnUpdate;
+  private Button btnCreate;
 
   @FXML
-  public CheckBox cbxLibrarian;
+  private Button btnUpdate;
 
   @FXML
-  public Label lblAccountType;
+  private CheckBox cbxLibrarian;
 
   @FXML
-  public Label lblCity;
+  private Label lblAccountType;
 
   @FXML
-  public Label lblEmployDate;
+  private Label lblCity;
 
   @FXML
-  public Label lblFirstName;
+  private Label lblEmployDate;
 
   @FXML
-  public Label lblHouseNo;
+  private Label lblFirstName;
 
   @FXML
-  public Label lblPhoneNo;
+  private Label lblHouseNo;
 
   @FXML
-  public Label lblPostcode;
+  private Label lblPhoneNo;
 
   @FXML
-  public Label lblScreenTitle;
+  private Label lblPostcode;
 
   @FXML
-  public Label lblStreet;
+  private Label lblScreenTitle;
 
   @FXML
-  public Label lblLastName;
+  private Label lblStreet;
 
   @FXML
-  public Label lblFirstNameCheck;
+  private Label lblLastName;
 
   @FXML
-  public Label lblLastNameCheck;
+  private Label lblFirstNameCheck;
 
   @FXML
-  public Label lblPhoneNoCheck;
+  private Label lblLastNameCheck;
 
   @FXML
-  public Label lblHouseNoCheck;
+  private Label lblPhoneNoCheck;
 
   @FXML
-  public Label lblStreetCheck;
+  private Label lblHouseNoCheck;
 
   @FXML
-  public Label lblCityCheck;
+  private Label lblStreetCheck;
 
   @FXML
-  public Label lblPostcodeCheck;
+  private Label lblCityCheck;
 
   @FXML
-  public Label lblEmploymentDateCheck;
+  private Label lblPostcodeCheck;
 
   @FXML
-  public TextField txtCity;
+  private Label lblEmploymentDateCheck;
 
   @FXML
-  public DatePicker dateEmploymentDate;
+  private TextField txtCity;
 
   @FXML
-  public TextField txtFirstName;
+  private DatePicker dateEmploymentDate;
 
   @FXML
-  public TextField txtHouseNo;
+  private TextField txtFirstName;
 
   @FXML
-  public TextField txtPhoneNo;
+  private TextField txtHouseNo;
 
   @FXML
-  public TextField txtPostcode;
+  private TextField txtPhoneNo;
 
   @FXML
-  public TextField txtStreet;
+  private TextField txtPostcode;
 
   @FXML
-  public TextField txtLastName;
+  private TextField txtStreet;
+
+  @FXML
+  private TextField txtLastName;
 
 
   /**
@@ -151,35 +152,6 @@ public class AccountCrudController extends BaseFxmlController {
     if (crudAction == CrudAction.UPDATE) {
       populateFields();
     }
-  }
-
-  /**
-   * Sets all the visibilities of the buttons, based upon what the screen is
-   * being used for.
-   */
-  private void setFieldVisibilities() {
-    if (crudAction == CrudAction.CREATE) {
-      btnCreate.setVisible(true);
-      btnUpdate.setVisible(false);
-    } else if (crudAction == CrudAction.UPDATE) {
-      btnCreate.setVisible(false);
-      btnUpdate.setVisible(true);
-      cbxLibrarian.setDisable(true);
-    }
-  }
-
-  /**
-   * Gets data related the user passed in and displays it in the text fields.
-   */
-  private void populateFields() {
-    cbxLibrarian.setSelected(selectedUser.getClass().equals(Librarian.class));
-    txtFirstName.setText(selectedUser.getFirstName());
-    txtLastName.setText(selectedUser.getLastName());
-    txtPhoneNo.setText(selectedUser.getPhoneNumber());
-    txtHouseNo.setText(selectedUser.getAddress().getHouseNumber());
-    txtStreet.setText(selectedUser.getAddress().getStreet());
-    txtCity.setText(selectedUser.getAddress().getCity());
-    txtPostcode.setText(selectedUser.getAddress().getPostCode());
   }
 
   /**
@@ -397,5 +369,34 @@ public class AccountCrudController extends BaseFxmlController {
    */
   public void setCrudAction(CrudAction crudAction) {
     this.crudAction = crudAction;
+  }
+
+  /**
+   * Sets all the visibilities of the buttons, based upon what the screen is
+   * being used for.
+   */
+  private void setFieldVisibilities() {
+    if (crudAction == CrudAction.CREATE) {
+      btnCreate.setVisible(true);
+      btnUpdate.setVisible(false);
+    } else if (crudAction == CrudAction.UPDATE) {
+      btnCreate.setVisible(false);
+      btnUpdate.setVisible(true);
+      cbxLibrarian.setDisable(true);
+    }
+  }
+
+  /**
+   * Gets data related the user passed in and displays it in the text fields.
+   */
+  private void populateFields() {
+    cbxLibrarian.setSelected(selectedUser.getClass().equals(Librarian.class));
+    txtFirstName.setText(selectedUser.getFirstName());
+    txtLastName.setText(selectedUser.getLastName());
+    txtPhoneNo.setText(selectedUser.getPhoneNumber());
+    txtHouseNo.setText(selectedUser.getAddress().getHouseNumber());
+    txtStreet.setText(selectedUser.getAddress().getStreet());
+    txtCity.setText(selectedUser.getAddress().getCity());
+    txtPostcode.setText(selectedUser.getAddress().getPostCode());
   }
 }
