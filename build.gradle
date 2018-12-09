@@ -83,6 +83,7 @@ jar {
 javadoc {
     options.addStringOption('-module-path', classpath.asPath)
     options.addBooleanOption('html5', true)
+    options.optionFiles << file('javadoc.options')
 }
 
 apply plugin: 'checkstyle'
