@@ -175,6 +175,8 @@ public class Drawing extends Application {
    *
    * @param x x position when mouse pressed
    * @param y y position when mouse pressed
+   * @param width Width.
+   * @param height Height.
    * @return double[] where double[0] is x and double[1] is y
    */
   private double[] getCorrectCoords(double x, double y, double width,

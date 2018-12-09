@@ -114,6 +114,8 @@ public class CopyRepository implements BaseRepository<Copy> {
 
   /**
    * Generates a unique id for copies.
+   *
+   * @param copy Copy.
    */
   private void generateId(Copy copy) {
     String generatedCopyId = String.format("C%d", lastCopyId);

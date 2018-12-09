@@ -146,6 +146,8 @@ public class FileSystemHelper {
    *
    * @param name Name of the library.
    * @return Library loaded from the file system.
+   * @throws ClassNotFoundException When unable to serialize the library.
+   * @throws IOException When file is corrupted.
    */
   private static Library loadLibraryFromFile(String name)
       throws IOException, ClassNotFoundException {

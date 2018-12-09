@@ -98,6 +98,8 @@ public class CustomerRepository implements UserRepository<Customer> {
 
   /**
    * Generates a customer unique username.
+   *
+   * @param customer Customer.
    */
   private void generateUsername(Customer customer) {
     String baseUsername = String.format("%s.%s",
