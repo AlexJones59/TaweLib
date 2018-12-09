@@ -134,7 +134,7 @@ public class TransactionsFinesTableWrapper {
     switch (argument) {
       case "Fine": {
 
-        return String.format(Fine.CURRENCY_FORMAT, fine.getAmountInPounds());
+        return String.format(Fine.CURRENCY_FORMAT, -fine.getAmountInPounds());
       }
       case "Transaction": {
         return String.format(Fine.CURRENCY_FORMAT, transaction.getAmountInPounds());
