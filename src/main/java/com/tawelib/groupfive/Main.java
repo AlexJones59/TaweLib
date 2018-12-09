@@ -9,7 +9,7 @@ import com.tawelib.groupfive.view.Library;
  * In case it is not it announces the fact and terminates.
  *
  * @author Petr Hoffmann
- * @version 0.1
+ * @version 1.0
  */
 public class Main {
 
