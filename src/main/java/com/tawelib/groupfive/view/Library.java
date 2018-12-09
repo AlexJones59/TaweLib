@@ -20,9 +20,9 @@ public class Library extends Application {
 
   public static final String DEFAULT_LIBRARY_NAME = "Tawe-Lib";
 
-  private com.tawelib.groupfive.entity.Library library;
-
   private static String announceText;
+
+  private com.tawelib.groupfive.entity.Library library;
 
   /**
    * Launches the app normally.

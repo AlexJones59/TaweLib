@@ -89,22 +89,6 @@ public class FileSystemHelper {
   }
 
   /**
-   * Creates a new library. Populates it if running in development mode.
-   *
-   * @param name Name of the library.
-   * @return Library.
-   */
-  private static Library createNewLibrary(String name) {
-    Library library = new Library(name);
-
-    if (Main.DEV_MODE) {
-      EntityTestData.populateLibrary(library);
-    }
-
-    return library;
-  }
-
-  /**
    * Returns a path to the user's profile image.
    *
    * @param user User.
@@ -137,6 +121,26 @@ public class FileSystemHelper {
   }
 
   /**
+   * Returns a path to the resource's image.
+   *
+   * @param resource User.
+   * @return Path to the resource's image.
+   */
+  public static String getResourcePicturePath(Resource resource) {
+    if (resource == null && Main.DEV_MODE) {
+      //For development purposes.
+      String directory = IMAGES_SAVE_DIR + "resource/default/";
+      createDirectoryIfNotExist(directory);
+      return directory + "temp." + Drawing.IMAGE_FORMAT;
+    } else {
+      String directory = IMAGES_SAVE_DIR + "resource/custom/";
+      createDirectoryIfNotExist(directory);
+      return directory + resource.getResourceId() + "."
+          + Drawing.IMAGE_FORMAT;
+    }
+  }
+
+  /**
    * Reads a Library from the file system. If the file path supplied is null a
    * default path is used.
    *
@@ -158,6 +162,22 @@ public class FileSystemHelper {
   }
 
   /**
+   * Creates a new library. Populates it if running in development mode.
+   *
+   * @param name Name of the library.
+   * @return Library.
+   */
+  private static Library createNewLibrary(String name) {
+    Library library = new Library(name);
+
+    if (Main.DEV_MODE) {
+      EntityTestData.populateLibrary(library);
+    }
+
+    return library;
+  }
+
+  /**
    * Returns the save path for a library with a given name.
    *
    * @param name Name of the library.
@@ -165,25 +185,5 @@ public class FileSystemHelper {
    */
   private static String getLibraryPath(String name) {
     return LIBRARY_SAVE_DIR + name;
-  }
-
-  /**
-   * Returns a path to the resource's image.
-   *
-   * @param resource User.
-   * @return Path to the resource's image.
-   */
-  public static String getResourcePicturePath(Resource resource) {
-    if (resource == null && Main.DEV_MODE) {
-      //For development purposes.
-      String directory = IMAGES_SAVE_DIR + "resource/default/";
-      createDirectoryIfNotExist(directory);
-      return directory + "temp." + Drawing.IMAGE_FORMAT;
-    } else {
-      String directory = IMAGES_SAVE_DIR + "resource/custom/";
-      createDirectoryIfNotExist(directory);
-      return directory + resource.getResourceId() + "."
-          + Drawing.IMAGE_FORMAT;
-    }
   }
 }
