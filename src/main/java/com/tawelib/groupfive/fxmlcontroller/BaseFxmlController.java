@@ -16,13 +16,13 @@ import javafx.stage.Stage;
  */
 public abstract class BaseFxmlController {
 
-  protected Library library;
-
-  protected Stage primaryStage;
-
   protected static User loggedInUser;
 
   protected static User selectedUser;
+
+  protected Library library;
+
+  protected Stage primaryStage;
 
   protected Node[] librarianNodes;
 
@@ -57,41 +57,6 @@ public abstract class BaseFxmlController {
     if (isCustomerLoggedIn()) {
       refreshForCustomers();
     }
-  }
-
-  /**
-   * Sets node visibilities.
-   *
-   * @param nodes the nodes
-   * @param visible whether node is visible or not
-   */
-  protected void setNodeVisibilities(Node[] nodes, boolean visible) {
-    for (Node node : nodes) {
-      node.setVisible(visible);
-    }
-  }
-
-  protected void configureVisibilities() {
-  }
-
-  /**
-   * Performs actions once the new scene is shown and runtime variables are set.
-   */
-  protected void refresh() {
-  }
-
-  /**
-   * Performs actions once the new scene is shown and runtime variables are set in case that a
-   * Librarian is logged in.
-   */
-  protected void refreshForLibrarians() {
-  }
-
-  /**
-   * Performs actions once the new scene is shown and runtime variables are set in case that a
-   * Customer is logged in.
-   */
-  protected void refreshForCustomers() {
   }
 
   /**
@@ -196,5 +161,40 @@ public abstract class BaseFxmlController {
    * Returns to the previous screen.
    */
   public void back() {
+  }
+
+  /**
+   * Sets node visibilities.
+   *
+   * @param nodes the nodes
+   * @param visible whether node is visible or not
+   */
+  protected void setNodeVisibilities(Node[] nodes, boolean visible) {
+    for (Node node : nodes) {
+      node.setVisible(visible);
+    }
+  }
+
+  protected void configureVisibilities() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are set.
+   */
+  protected void refresh() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are set in case that a
+   * Librarian is logged in.
+   */
+  protected void refreshForLibrarians() {
+  }
+
+  /**
+   * Performs actions once the new scene is shown and runtime variables are set in case that a
+   * Customer is logged in.
+   */
+  protected void refreshForCustomers() {
   }
 }

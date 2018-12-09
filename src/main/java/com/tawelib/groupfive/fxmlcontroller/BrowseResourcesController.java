@@ -145,21 +145,6 @@ public class BrowseResourcesController extends BaseFxmlController {
   }
 
   /**
-   * Populates the table.
-   *
-   * @param resources the resources in the library
-   */
-  private void setTableContents(List<Resource> resources) {
-    tblBrowseResourcesTable.getItems().clear();
-
-    for (Resource resource : resources) {
-      tblBrowseResourcesTable.getItems().add(
-          new ResourceTableWrapper(resource)
-      );
-    }
-  }
-
-  /**
    * Returns to the user dashboard screen.
    */
   public void back() {
@@ -203,5 +188,20 @@ public class BrowseResourcesController extends BaseFxmlController {
 
     newController.setCrudAction(crudAction);
     newController.refresh();
+  }
+
+  /**
+   * Populates the table.
+   *
+   * @param resources the resources in the library
+   */
+  private void setTableContents(List<Resource> resources) {
+    tblBrowseResourcesTable.getItems().clear();
+
+    for (Resource resource : resources) {
+      tblBrowseResourcesTable.getItems().add(
+          new ResourceTableWrapper(resource)
+      );
+    }
   }
 }

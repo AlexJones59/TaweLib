@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
  */
 public class Lease implements Serializable {
 
+  private final Copy copy;
+  private final Customer borrowingCustomer;
   private LocalDateTime dateLeased;
   private LocalDateTime dateReturned;
   private LocalDateTime dueDate;
-  private final Copy copy;
-  private final Customer borrowingCustomer;
 
 
   /**

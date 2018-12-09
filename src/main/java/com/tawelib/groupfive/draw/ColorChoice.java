@@ -16,6 +16,9 @@ import javafx.scene.paint.Color;
  */
 public class ColorChoice {
 
+  private static final String BORDER_CSS_PRESSED = "-fx-border-color: #483d8b";
+  private static final String BORDER_CSS_UNPRESSED = "-fx-border-color: #00bfff";
+
   private Button white = new Button();
   private Button black = new Button();
   private Button red = new Button();
@@ -30,8 +33,6 @@ public class ColorChoice {
       pink};
   private Pane colorPane;
   private GraphicsContext gc;
-  private static final String BORDER_CSS_PRESSED = "-fx-border-color: #483d8b";
-  private static final String BORDER_CSS_UNPRESSED = "-fx-border-color: #00bfff";
 
   private Button pressedColor;
 

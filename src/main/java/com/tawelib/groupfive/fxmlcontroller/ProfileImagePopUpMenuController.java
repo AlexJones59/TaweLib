@@ -27,22 +27,22 @@ import javax.imageio.ImageIO;
 public class ProfileImagePopUpMenuController extends BaseFxmlController {
 
   @FXML
-  public ImageView imgOption1;
+  private ImageView imgOption1;
 
   @FXML
-  public ImageView imgOption2;
+  private ImageView imgOption2;
 
   @FXML
-  public ImageView imgOption3;
+  private ImageView imgOption3;
 
   @FXML
-  public ImageView imgOption4;
+  private ImageView imgOption4;
 
   @FXML
-  public ImageView imgOption5;
+  private ImageView imgOption5;
 
   @FXML
-  public ImageView imgOption6;
+  private ImageView imgOption6;
 
   /**
    * Instantiates a new Profile image pop up menu controller.

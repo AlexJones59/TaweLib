@@ -37,40 +37,40 @@ public class UserInformationController extends BaseFxmlController {
   private ImageView userProfileImageView;
 
   @FXML
-  public TextField firstNameTextField;
+  private TextField firstNameTextField;
 
   @FXML
-  public TextField lastNameTextField;
+  private TextField lastNameTextField;
 
   @FXML
-  public TextField usernameTextField;
+  private TextField usernameTextField;
 
   @FXML
-  public TextField addressTextField;
+  private TextField addressTextField;
 
   @FXML
-  public Label balanceLabel;
+  private Label balanceLabel;
 
   @FXML
-  public TextField balanceTextField;
+  private TextField balanceTextField;
 
   @FXML
-  public TableView<LeaseTableWrapper> resourceTableView;
+  private TableView<LeaseTableWrapper> resourceTableView;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
+  private TableColumn<LeaseTableWrapper, String> resourceIdTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
+  private TableColumn<LeaseTableWrapper, String> copyIdTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, String> titleTableColumn;
+  private TableColumn<LeaseTableWrapper, String> titleTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
+  private TableColumn<LeaseTableWrapper, LocalDateTime> dueDateTableColumn;
 
   @FXML
-  public TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
+  private TableColumn<LeaseTableWrapper, CopyStatus> statusTableColumn;
 
   @FXML
   private Button btnBorrow;
@@ -178,30 +178,6 @@ public class UserInformationController extends BaseFxmlController {
   }
 
   /**
-   * Populates the table.
-   *
-   * @param customerLeases resources the customer has leased
-   * @param customerRequests resources the customer has requested to lease
-   * @param customerReserved respurces that are reserved for the customer
-   */
-  private void setTableContents(List<Lease> customerLeases,
-      List<Request> customerRequests, List<Request> customerReserved) {
-    resourceTableView.getItems().clear();
-
-    for (Lease lease : customerLeases) {
-      resourceTableView.getItems().add(new LeaseTableWrapper(lease, (Customer) selectedUser));
-    }
-
-    for (Request request : customerRequests) {
-      resourceTableView.getItems().add(new LeaseTableWrapper(request));
-    }
-
-    for (Request reserved : customerReserved) {
-      resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
-    }
-  }
-
-  /**
    * Launches ManageBalance screen.
    */
   public void manageBalance() {
@@ -301,6 +277,30 @@ public class UserInformationController extends BaseFxmlController {
       SceneHelper.setUpScene(this, "UserList");
     } else {
       SceneHelper.setUpScene(this, "UserDashboard");
+    }
+  }
+
+  /**
+   * Populates the table.
+   *
+   * @param customerLeases resources the customer has leased
+   * @param customerRequests resources the customer has requested to lease
+   * @param customerReserved respurces that are reserved for the customer
+   */
+  private void setTableContents(List<Lease> customerLeases,
+      List<Request> customerRequests, List<Request> customerReserved) {
+    resourceTableView.getItems().clear();
+
+    for (Lease lease : customerLeases) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(lease, (Customer) selectedUser));
+    }
+
+    for (Request request : customerRequests) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(request));
+    }
+
+    for (Request reserved : customerReserved) {
+      resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
     }
   }
 }

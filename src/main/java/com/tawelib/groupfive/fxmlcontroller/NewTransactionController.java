@@ -20,10 +20,10 @@ import javafx.scene.control.TextField;
 public class NewTransactionController extends BaseFxmlController {
 
   @FXML
-  public Label usernameLabel;
+  private Label usernameLabel;
 
   @FXML
-  public TextField amountTextField;
+  private TextField amountTextField;
 
   /**
    * Instantiates a new New transaction controller.
