@@ -14,10 +14,10 @@ import java.util.Date;
  */
 public class Fine implements Serializable {
 
+  public static final String CURRENCY_FORMAT = "£ %.2f";
+
   private final int amount;// Stored in pennies.
   private final Lease lease;
-
-  public static final String CURRENCY_FORMAT = "£ %.2f";
 
   /**
    * Instantiates a new Fine for resources that is overdue.

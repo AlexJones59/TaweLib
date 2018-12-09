@@ -11,9 +11,9 @@ import java.io.Serializable;
  */
 public class Request implements Serializable {
 
-  private RequestStatus status;
   private final Customer customer;
   private final Resource requestedResource;
+  private RequestStatus status;
 
   /**
    * Instantiates a new Request.
