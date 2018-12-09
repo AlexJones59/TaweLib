@@ -224,11 +224,15 @@ public class CopyManager {
    * @return the days overdue
    */
   public static int getDaysOverdue(Lease lease) {
-    long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
-    if (diff > 0) {
-      return (int) diff;
-    } else {
+    if (lease.getDueDate() == null) {
       return 0;
+    } else {
+      long diff = DAYS.between(lease.getDueDate(), lease.getDateReturned());
+      if (diff > 0) {
+        return (int) diff;
+      } else {
+        return 0;
+      }
     }
   }
 
