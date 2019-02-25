@@ -6,10 +6,10 @@ import java.io.IOException;
 public class ContentProvider {
 
   /**
-   * Returns HTML code for the trailer player.
+   * Returns URL address for the trailer player.
    *
    * @param resourceWithFetchableTrailer name of the resource to be fetched
-   * @return HTML code
+   * @return URL address
    * @throws ContentProviderException when unable to find any relevant content
    * @throws IOException when cannot connect to the media provider
    */
