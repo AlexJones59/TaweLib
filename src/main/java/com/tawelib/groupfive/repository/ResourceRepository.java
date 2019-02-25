@@ -2,15 +2,17 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Game;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - ResourceRepository.java The Resource repository class handles all
- * resources.
+ * File Name - ResourceRepository.java The Resource repository class handles all resources.
  *
  * @author Themis Mouyiasis, Shree Desai
  * @version 1.0
@@ -22,6 +24,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
   private int lastBookNumber = 0;
   private int lastDvdNumber = 0;
   private int lastLaptopNumber = 0;
+  private int lastGameNumber = 0;
 
   /**
    * Initiates a new ResourceRepository.
@@ -138,6 +141,34 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
+   * Search through resources of type "Game".
+   *
+   * @param query the query
+   * @return the list of resources fulfilling search query
+   */
+  public List<Game> searchGame(String query) {
+    ArrayList<Game> result = new ArrayList<>();
+
+    for (Resource searchResource : resources) {
+      if (searchResource.getClass().equals(Game.class)) {
+        Game searchGame = (Game) searchResource;
+        if (
+            searchGame.getResourceId().contains(query)
+                || searchGame.getTitle().contains(query)
+                || Integer.toString(searchGame.getYear()).contains(query)
+                || searchGame.getPublisher().contains(query)
+                || searchGame.getGenre().contains(query)
+                || searchGame.getRating().contains(query)
+        ) {
+          result.add(searchGame);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Gets specific.
    *
    * @param resourceId the resource id
@@ -198,6 +229,30 @@ public class ResourceRepository implements BaseRepository<Resource> {
   }
 
   /**
+   * Search for a specific Game.
+   *
+   * @param resourceId Resource ID.
+   * @return the specific Game.
+   */
+  public Game getSpecificGame(String resourceId) throws ResourceNotFoundException {
+    for (Resource resource : resources) {
+      if (
+          resource.getType() == ResourceType.GAME
+              && resource.getResourceId().equals(resourceId)
+      ) {
+        return (Game) resource;
+      }
+    }
+
+    throw new ResourceNotFoundException(
+        String.format(
+            "Unable to find a game with ID %s in the repository",
+            resourceId
+        )
+    );
+  }
+
+  /**
    * {@inheritDoc}
    */
   @Override
@@ -243,6 +298,12 @@ public class ResourceRepository implements BaseRepository<Resource> {
         typePrefix = "L";
         newResourceId = typePrefix + Integer.toString(lastLaptopNumber);
         lastLaptopNumber++;
+        break;
+      }
+      case GAME: {
+        typePrefix = "G";
+        newResourceId = typePrefix + Integer.toString(lastGameNumber);
+        lastGameNumber++;
         break;
       }
       default:
