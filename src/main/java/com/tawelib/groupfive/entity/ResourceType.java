@@ -20,7 +20,11 @@ public enum ResourceType implements Serializable {
   /**
    * Laptop resource type.
    */
-  LAPTOP(2, 10, 100);
+  LAPTOP(2, 10, 100),
+  /**
+   * Laptop resource type.
+   */
+  GAME(7, 3, 35);
 
 
   private int loanDuration;
