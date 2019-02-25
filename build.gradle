@@ -30,6 +30,7 @@ dependencies {
     compile "org.openjfx:javafx-web:11:$platform"
     compile "org.openjfx:javafx-swing:11:$platform"
 
+    testImplementation 'junit:junit:4.12'
 
     /* uncomment for cross-platform jar:
     compile "org.openjfx:javafx-graphics:11:win"
@@ -62,6 +63,12 @@ run {
     }
 }
 
+test {
+    useJUnit()
+
+    maxHeapSize = '1G'
+}
+
 sourceSets {
     main {
         resources {
@@ -69,14 +76,19 @@ sourceSets {
             includes = ["**/*.fxml"]
         }
     }
+    test {
+        resources {
+            srcDirs = ["src/test/java"]
+        }
+    }
 }
 
 jar {
     manifest {
         attributes(
-            'Implementation-Title': project.name,
-            'Implementation-Version': project.version,
-            'Main-Class': 'com.tawelib.groupfive.Main'
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': 'com.tawelib.groupfive.Main'
         )
     }
     from {
@@ -98,11 +110,11 @@ checkstyle {
 }
 
 checkstyleMain {
-    source ='src/main/java/com/tawelib/groupfive'
+    source = 'src/main/java/com/tawelib/groupfive'
 }
 
 checkstyleTest {
-    source ='src/main/java/com/tawelib/groupfive'
+    source = 'src/main/java/com/tawelib/groupfive'
 }
 
 mainClassName = 'com.tawelib.groupfive.Main'
