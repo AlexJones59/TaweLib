@@ -1,6 +1,5 @@
 package com.tawelib.groupfive;
 
-import com.tawelib.groupfive.contentprovider.ContentProvider;
 import com.tawelib.groupfive.util.ActivationHelper;
 import com.tawelib.groupfive.view.Library;
 
@@ -24,16 +23,6 @@ public class Main {
    * @param args Arguments
    */
   public static void main(String[] args) {
-    //TODO: remove the dev code
-    try {
-      System.out.println(
-          ContentProvider.fetchContent("avatar (2009)")
-      );
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    System.exit(0);
-
     if (ActivationHelper.isActivated()) {
       Library.main(args);
     } else {

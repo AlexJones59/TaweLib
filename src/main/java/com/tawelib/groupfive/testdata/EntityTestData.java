@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.testdata;
 
+import com.tawelib.groupfive.contentprovider.ContentProvider;
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
@@ -12,9 +13,11 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.exception.ContentProviderException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -133,6 +136,12 @@ public class EntityTestData {
         l1,
         l1
     );
+
+    try {
+      System.out.println(ContentProvider.fetchContent(dvd));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     library.getResourceRepository().add(dvd);
 

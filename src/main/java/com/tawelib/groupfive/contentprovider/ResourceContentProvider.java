@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 class ResourceContentProvider {
 
   private static final String SCRAPE_URL_TEMPLATE =
-      "https://www.youtube.com/results?search_query=%s+trailer";
+      "https://www.youtube.com/results?search_query=%s";
 
   private static final String YOUTUBE_VIDEO_LINK_PATTERN = "href=\"\\/watch\\?v=([a-zA-Z0-9]*)\"";
   private static final String YOUTUBE_EMBED_CODE = "<iframe src=\"https://www.youtube.com/embed/%s\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>";

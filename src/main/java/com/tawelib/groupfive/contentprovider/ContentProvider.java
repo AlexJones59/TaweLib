@@ -8,18 +8,14 @@ public class ContentProvider {
   /**
    * Returns HTML code for the trailer player.
    *
-   * <p>
-   *   TODO: replace String resourceName with Resource resource
-   * </p>
-   *
-   * @param resourceName name of the resource to be fetched
+   * @param resourceWithFetchableTrailer name of the resource to be fetched
    * @return HTML code
    * @throws ContentProviderException when unable to find any relevant content
    * @throws IOException when cannot connect to the media provider
    */
-  public static String fetchContent(String resourceName)
+  public static String fetchContent(FetchableTrailer resourceWithFetchableTrailer)
       throws ContentProviderException, IOException {
 
-    return ResourceContentProvider.fetch(resourceName);
+    return ResourceContentProvider.fetch(resourceWithFetchableTrailer.getTrailerSearchQuery());
   }
 }
