@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.contentprovider.FetchableTrailer;
 import javafx.scene.image.Image;
 
 /**
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 1.0
  */
-public class Laptop extends Resource {
+public class Laptop extends Resource implements FetchableTrailer {
 
   private String manufacturer;
   private String model;
@@ -85,5 +86,14 @@ public class Laptop extends Resource {
    */
   public void setInstalledOperatingSystem(String installedOperatingSystem) {
     this.installedOperatingSystem = installedOperatingSystem;
+  }
+
+  @Override
+  public String getTrailerSearchQuery() {
+    return String.format(
+        "%s %s review",
+        getManufacturer(),
+        getModel()
+    );
   }
 }

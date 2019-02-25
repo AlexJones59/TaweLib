@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.testdata;
 
+import com.tawelib.groupfive.contentprovider.ContentProvider;
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
@@ -12,12 +13,18 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Transaction;
+import com.tawelib.groupfive.exception.ContentProviderException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
+import com.tawelib.groupfive.util.TrailerHelper;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.web.WebView;
 
 /**
  * Entity Test Data Class is used to populate the library for demonstration
@@ -133,6 +140,8 @@ public class EntityTestData {
         l1,
         l1
     );
+
+    TrailerHelper.showTrailer(dvd);
 
     library.getResourceRepository().add(dvd);
 

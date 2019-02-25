@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.contentprovider.FetchableTrailer;
 import java.util.ArrayList;
 
 import javafx.scene.image.Image;
@@ -10,7 +11,7 @@ import javafx.scene.image.Image;
  * @author Shree Desai
  * @version 1.0
  */
-public class Dvd extends Resource {
+public class Dvd extends Resource implements FetchableTrailer {
 
   private String director;
   private int runtime;
@@ -108,5 +109,14 @@ public class Dvd extends Resource {
    */
   public void setSubtitleLanguages(ArrayList<String> subtitleLanguages) {
     this.subtitleLanguages = subtitleLanguages;
+  }
+
+  @Override
+  public String getTrailerSearchQuery() {
+    return String.format(
+        "%s (%s) trailer",
+        getTitle(),
+        getYear()
+    );
   }
 }
