@@ -11,6 +11,7 @@ import com.tawelib.groupfive.util.ExplosionHelper;
 import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import com.tawelib.groupfive.util.TrailerHelper;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,8 +30,8 @@ import javax.imageio.ImageIO;
 
 /**
  * The type Resource crud controller. From here all different types of resources have a screen that
- * can be viewed by the user in a neat format and is populated based on previous actions they
- * have selected.
+ * can be viewed by the user in a neat format and is populated based on previous actions they have
+ * selected.
  *
  * @author Petr Hoffman
  * @version 1.0
@@ -101,6 +102,9 @@ public class ResourceCrudController extends BaseFxmlController {
   private Button updateButton;
 
   @FXML
+  private Button showTrailerButton;
+
+  @FXML
   private Button showCopiesButton;
 
   @FXML
@@ -141,6 +145,7 @@ public class ResourceCrudController extends BaseFxmlController {
     }
 
     //sets visibilities based on the above conditions
+    showTrailerButton.setVisible(crudAction != CrudAction.CREATE);
     showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
@@ -228,6 +233,13 @@ public class ResourceCrudController extends BaseFxmlController {
     } catch (NumberFormatException e) {
       AlertHelper.alert(AlertType.ERROR, e.getMessage());
     }
+  }
+
+  /**
+   * Displays a popup window with the resource's trailer.
+   */
+  public void showTrailer() {
+    TrailerHelper.showTrailer(selectedResource);
   }
 
   /**

@@ -31,6 +31,7 @@ public class TrailerHelper {
         webView.getEngine().load(ContentProvider.fetchContent(fetchableTrailerResource));
 
         alert.showAndWait();
+        webView.getEngine().load(null);
       } catch (Exception e) {
         e.printStackTrace();
       }
