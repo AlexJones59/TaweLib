@@ -15,6 +15,9 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'com.google.osdetector'
 
+sourceCompatibility = JavaVersion.VERSION_1_10
+targetCompatibility = JavaVersion.VERSION_1_10
+
 ext.platform = osdetector.os == 'osx' ? 'mac' : osdetector.os == 'windows' ? 'win' : osdetector.os
 
 repositories {
@@ -79,6 +82,7 @@ sourceSets {
     test {
         resources {
             srcDirs = ["src/test/java"]
+            includes = ["**/*Test.class"]
         }
     }
 }
