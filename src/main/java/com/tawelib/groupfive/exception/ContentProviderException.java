@@ -5,4 +5,7 @@ package com.tawelib.groupfive.exception;
  */
 public class ContentProviderException extends Exception {
 
+  public ContentProviderException(String message) {
+    super(message);
+  }
 }
