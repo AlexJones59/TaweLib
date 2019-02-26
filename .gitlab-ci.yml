@@ -3,6 +3,7 @@ image: openjdk:11-jdk
 stages:
   - build
   - test
+  - javadoc
   - deploy
 
 before_script:
@@ -30,6 +31,11 @@ test:
   stage: test
   script:
     - ./gradlew check
+
+javadoc:
+  stage: javadoc
+  script:
+    - ./gradlew javadoc
 
 after_script:
   - echo "End CI"

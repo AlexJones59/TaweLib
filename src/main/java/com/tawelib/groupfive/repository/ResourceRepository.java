@@ -233,6 +233,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
    *
    * @param resourceId Resource ID.
    * @return the specific Game.
+   * @throws ResourceNotFoundException When unable to find resource of a given type.
    */
   public Game getSpecificGame(String resourceId) throws ResourceNotFoundException {
     for (Resource resource : resources) {
