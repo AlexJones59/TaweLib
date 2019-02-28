@@ -64,6 +64,18 @@
                   <TextField fx:id="operatingSystemTextField" layoutX="215.0" layoutY="82.0" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="gameAnchorPane" prefHeight="200.0" prefWidth="400.0">
+               <children>
+                  <Label layoutX="15.0" layoutY="23.0" text="Publisher" />
+                  <Label layoutX="15.0" layoutY="57.0" text="Genre" />
+                  <Label layoutX="15.0" layoutY="93.0" text="Rating" />
+                  <Label layoutX="15.0" layoutY="126.0" text="Multiplayer" />
+                  <TextField fx:id="publisherGameTextField" layoutX="215.0" layoutY="18.0" />
+                  <TextField fx:id="genreGameTextField" layoutX="215.0" layoutY="52.0" />
+                  <TextField fx:id="ratingTextField" layoutX="215.0" layoutY="88.0" />
+                  <ComboBox fx:id="multiplayerComboBox" layoutX="215.0" layoutY="121.0" />
+               </children>
+            </AnchorPane>
          </children>
       </VBox>
       <ComboBox fx:id="resourceTypeComboBox" layoutX="14.0" layoutY="264.0" onAction="#refresh" prefHeight="25.0" prefWidth="200.0" />

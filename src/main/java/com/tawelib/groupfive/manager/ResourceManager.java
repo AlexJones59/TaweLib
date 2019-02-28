@@ -1,12 +1,10 @@
 package com.tawelib.groupfive.manager;
 
-import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Dvd;
-import com.tawelib.groupfive.entity.Laptop;
-import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.*;
 
 import java.util.ArrayList;
 
+import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import javafx.scene.image.Image;
 
 /**
@@ -79,6 +77,25 @@ public class ResourceManager {
     Laptop newLaptop = new Laptop(title, year, thumbnailImage, manufacturer,
         model, installedOperatingSystem);
     library.getResourceRepository().add(newLaptop);
+  }
+  /**
+   * Create new instance of a Game resource and persists it to the resource
+   * repository.
+   *
+   * @param library the library
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param publisher the publisher
+   * @param genre the genre
+   * @param rating the rating
+   * @param multiplayer the availability of multiplayer
+   */
+  public static void createGame(Library library, String title, int year,
+    Image thumbnailImage, String publisher, String genre, String rating,
+    boolean multiplayer) {
+      Game newGame = new Game(title, year, thumbnailImage, publisher, genre, rating, multiplayer);
+      library.getResourceRepository().add(newGame);
   }
 
   /**
@@ -169,6 +186,38 @@ public class ResourceManager {
         .setModel(model);
     library.getResourceRepository().getSpecificLaptop(resourceId)
         .setInstalledOperatingSystem(installedOperatingSystem);
+  }
+
+  /**
+   * Update Game.
+   *
+   * @param library the library
+   * @param resourceId the resource id
+   * @param title the title
+   * @param year the year
+   * @param thumbnailImage the thumbnail image
+   * @param publisher the publisher
+   * @param genre the genre
+   * @param rating the rating
+   * @param multiplayer the availability of multiplayer
+   */
+  public static void updateGame(Library library, String resourceId,String title, int year,
+    Image thumbnailImage, String publisher, String rating, String genre,
+      boolean multiplayer) throws ResourceNotFoundException {
+
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setTitle(title);
+    library.getResourceRepository().getSpecificGame(resourceId).setYear(year);
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setThumbnailImage(thumbnailImage);
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setPublisher(publisher);
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setGenre(genre);
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setRating(rating);
+    library.getResourceRepository().getSpecificGame(resourceId)
+            .setMultiplayer(multiplayer);
   }
 
 }

@@ -1,10 +1,7 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Book;
-import com.tawelib.groupfive.entity.Dvd;
-import com.tawelib.groupfive.entity.Laptop;
-import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.entity.*;
+import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import com.tawelib.groupfive.manager.ResourceManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
@@ -12,10 +9,12 @@ import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import com.tawelib.groupfive.util.TrailerHelper;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -49,6 +48,9 @@ public class ResourceCrudController extends BaseFxmlController {
 
   @FXML
   private AnchorPane laptopAnchorPane;
+
+  @FXML
+  private AnchorPane gameAnchorPane;
 
   @FXML
   private Label idLabel;
@@ -90,6 +92,18 @@ public class ResourceCrudController extends BaseFxmlController {
   private TextField runtimeTextField;
 
   @FXML
+  private TextField publisherGameTextField;
+
+  @FXML
+  private TextField genreGameTextField;
+
+  @FXML
+  private TextField ratingTextField;
+
+  @FXML
+  private ComboBox<String> multiplayerComboBox;
+
+  @FXML
   private TextArea audioLanguagesTextArea;
 
   @FXML
@@ -114,7 +128,7 @@ public class ResourceCrudController extends BaseFxmlController {
   private ComboBox<ResourceType> resourceTypeComboBox;
 
   private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
-      ResourceType.LAPTOP};
+      ResourceType.LAPTOP, ResourceType.GAME};
 
   /**
    * Sets the dynamic fields.
@@ -128,6 +142,7 @@ public class ResourceCrudController extends BaseFxmlController {
         resourceTypeComboBox.getItems().addAll(Arrays.asList(resourceTypes));
         resourceTypeComboBox.setValue(ResourceType.BOOK);
       }
+      initMultiplayerComboBox();
 
       switch (resourceTypeComboBox.getValue()) {
         case BOOK:
@@ -138,6 +153,9 @@ public class ResourceCrudController extends BaseFxmlController {
           break;
         case LAPTOP:
           showSubtypePane(laptopAnchorPane);
+          break;
+        case GAME:
+          showSubtypePane(gameAnchorPane);
           break;
         default:
           break;
@@ -182,6 +200,18 @@ public class ResourceCrudController extends BaseFxmlController {
               manufacturerTextField.getText(), modelTextField.getText(),
               operatingSystemTextField.getText());
           break;
+        case GAME:
+          boolean mp;
+          if((multiplayerComboBox.getValue()).equals("Multiplayer")){
+            mp = true;
+          }else{
+            mp = false;
+          }
+          ResourceManager.createGame(library, titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()),null,
+              publisherGameTextField.getText(), genreGameTextField.getText(),
+              ratingTextField.getText(), mp);
+          break;
         default:
           break;
       }
@@ -224,13 +254,25 @@ public class ResourceCrudController extends BaseFxmlController {
                   manufacturerTextField.getText(), modelTextField.getText(),
                   operatingSystemTextField.getText());
           break;
+        case GAME:
+          boolean mp;
+          if((multiplayerComboBox.getValue()).equals("Multiplayer")){
+            mp = true;
+          }else{
+            mp = false;
+          }
+          ResourceManager.updateGame(library, selectedResource.getResourceId(),
+            titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
+            null, publisherGameTextField.getText(), genreGameTextField.getText(),
+            ratingTextField.getText(), mp);
+          break;
         default:
           break;
       }
 
       AlertHelper.alert(AlertType.INFORMATION, "Successfully updated");
       back();
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException | ResourceNotFoundException e) {
       AlertHelper.alert(AlertType.ERROR, e.getMessage());
     }
   }
@@ -340,6 +382,8 @@ public class ResourceCrudController extends BaseFxmlController {
     dvdAnchorPane.setManaged(dvdAnchorPane == pane);
     laptopAnchorPane.setVisible(laptopAnchorPane == pane);
     laptopAnchorPane.setManaged(laptopAnchorPane == pane);
+    gameAnchorPane.setVisible(gameAnchorPane == pane);
+    gameAnchorPane.setManaged(gameAnchorPane == pane);
   }
 
   /**
@@ -366,6 +410,9 @@ public class ResourceCrudController extends BaseFxmlController {
         populateLaptop();
         showSubtypePane(laptopAnchorPane);
         break;
+      case GAME:
+        populateGame();
+        showSubtypePane(gameAnchorPane);
       default:
         break;
     }
@@ -408,5 +455,31 @@ public class ResourceCrudController extends BaseFxmlController {
     manufacturerTextField.setText(selectedLaptop.getModel());
     operatingSystemTextField
         .setText(selectedLaptop.getInstalledOperatingSystem());
+  }
+
+  private void populateGame(){
+    Game selectedGame = (Game) selectedResource;
+    initMultiplayerComboBox();
+    publisherGameTextField.setText(selectedGame.getPublisher());
+    genreGameTextField.setText(selectedGame.getGenre());
+    ratingTextField.setText(selectedGame.getRating());
+    boolean mp = ((Game) selectedResource).isMultiplayer();
+    String text;
+    if(mp == true){
+      text = "Multiplayer";
+    }else{
+      text = "Singleplayer";
+    }
+    multiplayerComboBox.setValue(text);
+  }
+
+  /**
+   * The method initializes the comboBox for choosing the multiplayer/singleplayer option.
+   */
+  private void initMultiplayerComboBox(){
+    if(multiplayerComboBox.getItems().isEmpty()){
+      multiplayerComboBox.getItems().addAll("Multiplayer", "Singleplayer");
+      multiplayerComboBox.setValue("Singleplayer");
+    }
   }
 }

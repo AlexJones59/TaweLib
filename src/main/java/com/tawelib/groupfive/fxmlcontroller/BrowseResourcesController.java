@@ -56,7 +56,8 @@ public class BrowseResourcesController extends BaseFxmlController {
       null,
       ResourceType.BOOK,
       ResourceType.DVD,
-      ResourceType.LAPTOP
+      ResourceType.LAPTOP,
+      ResourceType.GAME
   };
 
   //TABLE----------------------------------------------------------
@@ -129,9 +130,15 @@ public class BrowseResourcesController extends BaseFxmlController {
       );
     } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
       result = new ArrayList<>(
-          library.getResourceRepository().searchLaptop(
-              txtSearch.getText()
-          )
+              library.getResourceRepository().searchLaptop(
+                      txtSearch.getText()
+              )
+      );
+    }else if (cmbResourceType.getValue() == ResourceType.GAME)  {
+      result = new ArrayList<>(
+              library.getResourceRepository().searchGame(
+                      txtSearch.getText()
+              )
       );
     } else {
       result = library.getResourceRepository().searchResource(
