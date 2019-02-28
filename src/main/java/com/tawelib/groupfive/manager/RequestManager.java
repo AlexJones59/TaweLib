@@ -5,6 +5,11 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.repository.CustomerRepository;
+import com.tawelib.groupfive.repository.RequestRepository;
+import com.tawelib.groupfive.util.AlertHelper;
+import javafx.scene.control.Alert;
+
 import java.util.List;
 
 /**
@@ -16,35 +21,44 @@ import java.util.List;
  */
 public class RequestManager {
 
-  /**
-   * Create request for a resource while also setting due date of oldest
-   * borrowed copy.
-   *
-   * @param library the library
-   * @param customer the customer
-   * @param requestedResource the requested resource
-   */
-  public static void createRequest(Library library, Customer customer,
-      Resource requestedResource) {
-    Request newRequest = new Request(customer, requestedResource);
-    library.getRequestRepository().add(newRequest);
+    /**
+     * Create request for a resource while also setting due date of oldest
+     * borrowed copy.
+     *
+     * @param library           the library
+     * @param customer          the customer
+     * @param requestedResource the requested resource
+     */
+    public static void createRequest(Library library, Customer customer,
+                                     Resource requestedResource) {
 
-    //Sets Due Date of oldest borrowed copy.
-    List<Copy> resourceCopies = library.getCopyRepository()
-        .getResourceCopies(requestedResource);
-    Copy oldestCopy = resourceCopies.get(0);
-    for (Copy copy : resourceCopies) {
-      if (library.getLeaseRepository().getCopyCurrentLease(copy).getDateLeased()
-          .isBefore(library.getLeaseRepository().getCopyCurrentLease(oldestCopy)
-              .getDateLeased())
-          && library.getLeaseRepository().getCopyCurrentLease(copy).getDueDate()
-          != null) {
-        oldestCopy = copy;
+        if (!ResourceCapManager.isOverResourceCap(library, customer, requestedResource)) {
 
-      }
+            Request newRequest = new Request(customer, requestedResource);
+            library.getRequestRepository().add(newRequest);
+            library.getLeaseRepository().getCustomerCurrentLeases(customer);
+            //Sets Due Date of oldest borrowed copy.
+            List<Copy> resourceCopies = library.getCopyRepository()
+                    .getResourceCopies(requestedResource);
+            Copy oldestCopy = resourceCopies.get(0);
+            for (Copy copy : resourceCopies) {
+                if (library.getLeaseRepository().getCopyCurrentLease(copy).getDateLeased()
+                        .isBefore(library.getLeaseRepository().getCopyCurrentLease(oldestCopy)
+                                .getDateLeased())
+                        && library.getLeaseRepository().getCopyCurrentLease(copy).getDueDate()
+                        != null) {
+                    oldestCopy = copy;
+
+                }
+            }
+
+            CopyManager.generateDueDate(
+                    library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
+        } else {
+            System.out.println("You have exceeded the resource cap. " +
+                    "An item must be returned before another can be borrowed.");
+            AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. " +
+                    "An item must be returned before another can be borrowed.");
+        }
     }
-
-    CopyManager.generateDueDate(
-        library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
-  }
 }
