@@ -17,7 +17,11 @@ import com.tawelib.groupfive.entity.Resource;
 
 public class ResourceCapManager {
 
-  private static final int cap = 5;
+  private ResourceCapManager() {
+    throw new UnsupportedOperationException();
+  }
+
+  private static final int CAP = 5;
 
   /**
    * Method which calculates how many resources the user has borrowed.
@@ -27,7 +31,7 @@ public class ResourceCapManager {
    * @param resource The resource which the customer is about to borrow
    * @return True if the number of borrowed resources is under the cap false otherwise
    */
-  public static boolean isOverResourceCap(Library library, Customer customer, Resource resource) {
+  public static boolean isUnderResourceCap(Library library, Customer customer, Resource resource) {
     int borrowedItems = 0;
     for (Lease lease : library.getLeaseRepository().getCustomerCurrentLeases(customer)) {
       if (lease.getBorrowedCopy().getResource() instanceof Laptop) {
@@ -41,10 +45,10 @@ public class ResourceCapManager {
     } else {
       borrowedItems += 1;
     }
-    if (borrowedItems <= cap) {
-      return false;
-    } else {
+    if (borrowedItems <= CAP) {
       return true;
+    } else {
+      return false;
     }
   }
 }

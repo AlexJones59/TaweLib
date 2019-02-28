@@ -28,7 +28,7 @@ public class RequestManager {
   public static void createRequest(Library library, Customer customer,
       Resource requestedResource) {
 
-    if (!ResourceCapManager.isOverResourceCap(library, customer, requestedResource)) {
+    if (ResourceCapManager.isUnderResourceCap(library, customer, requestedResource)) {
 
       Request newRequest = new Request(customer, requestedResource);
       library.getRequestRepository().add(newRequest);
@@ -51,8 +51,6 @@ public class RequestManager {
       CopyManager.generateDueDate(
           library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
     } else {
-      System.out.println("You have exceeded the resource cap. "
-          + "An item must be returned before another can be borrowed.");
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
           + "An item must be returned before another can be borrowed.");
     }

@@ -54,8 +54,8 @@ public class BorrowResourcesController extends BaseFxmlController {
     Copy requestedCopy = library.getCopyRepository()
         .getSpecific(txtResourceCopyId.getText());
 
-    if (!ResourceCapManager
-        .isOverResourceCap(library, selectedCustomer, requestedCopy.getResource())) {
+    if (ResourceCapManager
+        .isUnderResourceCap(library, selectedCustomer, requestedCopy.getResource())) {
 
       if (requestedCopy == null) {
         AlertHelper.alert(AlertType.ERROR, "Copy ID is not valid.");
