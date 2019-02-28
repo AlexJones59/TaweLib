@@ -1,6 +1,10 @@
 package com.tawelib.groupfive.manager;
 
-import com.tawelib.groupfive.entity.*;
+import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Laptop;
+import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.Resource;
 
 /**
  * This is the resource cap method. It checks how many items has the user already borrowed and

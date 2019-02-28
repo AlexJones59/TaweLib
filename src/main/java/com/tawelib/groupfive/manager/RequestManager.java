@@ -5,12 +5,9 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
-import com.tawelib.groupfive.repository.CustomerRepository;
-import com.tawelib.groupfive.repository.RequestRepository;
 import com.tawelib.groupfive.util.AlertHelper;
-import javafx.scene.control.Alert;
-
 import java.util.List;
+import javafx.scene.control.Alert;
 
 /**
  * File Name - RequestManager.java The Request Manager class handles data flow between the Request
@@ -56,8 +53,8 @@ public class RequestManager {
     } else {
       System.out.println("You have exceeded the resource cap. " +
           "An item must be returned before another can be borrowed.");
-      AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. " +
-          "An item must be returned before another can be borrowed.");
+      AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+          + "An item must be returned before another can be borrowed.");
     }
   }
 }
