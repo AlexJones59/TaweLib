@@ -51,8 +51,8 @@ public class RequestManager {
       CopyManager.generateDueDate(
           library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
     } else {
-      System.out.println("You have exceeded the resource cap. " +
-          "An item must be returned before another can be borrowed.");
+      System.out.println("You have exceeded the resource cap. "
+          + "An item must be returned before another can be borrowed.");
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
           + "An item must be returned before another can be borrowed.");
     }

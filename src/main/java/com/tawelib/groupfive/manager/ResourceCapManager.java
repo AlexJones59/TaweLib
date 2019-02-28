@@ -19,6 +19,14 @@ public class ResourceCapManager {
 
   private static final int cap = 5;
 
+  /**
+   * Method which calculates how many resources the user has borrowed.
+   *
+   * @param library Current library
+   * @param customer Customer whose borrowed resources are checked
+   * @param resource The resource which the customer is about to borrow
+   * @return True if the number of borrowed resources is under the cap false otherwise
+   */
   public static boolean isOverResourceCap(Library library, Customer customer, Resource resource) {
     int borrowedItems = 0;
     for (Lease lease : library.getLeaseRepository().getCustomerCurrentLeases(customer)) {
