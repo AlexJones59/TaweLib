@@ -17,6 +17,7 @@ public abstract class Resource implements Serializable {
   private int year;
   private Image thumbnailImage;
   private final ResourceType type;
+  private LocalDateTime dateAdded;
 
   /**
    * Instantiates a new Resource.
@@ -32,6 +33,7 @@ public abstract class Resource implements Serializable {
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
+    this.dateAdded = LocalDateTime.now();
   }
 
   /**
@@ -106,4 +108,13 @@ public abstract class Resource implements Serializable {
     return type;
   }
 
+  /**
+   * Gets dateAdded.
+   *
+   * @return the dateAdded
+   */
+  public LocalDateTime getDateAdded() {
+	return dateAdded;
+  }
+  
 }
