@@ -54,7 +54,7 @@ public class Rating implements Serializable {
    *
    * @return reviewer
    */
-  public String getReviewer() {
+  public String getRater() {
     return raterId;
   }
 
