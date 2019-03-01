@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.manager.RequestManager;
 import com.tawelib.groupfive.tablewrapper.CopiesTableWrapper;
@@ -11,6 +12,7 @@ import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.time.LocalDateTime;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -126,11 +128,16 @@ public class ResourceCopiesController extends BaseFxmlController {
    * Requests a currently selected resource.
    */
   public void request() {
-    RequestManager.createRequest(
-        library,
-        (Customer) loggedInUser,
-        selectedResource
-    );
+    try {
+      RequestManager.createRequest(
+          library,
+          (Customer) loggedInUser,
+          selectedResource
+      );
+    } catch (OverResourceCapException e) {
+      AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+          + "An item must be returned before another can be borrowed.");
+    }
 
     AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     back();
