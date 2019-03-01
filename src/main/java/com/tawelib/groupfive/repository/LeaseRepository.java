@@ -50,7 +50,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
   /**
    * Gets Customer lease history.
    *
-   * @param customer The Copy.
+   * @param customer The customer.
    * @return The leases.
    */
   public List<Lease> getCustomerLeaseHistory(Customer customer) {
@@ -96,7 +96,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
 
   public List<Lease> getCustomerCurrentLeases(Customer customer) {
-    ArrayList<Lease> customerCurrentLeases = new ArrayList<Lease>();
+    ArrayList<Lease> customerCurrentLeases = new ArrayList<>();
     for (Lease lease : getCustomerLeaseHistory(customer)) {
       if (lease.getDateReturned() == null) {
         customerCurrentLeases.add(lease);
