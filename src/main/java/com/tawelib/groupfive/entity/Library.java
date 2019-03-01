@@ -5,6 +5,7 @@ import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.FineRepository;
 import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
+import com.tawelib.groupfive.repository.RatingRepository;
 import com.tawelib.groupfive.repository.RequestRepository;
 import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.repository.TransactionRepository;
@@ -64,6 +65,11 @@ public class Library implements Serializable {
   private FineRepository fineRepository;
 
   /**
+   * The rating repository.
+   */
+  private RatingRepository ratingRepository;
+
+  /**
    * Creates a new library with a given name.
    *
    * @param name The name of the library.
@@ -78,6 +84,7 @@ public class Library implements Serializable {
     customerRepository = new CustomerRepository();
     librarianRepository = new LibrarianRepository();
     fineRepository = new FineRepository();
+    ratingRepository = new RatingRepository();
   }
 
   /**
@@ -168,5 +175,14 @@ public class Library implements Serializable {
    */
   public FineRepository getFineRepository() {
     return fineRepository;
+  }
+
+  /**
+   * Gets rating repository.
+   *
+   * @return The rating repository.
+   */
+  public RatingRepository getRatingRepository() {
+    return ratingRepository;
   }
 }
