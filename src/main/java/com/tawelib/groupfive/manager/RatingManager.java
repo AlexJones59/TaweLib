@@ -26,7 +26,7 @@ public class RatingManager {
 
   /**
    * Checks if the customer trying to leave a rating for a resource has leased the
-   * resource in the past.
+   * resource in the past and has not previously left a rating for the resource.
    *
    * @param library The library.
    * @param customer The Customer.
@@ -34,14 +34,25 @@ public class RatingManager {
    * @return True if the customer can leave a rating for the resource.
    */
   public static boolean validRater(Library library, Customer customer, Resource resource) {
-    boolean valid = false;
-    for (Lease lease : library.getLeaseRepository()
-        .getCustomerLeaseHistory(customer)) {
-      if (lease.getBorrowedCopy().getResource() == resource) {
-        valid = true;
+    boolean resourceLeased = false;
+    boolean customerNotRated = true;
+
+    for (Rating rating : library.getRatingRepository()
+        .getResourcesRatings(resource.getResourceId())) {
+      if (rating.getRater().equals(customer.getUsername())) {
+        customerNotRated = false;
       }
     }
 
-    return valid;
+    for (Lease lease : library.getLeaseRepository()
+        .getCustomerLeaseHistory(customer)) {
+      if (lease.getBorrowedCopy().getResource() == resource) {
+        resourceLeased = true;
+      }
+    }
+
+    return resourceLeased && customerNotRated;
   }
+
+
 }
