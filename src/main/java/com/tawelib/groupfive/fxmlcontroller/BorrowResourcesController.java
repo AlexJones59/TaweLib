@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.manager.ResourceCapManager;
 import com.tawelib.groupfive.util.AlertHelper;
@@ -47,8 +48,11 @@ public class BorrowResourcesController extends BaseFxmlController {
   /**
    * Checks whether user can borrow a resource based on availability or their account balance and
    * then lets them borrow specified resource if allowed.
+   *
+   * @throws OverResourceCapException This exception gets thrown when lending this customer the item
+   *        would exceed their resource cap.
    */
-  public void borrow() {
+  public void borrow() throws OverResourceCapException {
     List<Lease> overdueLeases = library.getLeaseRepository()
         .getCustomerOverdueLeases(selectedCustomer);
     Copy requestedCopy = library.getCopyRepository()

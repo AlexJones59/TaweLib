@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.util.AlertHelper;
 import java.util.List;
 import javafx.scene.control.Alert;
@@ -24,10 +25,11 @@ public class RequestManager {
    * @param library the library
    * @param customer the customer
    * @param requestedResource the requested resource
+   * @throws OverResourceCapException This exception gets thrown whenever this request and
+   *        subsequent lending of an item would exceed this customers resource cap.
    */
   public static void createRequest(Library library, Customer customer,
-      Resource requestedResource) {
-
+      Resource requestedResource) throws OverResourceCapException {
     if (ResourceCapManager.isUnderResourceCap(library, customer, requestedResource)) {
 
       Request newRequest = new Request(customer, requestedResource);
@@ -51,8 +53,7 @@ public class RequestManager {
       CopyManager.generateDueDate(
           library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
     } else {
-      AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
-          + "An item must be returned before another can be borrowed.");
+      throw new OverResourceCapException();
     }
   }
 }
