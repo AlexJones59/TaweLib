@@ -25,14 +25,14 @@ public class RatingRepository implements BaseRepository<Rating> {
   /**
    * Returns all ratings for a particular resource.
    *
-   * @param resourceID resource being searched for
+   * @param resourceId resource being searched for
    * @return List of all ratings for resource
    */
-  public List<Rating> getResourcesRatings(String resourceID) {
+  public List<Rating> getResourcesRatings(String resourceId) {
     ArrayList<Rating> results = new ArrayList<>();
 
     for (Rating rating : ratings) {
-      if (rating.getRatedResource().equals(resourceID)) {
+      if (rating.getRatedResource().equals(resourceId)) {
         results.add(rating);
       }
     }

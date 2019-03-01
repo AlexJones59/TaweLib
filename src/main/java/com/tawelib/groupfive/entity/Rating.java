@@ -12,21 +12,21 @@ import java.time.LocalDateTime;
 public class Rating implements Serializable {
 
   private int value; //1-5 stars
-  private String ratedResourceID;
-  private String raterID;
+  private String ratedResourceId;
+  private String raterId;
   private LocalDateTime dateRated;
 
   /**
    * Instantiates a new Rating.
    *
    * @param value the rating out of 5
-   * @param ratedResourceID the rated resource
-   * @param raterID the rater
+   * @param ratedResourceId the rated resource
+   * @param raterId the rater
    */
-  public Rating(int value, String ratedResourceID, String raterID) {
+  public Rating(int value, String ratedResourceId, String raterId) {
     this.value = value;
-    this.ratedResourceID = ratedResourceID;
-    this.raterID = raterID;
+    this.ratedResourceId = ratedResourceId;
+    this.raterId = raterId;
     this.dateRated = LocalDateTime.now();
   }
 
@@ -46,7 +46,7 @@ public class Rating implements Serializable {
    * @return rated resource
    */
   public String getRatedResource() {
-    return ratedResourceID;
+    return ratedResourceId;
   }
 
   /**
@@ -55,7 +55,7 @@ public class Rating implements Serializable {
    * @return reviewer
    */
   public String getReviewer() {
-    return raterID;
+    return raterId;
   }
 
   /**
