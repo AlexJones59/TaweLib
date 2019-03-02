@@ -1,6 +1,11 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.*;
+import com.tawelib.groupfive.entity.Book;
+import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Game;
+import com.tawelib.groupfive.entity.Laptop;
+import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import com.tawelib.groupfive.manager.ResourceManager;
 import com.tawelib.groupfive.util.AlertHelper;
@@ -466,7 +471,7 @@ public class ResourceCrudController extends BaseFxmlController {
     ratingTextField.setText(selectedGame.getRating());
     boolean mp = ((Game) selectedResource).isMultiplayer();
     String text;
-    if (mp == true) {
+    if (mp) {
       text = "Multiplayer";
     } else {
       text = "Singleplayer";

@@ -1,6 +1,10 @@
 package com.tawelib.groupfive.manager;
 
-import com.tawelib.groupfive.entity.*;
+import com.tawelib.groupfive.entity.Book;
+import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Game;
+import com.tawelib.groupfive.entity.Laptop;
+import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
