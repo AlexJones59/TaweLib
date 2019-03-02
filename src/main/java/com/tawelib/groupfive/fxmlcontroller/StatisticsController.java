@@ -1,17 +1,20 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
-import com.tawelib.groupfive.entity.Customer;
-import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.util.SceneHelper;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -33,10 +36,16 @@ public class StatisticsController extends BaseFxmlController {
   private Button backButton;
 
   @FXML
+  private Accordion statsContainer;
+
+  @FXML
   private TitledPane userStatPane;
 
   @FXML
-  private ComboBox<?> userStatTimeComboBox;
+  private ComboBox<String> userStatTimeComboBox;
+
+  @FXML
+  private Label userLabel;
 
   @FXML
   private TextField noUserBorrowedTextField;
@@ -54,19 +63,19 @@ public class StatisticsController extends BaseFxmlController {
   private NumberAxis userStatYAxis;
 
   @FXML
-  private ComboBox<?> userStatResTypeComboBox;
+  private ComboBox<ResourceType> userStatResTypeComboBox;
 
   @FXML
   private TitledPane resourceStatPane;
 
   @FXML
-  private ComboBox<?> resourceStatResTypeComboBox;
+  private ComboBox<ResourceType> resourceStatResTypeComboBox;
 
   @FXML
   private Pane popLaptopPane;
 
   @FXML
-  private ComboBox<?> laptopStatTimeComboBox;
+  private ComboBox<String> laptopStatTimeComboBox;
 
   @FXML
   private TableView<?> popularLaptopTableView;
@@ -134,11 +143,24 @@ public class StatisticsController extends BaseFxmlController {
   @FXML
   private ComboBox<?> fineStatResTypeComboBox;
 
+  private ResourceType[] resourceTypes = {
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP
+  };
+
+  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
+      "Day","Week", "Month");
+
   /**
    * Sets the dynamic fields.
    */
   @Override
   public void refresh() {
+    setExpandedUserStatTitledPane();
+
+
   }
 
   /**
@@ -157,9 +179,30 @@ public class StatisticsController extends BaseFxmlController {
         fineStatPane
     };
 
-    customerNodes = new Node[]{
-        userStatPane
-    };
+
+  }
+
+  /**
+   * Initializes nodes in the User Statistics Pane.
+   */
+  public void setExpandedUserStatTitledPane() {
+    statsContainer.setExpandedPane(userStatPane);
+    userStatTimeComboBox.setItems(timePeriods);
+    userStatTimeComboBox.getSelectionModel().selectFirst();
+    userLabel.setVisible(isCustomerLoggedIn());
+    noUserBorrowedTextField.setVisible(isCustomerLoggedIn());
+  }
+
+  /**
+   * Initializes nodes in the Resource Statistics Pane.
+   */
+  public void setExpandedResourceStatTitledPane() { }
+
+  /**
+   * Initializes nodes in the Fine Statistics Pane.
+   */
+  public void setExpandedFineStatTitledPane() {
+
 
   }
 
