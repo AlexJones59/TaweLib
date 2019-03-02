@@ -1,10 +1,8 @@
 package com.tawelib.groupfive.manager;
 
 import com.tawelib.groupfive.entity.*;
-
-import java.util.ArrayList;
-
 import com.tawelib.groupfive.exception.ResourceNotFoundException;
+import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 /**

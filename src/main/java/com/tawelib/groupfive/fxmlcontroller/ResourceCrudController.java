@@ -413,6 +413,7 @@ public class ResourceCrudController extends BaseFxmlController {
       case GAME:
         populateGame();
         showSubtypePane(gameAnchorPane);
+        break;
       default:
         break;
     }
