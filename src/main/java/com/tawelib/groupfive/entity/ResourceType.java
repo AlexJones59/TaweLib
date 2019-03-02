@@ -22,7 +22,7 @@ public enum ResourceType implements Serializable {
    */
   LAPTOP(2, 10, 100),
   /**
-   * Laptop resource type.
+   * Video game resource type.
    */
   GAME(7, 3, 35);
 
