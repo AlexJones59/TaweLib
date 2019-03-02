@@ -27,11 +27,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.web.WebView;
 
 /**
- * Entity Test Data Class is used to populate the library for demonstration
- * purposes.
+ * Entity Test Data Class is used to populate the library for demonstration purposes.
  *
  * @author Nayeem Mohammed, Shree Desai
- *
  */
 public class EntityTestData {
 
@@ -141,8 +139,6 @@ public class EntityTestData {
         l1
     );
 
-    TrailerHelper.showTrailer(dvd);
-
     library.getResourceRepository().add(dvd);
 
     ArrayList<String> l2 = new ArrayList<>();
@@ -240,7 +236,6 @@ public class EntityTestData {
     } catch (IllegalAccessException | NoSuchFieldException e) {
       e.printStackTrace();
     }
-
 
     CopyManager.borrowResourceCopy(
         library,

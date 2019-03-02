@@ -137,6 +137,8 @@ public class ResourceCopiesController extends BaseFxmlController {
     } catch (OverResourceCapException e) {
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
           + "An item must be returned before another can be borrowed.");
+    } catch (NullPointerException e) {
+      System.out.println("No such resource!");
     }
 
     AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");

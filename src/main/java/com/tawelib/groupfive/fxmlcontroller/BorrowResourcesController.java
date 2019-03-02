@@ -58,49 +58,53 @@ public class BorrowResourcesController extends BaseFxmlController {
     Copy requestedCopy = library.getCopyRepository()
         .getSpecific(txtResourceCopyId.getText());
 
-    if (ResourceCapManager
-        .isUnderResourceCap(library, selectedCustomer, requestedCopy.getResource())) {
+    if (requestedCopy != null) {
+      if (ResourceCapManager
+          .isUnderResourceCap(library, selectedCustomer, requestedCopy.getResource())) {
 
-      if (requestedCopy == null) {
-        AlertHelper.alert(AlertType.ERROR, "Copy ID is not valid.");
-      } else {
-        if (selectedCustomer.getAccountBalance() < 0) {
-          AlertHelper.alert(
-              AlertType.ERROR,
-              "Your balance is below the minimum."
-          );
-          back();
+        if (requestedCopy == null) {
+          AlertHelper.alert(AlertType.ERROR, "Copy ID is not valid.");
         } else {
-          if (!overdueLeases.isEmpty()) {
+          if (selectedCustomer.getAccountBalance() < 0) {
             AlertHelper.alert(
                 AlertType.ERROR,
-                "You have overdue copies."
+                "Your balance is below the minimum."
             );
+            back();
           } else {
-            if (!requestedCopy.getStatus().equals(CopyStatus.AVAILABLE)) {
+            if (!overdueLeases.isEmpty()) {
               AlertHelper.alert(
                   AlertType.ERROR,
-                  "This copy is not available to borrow."
+                  "You have overdue copies."
               );
-              back();
             } else {
-              CopyManager.borrowResourceCopy(
-                  library,
-                  txtResourceCopyId.getText(),
-                  selectedCustomer.getUsername()
-              );
-              AlertHelper.alert(
-                  AlertType.INFORMATION,
-                  "Borrowed."
-              );
-              back();
+              if (!requestedCopy.getStatus().equals(CopyStatus.AVAILABLE)) {
+                AlertHelper.alert(
+                    AlertType.ERROR,
+                    "This copy is not available to borrow."
+                );
+                back();
+              } else {
+                CopyManager.borrowResourceCopy(
+                    library,
+                    txtResourceCopyId.getText(),
+                    selectedCustomer.getUsername()
+                );
+                AlertHelper.alert(
+                    AlertType.INFORMATION,
+                    "Borrowed."
+                );
+                back();
+              }
             }
           }
         }
+      } else {
+        AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+            + "An item must be returned before another can be borrowed.");
       }
     } else {
-      AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
-          + "An item must be returned before another can be borrowed.");
+      AlertHelper.alert(Alert.AlertType.ERROR, "There exists no such copy.");
     }
   }
 
