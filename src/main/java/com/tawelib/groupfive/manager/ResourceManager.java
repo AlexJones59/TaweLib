@@ -8,8 +8,8 @@ import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import javafx.scene.image.Image;
 
 /**
- * File Name - ResourceManager.java The Resource Manager class  handles controls
- * data flow between the Resource Repository and the GUI interfaces.
+ * File Name - ResourceManager.java The Resource Manager class  handles controls data flow between
+ * the Resource Repository and the GUI interfaces.
  *
  * @author Shree Desai
  * @version 1.0
@@ -17,8 +17,7 @@ import javafx.scene.image.Image;
 public class ResourceManager {
 
   /**
-   * Create new instance of a book resource and persists it to the resource
-   * repository.
+   * Create new instance of a book resource and persists it to the resource repository.
    *
    * @param library the library
    * @param title the title
@@ -39,8 +38,7 @@ public class ResourceManager {
   }
 
   /**
-   * Create new instance of a DVD resource and persists it to the resource
-   * repository.
+   * Create new instance of a DVD resource and persists it to the resource repository.
    *
    * @param library the library
    * @param title the title
@@ -60,8 +58,7 @@ public class ResourceManager {
   }
 
   /**
-   * Create new instance of a laptop resource and persists it to the resource
-   * repository.
+   * Create new instance of a laptop resource and persists it to the resource repository.
    *
    * @param library the library
    * @param title the title
@@ -78,9 +75,9 @@ public class ResourceManager {
         model, installedOperatingSystem);
     library.getResourceRepository().add(newLaptop);
   }
+
   /**
-   * Create new instance of a Game resource and persists it to the resource
-   * repository.
+   * Create new instance of a Game resource and persists it to the resource repository.
    *
    * @param library the library
    * @param title the title
@@ -92,10 +89,10 @@ public class ResourceManager {
    * @param multiplayer the availability of multiplayer
    */
   public static void createGame(Library library, String title, int year,
-    Image thumbnailImage, String publisher, String genre, String rating,
-    boolean multiplayer) {
-      Game newGame = new Game(title, year, thumbnailImage, publisher, genre, rating, multiplayer);
-      library.getResourceRepository().add(newGame);
+      Image thumbnailImage, String publisher, String genre, String rating,
+      boolean multiplayer) {
+    Game newGame = new Game(title, year, thumbnailImage, publisher, genre, rating, multiplayer);
+    library.getResourceRepository().add(newGame);
   }
 
   /**
@@ -201,23 +198,23 @@ public class ResourceManager {
    * @param rating the rating
    * @param multiplayer the availability of multiplayer
    */
-  public static void updateGame(Library library, String resourceId,String title, int year,
-    Image thumbnailImage, String publisher, String rating, String genre,
+  public static void updateGame(Library library, String resourceId, String title, int year,
+      Image thumbnailImage, String publisher, String rating, String genre,
       boolean multiplayer) throws ResourceNotFoundException {
 
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setTitle(title);
+        .setTitle(title);
     library.getResourceRepository().getSpecificGame(resourceId).setYear(year);
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setThumbnailImage(thumbnailImage);
+        .setThumbnailImage(thumbnailImage);
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setPublisher(publisher);
+        .setPublisher(publisher);
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setGenre(genre);
+        .setGenre(genre);
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setRating(rating);
+        .setRating(rating);
     library.getResourceRepository().getSpecificGame(resourceId)
-            .setMultiplayer(multiplayer);
+        .setMultiplayer(multiplayer);
   }
 
 }

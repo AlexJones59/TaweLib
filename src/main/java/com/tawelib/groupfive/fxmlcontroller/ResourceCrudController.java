@@ -202,13 +202,13 @@ public class ResourceCrudController extends BaseFxmlController {
           break;
         case GAME:
           boolean mp;
-          if((multiplayerComboBox.getValue()).equals("Multiplayer")){
+          if ((multiplayerComboBox.getValue()).equals("Multiplayer")) {
             mp = true;
-          }else{
+          } else {
             mp = false;
           }
           ResourceManager.createGame(library, titleTextField.getText(),
-              Integer.parseInt(yearTextField.getText()),null,
+              Integer.parseInt(yearTextField.getText()), null,
               publisherGameTextField.getText(), genreGameTextField.getText(),
               ratingTextField.getText(), mp);
           break;
@@ -256,15 +256,15 @@ public class ResourceCrudController extends BaseFxmlController {
           break;
         case GAME:
           boolean mp;
-          if((multiplayerComboBox.getValue()).equals("Multiplayer")){
+          if ((multiplayerComboBox.getValue()).equals("Multiplayer")) {
             mp = true;
-          }else{
+          } else {
             mp = false;
           }
           ResourceManager.updateGame(library, selectedResource.getResourceId(),
-            titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
-            null, publisherGameTextField.getText(), genreGameTextField.getText(),
-            ratingTextField.getText(), mp);
+              titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
+              null, publisherGameTextField.getText(), genreGameTextField.getText(),
+              ratingTextField.getText(), mp);
           break;
         default:
           break;
@@ -457,7 +457,7 @@ public class ResourceCrudController extends BaseFxmlController {
         .setText(selectedLaptop.getInstalledOperatingSystem());
   }
 
-  private void populateGame(){
+  private void populateGame() {
     Game selectedGame = (Game) selectedResource;
     initMultiplayerComboBox();
     publisherGameTextField.setText(selectedGame.getPublisher());
@@ -465,9 +465,9 @@ public class ResourceCrudController extends BaseFxmlController {
     ratingTextField.setText(selectedGame.getRating());
     boolean mp = ((Game) selectedResource).isMultiplayer();
     String text;
-    if(mp == true){
+    if (mp == true) {
       text = "Multiplayer";
-    }else{
+    } else {
       text = "Singleplayer";
     }
     multiplayerComboBox.setValue(text);
@@ -476,8 +476,8 @@ public class ResourceCrudController extends BaseFxmlController {
   /**
    * The method initializes the comboBox for choosing the multiplayer/singleplayer option.
    */
-  private void initMultiplayerComboBox(){
-    if(multiplayerComboBox.getItems().isEmpty()){
+  private void initMultiplayerComboBox() {
+    if (multiplayerComboBox.getItems().isEmpty()) {
       multiplayerComboBox.getItems().addAll("Multiplayer", "Singleplayer");
       multiplayerComboBox.setValue("Singleplayer");
     }

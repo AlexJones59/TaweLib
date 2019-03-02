@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - RequestRepository.java The Request repository class handles all
- * instances of requests.
+ * File Name - RequestRepository.java The Request repository class handles all instances of
+ * requests.
  *
  * @author Themis Mouyiasis, Modified by Shree Desai.
  * @version 1.0
@@ -36,7 +36,7 @@ public class RequestRepository implements BaseRepository<Request> {
 
     for (Request request : requests) {
       if (request.getCustomer() == customer
-              && request.getStatus().equals(RequestStatus.REQUESTED)
+          && request.getStatus().equals(RequestStatus.REQUESTED)
       ) {
         result.add(request);
       }
@@ -66,8 +66,7 @@ public class RequestRepository implements BaseRepository<Request> {
   }
 
   /**
-   * Gets all requests, where status has been changed to Reserved, for a
-   * specific customer.
+   * Gets all requests, where status has been changed to Reserved, for a specific customer.
    *
    * @param customer the customer id
    * @return all reserved requests from specific customer
