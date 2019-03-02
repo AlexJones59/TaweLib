@@ -29,7 +29,7 @@ public class RequestManager {
    *        subsequent lending of an item would exceed this customers resource cap.
    */
   public static void createRequest(Library library, Customer customer,
-      Resource requestedResource) throws OverResourceCapException {
+      Resource requestedResource) throws OverResourceCapException, NullPointerException {
     if (ResourceCapManager.isUnderResourceCap(library, customer, requestedResource)) {
 
       Request newRequest = new Request(customer, requestedResource);

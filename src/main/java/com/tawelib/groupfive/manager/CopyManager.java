@@ -44,7 +44,7 @@ public class CopyManager {
    * @param customerUsername the customer username
    */
   public static void borrowResourceCopy(Library library, String copyId,
-      String customerUsername) {
+      String customerUsername) throws NullPointerException {
     //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
     library.getCopyRepository().getSpecific(copyId)
