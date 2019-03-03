@@ -199,6 +199,7 @@ public class ResourceManager {
    * @param genre the genre
    * @param rating the rating
    * @param multiplayer the availability of multiplayer
+   * @throws ResourceNotFoundException When unable to find the requested game.
    */
   public static void updateGame(Library library, String resourceId, String title, int year,
       Image thumbnailImage, String publisher, String rating, String genre,
