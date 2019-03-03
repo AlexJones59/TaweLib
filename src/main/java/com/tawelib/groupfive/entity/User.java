@@ -141,7 +141,7 @@ public class User implements Serializable {
   /**
    * Sets lastLogin.
    *
-   * @param address the lastLogin
+   * @param lastLogin the the timestamp of the user's last login
    */
   public void setLastLogin(LocalDateTime lastLogin) {
     this.lastLogin = lastLogin;

@@ -291,7 +291,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
    * @return the list of resources stored in the repository that have been added to the system since
    *         the user last logged on.
    */
-  public List<Resource> getAll(LocalDateTime lastLogin) {
+  public List<Resource> getNewAddtions(LocalDateTime lastLogin) {
     ArrayList<Resource> result = new ArrayList<>();
     for (Resource resource : resources) {
       if (resource.getDateAdded().isAfter(lastLogin)) {
