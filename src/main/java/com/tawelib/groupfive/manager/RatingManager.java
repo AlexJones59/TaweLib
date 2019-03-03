@@ -18,6 +18,7 @@ public class RatingManager {
    * Creates a rating and persists it to the repository.
    *
    * @param library the library
+   * @param rating the rating
    *
    */
   public static void createRating(Library library, Rating rating) {
