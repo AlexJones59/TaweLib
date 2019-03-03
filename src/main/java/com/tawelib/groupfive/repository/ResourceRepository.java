@@ -46,14 +46,10 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Book.class)) {
         Book searchBook = (Book) searchResource;
-        if (
-            searchBook.getResourceId().contains(query)
-                || searchBook.getTitle().contains(query)
-                || Integer.toString(searchBook.getYear()).contains(query)
-                || searchBook.getAuthor().contains(query)
-                || searchBook.getPublisher().contains(query)
-                || searchBook.getGenre().contains(query)
-        ) {
+        if (searchBook.getResourceId().contains(query) || searchBook.getTitle().contains(query)
+            || Integer.toString(searchBook.getYear()).contains(query)
+            || searchBook.getAuthor().contains(query) || searchBook.getPublisher().contains(query)
+            || searchBook.getGenre().contains(query)) {
           result.add(searchBook);
         }
       }
@@ -62,7 +58,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return result;
 
   }
-  
+
   /**
    * Search through resources of type "Book".
    *
@@ -74,16 +70,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Book> result = new ArrayList<>();
 
     for (Resource searchResource : resources) {
-      if (searchResource.getClass().equals(Book.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
+      if (searchResource.getClass().equals(Book.class)
+          && searchResource.getDateAdded().isAfter(lastLogin)) {
         Book searchBook = (Book) searchResource;
-        if (
-            searchBook.getResourceId().contains(query)
-                || searchBook.getTitle().contains(query)
-                || Integer.toString(searchBook.getYear()).contains(query)
-                || searchBook.getAuthor().contains(query)
-                || searchBook.getPublisher().contains(query)
-                || searchBook.getGenre().contains(query)
-        ) {
+        if (searchBook.getResourceId().contains(query) || searchBook.getTitle().contains(query)
+            || Integer.toString(searchBook.getYear()).contains(query)
+            || searchBook.getAuthor().contains(query) || searchBook.getPublisher().contains(query)
+            || searchBook.getGenre().contains(query)) {
           result.add(searchBook);
         }
       }
@@ -106,13 +99,10 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Dvd.class)) {
         Dvd searchDvd = (Dvd) searchResource;
-        if (
-            searchDvd.getResourceId().contains(query)
-                || searchDvd.getTitle().contains(query)
-                || Integer.toString(searchDvd.getYear()).contains(query)
-                || searchDvd.getDirector().contains(query)
-                || searchDvd.getRuntime() == Integer.valueOf(query)
-        ) {
+        if (searchDvd.getResourceId().contains(query) || searchDvd.getTitle().contains(query)
+            || Integer.toString(searchDvd.getYear()).contains(query)
+            || searchDvd.getDirector().contains(query)
+            || searchDvd.getRuntime() == Integer.valueOf(query)) {
           result.add(searchDvd);
         }
       }
@@ -121,7 +111,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return result;
 
   }
-  
+
   /**
    * Search through resources of type "DVD".
    *
@@ -133,15 +123,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Dvd> result = new ArrayList<>();
 
     for (Resource searchResource : resources) {
-      if (searchResource.getClass().equals(Dvd.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
+      if (searchResource.getClass().equals(Dvd.class)
+          && searchResource.getDateAdded().isAfter(lastLogin)) {
         Dvd searchDvd = (Dvd) searchResource;
-        if (
-            searchDvd.getResourceId().contains(query)
-                || searchDvd.getTitle().contains(query)
-                || Integer.toString(searchDvd.getYear()).contains(query)
-                || searchDvd.getDirector().contains(query)
-                || searchDvd.getRuntime() == Integer.valueOf(query)
-        ) {
+        if (searchDvd.getResourceId().contains(query) || searchDvd.getTitle().contains(query)
+            || Integer.toString(searchDvd.getYear()).contains(query)
+            || searchDvd.getDirector().contains(query)
+            || searchDvd.getRuntime() == Integer.valueOf(query)) {
           result.add(searchDvd);
         }
       }
@@ -161,18 +149,15 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Resource> result = new ArrayList<>();
 
     for (Resource resource : resources) {
-      if (
-          resource.getResourceId().contains(query)
-              || resource.getTitle().contains(query)
-              || Integer.toString(resource.getYear()).contains(query)
-      ) {
+      if (resource.getResourceId().contains(query) || resource.getTitle().contains(query)
+          || Integer.toString(resource.getYear()).contains(query)) {
         result.add(resource);
       }
     }
 
     return result;
   }
-  
+
   /**
    * Search through resources.
    *
@@ -184,16 +169,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Resource> result = new ArrayList<>();
 
     for (Resource resource : resources) {
-    	if (resource.getDateAdded().isAfter(lastLogin)) {
-    		if (
-    			resource.getResourceId().contains(query)
-	              || resource.getTitle().contains(query)
-	              || Integer.toString(resource.getYear()).contains(query)
-    		) {
-	        result.add(resource);
-    		}
-    	}
-	}
+      if (resource.getDateAdded().isAfter(lastLogin)) {
+        if (resource.getResourceId().contains(query) || resource.getTitle().contains(query)
+            || Integer.toString(resource.getYear()).contains(query)) {
+          result.add(resource);
+        }
+      }
+    }
 
     return result;
   }
@@ -210,14 +192,11 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Laptop.class)) {
         Laptop searchLaptop = (Laptop) searchResource;
-        if (
-            searchLaptop.getResourceId().contains(query)
-                || searchLaptop.getTitle().contains(query)
-                || Integer.toString(searchLaptop.getYear()).contains(query)
-                || searchLaptop.getManufacturer().contains(query)
-                || searchLaptop.getModel().contains(query)
-                || searchLaptop.getInstalledOperatingSystem().contains(query)
-        ) {
+        if (searchLaptop.getResourceId().contains(query) || searchLaptop.getTitle().contains(query)
+            || Integer.toString(searchLaptop.getYear()).contains(query)
+            || searchLaptop.getManufacturer().contains(query)
+            || searchLaptop.getModel().contains(query)
+            || searchLaptop.getInstalledOperatingSystem().contains(query)) {
           result.add(searchLaptop);
         }
       }
@@ -225,7 +204,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
-  
+
   /**
    * Search through resources of type "Laptop".
    *
@@ -237,16 +216,14 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Laptop> result = new ArrayList<>();
 
     for (Resource searchResource : resources) {
-      if (searchResource.getClass().equals(Laptop.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
+      if (searchResource.getClass().equals(Laptop.class)
+          && searchResource.getDateAdded().isAfter(lastLogin)) {
         Laptop searchLaptop = (Laptop) searchResource;
-        if (
-            searchLaptop.getResourceId().contains(query)
-                || searchLaptop.getTitle().contains(query)
-                || Integer.toString(searchLaptop.getYear()).contains(query)
-                || searchLaptop.getManufacturer().contains(query)
-                || searchLaptop.getModel().contains(query)
-                || searchLaptop.getInstalledOperatingSystem().contains(query)
-        ) {
+        if (searchLaptop.getResourceId().contains(query) || searchLaptop.getTitle().contains(query)
+            || Integer.toString(searchLaptop.getYear()).contains(query)
+            || searchLaptop.getManufacturer().contains(query)
+            || searchLaptop.getModel().contains(query)
+            || searchLaptop.getInstalledOperatingSystem().contains(query)) {
           result.add(searchLaptop);
         }
       }
@@ -254,8 +231,8 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
-  
-  
+
+
 
   /**
    * Search through resources of type "Game".
@@ -269,14 +246,10 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Game.class)) {
         Game searchGame = (Game) searchResource;
-        if (
-            searchGame.getResourceId().contains(query)
-                || searchGame.getTitle().contains(query)
-                || Integer.toString(searchGame.getYear()).contains(query)
-                || searchGame.getPublisher().contains(query)
-                || searchGame.getGenre().contains(query)
-                || searchGame.getRating().contains(query)
-        ) {
+        if (searchGame.getResourceId().contains(query) || searchGame.getTitle().contains(query)
+            || Integer.toString(searchGame.getYear()).contains(query)
+            || searchGame.getPublisher().contains(query) || searchGame.getGenre().contains(query)
+            || searchGame.getRating().contains(query)) {
           result.add(searchGame);
         }
       }
@@ -284,7 +257,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
-  
+
   /**
    * Search through resources of type "Game".
    *
@@ -296,16 +269,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
     ArrayList<Game> result = new ArrayList<>();
 
     for (Resource searchResource : resources) {
-      if (searchResource.getClass().equals(Game.class)&& searchResource.getDateAdded().isAfter(lastLogin)) {
+      if (searchResource.getClass().equals(Game.class)
+          && searchResource.getDateAdded().isAfter(lastLogin)) {
         Game searchGame = (Game) searchResource;
-        if (
-            searchGame.getResourceId().contains(query)
-                || searchGame.getTitle().contains(query)
-                || Integer.toString(searchGame.getYear()).contains(query)
-                || searchGame.getPublisher().contains(query)
-                || searchGame.getGenre().contains(query)
-                || searchGame.getRating().contains(query)
-        ) {
+        if (searchGame.getResourceId().contains(query) || searchGame.getTitle().contains(query)
+            || Integer.toString(searchGame.getYear()).contains(query)
+            || searchGame.getPublisher().contains(query) || searchGame.getGenre().contains(query)
+            || searchGame.getRating().contains(query)) {
           result.add(searchGame);
         }
       }
@@ -313,20 +283,21 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
-  
+
   /**
    * Search through resources for newly added resources since the user last logged on.
    *
    * @param lastLogin the timestamp of the user's previous login.
-   * @return the list of resources stored in the repository that have been added to the system since the user last logged on.
+   * @return the list of resources stored in the repository that have been added to the system since
+   *         the user last logged on.
    */
-  public List<Resource> getAll(LocalDateTime lastLogin) {  
-	  ArrayList<Resource> result = new ArrayList<>();
-	  for (Resource resource : resources) {	  
-		  if (resource.getDateAdded().isAfter(lastLogin)) {
-	         result.add(resource);
-	      }
-	  }  
+  public List<Resource> getAll(LocalDateTime lastLogin) {
+    ArrayList<Resource> result = new ArrayList<>();
+    for (Resource resource : resources) {
+      if (resource.getDateAdded().isAfter(lastLogin)) {
+        result.add(resource);
+      }
+    }
     return result;
   }
 
@@ -400,20 +371,13 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   public Game getSpecificGame(String resourceId) throws ResourceNotFoundException {
     for (Resource resource : resources) {
-      if (
-          resource.getType() == ResourceType.GAME
-              && resource.getResourceId().equals(resourceId)
-      ) {
+      if (resource.getType() == ResourceType.GAME && resource.getResourceId().equals(resourceId)) {
         return (Game) resource;
       }
     }
 
     throw new ResourceNotFoundException(
-        String.format(
-            "Unable to find a game with ID %s in the repository",
-            resourceId
-        )
-    );
+        String.format("Unable to find a game with ID %s in the repository", resourceId));
   }
 
   /**
@@ -421,9 +385,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   @Override
   public List<Resource> getAll() {
-	  for (Resource resource : resources) {
-	  }
-	  return resources;
+    for (Resource resource : resources) {
+    }
+    return resources;
   }
 
   /**
@@ -446,7 +410,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
     String typePrefix;
     String newResourceId = "";
 
-    //Checks type of Resource and creates Id based upon that...
+    // Checks type of Resource and creates Id based upon that...
     switch (resource.getType()) {
       case DVD: {
         typePrefix = "D";
@@ -477,8 +441,7 @@ public class ResourceRepository implements BaseRepository<Resource> {
     }
 
     try {
-      Field idField = resource.getClass().getSuperclass()
-          .getDeclaredField("resourceId");
+      Field idField = resource.getClass().getSuperclass().getDeclaredField("resourceId");
       idField.setAccessible(true);
       idField.set(resource, newResourceId);
       idField.setAccessible(false);

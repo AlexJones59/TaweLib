@@ -17,7 +17,7 @@ public class User implements Serializable {
   protected String lastName;
   protected String phoneNumber;
   protected Address address;
-  protected LocalDateTime lastLogin; 
+  protected LocalDateTime lastLogin;
 
   /**
    * Creates an instance of the User class.
@@ -30,8 +30,8 @@ public class User implements Serializable {
    * @param city the city
    * @param postCode the post code
    */
-  public User(String firstName, String lastName, String phoneNumber,
-      String houseNumber, String street, String city, String postCode) {
+  public User(String firstName, String lastName, String phoneNumber, String houseNumber,
+      String street, String city, String postCode) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
@@ -128,14 +128,14 @@ public class User implements Serializable {
   public void setAddress(Address address) {
     this.address = address;
   }
-  
+
   /**
    * Gets lastLogin.
    *
    * @return the lastLogin
    */
   public LocalDateTime getLastLogin() {
-		return lastLogin;
+    return lastLogin;
   }
 
   /**
@@ -144,6 +144,6 @@ public class User implements Serializable {
    * @param address the lastLogin
    */
   public void setLastLogin(LocalDateTime lastLogin) {
-	  	this.lastLogin = lastLogin;
+    this.lastLogin = lastLogin;
   }
 }
