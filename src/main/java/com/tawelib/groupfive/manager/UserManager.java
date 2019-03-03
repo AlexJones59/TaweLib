@@ -185,17 +185,9 @@ public class UserManager {
   }
 
   /**
-   * Updates user account.
+   * Updates user's last logged in timestamp.
    *
-   * @param library Library.
    * @param user User.
-   * @param firstName First name.
-   * @param lastName Last name.
-   * @param phoneNumber Phone number.
-   * @param houseNumber House number.
-   * @param street Street.
-   * @param city City.
-   * @param postcode Post code.
    */
   public static void updateUserlastLogin(User user) {
     user.setLastLogin(LocalDateTime.now());
