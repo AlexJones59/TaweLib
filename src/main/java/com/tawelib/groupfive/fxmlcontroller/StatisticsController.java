@@ -147,11 +147,13 @@ public class StatisticsController extends BaseFxmlController {
       null,
       ResourceType.BOOK,
       ResourceType.DVD,
-      ResourceType.LAPTOP
+      ResourceType.LAPTOP,
+      ResourceType.GAME
+
   };
 
   private ObservableList<String> timePeriods = FXCollections.observableArrayList(
-      "Day","Week", "Month");
+      "Day", "Week", "Month");
 
   /**
    * Sets the dynamic fields.
@@ -187,22 +189,35 @@ public class StatisticsController extends BaseFxmlController {
    */
   public void setExpandedUserStatTitledPane() {
     statsContainer.setExpandedPane(userStatPane);
+    //Sets default value to first value in time period list.
     userStatTimeComboBox.setItems(timePeriods);
     userStatTimeComboBox.getSelectionModel().selectFirst();
+    //Sets default value to first value in resource types list.
+    userStatResTypeComboBox.getItems().addAll(resourceTypes);
+    userStatResTypeComboBox.getSelectionModel().selectFirst();
+    userStatTimeComboBoxHandler();
     userLabel.setVisible(isCustomerLoggedIn());
     noUserBorrowedTextField.setVisible(isCustomerLoggedIn());
+  }
+
+  public void userStatResTypeComboBoxHandler(){
+
+  }
+
+  public void userStatTimeComboBoxHandler(){
+
   }
 
   /**
    * Initializes nodes in the Resource Statistics Pane.
    */
-  public void setExpandedResourceStatTitledPane() { }
+  public void setExpandedResourceStatTitledPane() {
+  }
 
   /**
    * Initializes nodes in the Fine Statistics Pane.
    */
   public void setExpandedFineStatTitledPane() {
-
 
   }
 

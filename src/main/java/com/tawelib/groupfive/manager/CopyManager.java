@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 /**
  * File Name - CopyManager.java The Copy Manager class controls data flow
- * betweenthe Copy Repository and the GUI interfaces.
+ * between the Copy Repository and the GUI interfaces.
  *
  * @author Shree Desai
  * @version 1.0

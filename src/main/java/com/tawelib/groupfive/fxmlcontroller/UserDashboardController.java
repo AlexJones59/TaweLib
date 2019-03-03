@@ -128,7 +128,7 @@ public class UserDashboardController extends BaseFxmlController {
   }
 
   public void statistics() {
-      SceneHelper.setUpScene(this, "Statistics");
+    SceneHelper.setUpScene(this, "Statistics");
   }
 
   /**
