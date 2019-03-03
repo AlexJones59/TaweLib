@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * User.java User class stores personal information for the account holder (either a Customer or
@@ -16,6 +17,7 @@ public class User implements Serializable {
   protected String lastName;
   protected String phoneNumber;
   protected Address address;
+  protected LocalDateTime lastLogin; 
 
   /**
    * Creates an instance of the User class.
@@ -34,6 +36,7 @@ public class User implements Serializable {
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = new Address(houseNumber, street, city, postCode);
+    this.lastLogin = LocalDateTime.now();
   }
 
   /**
@@ -124,5 +127,23 @@ public class User implements Serializable {
    */
   public void setAddress(Address address) {
     this.address = address;
+  }
+  
+  /**
+   * Gets lastLogin.
+   *
+   * @return the lastLogin
+   */
+  public LocalDateTime getLastLogin() {
+		return lastLogin;
+  }
+
+  /**
+   * Sets lastLogin.
+   *
+   * @param address the lastLogin
+   */
+  public void setLastLogin(LocalDateTime lastLogin) {
+	  	this.lastLogin = lastLogin;
   }
 }
