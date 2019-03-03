@@ -197,5 +197,23 @@ public class UserManager {
     library.getCustomerRepository().getSpecific(customerUsername)
         .increaseAccountBalance(amount);
   }
+  
+  /**
+   * Updates user account.
+   *
+   * @param library Library.
+   * @param user User.
+   * @param firstName First name.
+   * @param lastName Last name.
+   * @param phoneNumber Phone number.
+   * @param houseNumber House number.
+   * @param street Street.
+   * @param city City.
+   * @param postcode Post code.
+   */
+  public static void updateUserlastLogin(User user) {
+    user.setLastLogin(LocalDateTime.now());
+  }
+
 
 }

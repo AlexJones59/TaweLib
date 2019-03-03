@@ -8,6 +8,7 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import java.lang.reflect.Field;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 public class ResourceRepository implements BaseRepository<Resource> {
 
-  private ArrayList<Resource> resources;
+  protected ArrayList<Resource> resources;
 
   private int lastBookNumber = 0;
   private int lastDvdNumber = 0;
@@ -61,6 +62,37 @@ public class ResourceRepository implements BaseRepository<Resource> {
     return result;
 
   }
+  
+  /**
+   * Search through resources of type "Book".
+   *
+   * @param query the query
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources fulfilling search query
+   */
+  public List<Book> searchBook(String query, LocalDateTime lastLogin) {
+    ArrayList<Book> result = new ArrayList<>();
+
+    for (Resource searchResource : resources) {
+      if (searchResource.getClass().equals(Book.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
+        Book searchBook = (Book) searchResource;
+        if (
+            searchBook.getResourceId().contains(query)
+                || searchBook.getTitle().contains(query)
+                || Integer.toString(searchBook.getYear()).contains(query)
+                || searchBook.getAuthor().contains(query)
+                || searchBook.getPublisher().contains(query)
+                || searchBook.getGenre().contains(query)
+        ) {
+          result.add(searchBook);
+        }
+      }
+    }
+
+    return result;
+
+  }
+
 
   /**
    * Search through resources of type "DVD".
@@ -73,6 +105,35 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Dvd.class)) {
+        Dvd searchDvd = (Dvd) searchResource;
+        if (
+            searchDvd.getResourceId().contains(query)
+                || searchDvd.getTitle().contains(query)
+                || Integer.toString(searchDvd.getYear()).contains(query)
+                || searchDvd.getDirector().contains(query)
+                || searchDvd.getRuntime() == Integer.valueOf(query)
+        ) {
+          result.add(searchDvd);
+        }
+      }
+    }
+
+    return result;
+
+  }
+  
+  /**
+   * Search through resources of type "DVD".
+   *
+   * @param query the query
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources fulfilling search query
+   */
+  public List<Dvd> searchDvd(String query, LocalDateTime lastLogin) {
+    ArrayList<Dvd> result = new ArrayList<>();
+
+    for (Resource searchResource : resources) {
+      if (searchResource.getClass().equals(Dvd.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
         Dvd searchDvd = (Dvd) searchResource;
         if (
             searchDvd.getResourceId().contains(query)
@@ -111,6 +172,31 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
+  
+  /**
+   * Search through resources.
+   *
+   * @param query the query
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources fulfilling search query
+   */
+  public List<Resource> searchResource(String query, LocalDateTime lastLogin) {
+    ArrayList<Resource> result = new ArrayList<>();
+
+    for (Resource resource : resources) {
+    	if (resource.getDateAdded().isAfter(lastLogin)) {
+    		if (
+    			resource.getResourceId().contains(query)
+	              || resource.getTitle().contains(query)
+	              || Integer.toString(resource.getYear()).contains(query)
+    		) {
+	        result.add(resource);
+    		}
+    	}
+	}
+
+    return result;
+  }
 
   /**
    * Search through resources of type "Laptop".
@@ -139,6 +225,37 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
+  
+  /**
+   * Search through resources of type "Laptop".
+   *
+   * @param query the query
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources fulfilling search query
+   */
+  public List<Laptop> searchLaptop(String query, LocalDateTime lastLogin) {
+    ArrayList<Laptop> result = new ArrayList<>();
+
+    for (Resource searchResource : resources) {
+      if (searchResource.getClass().equals(Laptop.class) && searchResource.getDateAdded().isAfter(lastLogin)) {
+        Laptop searchLaptop = (Laptop) searchResource;
+        if (
+            searchLaptop.getResourceId().contains(query)
+                || searchLaptop.getTitle().contains(query)
+                || Integer.toString(searchLaptop.getYear()).contains(query)
+                || searchLaptop.getManufacturer().contains(query)
+                || searchLaptop.getModel().contains(query)
+                || searchLaptop.getInstalledOperatingSystem().contains(query)
+        ) {
+          result.add(searchLaptop);
+        }
+      }
+    }
+
+    return result;
+  }
+  
+  
 
   /**
    * Search through resources of type "Game".
@@ -167,6 +284,52 @@ public class ResourceRepository implements BaseRepository<Resource> {
 
     return result;
   }
+  
+  /**
+   * Search through resources of type "Game".
+   *
+   * @param query the query
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources fulfilling search query
+   */
+  public List<Game> searchGame(String query, LocalDateTime lastLogin) {
+    ArrayList<Game> result = new ArrayList<>();
+
+    for (Resource searchResource : resources) {
+      if (searchResource.getClass().equals(Game.class)&& searchResource.getDateAdded().isAfter(lastLogin)) {
+        Game searchGame = (Game) searchResource;
+        if (
+            searchGame.getResourceId().contains(query)
+                || searchGame.getTitle().contains(query)
+                || Integer.toString(searchGame.getYear()).contains(query)
+                || searchGame.getPublisher().contains(query)
+                || searchGame.getGenre().contains(query)
+                || searchGame.getRating().contains(query)
+        ) {
+          result.add(searchGame);
+        }
+      }
+    }
+
+    return result;
+  }
+  
+  /**
+   * Search through resources for newly added resources since the user last logged on.
+   *
+   * @param lastLogin the timestamp of the user's previous login.
+   * @return the list of resources stored in the repository that have been added to the system since the user last logged on.
+   */
+  public List<Resource> getAll(LocalDateTime lastLogin) {  
+	  ArrayList<Resource> result = new ArrayList<>();
+	  for (Resource resource : resources) {	  
+		  if (resource.getDateAdded().isAfter(lastLogin)) {
+	         result.add(resource);
+	      }
+	  }  
+    return result;
+  }
+
 
   /**
    * Gets specific.
@@ -258,7 +421,9 @@ public class ResourceRepository implements BaseRepository<Resource> {
    */
   @Override
   public List<Resource> getAll() {
-    return resources;
+	  for (Resource resource : resources) {
+	  }
+	  return resources;
   }
 
   /**

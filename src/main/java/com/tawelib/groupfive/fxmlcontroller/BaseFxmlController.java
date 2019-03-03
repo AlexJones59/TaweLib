@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
+import java.time.LocalDateTime;
+
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
@@ -19,6 +21,8 @@ public abstract class BaseFxmlController {
   protected static User loggedInUser;
 
   protected static User selectedUser;
+  
+  protected static LocalDateTime lastLogin;
 
   protected Library library;
 
