@@ -22,13 +22,12 @@ public abstract class Resource implements Serializable {
   /**
    * Instantiates a new Resource.
    *
-   * @param title          the title
-   * @param year           the year
+   * @param title the title
+   * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param type           the type
+   * @param type the type
    */
-  public Resource(String title, int year, Image thumbnailImage,
-                  ResourceType type) {
+  public Resource(String title, int year, Image thumbnailImage, ResourceType type) {
     this.title = title;
     this.year = year;
     this.thumbnailImage = thumbnailImage;
@@ -114,7 +113,7 @@ public abstract class Resource implements Serializable {
    * @return the dateAdded
    */
   public LocalDateTime getDateAdded() {
-	return dateAdded;
+    return dateAdded;
   }
-  
+
 }
