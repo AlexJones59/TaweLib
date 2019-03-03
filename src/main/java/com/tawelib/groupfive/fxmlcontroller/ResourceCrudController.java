@@ -127,6 +127,9 @@ public class ResourceCrudController extends BaseFxmlController {
   private Button showCopiesButton;
 
   @FXML
+  private Button showRatingsButton;
+
+  @FXML
   private ImageView resourceImageView;
 
   @FXML
@@ -170,6 +173,7 @@ public class ResourceCrudController extends BaseFxmlController {
     //sets visibilities based on the above conditions
     showTrailerButton.setVisible(crudAction != CrudAction.CREATE);
     showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
+    showRatingsButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
     createButton
@@ -297,6 +301,18 @@ public class ResourceCrudController extends BaseFxmlController {
         .setUpScene(this, "ResourceCopies");
 
     newController.setSelectedResource(selectedResource);
+    newController.refresh();
+  }
+
+  /**
+   * Shows ratings and reviews for a resource.
+   */
+  public void showRatings() {
+    RatingController newController = (RatingController) SceneHelper
+            .setUpScene(this, "ResourceRatings");
+
+    newController.setSelectedResource(selectedResource);
+    newController.setCrudAction(crudAction);
     newController.refresh();
   }
 
