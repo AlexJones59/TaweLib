@@ -127,6 +127,10 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserList");
   }
 
+  public void statistics() {
+      SceneHelper.setUpScene(this, "Statistics");
+  }
+
   /**
    * Takes the user to the profile images selection screen.
    */
