@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Event;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,30 @@ public class EventRepository implements BaseRepository<Event> {
     }
 
     public Event getEvent(String eventID){
-
+        for(Event i : events){
+            if(eventID == i.getEventId()){
+                return i;
+            }
+        }
     }
     public void updateEvent(Event event){
+        String eventID = event.getEventId();
+        for(Event i: events) {
+            if (eventID == i.getEventId()) {
+                events.set(events.indexOf(i), event);
+                return;
+            }
+        }
+    }
+    public static ArrayList<Event> getUpcomingEvents(){
+        ArrayList<Event> upcomingEvents = new ArrayList<Event>();
 
+        for (Event i : events){
+            if (i.getEventDate().isAfter(LocalDateTime.now())){
+                upcomingEvents.add(i);
+            }
+        }
+        return upcomingEvents;
     }
 
 

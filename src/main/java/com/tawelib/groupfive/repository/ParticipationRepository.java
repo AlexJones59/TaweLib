@@ -30,6 +30,26 @@ public class ParticipationRepository implements BaseRepository<Participation> {
     }
 
     public int getNumberOfParticipants(String eventID){
+        int count = 0;
+        for(Participation i : participation){
+            if(eventID == i.getEventId()){
+                count++;
+            }
+        }
+        return count;
 
     }
+    public boolean doesParticipate(String eventID, String username){
+        boolean result = false;
+        for(Participation i: participation){
+            if (eventID == i.getEventId()){
+                if(username == i.getUsername()){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+
 }
