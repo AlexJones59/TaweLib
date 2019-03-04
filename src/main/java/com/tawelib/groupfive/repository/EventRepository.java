@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Event;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class EventRepository implements BaseRepository<Event> {
 
@@ -37,6 +38,7 @@ public class EventRepository implements BaseRepository<Event> {
                 return i;
             }
         }
+        throw new NoSuchElementException("event doesn't exist");
     }
     public void updateEvent(Event event){
         String eventID = event.getEventId();
