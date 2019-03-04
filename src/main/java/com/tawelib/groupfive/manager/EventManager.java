@@ -22,7 +22,7 @@ public class EventManager {
 
     public boolean eventFull(Library library, Event event){
         
-        int participating = library.getParticipationRepository().getNumberOfParticipants();
+        int participating = library.getParticipationRepository().getNumberOfParticipants(event);
         return participating == event.getCapacity();
 
     }
