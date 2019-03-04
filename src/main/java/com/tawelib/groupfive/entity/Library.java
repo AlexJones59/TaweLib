@@ -181,7 +181,7 @@ public class Library implements Serializable {
    *
    * @return the event repository
    */
-  public EventRepository getEventRepository(){
+  public EventRepository getEventRepository() {
     return eventRepository;
   }
 
@@ -190,7 +190,7 @@ public class Library implements Serializable {
    *
    * @return the participation repository
    */
-  public ParticipationRepository getParticipationRepository(){
+  public ParticipationRepository getParticipationRepository() {
     return participationRepository;
   }
 
