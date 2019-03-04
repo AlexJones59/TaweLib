@@ -31,8 +31,20 @@ public class Event implements Serializable {
     public int getCapacity(){
         return capacity;
     }
-
     public String getDescription() {
         return description;
+    }
+
+    public void setEventName(String eventName){
+        this.eventName = eventName;
+    }
+    public void setEventDate(LocalDateTime date){
+        this.eventDate = date;
+    }
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+    }
+    public void setDescription(String description){
+        this.description = description;
     }
 }

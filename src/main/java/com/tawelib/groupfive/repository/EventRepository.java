@@ -30,6 +30,15 @@ public class EventRepository implements BaseRepository<Event> {
         }
     }
 
+    public Event getEvent(String eventID){
+
+    }
+    public void updateEvent(Event event){
+
+    }
+
+
+
 }
 
 

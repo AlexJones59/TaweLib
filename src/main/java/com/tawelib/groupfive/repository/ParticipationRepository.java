@@ -29,4 +29,7 @@ public class ParticipationRepository implements BaseRepository<Participation> {
         }
     }
 
+    public int getNumberOfParticipants(String eventID){
+
+    }
 }

@@ -1,13 +1,7 @@
 package com.tawelib.groupfive.entity;
 
-import com.tawelib.groupfive.repository.CopyRepository;
-import com.tawelib.groupfive.repository.CustomerRepository;
-import com.tawelib.groupfive.repository.FineRepository;
-import com.tawelib.groupfive.repository.LeaseRepository;
-import com.tawelib.groupfive.repository.LibrarianRepository;
-import com.tawelib.groupfive.repository.RequestRepository;
-import com.tawelib.groupfive.repository.ResourceRepository;
-import com.tawelib.groupfive.repository.TransactionRepository;
+import com.tawelib.groupfive.repository.*;
+
 import java.io.Serializable;
 
 /**
@@ -64,6 +58,16 @@ public class Library implements Serializable {
   private FineRepository fineRepository;
 
   /**
+   * The event repository.
+   */
+  private EventRepository eventRepository;
+
+  /**
+   * The participation repository.
+   */
+  private ParticipationRepository participationRepository;
+
+  /**
    * Creates a new library with a given name.
    *
    * @param name The name of the library.
@@ -78,6 +82,8 @@ public class Library implements Serializable {
     customerRepository = new CustomerRepository();
     librarianRepository = new LibrarianRepository();
     fineRepository = new FineRepository();
+    eventRepository = new EventRepository();
+    participationRepository = new ParticipationRepository();
   }
 
   /**
@@ -169,4 +175,23 @@ public class Library implements Serializable {
   public FineRepository getFineRepository() {
     return fineRepository;
   }
+
+  /**
+   * Retrieves event repository.
+   *
+   * @return the event repository
+   */
+  public EventRepository getEventRepository(){
+    return eventRepository;
+  }
+
+  /**
+   * Retrieves participation repository.
+   *
+   * @return the participation repository
+   */
+  public ParticipationRepository getParticipationRepository(){
+    return participationRepository;
+  }
+
 }

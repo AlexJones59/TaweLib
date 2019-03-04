@@ -19,5 +19,8 @@ public class EventManager {
     public static ArrayList<Event> getUpcomingEvents(){
 
     }
+    private boolean checkCap(String eventID){
+
+    }
 
 }
