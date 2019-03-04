@@ -2,11 +2,11 @@ package com.tawelib.groupfive.entity;
 
 import com.tawelib.groupfive.repository.CopyRepository;
 import com.tawelib.groupfive.repository.CustomerRepository;
-import com.tawelib.groupfive.repository.EventRepository
+import com.tawelib.groupfive.repository.EventRepository;
 import com.tawelib.groupfive.repository.FineRepository;
 import com.tawelib.groupfive.repository.LeaseRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
-import com.tawelib.groupfive.repository.ParticipationRepository
+import com.tawelib.groupfive.repository.ParticipationRepository;
 import com.tawelib.groupfive.repository.RequestRepository;
 import com.tawelib.groupfive.repository.ResourceRepository;
 import com.tawelib.groupfive.repository.TransactionRepository;
