@@ -32,7 +32,7 @@ public class ParticipationRepository implements BaseRepository<Participation> {
     }
 
     public int getNumberOfParticipants(Event event){
-
+        int count = 0;
         for(Participation i : participation){
             if(event.getEventId() == i.getEventId()){
                 count++;
