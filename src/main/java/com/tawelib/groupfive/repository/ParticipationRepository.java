@@ -61,7 +61,7 @@ public class ParticipationRepository implements BaseRepository<Participation> {
   }
 
   /**
-   * Checks whatever a given user signed up for attending an event
+   * Checks whatever a given user signed up for attending an event.
    *
    * @param event the event
    * @param user the user
