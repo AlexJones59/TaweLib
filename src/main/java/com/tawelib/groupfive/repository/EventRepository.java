@@ -47,7 +47,7 @@ public class EventRepository implements BaseRepository<Event> {
             }
         }
     }
-    public static ArrayList<Event> getUpcomingEvents(){
+    public ArrayList<Event> getUpcomingEvents(){
         ArrayList<Event> upcomingEvents = new ArrayList<Event>();
 
         for (Event i : events){
