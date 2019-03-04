@@ -1,7 +1,7 @@
 package com.tawelib.groupfive.repository;
 
+import com.tawelib.groupfive.entity.Event;g
 import com.tawelib.groupfive.entity.Participation;
-import com.tawelib.groupfive.entity.Event;
 import com.tawelib.groupfive.entity.User;
 
 import java.util.ArrayList;
