@@ -51,7 +51,7 @@ public class EventManager {
   }
 
   /**
-   * Checks whatever a given event is full
+   * Checks whatever a given event is full.
    *
    * @param library the library
    * @param event the event
