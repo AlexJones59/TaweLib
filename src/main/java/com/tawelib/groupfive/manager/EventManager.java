@@ -17,12 +17,12 @@ public class EventManager {
         library.getParticipationRepository().add(participation);
     }
     public static boolean hasJoined(Library library, User user, Event event){
-
+        return library.getParticipationRepository().doesParticipate(event, user);
     }
 
-    private boolean eventFull(Library library, Event event){
+    public boolean eventFull(Library library, Event event){
         
-        int participating = library.getParticipationRepository().getNumberOfParticipants(;
+        int participating = library.getParticipationRepository().getNumberOfParticipants();
         return participating == event.getCapacity();
 
     }

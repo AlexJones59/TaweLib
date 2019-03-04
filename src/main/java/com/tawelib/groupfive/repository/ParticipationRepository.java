@@ -1,6 +1,8 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Participation;
+import com.tawelib.groupfive.entity.Event;
+import com.tawelib.groupfive.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,21 +31,21 @@ public class ParticipationRepository implements BaseRepository<Participation> {
         }
     }
 
-    public int getNumberOfParticipants(String eventID){
-        int count = 0;
+    public int getNumberOfParticipants(Event event){
+
         for(Participation i : participation){
-            if(eventID == i.getEventId()){
+            if(event.getEventId() == i.getEventId()){
                 count++;
             }
         }
         return count;
 
     }
-    public boolean doesParticipate(String eventID, String username){
+    public boolean doesParticipate(Event event, User user){
         boolean result = false;
         for(Participation i: participation){
-            if (eventID == i.getEventId()){
-                if(username == i.getUsername()){
+            if (event.getEventId() == i.getEventId()){
+                if(user.getUsername() == i.getUsername()){
                     result = true;
                 }
             }
