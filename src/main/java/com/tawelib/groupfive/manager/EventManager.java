@@ -14,7 +14,7 @@ public class EventManager {
   }
 
   public static void joinEvent(Library library, User user, Event event) {
-    Participation participation = new Participation(user.getUsername(), event.getEventId());
+    Participation participation = new Participation(user, event);
     library.getParticipationRepository().add(participation);
   }
 
