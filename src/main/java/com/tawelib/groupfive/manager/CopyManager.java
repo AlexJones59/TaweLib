@@ -12,7 +12,10 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.OverResourceCapException;
+import com.tawelib.groupfive.util.AlertHelper;
 import java.time.LocalDateTime;
+import javafx.scene.control.Alert;
 
 /**
  * File Name - CopyManager.java The Copy Manager class controls data flow
@@ -41,7 +44,7 @@ public class CopyManager {
    * @param customerUsername the customer username
    */
   public static void borrowResourceCopy(Library library, String copyId,
-      String customerUsername) {
+      String customerUsername) throws NullPointerException {
     //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
     library.getCopyRepository().getSpecific(copyId)
@@ -127,9 +130,11 @@ public class CopyManager {
    * @param library the library
    * @param resourceId resourceId
    * @param customerUsername the customer username
+   * @throws OverResourceCapException This exception gets thrown when picking up the reserved copy
+   *        will exceed this customers resource cap.
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
-      String customerUsername) {
+      String customerUsername) throws OverResourceCapException {
     //Gets info of copy and customer.
     Resource reservedResource = library.getResourceRepository()
         .getSpecific(resourceId);
@@ -137,16 +142,19 @@ public class CopyManager {
         .getSpecific(customerUsername);
     Copy reservedCopy = library.getCopyRepository()
         .getSpecificReserved(customer, reservedResource);
+    if (ResourceCapManager.isUnderResourceCap(library, customer, reservedCopy.getResource())) {
+      //Sets Copy to Borrowed
+      library.getCopyRepository().getSpecific(reservedCopy.getId())
+          .setStatus(CopyStatus.BORROWED);
+      //Closes the request.
+      library.getRequestRepository()
+          .getSpecificReserved(customer, reservedCopy.getResource())
+          .setStatus(RequestStatus.CLOSED);
 
-    //Sets Copy to Borrowed
-    library.getCopyRepository().getSpecific(reservedCopy.getId())
-        .setStatus(CopyStatus.BORROWED);
-    //Closes the request.
-    library.getRequestRepository()
-        .getSpecificReserved(customer, reservedCopy.getResource())
-        .setStatus(RequestStatus.CLOSED);
-
-    createLease(library, customer, reservedCopy);
+      createLease(library, customer, reservedCopy);
+    } else {
+      throw new OverResourceCapException();
+    }
   }
 
   /**
@@ -181,8 +189,8 @@ public class CopyManager {
   }
 
   /**
-   * Generates Due date for minimum loan duration for that resource type or
-   * tomorrow, if they have already have had it for that duration.
+   * Generates Due date for minimum loan duration for that resource type or tomorrow, if they have
+   * already have had it for that duration.
    *
    * @param newLease new lease
    */
@@ -200,8 +208,8 @@ public class CopyManager {
   }
 
   /**
-   * Generates fine amount, based on days overdue and resource type, while being
-   * being capped by max fine amount for that type of resource.
+   * Generates fine amount, based on days overdue and resource type, while being being capped by max
+   * fine amount for that type of resource.
    *
    * @param lease lease
    * @return fine amount
@@ -235,7 +243,6 @@ public class CopyManager {
       }
     }
   }
-
 
   /**
    * Creates lease while checking to see if due date needs to be added.

@@ -243,11 +243,16 @@ public class UserInformationController extends BaseFxmlController {
       Customer selectedCustomer = (Customer) selectedUser;
       if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
           .equals("RESERVED")) {
-        CopyManager.pickUpReservedCopy(library,
-            resourceTableView.getSelectionModel().getSelectedItem()
-                .getResourceId(), selectedCustomer.getUsername());
-        AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+        try {
+          CopyManager.pickUpReservedCopy(library,
+              resourceTableView.getSelectionModel().getSelectedItem()
+                  .getResourceId(), selectedCustomer.getUsername());
+          AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
 
+        } catch (OverResourceCapException e) {
+          AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+              + "An item must be returned before another can be borrowed.");
+        }
         refresh();
 
       } else {
