@@ -268,7 +268,8 @@ public class StatisticsManager {
   private static List<?> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-    Predicate<Lease> streamsPredicate;
+    Predicate<Lease> streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().
+        minusDays(1)); //to shut up java initializing it
     switch (timePeriod) {
       case "Day":
         streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1));
