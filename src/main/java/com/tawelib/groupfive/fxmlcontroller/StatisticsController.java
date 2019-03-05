@@ -135,13 +135,13 @@ public class StatisticsController extends BaseFxmlController {
   private TextField aveFineAmountTextField;
 
   @FXML
-  private ComboBox<?> fineStatTimeComboBox;
+  private ComboBox<String> fineStatTimeComboBox;
 
   @FXML
   private TextField totalFineAmountTextField;
 
   @FXML
-  private ComboBox<?> fineStatResTypeComboBox;
+  private ComboBox<ResourceType> fineStatResTypeComboBox;
 
   private ResourceType[] resourceTypes = {
       null,
@@ -218,7 +218,11 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Fine Statistics Pane.
    */
   public void setExpandedFineStatTitledPane() {
-
+    statsContainer.setExpandedPane(fineStatPane);
+    fineStatResTypeComboBox.getItems().addAll(resourceTypes);
+    fineStatResTypeComboBox.getSelectionModel().selectFirst();
+    fineStatTimeComboBox.getItems().addAll(timePeriods);
+    fineStatTimeComboBox.getSelectionModel().selectFirst();
   }
 
 
