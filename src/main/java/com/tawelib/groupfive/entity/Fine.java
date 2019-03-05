@@ -15,6 +15,9 @@ import java.util.Date;
  */
 public class Fine implements Serializable {
 
+  /**
+   * The constant CURRENCY_FORMAT.
+   */
   public static final String CURRENCY_FORMAT = "£ %.2f";
 
   private final int amount;// Stored in pennies.
@@ -23,8 +26,8 @@ public class Fine implements Serializable {
   /**
    * Instantiates a new Fine for resources that is overdue.
    *
-   * @param amount Amount.
    * @param lease lease.
+   * @param amount Amount.
    */
   public Fine(Lease lease, int amount) {
     if (lease.getDateReturned() != null) {
@@ -56,14 +59,28 @@ public class Fine implements Serializable {
   /**
    * Returns Lease.
    *
-   * @return lease
+   * @return lease lease
    */
   public Lease getLease() {
     return lease;
   }
 
 
+  /**
+   * Gets date accrued.
+   *
+   * @return the date accrued
+   */
   public LocalDateTime getDateAccrued() {
     return lease.getDateReturned();
+  }
+
+  /**
+   * Gets fined customer.
+   *
+   * @return the fined customer
+   */
+  public Customer getFinedCustomer() {
+    return lease.getBorrowingCustomer();
   }
 }

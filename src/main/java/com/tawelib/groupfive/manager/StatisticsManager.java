@@ -211,30 +211,34 @@ public class StatisticsManager {
 
     //Groups all Leases by Borrowing Customer, then by Date Leased.
     //It then filters out any leases that was before 4 days ago.
-    Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedperDay = leases.stream()
+    Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerDay = leases.stream()
         .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(4)))
         .collect(Collectors.groupingBy(Lease::getDateLeased,
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
     int[] totalByDate = new int[5];
+    Object[] dates = leasesMappedPerDay.keySet().toArray();
 
-    // Iterates through the leases for each Day
-    for (int count = 0; count < 5; count++) {
-      int numberOfCustomers = leasesMappedperDay.get(LocalDateTime.now().minusDays(count)).size();
-      int numberOfLeases = 0;
+    //Iterates for 5 days
+    for (int i = 0; i < 5; i++) {
+      int totalNoOfLeases = 0;
+
+      Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get(dates[i]);
+      Object[] customers = dateMap.keySet().toArray();
+      int customerSize = customers.length;
+
       //Iterates through leases per customer and finds number of leases per customer per day
-      for (int i = 0; i < numberOfCustomers; i++) {
-        numberOfLeases =
-            numberOfLeases + leasesMappedperDay.get(LocalDateTime.now().minusDays(count)).get(i)
-                .size();
+      //Adds it to holder variable
+      for (int k = 0; k < customerSize; k++) {
+        int temp = dateMap.get(customers[k]).size();
+        //Averages number of Leases based upon no.of Customers
+        totalNoOfLeases = (totalNoOfLeases + temp) / customerSize;
       }
-      //Averages it per customer.
-      numberOfLeases = numberOfLeases / numberOfCustomers;
-      //Assigns Number of Leases of that day.
-      totalByDate[count] = numberOfLeases;
+      totalByDate[i] = totalNoOfLeases;
 
     }
+
     return totalByDate;
   }
 
@@ -344,20 +348,147 @@ public class StatisticsManager {
     return totalByMonth;
   }
 
+  /**
+   * Works out amount of fines per User per day for last 5 days.
+   *
+   * @param fines Records of User Fines
+   * @return amount of fines per User per day for last 5 days.
+   */
   private static int[] getFineStatsDay(List<Fine> fines) {
-    int[] totalByDate = new int[5];
+    //Groups all Leases by Fined Customer, then by Date Accrued.
+    //It then filters out any leases that was before 4 days ago.
+    Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerDay = fines.stream()
+        .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(4)))
+        .collect(Collectors.groupingBy(Fine::getDateAccrued,
+            Collectors.groupingBy(Fine::getFinedCustomer)));
 
+    //Makes the array that shall be returned
+    int[] totalByDate = new int[5];
+    Object[] dates = finesMappedPerDay.keySet().toArray();
+
+    //Iterates for 5 days
+    for (int i = 0; i < 5; i++) {
+      int totalNoOfFines = 0;
+
+      Map<Customer, List<Fine>> dateMap = finesMappedPerDay.get(dates[i]);
+      Object[] customers = dateMap.keySet().toArray();
+      int customerSize = customers.length;
+
+      //Iterates through fines per customer and finds number of fines per customer per day
+      //Adds it to holder variable
+      for (int k = 0; k < customerSize; k++) {
+        int temp = dateMap.get(customers[k]).size();
+        //Averages number of Leases based upon no.of Customers
+        totalNoOfFines = (totalNoOfFines + temp) / customerSize;
+      }
+      totalByDate[i] = totalNoOfFines;
+    }
     return totalByDate;
   }
 
+  /**
+   * Works out amount of fines per User per week for last 5 weeks.
+   *
+   * @param fines Records of User Fines
+   * @return amount of fines per User per day for last 5 weeks.
+   */
   private static int[] getFineStatsWeek(List<Fine> fines) {
+    //Sorts fines in order of Date Accrued.
+    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+
+    //Makes the array that shall be returned
     int[] totalByWeek = new int[5];
 
+    //Iterates for 5 weeks
+    for (int i = 0; i < 5; i++) {
+      //Sets the date range for that week
+      LocalDateTime dateTo = LocalDateTime.now().minusDays(i * 7);
+      LocalDateTime dateFrom = LocalDateTime.now().minusDays((i + 1) * 7);
+
+      //Groups all Fines by Fined Customer, then by Date Accrued.
+      //It then filters out any fines that wasn't between start and end of each week.
+      Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerWeek = fines.stream()
+          .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
+              .isAfter(dateFrom))).collect(Collectors.groupingBy((Fine::getDateAccrued),
+              Collectors.groupingBy(Fine::getFinedCustomer)));
+
+      int totalNoOfFines = 0;
+      Object[] dates = finesMappedPerWeek.keySet().toArray();
+      int dateSize = dates.length;
+
+      // Iterates through the fines for each Day
+      for (int j = 0; j < dateSize; j++) {
+        Map<Customer, List<Fine>> dateMap = finesMappedPerWeek.get(dates[j]);
+        Object[] customers = dateMap.keySet().toArray();
+        int customerSize = customers.length;
+
+        //Iterates through fines per customer and finds number of fines per customer per day
+        //Adds it to holder variable
+        for (int k = 0; k < customerSize; k++) {
+          int temp = dateMap.get(customers[k]).size();
+          totalNoOfFines = totalNoOfFines + temp;
+        }
+
+        //Averages number of Leases based upon no.of Customers
+        totalNoOfFines = totalNoOfFines / customerSize;
+      }
+
+      totalByWeek[i] = totalNoOfFines;
+    }
+
     return totalByWeek;
+
   }
 
+  /**
+   * Works out amount of fines per User per week for last 5 months.
+   *
+   * @param fines Records of User Fines
+   * @return amount of fines per User per day for last 5 months.
+   */
   private static int[] getFineStatsMonth(List<Fine> fines) {
+    //Sorts fines in order of Date Accrued.
+    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+
+    //Makes the array that shall be returned
     int[] totalByMonth = new int[5];
+
+    //Iterates for 5 months
+    for (int i = 0; i < 5; i++) {
+      //Sets the date range for that month
+      LocalDateTime dateTo = LocalDateTime.now().minusMonths(i);
+      LocalDateTime dateFrom = LocalDateTime.now().minusMonths(i + 1);
+
+      //Groups all Fines by Fined Customer, then by Date Accrued.
+      //It then filters out any fines that wasn't between start and end of each month.
+      Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerMonth = fines.stream()
+          .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
+              .isAfter(dateFrom))).collect(Collectors.groupingBy((Fine::getDateAccrued),
+              Collectors.groupingBy(Fine::getFinedCustomer)));
+
+      int totalNoOfFines = 0;
+      Object[] dates = finesMappedPerMonth.keySet().toArray();
+      int dateSize = dates.length;
+
+      //Iterates through each Date
+      for (int j = 0; j < dateSize; j++) {
+        Map<Customer, List<Fine>> dateMap = finesMappedPerMonth.get(dates[j]);
+        Object[] customers = dateMap.keySet().toArray();
+        int customerSize = customers.length;
+
+        //Iterates through fines per customer and finds number of fines per customer per day
+        //Adds it to holder variable
+        for (int k = 0; k < customerSize; k++) {
+          int temp = dateMap.get(customers[k]).size();
+          totalNoOfFines = totalNoOfFines + temp;
+        }
+
+        //Averages number of Leases based upon no.of Customers
+        totalNoOfFines = totalNoOfFines / customerSize;
+      }
+
+      totalByMonth[i] = totalNoOfFines;
+    }
 
     return totalByMonth;
   }
@@ -388,41 +519,46 @@ public class StatisticsManager {
       default:
     }
 
+    // Gets list of leases of same type that were borrowed within given time period
     leases.stream().filter(streamsPredicate).collect(Collectors.toList());
-    // so a this point we have a list of leases of same type that were borrowed within given period
-
     HashMap<Resource, Integer> map = new HashMap<>();
 
+    //Fills HashMap with every Resource loaned in time period and No. of times leased.
     for (Lease lease : leases) {
-      Resource key = lease.getBorrowedCopy().getResource(); //get a key
+      //Makes the Resource into a Key to use for HashMap
+      Resource key = lease.getBorrowedCopy().getResource();
 
-      if (map.containsKey(key)) { //check if resource been inserted into the map
-        map.put(key, map.get(key) + 1); //incrament the counter
+      //Checks if resource has been previously inserted into the map
+      if (map.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        map.put(key, (map.get(key)) + 1);
       } else {
-        map.put(key, 1); //add key to the map
+        //Adds Resource to Map if not already added
+        map.put(key, 1);
       }
     }
-    // at this point we have how many times, each reasource, within given time period, been leased
+
+    //Changes the HashMap to an ArrayList
+    Object[] keys = map.keySet().toArray();
     ArrayList<Integer> freq = new ArrayList<>();
-    Object[] vals = map.values().toArray();
-    for (int i = 0; i < map.values().size(); i++) {
-      freq.add((Integer) vals[i]);
+    for (int i = 0; i < keys.length; i++) {
+      freq.add(map.get(keys[i]));
     }
 
+    //Sorts Arraylist in descending order
     Collections.sort(freq);
     Collections.reverse(freq);
 
     ArrayList<Resource> popularResources = new ArrayList<>();
-
-    Object[] keys = map.keySet().toArray();
+    //Gets the 5 most popular resources
     for (int i = 0; i < 5; i++) {
       try {
         for (Object key : keys) {
-          Resource rkey = (Resource) key;
-          if (map.get(rkey) == freq.get(i)) {
-            popularResources.add(rkey);
+          Resource resource = (Resource) key;
+          //Checks if it is already in PopularResources
+          if ((map.get(resource) == freq.get(i)) && (!popularResources.contains(resource))) {
+            popularResources.add(resource);
           }
-
         }
       } catch (IndexOutOfBoundsException e) {
         continue;
