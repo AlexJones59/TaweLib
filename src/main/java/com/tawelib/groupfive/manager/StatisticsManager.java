@@ -195,12 +195,24 @@ public class StatisticsManager {
       default:
     }
     leases.stream().filter(streamsPredicate).collect(Collectors.toList());
-    Map<Resource, List<Lease>> leasesSortedByResource;
-    // ArrayList<Resource> popularResources = new ArrayList<>();
+    // so a this point we have a list of leases of same type that were borrowed within given period
 
+
+    // Map<Resource, List<Lease>> leasesSortedByResource;
+    // ArrayList<Resource> popularResources = new ArrayList<>();
+    Map<Resource, Integer> map = new Map<Resource, Integer>();
     for (Lease lease : leases) {
-      //leasesSortedByResource.put(lease.getBorrowedCopy().getResource(), lease);
+      Resource key = lease.getBorrowedCopy().getResource(); //get a key
+
+      if (map.containsKey(key)) { //check if resource been inserted into the map
+        map.put(key, map.get(key)++) //incrament the counter
+      } else {
+        map.put(key, 0); //add key to the map
+      }
     }
+    // at this point we have how many times, each reasource, within given time period, been leased
+
+
 
     //TODO: Change return instructions.
     return leases;
