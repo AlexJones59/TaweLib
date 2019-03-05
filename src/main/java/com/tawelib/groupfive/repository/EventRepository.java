@@ -78,8 +78,7 @@ public class EventRepository implements BaseRepository<Event> {
    * @return the upcoming events
    */
   public ArrayList<Event> getUpcomingEvents() {
-    ArrayList<Event> upcomingEvents = new ArrayList<Event>();
-
+    ArrayList<Event> upcomingEvents = new ArrayList<>();
     for (Event i : events) {
       if (i.getEventDate().isAfter(LocalDateTime.now())) {
         upcomingEvents.add(i);
