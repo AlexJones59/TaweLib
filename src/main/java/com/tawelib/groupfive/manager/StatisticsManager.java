@@ -158,6 +158,7 @@ public class StatisticsManager {
   /**
    * Works out the top 5 most popular resources loaned within specified time period.
    *
+   * @param library library
    * @param timePeriod "Day", "Week", "Month"
    * @param resourceType the type of resource you want to find out
    * @return a list of most popular resources

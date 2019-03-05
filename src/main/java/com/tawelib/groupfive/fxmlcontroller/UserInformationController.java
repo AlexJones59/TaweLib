@@ -237,6 +237,7 @@ public class UserInformationController extends BaseFxmlController {
 
   /**
    * Allows a user to pick up a copy of a resource they have reserved.
+   * @throws OverResourceCapException if No.of resources borrowed exceeds the resource cap
    */
   public void pickUpReserved() throws OverResourceCapException {
     if (selectedUser.getClass().equals(Customer.class)) {
