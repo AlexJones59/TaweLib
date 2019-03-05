@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.manager;
 
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
@@ -112,6 +113,93 @@ public class StatisticsManager {
 
     return result;
   }
+
+  /**
+   * Gets specific user statistics.
+   *
+   * @param library the library
+   * @param customer the customer
+   * @param resourceType the resource type
+   * @param timePeriod the time period
+   * @return the specific user statistics
+   */
+  public static int[] getSpecificFineStatistics(Library library, Customer customer,
+      ResourceType resourceType, String timePeriod) {
+    List<Fine> customerFines;
+    int[] result = new int[5];
+
+    switch (resourceType) {
+      case BOOK:
+      case DVD:
+      case LAPTOP:
+      case GAME:
+        customerFines = library.getFineRepository()
+            .getCustomerResourceTypeFines(resourceType, customer);
+        break;
+      default:
+        customerFines = library.getFineRepository().getCustomerFines(customer);
+    }
+    Collections.reverse(customerFines);
+
+    switch (timePeriod) {
+      case "Day":
+        result = getFineStatsDay(customerFines);
+        break;
+      case "Week":
+        result = getFineStatsWeek(customerFines);
+        break;
+      case "Month":
+        result = getFineStatsMonth(customerFines);
+        break;
+      default:
+    }
+
+    return result;
+
+  }
+
+  /**
+   * Gets average user statistics.
+   *
+   * @param library the library
+   * @param resourceType the resource type
+   * @param timePeriod the time period
+   * @return the average user statistics
+   */
+  public static int[] getAverageFineStatistics(Library library, ResourceType resourceType,
+      String timePeriod) {
+
+    List<Fine> fines;
+    int[] result = new int[5];
+    switch (resourceType) {
+      case BOOK:
+      case DVD:
+      case LAPTOP:
+      case GAME:
+        fines = library.getFineRepository().getResourceTypeFines(resourceType);
+        break;
+      default:
+        fines = library.getFineRepository().getAll();
+    }
+    Collections.reverse(fines);
+
+    switch (timePeriod) {
+      case "Day":
+
+        result = getFineStatsDay(fines);
+        break;
+      case "Week":
+        result = getFineStatsWeek(fines);
+        break;
+      case "Month":
+        result = getFineStatsMonth(fines);
+        break;
+      default:
+    }
+
+    return result;
+  }
+
 
   /**
    * Works out amount of leases per User per day for last 5 days.
@@ -252,6 +340,24 @@ public class StatisticsManager {
 
       totalByMonth[i] = totalNoOfLeases;
     }
+
+    return totalByMonth;
+  }
+
+  private static int[] getFineStatsDay(List<Fine> fines) {
+    int[] totalByDate = new int[5];
+
+    return totalByDate;
+  }
+
+  private static int[] getFineStatsWeek(List<Fine> fines) {
+    int[] totalByWeek = new int[5];
+
+    return totalByWeek;
+  }
+
+  private static int[] getFineStatsMonth(List<Fine> fines) {
+    int[] totalByMonth = new int[5];
 
     return totalByMonth;
   }

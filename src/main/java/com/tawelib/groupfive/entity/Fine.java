@@ -3,6 +3,7 @@ package com.tawelib.groupfive.entity;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -59,5 +60,10 @@ public class Fine implements Serializable {
    */
   public Lease getLease() {
     return lease;
+  }
+
+
+  public LocalDateTime getDateAccrued() {
+    return lease.getDateReturned();
   }
 }
