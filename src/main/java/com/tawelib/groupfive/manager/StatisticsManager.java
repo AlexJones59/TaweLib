@@ -198,24 +198,47 @@ public class StatisticsManager {
     // so a this point we have a list of leases of same type that were borrowed within given period
 
 
-    // Map<Resource, List<Lease>> leasesSortedByResource;
-    // ArrayList<Resource> popularResources = new ArrayList<>();
-    Map<Resource, Integer> map = new Map<Resource, Integer>();
+    HashMap<Resource, Integer> map = new HashMap<>();
+
     for (Lease lease : leases) {
       Resource key = lease.getBorrowedCopy().getResource(); //get a key
 
       if (map.containsKey(key)) { //check if resource been inserted into the map
-        map.put(key, map.get(key)++) //incrament the counter
+        map.put(key, map.get(key)+1) //incrament the counter
       } else {
-        map.put(key, 0); //add key to the map
+        map.put(key, 1); //add key to the map
       }
     }
     // at this point we have how many times, each reasource, within given time period, been leased
+    ArrayList<Integer> freq = new ArrayList<>();
+    Object[] vals = map.values().toArray();
+    for(int i = 0; i < map.values().size(); i++){
+      freq.add((Integer)vals[i]);
+    }
+
+    Collections.sort(freq);
+    Collections.reverse(freq);
+
+    ArrayList<Resource> popularResources = new ArrayList<>();
+
+    Object[] keys = map.keySet().toArray()
+    for (int i = 0; i < 5; i++){
+      try {
+        for (Object key : keys) {
+          Resource rkey = (Resource) key;
+          if (map.get(rkey) == freq.get(i)) {
+            popularResources.add(rkey)
+          }
+
+        }
+      }catch (IndexOutOfBoundsException e){
+        continue;
+      }
+    }
 
 
 
-    //TODO: Change return instructions.
-    return leases;
+    return popularResources;
   }
 
 
