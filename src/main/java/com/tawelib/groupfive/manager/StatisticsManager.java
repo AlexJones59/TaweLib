@@ -259,7 +259,6 @@ public class StatisticsManager {
   /**
    * Works out the top 5 most popular resources loaned within specified time period.
    *
-   * @param library
    * @param timePeriod "Day", "Week", "Month"
    * @param resourceType the type of resource you want to find out
    * @return a list of most popular resources
@@ -292,7 +291,7 @@ public class StatisticsManager {
       Resource key = lease.getBorrowedCopy().getResource(); //get a key
 
       if (map.containsKey(key)) { //check if resource been inserted into the map
-        map.put(key, map.get(key)+1); //incrament the counter
+        map.put(key, map.get(key) + 1); //incrament the counter
       } else {
         map.put(key, 1); //add key to the map
       }
@@ -300,8 +299,8 @@ public class StatisticsManager {
     // at this point we have how many times, each reasource, within given time period, been leased
     ArrayList<Integer> freq = new ArrayList<>();
     Object[] vals = map.values().toArray();
-    for(int i = 0; i < map.values().size(); i++){
-      freq.add((Integer)vals[i]);
+    for (int i = 0; i < map.values().size(); i++) {
+      freq.add((Integer) vals[i]);
     }
 
     Collections.sort(freq);
@@ -310,7 +309,7 @@ public class StatisticsManager {
     ArrayList<Resource> popularResources = new ArrayList<>();
 
     Object[] keys = map.keySet().toArray();
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
       try {
         for (Object key : keys) {
           Resource rkey = (Resource) key;
@@ -319,12 +318,10 @@ public class StatisticsManager {
           }
 
         }
-      }catch (IndexOutOfBoundsException e){
+      } catch (IndexOutOfBoundsException e) {
         continue;
       }
     }
-
-
 
     return popularResources;
   }
