@@ -3,14 +3,19 @@ package com.tawelib.groupfive.manager;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
+import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -146,19 +151,60 @@ public class StatisticsManager {
   */
 
   private static int[] getUserStatsMonth(List<Lease> leases) {
-    Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedperMonth = leases.stream()
-        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(4)))
-        .collect(Collectors.groupingBy(Lease::getDateLeased,
-            Collectors.groupingBy(Lease::getBorrowingCustomer)));
+    leases.sort(Comparator.comparing(Lease::getDateLeased));
 
     int[] totalByDate = new int[5];
-    Map<Number, Map<Customer, List<Lease>>> leasesMappedByMonth;
-    Iterator iterator = leasesMappedperMonth.entrySet().iterator();
 
-    while (iterator.hasNext()) {
+    for (int i = 0; i < 5; i++) {
+      LocalDateTime dateTo = LocalDateTime.now().minusMonths(i);
+      LocalDateTime dateFrom = LocalDateTime.now().minusMonths(i+1);
+
+      Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerMonth = leases.stream()
+          .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
+              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased),
+                  Collectors.groupingBy(Lease::getBorrowingCustomer)));
+       int size = leasesMappedPerMonth.size();
+
+      for (int j = 0 ; j < size; j++){
+
+
+      }
+
+
 
     }
+
     return totalByDate;
   }
+
+
+  private static List<?> getPopularResources(Library library, String timePeriod,
+      ResourceType resourceType) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
+    Predicate<Lease> streamsPredicate;
+    switch (timePeriod) {
+      case "Day":
+        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1));
+        break;
+      case "Week":
+        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7));
+        break;
+      case "Month":
+        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1));
+        break;
+      default:
+    }
+    leases.stream().filter(streamsPredicate).collect(Collectors.toList());
+    Map<Resource, List<Lease>> leasesSortedByResource;
+    // ArrayList<Resource> popularResources = new ArrayList<>();
+
+    for (Lease lease : leases) {
+      //leasesSortedByResource.put(lease.getBorrowedCopy().getResource(), lease);
+    }
+
+    //TODO: Change return instructions.
+    return leases;
+  }
+
 
 }
