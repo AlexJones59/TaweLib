@@ -291,7 +291,7 @@ public class StatisticsManager {
       Resource key = lease.getBorrowedCopy().getResource(); //get a key
 
       if (map.containsKey(key)) { //check if resource been inserted into the map
-        map.put(key, map.get(key)+1) //incrament the counter
+        map.put(key, map.get(key)+1); //incrament the counter
       } else {
         map.put(key, 1); //add key to the map
       }
