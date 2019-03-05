@@ -27,7 +27,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="27.0" layoutY="66.0" text="No. of Resources You Borrowed: " />
-                        <ComboBox fx:id="userStatTimeComboBox" layoutX="118.0" layoutY="23.0" onAction="#userStatTimeComboBoxHandler" prefWidth="150.0" />
+                        <ComboBox fx:id="userStatTimeComboBox" layoutX="118.0" layoutY="23.0" onAction="#userStatComboBoxHandler" prefWidth="150.0" />
                         <Label layoutX="27.0" layoutY="27.0" text="Time Period:" />
                         <Label layoutX="27.0" layoutY="95.0" text="No. of Resources an Average User Borrowed:" />
                         <TextField fx:id="noUserBorrowedTextField" layoutX="345.0" layoutY="62.0" />
@@ -41,11 +41,11 @@
                           </yAxis>
                         </StackedBarChart>
                         <Label layoutX="319.0" layoutY="27.0" text="Resource Type:" />
-                        <ComboBox fx:id="userStatResTypeComboBox" layoutX="427.0" layoutY="23.0" onAction="#userStatResTypeComboBoxHandler" prefWidth="150.0" />
+                        <ComboBox fx:id="userStatResTypeComboBox" layoutX="427.0" layoutY="23.0" onAction="#userStatComboBoxHandler" prefWidth="150.0" />
                      </children></AnchorPane>
             </content>
           </TitledPane>
-          <TitledPane fx:id="resourceStatPane" animated="false" onDragDetected="#setExpandedResourceStatTitledPane" onMouseClicked="#expandedResourceStatTitledPane" text="Resource Infomation">
+          <TitledPane fx:id="resourceStatPane" animated="false"  onMouseClicked="#setExpandedResourceStatTitledPane" text="Resource Infomation">
                <content>
                   <SplitPane dividerPositions="0.12354312354312354" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
                     <items>
