@@ -4,14 +4,14 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.entity.ResourceType;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - LeaseRepository.java The Lease repository class handles lease
- * details.
+ * File Name - LeaseRepository.java The Lease repository class handles lease details.
  *
  * @author Created by Themis, Modified by Shree Desai
  * @version 1.0
@@ -162,6 +162,43 @@ public class LeaseRepository implements BaseRepository<Lease> {
           || lease.getBorrowedCopy().getResource().getTitle()
           .contains(query)
       ) {
+        result.add(lease);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets resource type leases.
+   *
+   * @param resourceType the resource type
+   * @return the resource type leases
+   */
+  public List<Lease> getResourceTypeLeases(ResourceType resourceType) {
+    ArrayList<Lease> result = new ArrayList<>();
+
+    for (Lease lease : leases) {
+      if (lease.getBorrowedCopy().getResource().getType() == resourceType) {
+        result.add(lease);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Gets customer resource type leases.
+   *
+   * @param resourceType the resource type
+   * @param customer the customer
+   * @return the customer resource type leases
+   */
+  public List<Lease> getCustomerResourceTypeLeases(ResourceType resourceType, Customer customer) {
+    ArrayList<Lease> result = new ArrayList<>();
+
+    for (Lease lease : getResourceTypeLeases(resourceType)) {
+      if (lease.getBorrowingCustomer() == customer) {
         result.add(lease);
       }
     }

@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 import javafx.scene.control.Alert;
 
 /**
- * File Name - CopyManager.java The Copy Manager class controls data flow betweenthe Copy Repository
- * and the GUI interfaces.
+ * File Name - CopyManager.java The Copy Manager class controls data flow
+ * between the Copy Repository and the GUI interfaces.
  *
  * @author Shree Desai
  * @version 1.0
