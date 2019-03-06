@@ -18,7 +18,7 @@ public class SimulatedLocalDateTime {
   public static LocalDateTime now() {
     return LocalDateTime.ofInstant(
         Instant.ofEpochMilli(
-            TestClock.getTimestamp()
+            SimulatedClock.getTimestamp()
         ),
         TimeZone.getDefault().toZoneId()
     );
