@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 public class Participation implements Serializable {
 
-  private String username;
-  private String eventId;
+  private User user;
+  private Event event;
 
   /**
    * Instantiates a new Participation.
@@ -21,8 +21,8 @@ public class Participation implements Serializable {
    * @param event the event
    */
   public Participation(User user, Event event) {
-      this.username = user.getUsername();
-      this.eventId = event.getEventId();
+    this.user = user;
+    this.event = event;
   }
 
   /**
@@ -30,8 +30,8 @@ public class Participation implements Serializable {
    *
    * @return the username
    */
-  public String getUsername() {
-    return username;
+  public User getUser() {
+    return user;
   }
 
   /**
@@ -39,8 +39,8 @@ public class Participation implements Serializable {
    *
    * @return the event ID
    */
-  public String getEventId() {
-    return eventId;
+  public Event getEvent() {
+    return event;
   }
 
 }

@@ -19,8 +19,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 /**
- * The class controls Events.fxml file, allows to observe event, see the users past events,
- * see next events and joined events. Also for librarian is available creation of the new event.
+ * The class controls Events.fxml file, allows to observe event, see the users past events, see next
+ * events and joined events. Also for librarian is available creation of the new event.
  *
  * @author Oskars Dervinis
  * @version 1.0
@@ -52,11 +52,13 @@ public class EventsController extends BaseFxmlController {
   }
 
   @Override
-  public void refresh(){
+  public void refresh() {
     initUpcomingEvents();
     initJoinedEvents();
   }
-  /** The method adds upcoming events to the scrolling pane
+
+  /**
+   * The method adds upcoming events to the scrolling pane.
    */
   private void initUpcomingEvents() {
     ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
@@ -66,18 +68,18 @@ public class EventsController extends BaseFxmlController {
   }
 
   /**
-   * The method adds already joined events to the scrolling pane
+   * The method adds already joined events to the scrolling pane.
    */
   private void initJoinedEvents() {
-    ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();//TODO: get already registered events for this user(maybe not implemented yet)
+    ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, selectedUser);
     for (int i = 0; i < allEvents.size(); i++) {
       currentEventsField.getItems().addAll(constructEventCell(allEvents.get(i), true));
     }
   }
 
   /**
-   * The method opens the scene to view past events where this user participated.
-   * Called by pressing pastEventsBtn.
+   * The method opens the scene to view past events where this user participated. Called by pressing
+   * pastEventsBtn.
    */
   public void showPastEvents() {
     SceneHelper.setUpScene(this, "PastEvents");
@@ -95,6 +97,7 @@ public class EventsController extends BaseFxmlController {
    * The method creates the "cell" consisting of 2 buttons(for more info about the event and the
    * button for signing for event. It is reppresentated as VBox. Also checks if the user can join
    * the event or not.
+   *
    * @param e the event will be displayed.
    * @return the VBox as representation of the event.
    */
@@ -114,8 +117,8 @@ public class EventsController extends BaseFxmlController {
     }
     /*Checks if there are free slots and person dont participate, if not - disables the button*/
     int currentRegisteredPpl = library.getParticipationRepository().getNumberOfParticipants(e);
-    if((e.getCapacity() <= currentRegisteredPpl)
-        || (library.getParticipationRepository().doesParticipate(e,loggedInUser))){
+    if ((e.getCapacity() <= currentRegisteredPpl)
+        || (library.getParticipationRepository().doesParticipate(e, loggedInUser))) {
       signUpForEvent.setDisable(true);
     }
 
@@ -135,9 +138,9 @@ public class EventsController extends BaseFxmlController {
     description.setOnAction(event -> {
       String aboutEvent =
           e.getEventDate().toString().substring(0, 10) + "\n"
-              + e.getEventDate().toString().substring(11, 16)  + "\n" + e.getEventName()
+              + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName()
               + "\n" + e.getDescription() + "\nFree slots: "
-            + (e.getCapacity()-library.getParticipationRepository().getNumberOfParticipants(e));
+              + (e.getCapacity() - library.getParticipationRepository().getNumberOfParticipants(e));
       AlertHelper.eventDescription(INFORMATION, aboutEvent);
     });
 

@@ -11,8 +11,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * The class controls CreateEvent.fxml file. It allow to create a new event and add
- * it to the events repository. This screen is available only for librarian.
+ * The class controls CreateEvent.fxml file. It allow to create a new event and add it to the events
+ * repository. This screen is available only for librarian.
  *
  * @author Oskars Dervinis
  * @version 1.0
@@ -78,11 +78,11 @@ public class CreateEventController extends BaseFxmlController {
       AlertHelper.alert(AlertType.WARNING, "Please provide the correct date");
     } else {
       LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
-      if(date.isAfter(LocalDateTime.now())){//Checks if the date is after current time
+      if (date.isAfter(LocalDateTime.now())) { //Checks if the date is after current time
         Event event = new Event("12", name, date, maxPpl, description);//TODO: now event id is 1
         EventManager.addEvent(library, event);
         back();
-      }else{
+      } else {
         AlertHelper.alert(AlertType.ERROR, "Enter the date after the current time");
       }
 
@@ -90,7 +90,7 @@ public class CreateEventController extends BaseFxmlController {
   }
 
   /**
-   * Returns to the previous screen
+   * Returns to the previous screen.
    */
   @Override
   public void back() {

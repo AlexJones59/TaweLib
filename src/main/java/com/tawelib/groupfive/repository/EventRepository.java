@@ -87,6 +87,21 @@ public class EventRepository implements BaseRepository<Event> {
     return upcomingEvents;
   }
 
+  /**
+   * Gets past all past events.
+   *
+   * @return ArrayList of all past events
+   */
+  public ArrayList<Event> getPastEvents() {
+    ArrayList<Event> pastEvents = new ArrayList<>();
+    for (Event i : events) {
+      if (i.getEventDate().isBefore(LocalDateTime.now())) {
+        pastEvents.add(i);
+      }
+    }
+    return pastEvents;
+  }
+
 
 }
 

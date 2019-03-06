@@ -8,8 +8,8 @@ import com.tawelib.groupfive.entity.User;
 import java.util.ArrayList;
 
 /**
- * EventManager.java The Event Manager class handles data
- * flow between the Event Repository, Participation Repository and the GUI interfaces.
+ * EventManager.java The Event Manager class handles data flow between the Event Repository,
+ * Participation Repository and the GUI interfaces.
  *
  * @author Rimantas Kazlauskas
  * @version 1.0
@@ -57,11 +57,47 @@ public class EventManager {
    * @param event the event
    * @return True if full, false otherwise
    */
-  public boolean eventFull(Library library, Event event) {
+  public static boolean eventFull(Library library, Event event) {
 
     int participating = library.getParticipationRepository().getNumberOfParticipants(event);
     return participating == event.getCapacity();
 
+  }
+
+  /**
+   * Gets user past attended event.
+   *
+   * @param library the library
+   * @param user the user
+   * @return ArrayList of previously attended events
+   */
+  public static ArrayList<Event> getUserPastEvents(Library library, User user) {
+    ArrayList<Event> pastEvents = library.getEventRepository().getPastEvents();
+    ArrayList<Event> pastUserEvents = new ArrayList<>();
+    for (Event i : pastEvents) {
+      if (library.getParticipationRepository().doesParticipate(i, user)) {
+        pastUserEvents.add(i);
+      }
+    }
+    return pastUserEvents;
+  }
+
+  /**
+   * Gets an arrayList of user upcoming participations.
+   *
+   * @param library the library
+   * @param user the user
+   * @return ArrayList of events that user is participating
+   */
+  public static ArrayList<Event> getCurrentParticipations(Library library, User user) {
+    ArrayList<Event> upcomingEvents = library.getEventRepository().getUpcomingEvents();
+    ArrayList<Event> userUpcomingEvents = new ArrayList<>();
+    for (Event i : upcomingEvents) {
+      if (library.getParticipationRepository().doesParticipate(i, user)) {
+        userUpcomingEvents.add(i);
+      }
+    }
+    return userUpcomingEvents;
   }
 
 }

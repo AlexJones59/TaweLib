@@ -31,7 +31,7 @@ public class PastEventsController extends BaseFxmlController {
   }
 
   @Override
-  public void refresh(){
+  public void refresh() {
     ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
     for (int i = 0; i < allEvents.size(); i++) {
 
@@ -44,7 +44,8 @@ public class PastEventsController extends BaseFxmlController {
 
       description.setOnAction(event -> {
         String aboutEvent = e.getEventDate().toString().substring(0, 10) + "\n"
-            + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName() + "\n" + e.getDescription();
+            + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName() + "\n" + e
+            .getDescription();
 
         AlertHelper.eventDescription(INFORMATION, aboutEvent);
       });
