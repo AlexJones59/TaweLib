@@ -12,6 +12,7 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.CopyUnavailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.LocalDateTime;
@@ -46,9 +47,12 @@ public class CopyManager {
       Library library,
       String copyId,
       String customerUsername
-  ) {
-    //Sets Copy Status to borrowed.
+  ) throws CopyUnavailableException {
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
+
+    if (borrowedCopy.getStatus() != CopyStatus.AVAILABLE) {
+      throw new CopyUnavailableException();
+    }
 
     borrowedCopy.setStatus(CopyStatus.BORROWED);
 
@@ -262,5 +266,4 @@ public class CopyManager {
 
     library.getLeaseRepository().add(newLease);
   }
-
 }
