@@ -3,6 +3,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
 import com.tawelib.groupfive.entity.Event;
+import com.tawelib.groupfive.manager.EventManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class PastEventsController extends BaseFxmlController {
 
   @Override
   public void refresh() {
-    ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
+    ArrayList<Event> allEvents = EventManager.getUserPastEvents(library, loggedInUser);
     for (int i = 0; i < allEvents.size(); i++) {
 
       Event e = allEvents.get(i);

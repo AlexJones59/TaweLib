@@ -71,7 +71,8 @@ public class EventsController extends BaseFxmlController {
    * The method adds already joined events to the scrolling pane.
    */
   private void initJoinedEvents() {
-    ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, selectedUser);
+    ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, loggedInUser);
+
     for (int i = 0; i < allEvents.size(); i++) {
       currentEventsField.getItems().addAll(constructEventCell(allEvents.get(i), true));
     }

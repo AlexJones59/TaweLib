@@ -69,6 +69,7 @@ public class ParticipationRepository implements BaseRepository<Participation> {
    */
   public boolean doesParticipate(Event event, User user) {
     boolean result = false;
+
     for (Participation i : participation) {
       if (event.getEventId().equals(i.getEvent().getEventId())) {
         if (user.getUsername().equals(i.getUser().getUsername())) {
