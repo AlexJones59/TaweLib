@@ -340,7 +340,30 @@ public class StatisticsController extends BaseFxmlController {
       }
     }
   }
+  /**
+   * Initializes nodes in the Popular Resources Pane.
+   */
+  public void setPopResourcePane(){}
 
+  /**
+   * Initializes nodes in the Popular Books Pane.
+   */
+  public void setPopBookPane(){}
+
+  /**
+   * Initializes nodes in the Popular DVDs Pane.
+   */
+  public void setPopDvdPane(){}
+
+  /**
+   * Initializes nodes in the Popular Laptops Pane.
+   */
+  public void setPopLaptopPane(){}
+
+  /**
+   * Initializes nodes in the Popular Video Games Pane.
+   */
+  public void setPopVideoGamePane(){}
 
   /**
    * Initializes nodes in the Fine Statistics Pane.
