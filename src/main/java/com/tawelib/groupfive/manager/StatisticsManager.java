@@ -176,7 +176,6 @@ public class StatisticsManager {
    * @param resourceType the type of resource you want to find out
    * @return a list of most popular resources
    */
-
   public static List<?> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
@@ -349,7 +348,6 @@ public class StatisticsManager {
 
     return totalByMonth;
   }
-
 
   /**
    * Works out amount of leases per User per day for last 5 days.
