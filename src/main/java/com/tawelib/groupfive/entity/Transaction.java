@@ -1,8 +1,8 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Transaction.java Records every time a customer pays funds to the Library to change their account
@@ -26,7 +26,7 @@ public class Transaction implements Serializable {
   public Transaction(int amount, Customer payee) {
     this.amount = amount;
     this.payee = payee;
-    this.datePaid = LocalDateTime.now();
+    this.datePaid = SimulatedLocalDateTime.now();
   }
 
   /**

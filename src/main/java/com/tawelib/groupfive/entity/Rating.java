@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -27,7 +28,7 @@ public class Rating implements Serializable {
     this.value = value;
     this.ratedResourceId = ratedResourceId;
     this.raterId = raterId;
-    this.dateRated = LocalDateTime.now();
+    this.dateRated = SimulatedLocalDateTime.now();
   }
 
 

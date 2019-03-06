@@ -13,13 +13,12 @@ import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.exception.OverResourceCapException;
-import com.tawelib.groupfive.util.AlertHelper;
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.LocalDateTime;
-import javafx.scene.control.Alert;
 
 /**
- * File Name - CopyManager.java The Copy Manager class controls data flow
- * between the Copy Repository and the GUI interfaces.
+ * File Name - CopyManager.java The Copy Manager class controls data flow between the Copy
+ * Repository and the GUI interfaces.
  *
  * @author Shree Desai
  * @version 1.0
@@ -43,21 +42,21 @@ public class CopyManager {
    * @param copyId the copy id
    * @param customerUsername the customer username
    */
-  public static void borrowResourceCopy(Library library, String copyId,
-      String customerUsername) throws NullPointerException {
+  public static void borrowResourceCopy(
+      Library library,
+      String copyId,
+      String customerUsername
+  ) {
     //Sets Copy Status to borrowed.
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
-    library.getCopyRepository().getSpecific(copyId)
-        .setStatus(CopyStatus.BORROWED);
+
+    borrowedCopy.setStatus(CopyStatus.BORROWED);
 
     //Sets customer as Borrowing Customer.
-    Customer borrowingCustomer = library.getCustomerRepository()
-        .getSpecific(customerUsername);
-    library.getCopyRepository().getSpecific(copyId)
-        .setBorrowingCustomer(borrowingCustomer);
+    Customer borrowingCustomer = library.getCustomerRepository().getSpecific(customerUsername);
+    borrowedCopy.setBorrowingCustomer(borrowingCustomer);
 
     createLease(library, borrowingCustomer, borrowedCopy);
-
   }
 
   /**
@@ -70,11 +69,9 @@ public class CopyManager {
     Copy returnedCopy = library.getCopyRepository().getSpecific(copyId);
 
     //Sets date returned in Lease.
-    library.getLeaseRepository().getCopyCurrentLease(returnedCopy)
-        .setDateReturned();
+    library.getLeaseRepository().getCopyCurrentLease(returnedCopy).setDateReturned();
 
-    Lease currentLease = library.getLeaseRepository()
-        .getCopyCurrentLease(returnedCopy);
+    Lease currentLease = library.getLeaseRepository().getCopyCurrentLease(returnedCopy);
 
     /* Creates Fine if book is returned late, and decrease account balance of
        customer by fine amount.*/
@@ -130,8 +127,7 @@ public class CopyManager {
    * @param library the library
    * @param resourceId resourceId
    * @param customerUsername the customer username
-   * @throws OverResourceCapException This exception gets thrown when picking up the reserved copy
-   *        will exceed this customers resource cap.
+   * @throws OverResourceCapException When over the resource cap.
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
       String customerUsername) throws OverResourceCapException {
@@ -195,14 +191,13 @@ public class CopyManager {
    * @param newLease new lease
    */
   public static void generateDueDate(Lease newLease) {
-    ResourceType resourceType = newLease.getBorrowedCopy().getResource()
-        .getType();
+    ResourceType resourceType = newLease.getBorrowedCopy().getResource().getType();
     LocalDateTime dueDate = newLease.getDateLeased()
         .plusDays(resourceType.getLoanDuration());
-    if (dueDate.isAfter(LocalDateTime.now())) {
+    if (dueDate.isAfter(SimulatedLocalDateTime.now())) {
       newLease.setDueDate(dueDate);
     } else {
-      newLease.setDueDate((LocalDateTime.now()).plusDays(1));
+      newLease.setDueDate((SimulatedLocalDateTime.now()).plusDays(1));
     }
 
   }
@@ -251,14 +246,20 @@ public class CopyManager {
    * @param customer borrowing customer
    * @param copy borrowed copy
    */
-  private static void createLease(Library library, Customer customer,
-      Copy copy) {
+  private static void createLease(
+      Library library,
+      Customer customer,
+      Copy copy
+  ) {
     Lease newLease = new Lease(customer, copy);
+
     //Checks to see if there are any requests for that resource.
     if (!library.getRequestRepository()
-        .getOpenResourceRequests(copy.getResource()).isEmpty()) {
+        .getOpenResourceRequests(copy.getResource()).isEmpty()
+    ) {
       generateDueDate(newLease);
     }
+
     library.getLeaseRepository().add(newLease);
   }
 

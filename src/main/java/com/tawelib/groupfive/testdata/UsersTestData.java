@@ -6,7 +6,7 @@ import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.repository.CustomerRepository;
 import com.tawelib.groupfive.repository.LibrarianRepository;
-import java.time.LocalDateTime;
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Locale;
@@ -37,7 +37,7 @@ class UsersTestData {
             "The street",
             "Swansea",
             "SA28PJ",
-            LocalDateTime.now()
+            SimulatedLocalDateTime.now()
         )
     );
 
