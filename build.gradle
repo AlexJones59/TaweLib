@@ -33,7 +33,7 @@ dependencies {
     compile "org.openjfx:javafx-web:11:$platform"
     compile "org.openjfx:javafx-swing:11:$platform"
 
-    implementation 'com.github.javafaker:javafaker:0.17.2'
+    compile 'com.github.javafaker:javafaker:0.17.2'
 
     testImplementation 'junit:junit:4.12'
 
@@ -123,7 +123,7 @@ checkstyleMain {
 }
 
 checkstyleTest {
-    source = 'src/main/java/com/tawelib/groupfive'
+    source = 'src/test/java/com/tawelib/groupfive'
 }
 
 mainClassName = 'com.tawelib.groupfive.Main'
