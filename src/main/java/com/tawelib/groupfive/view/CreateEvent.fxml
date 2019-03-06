@@ -21,17 +21,18 @@
       <TextField fx:id="nameTextField" layoutX="336.0" layoutY="104.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" />
       <Label layoutX="379.0" layoutY="83.0" text="Name of the event" AnchorPane.leftAnchor="379.0" AnchorPane.rightAnchor="355.0" />
       <Label layoutX="382.0" layoutY="140.0" prefHeight="21.0" prefWidth="124.0" text="Date of the event" AnchorPane.leftAnchor="382.0" AnchorPane.rightAnchor="358.0" />
-      <TextField fx:id="monthDateField" layoutX="390.0" layoutY="166.0" prefHeight="30.0" prefWidth="40.0" />
       <TextField fx:id="dayDateField" layoutX="336.0" layoutY="166.0" prefHeight="30.0" prefWidth="40.0" AnchorPane.leftAnchor="335.0" />
+      <TextField fx:id="monthDateField" layoutX="390.0" layoutY="166.0" prefHeight="30.0" prefWidth="40.0" />
       <TextField fx:id="yearDateField" layoutX="443.0" layoutY="166.0" prefHeight="30.0" prefWidth="80.0" AnchorPane.rightAnchor="335.0" />
+      <TextField fx:id="hourDateField" layoutX="336.0" layoutY="223.0" prefHeight="30.0" prefWidth="80.0" AnchorPane.leftAnchor="335.0" />
+      <TextField fx:id="minuteDateField" layoutX="439.0" layoutY="223.0" prefHeight="30.0" prefWidth="80.0" AnchorPane.rightAnchor="335.0" />
       <TextField fx:id="maxParticipientsField" layoutX="335.0" layoutY="280.0" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="335.0" />
       <TextArea fx:id="descriptionField" layoutX="224.0" layoutY="347.0" prefHeight="145.0" prefWidth="410.0" />
       <Label layoutX="343.0" layoutY="256.0" prefHeight="21.0" prefWidth="236.0" text="Maximum amount of participients" AnchorPane.leftAnchor="343.0" AnchorPane.rightAnchor="279.0" />
       <Label layoutX="372.0" layoutY="318.0" text="Event description" />
       <Button fx:id="createBtn" layoutX="367.0" layoutY="565.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="58.0" prefWidth="124.0" text="Create!" />
       <Label layoutX="416.0" layoutY="202.0" prefHeight="21.0" prefWidth="33.0" text="Time" AnchorPane.leftAnchor="416.0" AnchorPane.rightAnchor="409.0" />
-      <TextField fx:id="hourDateField" layoutX="336.0" layoutY="223.0" prefHeight="30.0" prefWidth="80.0" AnchorPane.leftAnchor="335.0" />
-      <TextField fx:id="minuteDateField" layoutX="439.0" layoutY="223.0" prefHeight="30.0" prefWidth="80.0" AnchorPane.rightAnchor="335.0" />
+
       <Label layoutX="426.0" layoutY="221.0" text=":">
          <font>
             <Font size="24.0" />

@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Event;
+import com.tawelib.groupfive.manager.EventManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.time.LocalDateTime;
@@ -56,6 +57,7 @@ public class CreateEventController extends BaseFxmlController {
     int minute = 0;
     int maxPpl = 0;
     String description = descriptionField.getText();
+
     /*Check if the dates are numbers*/
     boolean passedCasting = true;
     try {
@@ -76,9 +78,14 @@ public class CreateEventController extends BaseFxmlController {
       AlertHelper.alert(AlertType.WARNING, "Please provide the correct date");
     } else {
       LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
-      Event event = new Event("1", name, date, maxPpl, description);//TODO:now event id is 1
-      //EventManager.addEvent(library, event);TODO:uncomment
-      back();
+      if(date.isAfter(LocalDateTime.now())){//Checks if the date is after current time
+        Event event = new Event("12", name, date, maxPpl, description);//TODO: now event id is 1
+        EventManager.addEvent(library, event);
+        back();
+      }else{
+        AlertHelper.alert(AlertType.ERROR, "Enter the date after the current time");
+      }
+
     }
   }
 

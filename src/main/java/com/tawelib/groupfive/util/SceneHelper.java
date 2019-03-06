@@ -77,7 +77,9 @@ public class SceneHelper {
           controller.getPrimaryStage(),
           controller.getLibrary(),
           sceneName
+
       );
+
     } catch (IOException e) {
       throw new Error("Could not set up scene.");
     }

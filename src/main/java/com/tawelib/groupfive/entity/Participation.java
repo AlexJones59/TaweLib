@@ -21,8 +21,8 @@ public class Participation implements Serializable {
    * @param event the event
    */
   public Participation(User user, Event event) {
-    this.username = user.getUsername();
-    this.eventId = event.getEventId();
+      this.username = user.getUsername();
+      this.eventId = event.getEventId();
   }
 
   /**

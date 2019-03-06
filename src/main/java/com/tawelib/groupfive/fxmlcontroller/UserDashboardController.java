@@ -140,7 +140,10 @@ public class UserDashboardController extends BaseFxmlController {
   /**
    * Takes the user to the events screen.
    */
-  public void eventsWindow(){SceneHelper.setUpScene(this, "Events");}
+  public void eventsWindow() {
+    EventsController c = (EventsController)SceneHelper.setUpScene(this, "Events");
+    c.setLibrary(library);
+  }
 
   /**
    * Sets the dynamic fields.

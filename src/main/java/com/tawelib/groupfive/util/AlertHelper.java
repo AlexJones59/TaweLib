@@ -27,4 +27,11 @@ public class AlertHelper {
     alert.setContentText(message);
     alert.showAndWait();
   }
+
+  public static void eventDescription(AlertType alertType, String message) {
+    Alert alert = new Alert(alertType,message);
+    alert.setResizable(true);
+    alert.setHeaderText("Information about the event");
+    alert.showAndWait();
+  }
 }

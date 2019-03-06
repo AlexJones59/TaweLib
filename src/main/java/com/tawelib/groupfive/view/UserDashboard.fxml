@@ -37,9 +37,9 @@ If the user is a Customer, it disables certain boxes and vice-versa.
                 <Button fx:id="createNewAccountButton" layoutX="503.0" layoutY="387.0" mnemonicParsing="false" onAction="#createNewAccount" prefHeight="66.0" prefWidth="259.0" text="Create new account" />
                 <Button fx:id="overdueCopiesButton" layoutX="49.0" layoutY="474.0" mnemonicParsing="false" onAction="#overdueCopies" prefHeight="66.0" prefWidth="259.0" text="Overdue copies" />
                 <Button fx:id="manageUsersButton" layoutX="503.0" layoutY="474.0" mnemonicParsing="false" onAction="#manageUsers" prefHeight="66.0" prefWidth="259.0" text="Manage users" />
+                <Button fx:id="eventsButton" layoutX="49.0" layoutY="561.0" mnemonicParsing="false" onAction="#eventsWindow" prefHeight="66.0" prefWidth="259.0" text="Events" />
                 <TextField fx:id="staffNumberTextField" editable="false" layoutX="353.0" layoutY="283.0" />
                 <Label fx:id="staffNumberLabel" layoutX="233.0" layoutY="278.0" prefHeight="36.0" prefWidth="104.0" text="Staff number" />
-                <Button fx:id="eventsButton" layoutX="49.0" layoutY="561.0" mnemonicParsing="false" onAction="#eventsWindow" prefHeight="66.0" prefWidth="259.0" text="Events" />
             <Label fx:id="phoneNumberLabel" layoutX="259.0" layoutY="239.0" prefHeight="36.0" prefWidth="78.0" text="Phone #" />
             <TextField fx:id="phoneNumberTextField" editable="false" layoutX="353.0" layoutY="245.0" />
             <Label fx:id="accountBalanceLabel" layoutX="211.0" layoutY="332.0" text="Account Balance" />
