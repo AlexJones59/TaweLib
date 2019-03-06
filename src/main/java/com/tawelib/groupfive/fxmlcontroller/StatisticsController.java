@@ -340,30 +340,36 @@ public class StatisticsController extends BaseFxmlController {
       }
     }
   }
+
   /**
    * Initializes nodes in the Popular Resources Pane.
    */
-  public void setPopResourcePane(){}
+  public void setPopResourcePane() {
+  }
 
   /**
    * Initializes nodes in the Popular Books Pane.
    */
-  public void setPopBookPane(){}
+  public void setPopBookPane() {
+  }
 
   /**
    * Initializes nodes in the Popular DVDs Pane.
    */
-  public void setPopDvdPane(){}
+  public void setPopDvdPane() {
+  }
 
   /**
    * Initializes nodes in the Popular Laptops Pane.
    */
-  public void setPopLaptopPane(){}
+  public void setPopLaptopPane() {
+  }
 
   /**
    * Initializes nodes in the Popular Video Games Pane.
    */
-  public void setPopVideoGamePane(){}
+  public void setPopVideoGamePane() {
+  }
 
   /**
    * Initializes nodes in the Fine Statistics Pane.
@@ -394,7 +400,7 @@ public class StatisticsController extends BaseFxmlController {
           dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
           break;
         case "Week":
-          dates[i] = LocalDateTime.now().minusDays((long)i * 7).format(formatter);
+          dates[i] = LocalDateTime.now().minusDays((long) i * 7).format(formatter);
           break;
         case "Month":
           dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
