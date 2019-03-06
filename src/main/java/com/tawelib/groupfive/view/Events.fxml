@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.EventsController">
-   <children>
-      <Button fx:id="btnBack" layoutX="18.0" layoutY="23.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <ListView fx:id="takenEvents" layoutX="444.0" layoutY="65.0" prefHeight="573.0" prefWidth="400.0" />
-      <ListView layoutX="14.0" layoutY="65.0" prefHeight="573.0" prefWidth="400.0" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+  prefHeight="730.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.tawelib.groupfive.fxmlcontroller.EventsController">
+  <children>
+    <ListView fx:id="currentEventsField" layoutX="444.0" layoutY="65.0" prefHeight="573.0"
+      prefWidth="400.0"/>
+    <ListView fx:id="upcomingEventsField" cacheShape="false" centerShape="false"
+      focusTraversable="false" layoutX="14.0" layoutY="65.0" prefHeight="573.0" prefWidth="400.0"
+      scaleShape="false">
+      <cursor>
+        <Cursor fx:constant="HAND"/>
+      </cursor>
+      <opaqueInsets>
+        <Insets/>
+      </opaqueInsets>
+    </ListView>
+    <Button fx:id="pastEventsBtn" layoutX="445.0" layoutY="669.0" mnemonicParsing="false"
+      onAction="#showPastEvents" prefHeight="31.0" prefWidth="400.0"
+      text="Past Participated events"/>
+    <Button fx:id="newEventBtn" layoutX="142.0" layoutY="669.0" mnemonicParsing="false"
+      onAction="#createNewEvent" prefHeight="31.0" prefWidth="149.0" text="create new event"/>
+    <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back"
+      text="Back"/>
+    <Label layoutX="145.0" layoutY="35.0" prefHeight="26.0" prefWidth="141.0"
+      text="Upcoming Events">
+      <font>
+        <Font size="17.0"/>
+      </font>
+    </Label>
+    <Label layoutX="560.0" layoutY="35.0" text="Current Registered Events">
+      <font>
+        <Font size="17.0"/>
+      </font>
+    </Label>
+  </children>
 </AnchorPane>

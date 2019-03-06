@@ -50,7 +50,7 @@ public class EventRepository implements BaseRepository<Event> {
    */
   public Event getEvent(String eventId) {
     for (Event i : events) {
-      if (eventId == i.getEventId()) {
+      if (eventId.equals(i.getEventId())) {
         return i;
       }
     }
@@ -65,7 +65,7 @@ public class EventRepository implements BaseRepository<Event> {
   public void updateEvent(Event event) {
     String eventId = event.getEventId();
     for (Event i : events) {
-      if (eventId == i.getEventId()) {
+      if (eventId.equals(i.getEventId())) {
         events.set(events.indexOf(i), event);
         return;
       }

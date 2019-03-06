@@ -51,11 +51,11 @@ public class ParticipationRepository implements BaseRepository<Participation> {
    */
   public int getNumberOfParticipants(Event event) {
     int count = 0;
-    for (Participation i : participation) {
-      if (event.getEventId() == i.getEventId()) {
-        count++;
+      for (Participation i : participation) {
+        if (event.getEventId().equals(i.getEventId())) {
+          count++;
+        }
       }
-    }
     return count;
 
   }
@@ -70,8 +70,8 @@ public class ParticipationRepository implements BaseRepository<Participation> {
   public boolean doesParticipate(Event event, User user) {
     boolean result = false;
     for (Participation i : participation) {
-      if (event.getEventId() == i.getEventId()) {
-        if (user.getUsername() == i.getUsername()) {
+      if (event.getEventId().equals(i.getEventId())) {
+        if (user.getUsername().equals(i.getUsername())) {
           result = true;
         }
       }
