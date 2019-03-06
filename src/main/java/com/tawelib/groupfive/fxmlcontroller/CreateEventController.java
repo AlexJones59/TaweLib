@@ -10,8 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
- * The class controls CreateEvent.fxml file. It allow to create a new event and add it to the events
- * repository. This screen is available only for librarian.
+ * The class controls CreateEvent.fxml file. It allow to create a new event and add
+ * it to the events repository. This screen is available only for librarian.
  *
  * @author Oskars Dervinis
  * @version 1.0
@@ -67,7 +67,8 @@ public class CreateEventController extends BaseFxmlController {
       maxPpl = Integer.parseInt(maxParticipientsField.getText());
     } catch (Exception e) {
       passedCasting = false;
-      AlertHelper.alert(AlertType.WARNING, "Please provide the information in right format");
+      AlertHelper.alert(AlertType.WARNING,
+          "Please provide the information in right format");
     }
     /*Check if the date is in the right format*/
     if (!passedCasting || day <= 0 || month <= 0 || year < 2019 || maxPpl < 0 || hour < 0
@@ -75,7 +76,7 @@ public class CreateEventController extends BaseFxmlController {
       AlertHelper.alert(AlertType.WARNING, "Please provide the correct date");
     } else {
       LocalDateTime date = LocalDateTime.of(year, month, day, hour, minute);
-      Event event = new Event("1", name, date, maxPpl, description);//TODO: for now event id is 1
+      Event event = new Event("1", name, date, maxPpl, description);//TODO:now event id is 1
       //EventManager.addEvent(library, event);TODO:uncomment
       back();
     }

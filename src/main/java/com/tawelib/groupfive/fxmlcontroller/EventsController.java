@@ -17,8 +17,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 
 /**
- * The class controls Events.fxml file, allows to observe event, see the users past events, see next
- * events and joined events. Also for librarian is available creation of the new event.
+ * The class controls Events.fxml file, allows to observe event, see the users past events,
+ * see next events and joined events. Also for librarian is available creation of the new event.
  *
  * @author Oskars Dervinis
  * @version 1.0
@@ -52,8 +52,7 @@ public class EventsController extends BaseFxmlController {
     initJoinedEvents();
   }
 
-  /**
-   * The method adds upcoming events to the scrolling pane
+  /** The method adds upcoming events to the scrolling pane
    */
   private void initUpcomingEvents() {
     ArrayList<Event> allEvents = getEvents();//library.getEventRepository().getUpcomingEvents();
@@ -73,8 +72,8 @@ public class EventsController extends BaseFxmlController {
   }
 
   /**
-   * The method opens the scene to view past events where this user participated. Called by pressing
-   * pastEventsBtn.
+   * The method opens the scene to view past events where this user participated.
+   * Called by pressing pastEventsBtn.
    */
   public void showPastEvents() {
     SceneHelper.setUpScene(this, "PastEvents");
