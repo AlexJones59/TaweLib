@@ -79,5 +79,15 @@ public class ParticipationRepository implements BaseRepository<Participation> {
     return result;
   }
 
+  public void removeParticipation(Event event, User user){
+    for (int i = 0; i< participation.size(); i++){
+      Participation part = participation.get(i);
+      if (part.getEvent() == Event && part.getUser() == user){
+        participation.remove(i);
+        return;
+      }
+    }
+  }
+
 
 }
