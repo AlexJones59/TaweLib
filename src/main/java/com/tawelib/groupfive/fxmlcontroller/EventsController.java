@@ -118,7 +118,9 @@ public class EventsController extends BaseFxmlController {
     signUpForEvent.setPrefSize(EVENT_CELL_WIDTH, JOIN_BUTTON_HEIGHT);
     box.getChildren().addAll(showDescrBtn, signUpForEvent);
     eventButtonActions(e, showDescrBtn, signUpForEvent, isRegistered);
-    if(isRegistered)signUpForEvent.setText("Leave");
+    if (isRegistered) {
+      signUpForEvent.setText("Leave");
+    }
     /*Checks if there are free slots and person dont participate, if not - disables the button*/
 
     if (!isRegistered && ((EventManager.eventFull(library, e))
