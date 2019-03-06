@@ -24,5 +24,7 @@ public class EntityTestData {
 
     UsersTestData.generate(library);
     ResourcesTestData.generate(library);
+    CopiesTestData.generate(library);
+    OperationsTestData.generate(library);
   }
 }
