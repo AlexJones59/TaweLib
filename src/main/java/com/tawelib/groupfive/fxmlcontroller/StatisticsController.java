@@ -15,10 +15,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -198,6 +195,7 @@ public class StatisticsController extends BaseFxmlController {
   /**
    * Returns to the user dashboard screen.
    */
+  @Override
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
@@ -232,8 +230,8 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Handles the event of the Combo Boxes' value being changed in User Statistics Pane.
-   * Populates the Bar Chart.
+   * Handles the event of the Combo Boxes' value being changed in User Statistics Pane. Populates
+   * the Bar Chart.
    */
   public void userStatComboBoxHandler() {
     ResourceType resourceType = userStatResTypeComboBox.getSelectionModel().getSelectedItem();
@@ -247,7 +245,7 @@ public class StatisticsController extends BaseFxmlController {
           dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
           break;
         case "Week":
-          dates[i] = LocalDateTime.now().minusDays(i * 7).format(formatter);
+          dates[i] = LocalDateTime.now().minusDays((long) i * 7).format(formatter);
           break;
         case "Month":
           dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
@@ -265,8 +263,9 @@ public class StatisticsController extends BaseFxmlController {
       noUserBorrowedTextField.setText(String.valueOf(specificUserStats[0]));
       specificUserStatSeries.getData().clear();
       for (int count = dates.length; count > 0; count--) {
+
         specificUserStatSeries.getData()
-            .add(new XYChart.Data(dates[count - 1], specificUserStats[count - 1]));
+            .add(new XYChart.Data<>(dates[count - 1], specificUserStats[count - 1]));
       }
       specificUserStatSeries.setName("You");
       userStatBarChart.getData().add(specificUserStatSeries);
@@ -278,7 +277,7 @@ public class StatisticsController extends BaseFxmlController {
     averageUserStatSeries.getData().clear();
     for (int count = dates.length; count > 0; count--) {
       averageUserStatSeries.getData()
-          .add(new XYChart.Data(dates[count - 1], averageUserStats[count - 1]));
+          .add(new XYChart.Data<>(dates[count - 1], averageUserStats[count - 1]));
     }
     averageUserStatSeries.setName("Average User");
     userStatBarChart.getData().add(averageUserStatSeries);
@@ -289,8 +288,57 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Resource Statistics Pane.
    */
   public void setExpandedResourceStatTitledPane() {
-    //statsContainer.
+    statsContainer.setExpandedPane(resourceStatPane);
+    //Sets default value to first value in resource types list.
+    fineStatResTypeComboBox.getSelectionModel().selectFirst();
+    resourceStatResTypeComboBoxHandler();
 
+  }
+
+  /**
+   * Switches between Panes in Stack Pane based on chosen ResourceType.
+   */
+  public void resourceStatResTypeComboBoxHandler() {
+    ResourceType resourceType = resourceStatResTypeComboBox.getSelectionModel().getSelectedItem();
+    if (resourceType == null) {
+      popResourcePane.setVisible(true);
+      popBookPane.setVisible(false);
+      popDvdPane.setVisible(false);
+      popLaptopPane.setVisible(false);
+      popVideoGamePane.setVisible(false);
+    } else {
+      switch (resourceType) {
+        case BOOK:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(true);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(false);
+          break;
+        case DVD:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(true);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(false);
+          break;
+        case LAPTOP:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(true);
+          popVideoGamePane.setVisible(false);
+          break;
+        case GAME:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(true);
+          break;
+        default:
+      }
+    }
   }
 
 
@@ -305,12 +353,11 @@ public class StatisticsController extends BaseFxmlController {
     fineStatTimeComboBox.getSelectionModel().selectFirst();
     fineStatComboBoxHandler();
 
-
   }
 
   /**
-   * Handles the event of the Combo Boxes' value being changed in Fine Statistics Pane.
-   * Populates the Bar Chart.
+   * Handles the event of the Combo Boxes' value being changed in Fine Statistics Pane. Populates
+   * the Bar Chart.
    */
   public void fineStatComboBoxHandler() {
     ResourceType resourceType = fineStatResTypeComboBox.getSelectionModel().getSelectedItem();
@@ -324,7 +371,7 @@ public class StatisticsController extends BaseFxmlController {
           dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
           break;
         case "Week":
-          dates[i] = LocalDateTime.now().minusDays(i * 7).format(formatter);
+          dates[i] = LocalDateTime.now().minusDays((long)i * 7).format(formatter);
           break;
         case "Month":
           dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
@@ -345,13 +392,10 @@ public class StatisticsController extends BaseFxmlController {
           .add(new XYChart.Data<>(dates[count - 1], fineStats[0][count - 1]));
       averageFineStatSeries.getData()
           .add(new XYChart.Data<>(dates[count - 1], fineStats[1][count - 1]));
-
     }
     totalFineStatSeries.setName("Total Fines");
     averageFineStatSeries.setName("Average Fine");
     fineStatBarChart.getData().addAll(totalFineStatSeries, averageFineStatSeries);
-
-
   }
 
 

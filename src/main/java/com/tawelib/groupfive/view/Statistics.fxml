@@ -52,7 +52,7 @@
                         <AnchorPane prefHeight="68.0" prefWidth="690.0" SplitPane.resizableWithParent="false">
                            <children>
                               <Label layoutX="36.0" layoutY="13.0" text="Resource Type : " />
-                              <ComboBox fx:id="resourceStatResTypeComboBox" layoutX="141.0" layoutY="11.0" prefWidth="150.0" />
+                              <ComboBox fx:id="resourceStatResTypeComboBox" layoutX="141.0" layoutY="11.0" onAction="#resourceStatResTypeComboBoxHandler" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
