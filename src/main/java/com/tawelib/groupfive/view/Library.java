@@ -62,6 +62,7 @@ public class Library extends Application {
           AlertType.ERROR,
           "Could not load nor create the library."
       );
+      e.printStackTrace();
       System.exit(1);
     }
 

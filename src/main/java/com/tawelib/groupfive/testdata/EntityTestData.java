@@ -20,7 +20,7 @@ public class EntityTestData {
    * @param library Library.
    */
   public static void populateLibrary(Library library) {
-    SimulatedClock.addTime(1515596400);
+    SimulatedClock.addSeconds(1515574000);
 
     UsersTestData.generate(library);
     ResourcesTestData.generate(library);

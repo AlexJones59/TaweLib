@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class SimulatedClock {
 
+  // in milliseconds
   private static long timestamp = 0;
 
   private SimulatedClock() {
@@ -29,8 +30,8 @@ public class SimulatedClock {
    *
    * @param seconds Amount of seconds.
    */
-  public static void addTime(int seconds) {
-    SimulatedClock.timestamp += seconds * 1000 * 1000;
+  public static void addSeconds(long seconds) {
+    SimulatedClock.timestamp += seconds * 1000;
   }
 
   /**
@@ -38,8 +39,8 @@ public class SimulatedClock {
    *
    * @param minutes Minutes.
    */
-  public static void addMinutes(int minutes) {
-    addTime(minutes * 60);
+  public static void addMinutes(long minutes) {
+    addSeconds(minutes * 60);
   }
 
   /**
@@ -47,7 +48,7 @@ public class SimulatedClock {
    *
    * @param hours Hours.
    */
-  public static void addHours(int hours) {
+  public static void addHours(long hours) {
     addMinutes(hours * 60);
   }
 
@@ -56,7 +57,7 @@ public class SimulatedClock {
    *
    * @param days Days.
    */
-  public static void addDays(int days) {
+  public static void addDays(long days) {
     addHours(days * 24);
   }
 }
