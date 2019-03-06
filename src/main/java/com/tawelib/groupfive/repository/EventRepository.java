@@ -41,6 +41,7 @@ public class EventRepository implements BaseRepository<Event> {
   @Override
   public void add(Event event) {
     if (!events.contains(event)) {
+      generateId(event);
       events.add(event);
     }
   }
@@ -114,7 +115,7 @@ public class EventRepository implements BaseRepository<Event> {
     String generatedEventId = String.format("C%d", lastEventId);
 
     try {
-      Field idField = event.getClass().getDeclaredField("id");
+      Field idField = event.getClass().getDeclaredField("eventId");
       idField.setAccessible(true);
       idField.set(event, generatedEventId);
       idField.setAccessible(false);
