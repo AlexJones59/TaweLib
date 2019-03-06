@@ -2,6 +2,7 @@ package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Event;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.NoSuchElementException;
 public class EventRepository implements BaseRepository<Event> {
 
   private ArrayList<Event> events;
+
+  private long lastEventId = 0;
 
   /**
    * Instantiates a new Event repository.
@@ -100,6 +103,26 @@ public class EventRepository implements BaseRepository<Event> {
       }
     }
     return pastEvents;
+  }
+
+  /**
+   * Generates a unique id for events.
+   *
+   * @param Event event.
+   */
+  private void generateId(Event event) {
+    String generatedEventId = String.format("C%d", lastEventId);
+
+    try {
+      Field idField = event.getClass().getDeclaredField("id");
+      idField.setAccessible(true);
+      idField.set(event, generatedEventId);
+      idField.setAccessible(false);
+    } catch (IllegalAccessException | NoSuchFieldException e) {
+      e.printStackTrace();
+    } finally {
+      lastEventId++;
+    }
   }
 
 
