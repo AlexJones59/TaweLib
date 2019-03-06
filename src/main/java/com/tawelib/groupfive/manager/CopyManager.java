@@ -42,6 +42,7 @@ public class CopyManager {
    * @param library the library
    * @param copyId the copy id
    * @param customerUsername the customer username
+   * @throws CopyUnavailableException When copy is not available.
    */
   public static void borrowResourceCopy(
       Library library,
