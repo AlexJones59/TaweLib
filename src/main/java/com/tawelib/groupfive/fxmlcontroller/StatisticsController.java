@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -39,6 +40,18 @@ import javafx.scene.layout.Pane;
  */
 public class StatisticsController extends BaseFxmlController {
 
+  private ResourceType[] resourceTypes = {
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP,
+      ResourceType.GAME
+
+  };
+
+  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
+      "Day", "Week", "Month");
+
   @FXML
   private Button backButton;
 
@@ -49,7 +62,10 @@ public class StatisticsController extends BaseFxmlController {
   private TitledPane userStatPane;
 
   @FXML
-  private ComboBox<String> userStatTimeComboBox;
+  private ComboBox<String> userStatTimeComboBox = new ComboBox<>(timePeriods);
+
+  @FXML
+  private ComboBox<ResourceType> userStatResTypeComboBox;
 
   @FXML
   private Label userLabel;
@@ -61,7 +77,7 @@ public class StatisticsController extends BaseFxmlController {
   private TextField noAverageBorrowedTextField;
 
   @FXML
-  private StackedBarChart<String, Number> userStatBarChart;
+  private BarChart<String, Number> userStatBarChart;
 
   private XYChart.Series<String, Number> specificUserStatSeries = new XYChart.Series<>();
 
@@ -72,9 +88,6 @@ public class StatisticsController extends BaseFxmlController {
 
   @FXML
   private NumberAxis userStatYAxis;
-
-  @FXML
-  private ComboBox<ResourceType> userStatResTypeComboBox;
 
   @FXML
   private TitledPane resourceStatPane;
@@ -154,23 +167,14 @@ public class StatisticsController extends BaseFxmlController {
   @FXML
   private ComboBox<ResourceType> fineStatResTypeComboBox;
 
-  private ResourceType[] resourceTypes = {
-      null,
-      ResourceType.BOOK,
-      ResourceType.DVD,
-      ResourceType.LAPTOP,
-      ResourceType.GAME
 
-  };
-
-  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
-      "Day", "Week", "Month");
 
   /**
    * Sets the dynamic fields.
    */
   @Override
   public void refresh() {
+    userStatResTypeComboBox.getItems().addAll(resourceTypes);
     setExpandedUserStatTitledPane();
 
 
@@ -188,6 +192,10 @@ public class StatisticsController extends BaseFxmlController {
    */
   @Override
   protected void configureVisibilities() {
+    customerNodes = new Node[]{
+        userLabel,
+        noUserBorrowedTextField
+    };
     librarianNodes = new Node[]{
         fineStatPane
     };
@@ -201,14 +209,11 @@ public class StatisticsController extends BaseFxmlController {
   public void setExpandedUserStatTitledPane() {
     statsContainer.setExpandedPane(userStatPane);
     //Sets default value to first value in time period list.
-    userStatTimeComboBox.setItems(timePeriods);
     userStatTimeComboBox.getSelectionModel().selectFirst();
     //Sets default value to first value in resource types list.
-    userStatResTypeComboBox.getItems().addAll(resourceTypes);
     userStatResTypeComboBox.getSelectionModel().selectFirst();
     userStatComboBoxHandler();
-    userLabel.setVisible(isCustomerLoggedIn());
-    noUserBorrowedTextField.setVisible(isCustomerLoggedIn());
+
   }
 
   /**
@@ -259,7 +264,7 @@ public class StatisticsController extends BaseFxmlController {
       averageUserStatSeries.getData()
           .add(new XYChart.Data(dates[count - 1], averageUserStats[count - 1]));
     }
-    averageUserStatSeries.setName("You");
+    averageUserStatSeries.setName("Average User");
     userStatBarChart.getData().add(averageUserStatSeries);
 
   }
