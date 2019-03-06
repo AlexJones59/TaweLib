@@ -18,6 +18,7 @@ class OperationsTestData {
     throw new UnsupportedOperationException();
   }
 
+  private static final double IDEAL_LEASES_CONCENTRATION = 0.5;
   private static final Random random = new Random();
   private static List<String> borrowedCopyIds = new ArrayList<>();
 
@@ -27,7 +28,8 @@ class OperationsTestData {
    * @param library Library.
    */
   static void generate(Library library) {
-    final int targetNumberOfLeases = library.getCopyRepository().getAll().size();
+    final int targetNumberOfLeases = (int) (library.getCopyRepository().getAll().size()
+        * IDEAL_LEASES_CONCENTRATION);
 
     int missesCounter = 0;
 
@@ -58,7 +60,7 @@ class OperationsTestData {
         }
       }
 
-      SimulatedClock.addMinutes(random.nextInt(60));
+      SimulatedClock.addMinutes(random.nextInt(60 * 2));
     }
 
     System.out.println("Misses: " + missesCounter);
