@@ -1,4 +1,4 @@
-module com.tawelib.groupfive {
+/*module com.tawelib.groupfive {
   requires javafx.base;
   requires javafx.controls;
   requires javafx.fxml;
@@ -18,4 +18,4 @@ module com.tawelib.groupfive {
   opens com.tawelib.groupfive.testdata;
   opens com.tawelib.groupfive.util;
   opens com.tawelib.groupfive.view;
-}
+}*/

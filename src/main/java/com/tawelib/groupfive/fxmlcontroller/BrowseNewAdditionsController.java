@@ -153,8 +153,9 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
    * @param crudAction instance of crudAction
    */
   private void setUpResourceCrud(CrudAction crudAction) {
-    ResourceCrudController newController =
-        (ResourceCrudController) SceneHelper.setUpScene(this, "ResourceCrud");
+    NewAdditionsResourceCrudController newController =
+        (NewAdditionsResourceCrudController) SceneHelper.setUpScene(this,
+            "NewAdditionsResourceCrud");
 
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
       newController.setSelectedResource(

@@ -32,7 +32,8 @@ class ResourceContentProvider {
     String requestUrl = String.format(
         SCRAPE_URL_TEMPLATE,
         URLEncoder.encode(
-            resourceName
+            resourceName,
+            StandardCharsets.UTF_8
         )
     );
 
