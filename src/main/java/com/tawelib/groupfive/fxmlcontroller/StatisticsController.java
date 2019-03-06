@@ -62,7 +62,7 @@ public class StatisticsController extends BaseFxmlController {
   private TitledPane userStatPane;
 
   @FXML
-  private ComboBox<String> userStatTimeComboBox ;
+  private ComboBox<String> userStatTimeComboBox;
 
   @FXML
   private ComboBox<ResourceType> userStatResTypeComboBox;
@@ -102,13 +102,13 @@ public class StatisticsController extends BaseFxmlController {
   private TableView<?> popularResTableView;
 
   @FXML
-  private ComboBox<String> resourceStatTimeComboBox ;
+  private ComboBox<String> resourceStatTimeComboBox;
 
   @FXML
   private Pane popBookPane;
 
   @FXML
-  private ComboBox<String> bookStatTimeComboBox ;
+  private ComboBox<String> bookStatTimeComboBox;
 
   @FXML
   private TableView<?> popularBookTableView;
@@ -123,7 +123,7 @@ public class StatisticsController extends BaseFxmlController {
   private Pane popDvdPane;
 
   @FXML
-  private ComboBox<String> dvdStatTimeComboBox ;
+  private ComboBox<String> dvdStatTimeComboBox;
 
   @FXML
   private TableView<?> popularDvdTableView;
@@ -135,7 +135,7 @@ public class StatisticsController extends BaseFxmlController {
   private Pane popLaptopPane;
 
   @FXML
-  private ComboBox<String> laptopStatTimeComboBox ;
+  private ComboBox<String> laptopStatTimeComboBox;
 
   @FXML
   private TableView<?> popularLaptopTableView;
@@ -150,7 +150,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableView<?> popularVideoGameTableView;
 
   @FXML
-  private ComboBox<String> videoStatTimeComboBox ;
+  private ComboBox<String> videoStatTimeComboBox;
 
   @FXML
   private TitledPane fineStatPane;
@@ -165,8 +165,14 @@ public class StatisticsController extends BaseFxmlController {
   private TextField totalFineAmountTextField;
 
   @FXML
-  private ComboBox<ResourceType> fineStatResTypeComboBox;
+  private BarChart<String, Number> fineStatBarChart;
 
+  private XYChart.Series<String, Number> averageFineStatSeries = new XYChart.Series<>();
+
+  private XYChart.Series<String, Number> totalFineStatSeries = new XYChart.Series<>();
+
+  @FXML
+  private ComboBox<ResourceType> fineStatResTypeComboBox;
 
 
   /**
@@ -227,6 +233,7 @@ public class StatisticsController extends BaseFxmlController {
 
   /**
    * Handles the event of the Combo Boxes' value being changed in User Statistics Pane.
+   * Populates the Bar Chart.
    */
   public void userStatComboBoxHandler() {
     ResourceType resourceType = userStatResTypeComboBox.getSelectionModel().getSelectedItem();
@@ -245,7 +252,7 @@ public class StatisticsController extends BaseFxmlController {
         case "Month":
           dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
           break;
-        default :
+        default:
       }
     }
 
@@ -296,6 +303,53 @@ public class StatisticsController extends BaseFxmlController {
     fineStatResTypeComboBox.getSelectionModel().selectFirst();
     //Sets default value to first value in time period list.
     fineStatTimeComboBox.getSelectionModel().selectFirst();
+    fineStatComboBoxHandler();
+
+
+  }
+
+  /**
+   * Handles the event of the Combo Boxes' value being changed in Fine Statistics Pane.
+   * Populates the Bar Chart.
+   */
+  public void fineStatComboBoxHandler() {
+    ResourceType resourceType = fineStatResTypeComboBox.getSelectionModel().getSelectedItem();
+    String timePeriod = fineStatTimeComboBox.getSelectionModel().getSelectedItem();
+    String[] dates = new String[5];
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    for (int i = 0; i < dates.length; i++) {
+      switch (timePeriod) {
+        case "Day":
+          dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
+          break;
+        case "Week":
+          dates[i] = LocalDateTime.now().minusDays(i * 7).format(formatter);
+          break;
+        case "Month":
+          dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
+          break;
+        default:
+      }
+    }
+
+    fineStatBarChart.getData().clear();
+
+    int[][] fineStats = StatisticsManager.getFineStatistics(library, resourceType, timePeriod);
+    totalFineAmountTextField.setText(String.valueOf(fineStats[0][0]));
+    aveFineAmountTextField.setText(String.valueOf(fineStats[1][0]));
+    totalFineStatSeries.getData().clear();
+    averageFineStatSeries.getData().clear();
+    for (int count = dates.length; count > 0; count--) {
+      totalFineStatSeries.getData()
+          .add(new XYChart.Data<>(dates[count - 1], fineStats[0][count - 1]));
+      averageFineStatSeries.getData()
+          .add(new XYChart.Data<>(dates[count - 1], fineStats[1][count - 1]));
+
+    }
+    totalFineStatSeries.setName("Total Fines");
+    averageFineStatSeries.setName("Average Fine");
+    fineStatBarChart.getData().addAll(totalFineStatSeries, averageFineStatSeries);
 
 
   }

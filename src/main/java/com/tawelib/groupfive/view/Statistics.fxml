@@ -4,7 +4,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -213,21 +212,21 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="61.0" layoutY="77.0" text="Average Fine Amount : " />
-                        <ComboBox fx:id="fineStatTimeComboBox" layoutX="152.0" layoutY="34.0" prefWidth="150.0" />
+                        <ComboBox fx:id="fineStatTimeComboBox" layoutX="152.0" layoutY="34.0" onAction="#fineStatComboBoxHandler" prefWidth="150.0" />
                         <Label layoutX="61.0" layoutY="38.0" text="Time Period:" />
                         <Label layoutX="61.0" layoutY="106.0" text="Total Fine Amount : " />
                         <TextField fx:id="aveFineAmountTextField" layoutX="379.0" layoutY="73.0" />
                         <TextField fx:id="totalFineAmountTextField" layoutX="379.0" layoutY="102.0" />
                         <Label layoutX="353.0" layoutY="38.0" text="Resource Type:" />
-                        <ComboBox fx:id="fineStatResTypeComboBox" layoutX="461.0" layoutY="34.0" prefWidth="150.0" />
-                        <StackedBarChart layoutX="62.0" layoutY="146.0" prefHeight="331.0" prefWidth="558.0">
+                        <ComboBox fx:id="fineStatResTypeComboBox" layoutX="461.0" layoutY="34.0" onAction="#fineStatComboBoxHandler" prefWidth="150.0" />
+                        <BarChart fx:id="fineStatBarChart" animated="false" layoutX="62.0" layoutY="146.0" prefHeight="331.0" prefWidth="558.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" />
                           </xAxis>
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
-                        </StackedBarChart>
+                        </BarChart>
                      </children></AnchorPane>
             </content>
           </TitledPane>

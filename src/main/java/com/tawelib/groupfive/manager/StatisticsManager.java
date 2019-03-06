@@ -135,15 +135,20 @@ public class StatisticsManager {
 
     List<Fine> fines;
     int[][] result = new int[2][5];
-    switch (resourceType) {
-      case BOOK:
-      case DVD:
-      case LAPTOP:
-      case GAME:
-        fines = library.getFineRepository().getResourceTypeFines(resourceType);
-        break;
-      default:
-        fines = library.getFineRepository().getAll();
+
+    if (resourceType == null) {
+      fines = library.getFineRepository().getAll();
+    } else {
+      switch (resourceType) {
+        case BOOK:
+        case DVD:
+        case LAPTOP:
+        case GAME:
+          fines = library.getFineRepository().getResourceTypeFines(resourceType);
+          break;
+        default:
+          fines = library.getFineRepository().getAll();
+      }
     }
     Collections.reverse(fines);
 
@@ -176,7 +181,7 @@ public class StatisticsManager {
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
     Predicate<Lease> streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now()
-        .minusDays(1)); //to shut up java initializing it
+        .minusDays(1));
     switch (timePeriod) {
       case "Day":
         streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1));
@@ -512,7 +517,7 @@ public class StatisticsManager {
     Object[] dates = finesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < dates.length; i++) {
       int totalNoOfFines = 0;
 
       Map<Customer, List<Fine>> dateMap = finesMappedPerDay.get(dates[i]);
