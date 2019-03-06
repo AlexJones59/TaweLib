@@ -31,11 +31,28 @@ public class ResourceManager {
    * @param isbn the isbn
    * @param language the language
    */
-  public static void createBook(Library library, String title, int year,
-      Image thumbnailImage, String author, String publisher, String genre,
-      String isbn, String language) {
-    Book newBook = new Book(title, year, thumbnailImage, author, publisher,
-        genre, isbn, language);
+  public static void createBook(
+      Library library,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String author,
+      String publisher,
+      String genre,
+      String isbn,
+      String language
+  ) {
+    Book newBook = new Book(
+        title,
+        year,
+        thumbnailImage,
+        author,
+        publisher,
+        genre,
+        isbn,
+        language
+    );
+
     library.getResourceRepository().add(newBook);
   }
 
@@ -51,11 +68,26 @@ public class ResourceManager {
    * @param languages the languages
    * @param subtitleLanguages the subtitle languages
    */
-  public static void createDvd(Library library, String title, int year,
-      Image thumbnailImage, String director, int runtime,
-      ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
-    Dvd newDvd = new Dvd(title, year, thumbnailImage, director, runtime,
-        languages, subtitleLanguages);
+  public static void createDvd(
+      Library library,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String director,
+      int runtime,
+      ArrayList<String> languages,
+      ArrayList<String> subtitleLanguages
+  ) {
+    Dvd newDvd = new Dvd(
+        title,
+        year,
+        thumbnailImage,
+        director,
+        runtime,
+        languages,
+        subtitleLanguages
+    );
+
     library.getResourceRepository().add(newDvd);
   }
 
@@ -70,11 +102,24 @@ public class ResourceManager {
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  public static void createLaptop(Library library, String title, int year,
-      Image thumbnailImage, String manufacturer, String model,
-      String installedOperatingSystem) {
-    Laptop newLaptop = new Laptop(title, year, thumbnailImage, manufacturer,
-        model, installedOperatingSystem);
+  public static void createLaptop(
+      Library library,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String manufacturer,
+      String model,
+      String installedOperatingSystem
+  ) {
+    Laptop newLaptop = new Laptop(
+        title,
+        year,
+        thumbnailImage,
+        manufacturer,
+        model,
+        installedOperatingSystem
+    );
+
     library.getResourceRepository().add(newLaptop);
   }
 
@@ -90,10 +135,26 @@ public class ResourceManager {
    * @param rating the rating
    * @param multiplayer the availability of multiplayer
    */
-  public static void createGame(Library library, String title, int year,
-      Image thumbnailImage, String publisher, String genre, String rating,
-      boolean multiplayer) {
-    Game newGame = new Game(title, year, thumbnailImage, publisher, genre, rating, multiplayer);
+  public static void createGame(
+      Library library,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String publisher,
+      String genre,
+      String rating,
+      boolean multiplayer
+  ) {
+    Game newGame = new Game(
+        title,
+        year,
+        thumbnailImage,
+        publisher,
+        genre,
+        rating,
+        multiplayer
+    );
+
     library.getResourceRepository().add(newGame);
   }
 
@@ -111,22 +172,28 @@ public class ResourceManager {
    * @param isbn the isbn
    * @param language the language
    */
-  public static void updateBook(Library library, String resourceId,
-      String title, int year, Image thumbnailImage, String author,
-      String publisher, String genre, String isbn, String language) {
-    library.getResourceRepository().getSpecificBook(resourceId).setTitle(title);
-    library.getResourceRepository().getSpecificBook(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setAuthor(author);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setPublisher(publisher);
-    library.getResourceRepository().getSpecificBook(resourceId).setGenre(genre);
-    library.getResourceRepository().getSpecificBook(resourceId).setIsbn(isbn);
-    library.getResourceRepository().getSpecificBook(resourceId)
-        .setLanguage(language);
+  public static void updateBook(
+      Library library,
+      String resourceId,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String author,
+      String publisher,
+      String genre,
+      String isbn,
+      String language
+  ) {
+    Book book = library.getResourceRepository().getSpecificBook(resourceId);
 
+    book.setTitle(title);
+    book.setYear(year);
+    book.setThumbnailImage(thumbnailImage);
+    book.setAuthor(author);
+    book.setPublisher(publisher);
+    book.setGenre(genre);
+    book.setIsbn(isbn);
+    book.setLanguage(language);
   }
 
   /**
@@ -142,21 +209,26 @@ public class ResourceManager {
    * @param languages the languages
    * @param subtitleLanguages the subtitle languages
    */
-  public static void updateDvd(Library library, String resourceId, String title,
-      int year, Image thumbnailImage, String director, int runtime,
-      ArrayList<String> languages, ArrayList<String> subtitleLanguages) {
-    library.getResourceRepository().getSpecificDvd(resourceId).setTitle(title);
-    library.getResourceRepository().getSpecificDvd(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setDirector(director);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setRuntime(runtime);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setLanguages(languages);
-    library.getResourceRepository().getSpecificDvd(resourceId)
-        .setSubtitleLanguages(subtitleLanguages);
+  public static void updateDvd(
+      Library library,
+      String resourceId,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String director,
+      int runtime,
+      ArrayList<String> languages,
+      ArrayList<String> subtitleLanguages
+  ) {
+    Dvd dvd = library.getResourceRepository().getSpecificDvd(resourceId);
+
+    dvd.setTitle(title);
+    dvd.setYear(year);
+    dvd.setThumbnailImage(thumbnailImage);
+    dvd.setDirector(director);
+    dvd.setRuntime(runtime);
+    dvd.setLanguages(languages);
+    dvd.setSubtitleLanguages(subtitleLanguages);
   }
 
   /**
@@ -171,20 +243,24 @@ public class ResourceManager {
    * @param model the model
    * @param installedOperatingSystem the installed operating system
    */
-  public static void updateLaptop(Library library, String resourceId,
-      String title, int year, Image thumbnailImage, String manufacturer,
-      String model, String installedOperatingSystem) {
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setTitle(title);
-    library.getResourceRepository().getSpecificLaptop(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setManufacturer(manufacturer);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setModel(model);
-    library.getResourceRepository().getSpecificLaptop(resourceId)
-        .setInstalledOperatingSystem(installedOperatingSystem);
+  public static void updateLaptop(
+      Library library,
+      String resourceId,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String manufacturer,
+      String model,
+      String installedOperatingSystem
+  ) {
+    Laptop laptop = library.getResourceRepository().getSpecificLaptop(resourceId);
+
+    laptop.setTitle(title);
+    laptop.setYear(year);
+    laptop.setThumbnailImage(thumbnailImage);
+    laptop.setManufacturer(manufacturer);
+    laptop.setModel(model);
+    laptop.setInstalledOperatingSystem(installedOperatingSystem);
   }
 
   /**
@@ -201,23 +277,25 @@ public class ResourceManager {
    * @param multiplayer the availability of multiplayer
    * @throws ResourceNotFoundException When unable to find the requested game.
    */
-  public static void updateGame(Library library, String resourceId, String title, int year,
-      Image thumbnailImage, String publisher, String rating, String genre,
-      boolean multiplayer) throws ResourceNotFoundException {
+  public static void updateGame(
+      Library library,
+      String resourceId,
+      String title,
+      int year,
+      Image thumbnailImage,
+      String publisher,
+      String rating,
+      String genre,
+      boolean multiplayer
+  ) throws ResourceNotFoundException {
+    Game game = library.getResourceRepository().getSpecificGame(resourceId);
 
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setTitle(title);
-    library.getResourceRepository().getSpecificGame(resourceId).setYear(year);
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setThumbnailImage(thumbnailImage);
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setPublisher(publisher);
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setGenre(genre);
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setRating(rating);
-    library.getResourceRepository().getSpecificGame(resourceId)
-        .setMultiplayer(multiplayer);
+    game.setTitle(title);
+    game.setYear(year);
+    game.setThumbnailImage(thumbnailImage);
+    game.setPublisher(publisher);
+    game.setGenre(genre);
+    game.setRating(rating);
+    game.setMultiplayer(multiplayer);
   }
-
 }

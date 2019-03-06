@@ -41,6 +41,7 @@ public class EntityTestData {
    */
   public static void populateLibrary(Library library) {
     UsersTestData.generate(library);
+    ResourcesTestData.generate(library);
 
     if (Main.DEV_MODE) {
       return;
