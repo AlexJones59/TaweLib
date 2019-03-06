@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.testdata;
 
+import com.tawelib.groupfive.Main;
 import com.tawelib.groupfive.contentprovider.ContentProvider;
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Copy;
@@ -39,60 +40,12 @@ public class EntityTestData {
    * @param library Library.
    */
   public static void populateLibrary(Library library) {
-    LibrarianRepository librarianRepository = library.getLibrarianRepository();
-    CustomerRepository customerRepository = library.getCustomerRepository();
-    //[LIBRARIAN]
-    // ---------------------------------------------------------------------------------------------
-    librarianRepository.add(
-        new Librarian(
-            "System",
-            "Admin",
-            "5751236485",
-            "1",
-            "The street",
-            "Swansea",
-            "SA28PJ",
-            LocalDateTime.now()
-        )
-    );
+    UsersTestData.generate(library);
 
-    librarianRepository.add(
-        new Librarian(
-            "Default",
-            "Librarian",
-            "6124856473",
-            "2",
-            "The better street",
-            "Cardiff",
-            "SA1 4LL",
-            LocalDateTime.now()
-        )
-    );
-    //[CUSTOMER]
-    // ---------------------------------------------------------------------------------------------
-    customerRepository.add(
-        new Customer(
-            "Nice",
-            "Customer",
-            "6321546875",
-            "56",
-            "Swansea Uni",
-            "Swansea",
-            "SA20AT"
-        )
-    );
-
-    customerRepository.add(
-        new Customer(
-            "Sombrero",
-            "Customer",
-            "3211624486",
-            "55",
-            "Some street",
-            "Mexico",
-            "MX03 2UT"
-        )
-    );
+    if (Main.DEV_MODE) {
+      return;
+    }
+    // OUTDATED BELOW
 
     // [BOOK]
     // ---------------------------------------------------------------------------------------------
