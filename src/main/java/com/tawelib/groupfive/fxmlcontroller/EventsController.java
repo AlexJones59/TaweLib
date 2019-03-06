@@ -30,6 +30,8 @@ public class EventsController extends BaseFxmlController {
   private final double EVENT_CELL_WIDTH = 380.0;
   private final double EVENT_CELL_HEIGHT = 100.0;
   private final double JOIN_BUTTON_HEIGHT = 10.0;
+  private final String LEAVING_EVENT_CONFIRMATION = "Are you sure you want to leave the event '";
+  private final String LEAVING_EVENT_SUCCESS = "Successfully left the event!";
   private final String JOINING_EVENT_CONFIRMATION = "Are you sure you want to join the event '";
   private final String JOINING_EVENT_SUCCESS = "Successfully joined the event!";
 
@@ -53,6 +55,8 @@ public class EventsController extends BaseFxmlController {
 
   @Override
   public void refresh() {
+    upcomingEventsField.getItems().remove(0, upcomingEventsField.getItems().size());
+    currentEventsField.getItems().remove(0, currentEventsField.getItems().size());
     initUpcomingEvents();
     initJoinedEvents();
   }
@@ -111,15 +115,13 @@ public class EventsController extends BaseFxmlController {
     Button signUpForEvent = new Button("Join");
     signUpForEvent.setPrefSize(EVENT_CELL_WIDTH, JOIN_BUTTON_HEIGHT);
     box.getChildren().addAll(showDescrBtn, signUpForEvent);
-    eventButtonActions(e, showDescrBtn, signUpForEvent);
+    eventButtonActions(e, showDescrBtn, signUpForEvent, isRegistered);
 
-    if (isRegistered) {
-      signUpForEvent.setVisible(false);
-    }
     /*Checks if there are free slots and person dont participate, if not - disables the button*/
     int currentRegisteredPpl = library.getParticipationRepository().getNumberOfParticipants(e);
-    if ((e.getCapacity() <= currentRegisteredPpl)
-        || (library.getParticipationRepository().doesParticipate(e, loggedInUser))) {
+
+    if (!isRegistered && ((EventManager.eventFull(library, e))
+        || (library.getParticipationRepository().doesParticipate(e, loggedInUser)))) {
       signUpForEvent.setDisable(true);
     }
 
@@ -134,7 +136,7 @@ public class EventsController extends BaseFxmlController {
    * @param description A button which opens the full info about the event
    * @param join The button for joining the event
    */
-  private void eventButtonActions(Event e, Button description, Button join) {
+  private void eventButtonActions(Event e, Button description, Button join, boolean isCurrent) {
 
     description.setOnAction(event -> {
       String aboutEvent =
@@ -146,11 +148,24 @@ public class EventsController extends BaseFxmlController {
     });
 
     join.setOnAction(event -> {
-      Alert alert = new Alert(CONFIRMATION, JOINING_EVENT_CONFIRMATION + e.getEventName() + "'?");
+      String alertConfirm;
+      if (isCurrent) {
+        alertConfirm = LEAVING_EVENT_CONFIRMATION;
+      } else {
+        alertConfirm = JOINING_EVENT_CONFIRMATION;
+      }
+      Alert alert = new Alert(CONFIRMATION, alertConfirm + e.getEventName() + "'?");
       Optional<ButtonType> answer = alert.showAndWait();
       if (answer.get() == ButtonType.OK) {
-        EventManager.joinEvent(library, loggedInUser, e);
-        AlertHelper.alert(INFORMATION, JOINING_EVENT_SUCCESS);
+        if (isCurrent) {
+          //EventManager.leaveEvent(library, loggedInUser, e);TODO: uncomment when EventManage.leaveEvent(library, user, event) will be ready
+          AlertHelper.alert(INFORMATION, LEAVING_EVENT_SUCCESS);
+        } else {
+          EventManager.joinEvent(library, loggedInUser, e);
+          AlertHelper.alert(INFORMATION, JOINING_EVENT_SUCCESS);
+        }
+
+        refresh();
       }
     });
   }
