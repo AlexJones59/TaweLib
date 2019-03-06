@@ -131,4 +131,8 @@ public class CopyRepository implements BaseRepository<Copy> {
       lastCopyId++;
     }
   }
+
+  public long getLastCopyId() {
+    return lastCopyId;
+  }
 }

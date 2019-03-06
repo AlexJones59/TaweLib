@@ -2,6 +2,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.manager.UserManager;
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.net.URL;
@@ -270,7 +271,7 @@ public class AccountCrudController extends BaseFxmlController {
    * Employment Date check by making sure it was before today.
    */
   public void employmentDateCheck() {
-    LocalDateTime currentDate = LocalDateTime.now();
+    LocalDateTime currentDate = SimulatedLocalDateTime.now();
     LocalDate pickedDate = dateEmploymentDate.getValue();
     LocalDateTime picked = LocalDateTime.of(pickedDate, LocalTime.MIN);
 

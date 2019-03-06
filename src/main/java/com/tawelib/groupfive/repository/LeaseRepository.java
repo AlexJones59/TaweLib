@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
       }
     }
 
-    return null;
+    throw new RuntimeException("Lease not found.");
   }
 
   /**
@@ -131,7 +132,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
    */
   public List<Lease> getOverdueLeases() {
     ArrayList<Lease> result = new ArrayList<>();
-    LocalDateTime currentDate = LocalDateTime.now();
+    LocalDateTime currentDate = SimulatedLocalDateTime.now();
 
     for (Lease lease : leases) {
       if (

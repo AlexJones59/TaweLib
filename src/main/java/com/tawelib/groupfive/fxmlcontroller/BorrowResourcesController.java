@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
+import com.tawelib.groupfive.exception.CopyUnavailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.manager.ResourceCapManager;
@@ -78,13 +79,7 @@ public class BorrowResourcesController extends BaseFxmlController {
                   "You have overdue copies."
               );
             } else {
-              if (!requestedCopy.getStatus().equals(CopyStatus.AVAILABLE)) {
-                AlertHelper.alert(
-                    AlertType.ERROR,
-                    "This copy is not available to borrow."
-                );
-                back();
-              } else {
+              try {
                 CopyManager.borrowResourceCopy(
                     library,
                     txtResourceCopyId.getText(),
@@ -93,6 +88,12 @@ public class BorrowResourcesController extends BaseFxmlController {
                 AlertHelper.alert(
                     AlertType.INFORMATION,
                     "Borrowed."
+                );
+                back();
+              } catch (CopyUnavailableException e) {
+                AlertHelper.alert(
+                    AlertType.INFORMATION,
+                    "Copy unavailable."
                 );
                 back();
               }
