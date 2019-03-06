@@ -62,7 +62,7 @@ public class StatisticsController extends BaseFxmlController {
   private TitledPane userStatPane;
 
   @FXML
-  private ComboBox<String> userStatTimeComboBox = new ComboBox<>(timePeriods);
+  private ComboBox<String> userStatTimeComboBox ;
 
   @FXML
   private ComboBox<ResourceType> userStatResTypeComboBox;
@@ -96,34 +96,19 @@ public class StatisticsController extends BaseFxmlController {
   private ComboBox<ResourceType> resourceStatResTypeComboBox;
 
   @FXML
-  private Pane popLaptopPane;
+  private Pane popResourcePane;
 
   @FXML
-  private ComboBox<String> laptopStatTimeComboBox;
+  private TableView<?> popularResTableView;
 
   @FXML
-  private TableView<?> popularLaptopTableView;
-
-  @FXML
-  private PieChart popularOsPieChart;
-
-  @FXML
-  private Pane popDvdPane;
-
-  @FXML
-  private ComboBox<?> dvdStatTimeComboBox;
-
-  @FXML
-  private TableView<?> popularDvdTableView;
-
-  @FXML
-  private TableView<?> popDvdDirectorTableView1;
+  private ComboBox<String> resourceStatTimeComboBox ;
 
   @FXML
   private Pane popBookPane;
 
   @FXML
-  private ComboBox<?> bookStatTimeComboBox;
+  private ComboBox<String> bookStatTimeComboBox ;
 
   @FXML
   private TableView<?> popularBookTableView;
@@ -135,13 +120,28 @@ public class StatisticsController extends BaseFxmlController {
   private TableView<?> popBookAuthorTableView;
 
   @FXML
-  private Pane popResourcePane;
+  private Pane popDvdPane;
 
   @FXML
-  private TableView<?> popularResTableView;
+  private ComboBox<String> dvdStatTimeComboBox ;
 
   @FXML
-  private ComboBox<?> resourceStatTimeComboBox;
+  private TableView<?> popularDvdTableView;
+
+  @FXML
+  private TableView<?> popDvdDirectorTableView1;
+
+  @FXML
+  private Pane popLaptopPane;
+
+  @FXML
+  private ComboBox<String> laptopStatTimeComboBox ;
+
+  @FXML
+  private TableView<?> popularLaptopTableView;
+
+  @FXML
+  private PieChart popularOsPieChart;
 
   @FXML
   private Pane popVideoGamePane;
@@ -150,7 +150,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableView<?> popularVideoGameTableView;
 
   @FXML
-  private ComboBox<?> videoStatTimeComboBox;
+  private ComboBox<String> videoStatTimeComboBox ;
 
   @FXML
   private TitledPane fineStatPane;
@@ -175,7 +175,16 @@ public class StatisticsController extends BaseFxmlController {
   @Override
   public void refresh() {
     userStatResTypeComboBox.getItems().addAll(resourceTypes);
+    userStatTimeComboBox.getItems().addAll(timePeriods);
     setExpandedUserStatTitledPane();
+    resourceStatResTypeComboBox.getItems().addAll(resourceTypes);
+    resourceStatTimeComboBox.getItems().addAll(timePeriods);
+    bookStatTimeComboBox.getItems().addAll(timePeriods);
+    dvdStatTimeComboBox.getItems().addAll(timePeriods);
+    laptopStatTimeComboBox.getItems().addAll(timePeriods);
+    videoStatTimeComboBox.getItems().addAll(timePeriods);
+    fineStatResTypeComboBox.getItems().addAll(resourceTypes);
+    fineStatTimeComboBox.getItems().addAll(timePeriods);
 
 
   }
@@ -273,6 +282,8 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Resource Statistics Pane.
    */
   public void setExpandedResourceStatTitledPane() {
+    //statsContainer.
+
   }
 
 
@@ -282,10 +293,8 @@ public class StatisticsController extends BaseFxmlController {
   public void setExpandedFineStatTitledPane() {
     statsContainer.setExpandedPane(fineStatPane);
     //Sets default value to first value in resource types list.
-    fineStatResTypeComboBox.getItems().addAll(resourceTypes);
     fineStatResTypeComboBox.getSelectionModel().selectFirst();
     //Sets default value to first value in time period list.
-    fineStatTimeComboBox.getItems().addAll(timePeriods);
     fineStatTimeComboBox.getSelectionModel().selectFirst();
 
 
