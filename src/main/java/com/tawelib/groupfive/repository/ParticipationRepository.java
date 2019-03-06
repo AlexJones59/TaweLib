@@ -81,7 +81,7 @@ public class ParticipationRepository implements BaseRepository<Participation> {
   }
 
   /**
-   * The method removes the user from current event participation repository
+   * The method removes the user from current event participation repository.
    * @param event the event user is leaving
    * @param user the user wawnts to leave
    */
