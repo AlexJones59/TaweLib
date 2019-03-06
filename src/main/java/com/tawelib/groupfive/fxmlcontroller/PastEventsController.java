@@ -20,8 +20,8 @@ import javafx.scene.control.ListView;
  */
 public class PastEventsController extends BaseFxmlController {
 
-  private final double EVENT_CELL_WIDTH = 380.0;
-  private final double EVENT_CELL_HEIGHT = 100.0;
+  private static final double EVENT_CELL_WIDTH = 380.0;
+  private static final double EVENT_CELL_HEIGHT = 100.0;
 
   @FXML
   private ListView<Button> eventsListField;

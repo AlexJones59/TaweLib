@@ -27,13 +27,13 @@ import javafx.scene.layout.VBox;
  */
 public class EventsController extends BaseFxmlController {
 
-  private final double EVENT_CELL_WIDTH = 380.0;
-  private final double EVENT_CELL_HEIGHT = 100.0;
-  private final double JOIN_BUTTON_HEIGHT = 10.0;
-  private final String LEAVING_EVENT_CONFIRMATION = "Are you sure you want to leave the event '";
-  private final String LEAVING_EVENT_SUCCESS = "Successfully left the event!";
-  private final String JOINING_EVENT_CONFIRMATION = "Are you sure you want to join the event '";
-  private final String JOINING_EVENT_SUCCESS = "Successfully joined the event!";
+  private static final double EVENT_CELL_WIDTH = 380.0;
+  private static final double EVENT_CELL_HEIGHT = 100.0;
+  private static final double JOIN_BUTTON_HEIGHT = 10.0;
+  private static final String LEAVING_EVENT_CONFIRMATION = "Are you sure you want to leave the event '";
+  private static final String LEAVING_EVENT_SUCCESS = "Successfully left the event!";
+  private static final String JOINING_EVENT_CONFIRMATION = "Are you sure you want to join the event '";
+  private static final String JOINING_EVENT_SUCCESS = "Successfully joined the event!";
 
   @FXML
   private Button newEventBtn;
