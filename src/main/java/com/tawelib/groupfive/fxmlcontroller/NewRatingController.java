@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Rating;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.Review;
 import com.tawelib.groupfive.manager.RatingManager;
+import com.tawelib.groupfive.util.SceneHelper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -23,15 +24,13 @@ import javafx.scene.control.TextArea;
 public class NewRatingController extends BaseFxmlController {
 
   private Resource ratedResource;
+  private CrudAction crudAction;
 
   @FXML
   private Label titleLabel;
 
   @FXML
   private Label ratingValueLabel;
-
-  @FXML
-  private Button submitButton;
 
   @FXML
   private Slider ratingSlider;
@@ -43,7 +42,7 @@ public class NewRatingController extends BaseFxmlController {
    * Initialises new windows with title of resource and correct
    * set up for rating label.
    */
-  void initialise() {
+  void update() {
 
     ratingSlider.valueProperty().addListener(new ChangeListener<Number>() {
       @Override
@@ -68,10 +67,33 @@ public class NewRatingController extends BaseFxmlController {
           reviewArea.getText());
     }
     RatingManager.createRating(library, rating);
-    submitButton.getScene().getWindow().hide();
+
+    RatingController newController = (RatingController) SceneHelper
+        .setUpScene(this, "ResourceRatings");
+
+    newController.setSelectedResource(ratedResource);
+    newController.setCrudAction(crudAction);
+    newController.update();
+  }
+
+  /**
+   * Returns to previous page without submitting a review.
+   */
+  @Override
+  public void back() {
+    RatingController newController = (RatingController) SceneHelper
+        .setUpScene(this, "ResourceRatings");
+
+    newController.setSelectedResource(ratedResource);
+    newController.setCrudAction(crudAction);
+    newController.update();
   }
 
   void setRatedResource(Resource resource) {
     this.ratedResource = resource;
+  }
+
+  void saveCrudAction(CrudAction crudAction) {
+    this.crudAction = crudAction;
   }
 }

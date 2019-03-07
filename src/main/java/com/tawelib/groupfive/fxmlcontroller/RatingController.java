@@ -64,12 +64,11 @@ public class RatingController extends BaseFxmlController {
   /**
    * Sets dynamic fields and populates reviews panel.
    */
-  @Override
-  public void refresh() {
-    resourceTitle.setText(selectedResource.getTitle());
+  public void update() {
+    resourceTitle.setText(this.selectedResource.getTitle());
 
     List<Rating> ratings = getLibrary().getRatingRepository()
-        .getResourcesRatings(selectedResource.getResourceId());
+        .getResourcesRatings(this.selectedResource);
 
     int[] ratingsAmount = new int[6];
 
@@ -167,27 +166,16 @@ public class RatingController extends BaseFxmlController {
           selectedResource)) {
         throw new InvalidRaterException();
       }
-      try {
 
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getClassLoader()
-            .getResource("com.tawelib.groupfive"
-                + ".view.ResourceNewRating.fxml"));
+      NewRatingController newController =
+          (NewRatingController) SceneHelper.setUpScene(
+              this,
+              "ResourceNewRating");
 
-        NewRatingController controller = loader.getController();
-        controller.setRatedResource(selectedResource);
-        controller.initialise();
+      newController.setRatedResource(selectedResource);
+      newController.saveCrudAction(crudAction);
+      newController.update();
 
-        Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(primaryStage);
-        stage.setTitle("Leave New Rating or Review");
-        stage.setScene(new Scene(root, 450, 450));
-        stage.show();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
     } catch (InvalidRaterException e) {
       AlertHelper.alert(Alert.AlertType.WARNING, "You have not "
           + "leased this resource or have already left a review or rating.");
@@ -204,8 +192,8 @@ public class RatingController extends BaseFxmlController {
             this,
             "ResourceCrud");
 
-    newController.setSelectedResource(selectedResource);
-    newController.setCrudAction(crudAction);
+    newController.setSelectedResource(this.selectedResource);
+    newController.setCrudAction(this.crudAction);
     newController.refresh();
   }
 }

@@ -313,7 +313,7 @@ public class ResourceCrudController extends BaseFxmlController {
 
     newController.setSelectedResource(selectedResource);
     newController.setCrudAction(crudAction);
-    newController.refresh();
+    newController.update();
   }
 
   /**

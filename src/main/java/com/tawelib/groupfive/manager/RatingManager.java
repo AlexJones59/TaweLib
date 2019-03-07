@@ -39,8 +39,8 @@ public class RatingManager {
     boolean customerNotRated = true;
 
     for (Rating rating : library.getRatingRepository()
-        .getResourcesRatings(resource.getResourceId())) {
-      if (rating.getRater().equals(customer.getUsername())) {
+        .getResourcesRatings(resource)) {
+      if (rating.getRater() == customer) {
         customerNotRated = false;
       }
     }

@@ -15,6 +15,7 @@
          <children>
             <HBox spacing="10.0">
                <children>
+                  <Button mnemonicParsing="false" onAction="#back" text="Back" />
                   <Label id="titleLabel" fx:id="titleLabel" text="New Rating / Review" />
                </children>
             </HBox>
@@ -26,7 +27,7 @@
             </HBox>
             <Label text="Review:" />
             <TextArea id="reviewArea" fx:id="reviewArea" prefHeight="200.0" prefWidth="200.0" promptText="Start typing here..." wrapText="true" />
-            <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#confirm" text="Submit" />
+            <Button mnemonicParsing="false" onAction="#confirm" text="Submit" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
