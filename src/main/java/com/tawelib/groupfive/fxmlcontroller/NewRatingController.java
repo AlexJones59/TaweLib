@@ -57,7 +57,7 @@ public class NewRatingController extends BaseFxmlController {
   }
 
   /**
-   * Submits the entered rating/review into the r&r repository and closes the window.
+   * Submits the entered rating/review into the r and r repository and closes the window.
    */
   public void confirm() {
     Rating rating;

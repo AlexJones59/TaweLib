@@ -62,7 +62,7 @@ public class RatingController extends BaseFxmlController {
   private Button newRatingButton;
 
   /**
-   * Sets dynamic fields & populates reviews panel.
+   * Sets dynamic fields and populates reviews panel.
    */
   @Override
   public void refresh() {
