@@ -33,6 +33,7 @@ public class SceneHelper {
    */
   public static BaseFxmlController setUpScene(Stage primaryStage,
       Library library,
+
       String sceneName)
       throws IOException {
     URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
@@ -76,7 +77,9 @@ public class SceneHelper {
           controller.getPrimaryStage(),
           controller.getLibrary(),
           sceneName
+
       );
+
     } catch (IOException e) {
       throw new Error("Could not set up scene.");
     }

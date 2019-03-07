@@ -105,8 +105,6 @@ public class ProfileImagePopUpMenuController extends BaseFxmlController {
         drawingApp.startWithUserReference(loggedInUser);
       }
     });
-
-    //TODO: Set up locks for asynchronous refresh.
   }
 
   /**
