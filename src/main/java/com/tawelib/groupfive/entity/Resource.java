@@ -1,7 +1,7 @@
 package com.tawelib.groupfive.entity;
 
 import java.io.Serializable;
-
+import java.time.LocalDateTime;
 import javafx.scene.image.Image;
 
 /**
@@ -17,21 +17,22 @@ public abstract class Resource implements Serializable {
   private int year;
   private Image thumbnailImage;
   private final ResourceType type;
+  private LocalDateTime dateAdded;
 
   /**
    * Instantiates a new Resource.
    *
-   * @param title          the title
-   * @param year           the year
+   * @param title the title
+   * @param year the year
    * @param thumbnailImage the thumbnail image
-   * @param type           the type
+   * @param type the type
    */
-  public Resource(String title, int year, Image thumbnailImage,
-                  ResourceType type) {
+  public Resource(String title, int year, Image thumbnailImage, ResourceType type) {
     this.title = title;
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
+    this.dateAdded = LocalDateTime.now();
   }
 
   /**
@@ -104,6 +105,15 @@ public abstract class Resource implements Serializable {
    */
   public ResourceType getType() {
     return type;
+  }
+
+  /**
+   * Gets dateAdded.
+   *
+   * @return the dateAdded
+   */
+  public LocalDateTime getDateAdded() {
+    return dateAdded;
   }
 
 }

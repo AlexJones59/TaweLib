@@ -2,6 +2,7 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.User;
 import com.tawelib.groupfive.exception.AuthenticationException;
+import com.tawelib.groupfive.manager.UserManager;
 import com.tawelib.groupfive.repository.UserRepository;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
@@ -57,6 +58,8 @@ public class LoginController extends BaseFxmlController {
 
     try {
       loggedInUser = userRepository.authenticate(usernameTextField.getText());
+      lastLogin = loggedInUser.getLastLogin();
+      UserManager.updateUserlastLogin(loggedInUser);
 
       SceneHelper.setUpScene(this, "UserDashboard");
     } catch (AuthenticationException e) {

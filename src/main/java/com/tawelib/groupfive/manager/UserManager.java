@@ -34,6 +34,7 @@ public class UserManager {
    * @param city the city
    * @param postcode the postcode
    */
+
   public static void createCustomerAccount(
       Library library,
       String firstName,
@@ -53,6 +54,7 @@ public class UserManager {
         city,
         postcode
     );
+
 
     library.getCustomerRepository().add(newCustomer);
   }
@@ -91,7 +93,6 @@ public class UserManager {
         postcode,
         employmentDate
     );
-
     library.getLibrarianRepository().add(newLibrarian);
   }
 
@@ -134,6 +135,7 @@ public class UserManager {
         city,
         postcode
     );
+
   }
 
   /**
@@ -232,5 +234,16 @@ public class UserManager {
 
     Transaction newTransaction = new Transaction(amount, payee);
     library.getTransactionRepository().add(newTransaction);
+
+
+  }
+
+  /**
+   * Updates user's last logged in timestamp.
+   *
+   * @param user User.
+   */
+  public static void updateUserlastLogin(User user) {
+    user.setLastLogin(LocalDateTime.now());
   }
 }

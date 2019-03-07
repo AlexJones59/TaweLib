@@ -45,6 +45,9 @@ public class UserDashboardController extends BaseFxmlController {
 
   @FXML
   private Button browseResourceButton;
+  
+  @FXML
+  private Button browseNewAdditionsButton;
 
   @FXML
   private Button manageAccountButton;
@@ -91,6 +94,13 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
+  /**
+   * Takes the user to the browse resource screen.
+   */
+  public void browseNewAdditions() {
+    SceneHelper.setUpScene(this, "BrowseNewAdditions");
+  }
+  
   /**
    * Takes the user to the account management screen.
    */

@@ -1,4 +1,5 @@
 .idea/
+tawelib.iml
 
 build/
 .gradle
@@ -10,3 +11,4 @@ out/
 libraries/
 
 data/
+/bin/
