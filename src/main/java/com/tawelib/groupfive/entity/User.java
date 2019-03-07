@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -36,7 +37,7 @@ public class User implements Serializable {
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = new Address(houseNumber, street, city, postCode);
-    this.lastLogin = LocalDateTime.now();
+    this.lastLogin = SimulatedLocalDateTime.now();
   }
 
   /**

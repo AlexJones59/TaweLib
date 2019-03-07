@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javafx.scene.image.Image;
@@ -32,7 +33,7 @@ public abstract class Resource implements Serializable {
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
-    this.dateAdded = LocalDateTime.now();
+    this.dateAdded = SimulatedLocalDateTime.now();
   }
 
   /**
