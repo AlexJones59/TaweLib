@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -28,7 +29,7 @@ public class Lease implements Serializable {
   public Lease(Customer customer, Copy copy) {
     this.borrowingCustomer = customer;
     this.copy = copy;
-    this.dateLeased = LocalDateTime.now();
+    this.dateLeased = SimulatedLocalDateTime.now();
   }
 
   /**
@@ -53,7 +54,7 @@ public class Lease implements Serializable {
    * Sets date returned.
    */
   public void setDateReturned() {
-    this.dateReturned = LocalDateTime.now();
+    this.dateReturned = SimulatedLocalDateTime.now();
   }
 
   /**

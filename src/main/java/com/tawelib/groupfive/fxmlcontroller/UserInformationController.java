@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -235,18 +237,25 @@ public class UserInformationController extends BaseFxmlController {
 
   /**
    * Allows a user to pick up a copy of a resource they have reserved.
+   * @throws OverResourceCapException if No.of resources borrowed exceeds the resource cap
    */
-  public void pickUpReserved() {
+  public void pickUpReserved() throws OverResourceCapException {
     if (selectedUser.getClass().equals(Customer.class)) {
       Customer selectedCustomer = (Customer) selectedUser;
       if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
           .equals("RESERVED")) {
-        CopyManager.pickUpReservedCopy(library,
-            resourceTableView.getSelectionModel().getSelectedItem()
-                .getResourceId(), selectedCustomer.getUsername());
-        AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+        try {
+          CopyManager.pickUpReservedCopy(library,
+              resourceTableView.getSelectionModel().getSelectedItem()
+                  .getResourceId(), selectedCustomer.getUsername());
+          AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
 
+        } catch (OverResourceCapException e) {
+          AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+              + "An item must be returned before another can be borrowed.");
+        }
         refresh();
+
       } else {
         AlertHelper.alert(AlertType.ERROR,
             "Lease selected is not " + "of a reserved copy.");

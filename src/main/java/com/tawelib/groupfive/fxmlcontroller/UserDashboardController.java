@@ -65,6 +65,9 @@ public class UserDashboardController extends BaseFxmlController {
   private Button manageUsersButton;
 
   @FXML
+  private Button eventsButton;
+
+  @FXML
   private TextField accountBalanceTextField;
 
   @FXML
@@ -137,11 +140,23 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserList");
   }
 
+  public void statistics() {
+    SceneHelper.setUpScene(this, "Statistics");
+  }
+
   /**
    * Takes the user to the profile images selection screen.
    */
   public void changeProfileImage() {
     SceneHelper.setUpScene(this, "ProfileImagePopUpMenu");
+  }
+
+  /**
+   * Takes the user to the events screen.
+   */
+  public void eventsWindow() {
+    EventsController c = (EventsController)SceneHelper.setUpScene(this, "Events");
+    c.setLibrary(library);
   }
 
   /**
@@ -168,14 +183,14 @@ public class UserDashboardController extends BaseFxmlController {
         staffNumberTextField,
         overdueCopiesButton,
         createNewAccountButton,
-        manageUsersButton
+        manageUsersButton,
     };
 
     customerNodes = new Node[]{
         transactionsAndFinesButton,
         manageAccountButton,
         accountBalanceLabel,
-        accountBalanceTextField
+        accountBalanceTextField,
     };
   }
 

@@ -6,7 +6,10 @@
   requires javafx.web;
   requires javafx.swing;
   requires javafx.media;
+  requires javafaker;
+  requires java.sql;
 
+ // requires kotlin.stdlib;
   opens com.tawelib.groupfive;
   opens com.tawelib.groupfive.draw;
   opens com.tawelib.groupfive.entity;

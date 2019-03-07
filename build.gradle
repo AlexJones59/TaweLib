@@ -30,8 +30,12 @@ dependencies {
     compile "org.openjfx:javafx-fxml:11:$platform"
     compile "org.openjfx:javafx-graphics:11:$platform"
     compile "org.openjfx:javafx-media:11:$platform"
-    compile "org.openjfx:javafx-web:11:$platform"
+    compile "org.openjfx:javafx-web:11:$platform"    
     compile "org.openjfx:javafx-swing:11:$platform"
+
+    compile "org.openjfx:javafx-swing:11:$platform"
+
+    implementation 'com.github.javafaker:javafaker:0.17.2'
 
     testImplementation 'junit:junit:4.12'
 
@@ -104,6 +108,8 @@ javadoc {
     options.addStringOption('-module-path', classpath.asPath)
     options.addBooleanOption('html5', true)
     options.addStringOption('Xwerror', '-quiet')
+    options.addStringOption('Xdoclint', '-quiet')
+    options.memberLevel = JavadocMemberLevel.PRIVATE
     options.optionFiles << file('javadoc.options')
 }
 
