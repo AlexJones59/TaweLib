@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 class UsersTestData {
 
   private static final int NUMBER_OF_LIBRARIAN_ACCOUNTS = 4;
-  private static final int NUMBER_OF_CUSTOMER_ACCOUNTS = 32;
+  private static final int NUMBER_OF_CUSTOMER_ACCOUNTS = 128;
 
   private UsersTestData() {
     throw new UnsupportedOperationException("Util class.");

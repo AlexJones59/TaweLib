@@ -43,22 +43,30 @@ public class CopyManager {
    * @param copyId the copy id
    * @param customerUsername the customer username
    * @throws CopyUnavailableException When copy is not available.
+   * @throws OverResourceCapException When resource cap reached.
    */
   public static void borrowResourceCopy(
       Library library,
       String copyId,
       String customerUsername
-  ) throws CopyUnavailableException {
+  ) throws CopyUnavailableException, OverResourceCapException {
     Copy borrowedCopy = library.getCopyRepository().getSpecific(copyId);
+    Customer borrowingCustomer = library.getCustomerRepository().getSpecific(customerUsername);
 
     if (borrowedCopy.getStatus() != CopyStatus.AVAILABLE) {
       throw new CopyUnavailableException();
+    } else if (
+        !ResourceCapManager.isUnderResourceCap(
+            library,
+            borrowingCustomer,
+            borrowedCopy.getResource()
+        )
+    ) {
+      throw new OverResourceCapException();
     }
 
     borrowedCopy.setStatus(CopyStatus.BORROWED);
 
-    //Sets customer as Borrowing Customer.
-    Customer borrowingCustomer = library.getCustomerRepository().getSpecific(customerUsername);
     borrowedCopy.setBorrowingCustomer(borrowingCustomer);
 
     createLease(library, borrowingCustomer, borrowedCopy);

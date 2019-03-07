@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.exception.CopyUnavailableException;
+import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.runtime.SimulatedClock;
 import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
@@ -55,12 +56,12 @@ class OperationsTestData {
           );
 
           borrowedCopyIds.add(copyIdToBeBorrowed);
-        } catch (CopyUnavailableException e) {
+        } catch (CopyUnavailableException | OverResourceCapException e) {
           missesCounter++;
         }
       }
 
-      SimulatedClock.addMinutes(random.nextInt(60 * 2));
+      SimulatedClock.addMinutes(random.nextInt(90));
     }
 
     System.out.println("Misses: " + missesCounter);
