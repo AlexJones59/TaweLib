@@ -109,7 +109,7 @@ public class EventRepository implements BaseRepository<Event> {
   /**
    * Generates a unique id for events.
    *
-   * @param Event event.
+   * @param event event to generate the ID for.
    */
   private void generateId(Event event) {
     String generatedEventId = String.format("C%d", lastEventId);

@@ -106,6 +106,7 @@ public class EventsController extends BaseFxmlController {
    * the event or not.
    *
    * @param e the event will be displayed.
+   * @param isRegistered a boolean which suggest whatever the user has registered for event
    * @return the VBox as representation of the event.
    */
   private VBox constructEventCell(Event e, boolean isRegistered) {
@@ -137,6 +138,7 @@ public class EventsController extends BaseFxmlController {
    *
    * @param e the event this button belongs
    * @param description A button which opens the full info about the event
+   * @param isCurrent a boolean which indicates whatever the event has been joined by user
    * @param join The button for joining the event
    */
   private void eventButtonActions(Event e, Button description, Button join, boolean isCurrent) {
