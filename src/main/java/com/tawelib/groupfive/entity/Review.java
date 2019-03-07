@@ -15,12 +15,12 @@ public class Review extends Rating {
    * Instantiates a new Review.
    *
    * @param value the rating out of 5
-   * @param ratedResourceId the rated resource
-   * @param raterId the rater
+   * @param ratedResource the rated resource
+   * @param rater the rater
    * @param reviewBody the body of the review
    */
-  public Review(int value, String ratedResourceId, String raterId, String reviewBody) {
-    super(value, ratedResourceId, raterId);
+  public Review(int value, Resource ratedResource, Customer rater, String reviewBody) {
+    super(value, ratedResource, rater);
     this.reviewBody = reviewBody;
   }
 
