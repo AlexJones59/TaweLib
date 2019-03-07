@@ -1,6 +1,5 @@
 package com.tawelib.groupfive.entity;
 
-import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -13,22 +12,22 @@ import java.time.LocalDateTime;
 public class Rating implements Serializable {
 
   private int value; //1-5 stars
-  private String ratedResourceId;
-  private String raterId;
+  private Resource ratedResource;
+  private Customer rater;
   private LocalDateTime dateRated;
 
   /**
    * Instantiates a new Rating.
    *
    * @param value the rating out of 5
-   * @param ratedResourceId the rated resource
-   * @param raterId the rater
+   * @param ratedResource the rated resource
+   * @param rater the rater
    */
-  public Rating(int value, String ratedResourceId, String raterId) {
+  public Rating(int value, Resource ratedResource, Customer rater) {
     this.value = value;
-    this.ratedResourceId = ratedResourceId;
-    this.raterId = raterId;
-    this.dateRated = SimulatedLocalDateTime.now();
+    this.ratedResource = ratedResource;
+    this.rater = rater;
+    this.dateRated = LocalDateTime.now();
   }
 
 
@@ -46,8 +45,8 @@ public class Rating implements Serializable {
    *
    * @return rated resource
    */
-  public String getRatedResource() {
-    return ratedResourceId;
+  public Resource getRatedResource() {
+    return ratedResource;
   }
 
   /**
@@ -55,8 +54,8 @@ public class Rating implements Serializable {
    *
    * @return reviewer
    */
-  public String getRater() {
-    return raterId;
+  public User getRater() {
+    return rater;
   }
 
   /**
