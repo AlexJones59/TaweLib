@@ -6,6 +6,8 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Rating;
 import com.tawelib.groupfive.entity.Resource;
 
+import java.util.List;
+
 /**
  * RatingManager.java - Manager class handles logic behind retrieving ratings and reviews.
  *
@@ -55,5 +57,31 @@ public class RatingManager {
     return resourceLeased && customerNotRated;
   }
 
+  /**
+   * Returns a pseudo-Rating: Its rating is the rounded average rating for the resource
+   * and the customer is set to null.
+   *
+   * @param library the library
+   * @param resource the resource for which the average ratings are being found
+   * @return Rating with average rating as value and customer set to null
+   */
+  public Rating getResourceAverageRating(Library library, Resource resource) {
+    List<Rating> resourcesRatings = library.getRatingRepository()
+        .getResourcesRatings(resource);
+
+    int[] ratingTotals = new int[6];
+
+    for (Rating rating : resourcesRatings) {
+      ratingTotals[rating.getRatingValue()]++;
+    }
+
+    double averageRating = ((double)(ratingTotals[1] + 2 * ratingTotals[2]
+        + 3 * ratingTotals[3] + 4 * ratingTotals [4] + 5
+        * ratingTotals [5])) / (double)(ratingTotals[1] + ratingTotals[2]
+        + ratingTotals[3] + ratingTotals[4] + ratingTotals[5]);
+
+    return new Rating((int)(Math.round(averageRating * 1)), resource, null);
+
+  }
 
 }

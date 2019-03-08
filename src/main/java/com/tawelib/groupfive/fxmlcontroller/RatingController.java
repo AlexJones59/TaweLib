@@ -90,7 +90,8 @@ public class RatingController extends BaseFxmlController {
 
     double averageRating = ((double)(ratingsAmount[1] + (2 * ratingsAmount[2])
         + (3 * ratingsAmount[3]) + (4 * ratingsAmount[4])
-        + (5 * ratingsAmount[5]))) / 3.0;
+        + (5 * ratingsAmount[5]))) / (ratingsAmount[1] + ratingsAmount[2]
+        + ratingsAmount[3] + ratingsAmount[4] + ratingsAmount[5]);
 
     averageRatingLabel.setText("Average Rating: "
         + String.format("%.1f",averageRating));
@@ -156,11 +157,9 @@ public class RatingController extends BaseFxmlController {
   /**
    * Opens new window where user can enter a new rating or review.
    *
-   * @throws IOException File not found
    * @throws InvalidRaterException User trying to leave a rating is invalid
    */
-  public void newRatingWindow() throws IOException,
-      InvalidRaterException {
+  public void newRatingWindow() throws InvalidRaterException {
     try {
       if (!RatingManager.validRater(getLibrary(),(Customer)getLoggedInUser(),
           selectedResource)) {
