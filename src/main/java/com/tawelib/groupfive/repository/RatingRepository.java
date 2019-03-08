@@ -1,6 +1,7 @@
 package com.tawelib.groupfive.repository;
 
 import com.tawelib.groupfive.entity.Rating;
+import com.tawelib.groupfive.entity.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,14 @@ public class RatingRepository implements BaseRepository<Rating> {
   /**
    * Returns all ratings for a particular resource.
    *
-   * @param resourceId resource being searched for
+   * @param resource resource being searched for
    * @return List of all ratings for resource
    */
-  public List<Rating> getResourcesRatings(String resourceId) {
+  public List<Rating> getResourcesRatings(Resource resource) {
     ArrayList<Rating> results = new ArrayList<>();
 
     for (Rating rating : ratings) {
-      if (rating.getRatedResource().equals(resourceId)) {
+      if (rating.getRatedResource() == resource) {
         results.add(rating);
       }
     }
