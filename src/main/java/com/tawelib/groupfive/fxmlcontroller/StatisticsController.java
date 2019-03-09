@@ -11,13 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
-import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -39,6 +37,18 @@ import javafx.scene.layout.Pane;
  */
 public class StatisticsController extends BaseFxmlController {
 
+  private ResourceType[] resourceTypes = {
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP,
+      ResourceType.GAME
+
+  };
+
+  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
+      "Day", "Week", "Month");
+
   @FXML
   private Button backButton;
 
@@ -52,6 +62,9 @@ public class StatisticsController extends BaseFxmlController {
   private ComboBox<String> userStatTimeComboBox;
 
   @FXML
+  private ComboBox<ResourceType> userStatResTypeComboBox;
+
+  @FXML
   private Label userLabel;
 
   @FXML
@@ -61,7 +74,7 @@ public class StatisticsController extends BaseFxmlController {
   private TextField noAverageBorrowedTextField;
 
   @FXML
-  private StackedBarChart<String, Number> userStatBarChart;
+  private BarChart<String, Number> userStatBarChart;
 
   private XYChart.Series<String, Number> specificUserStatSeries = new XYChart.Series<>();
 
@@ -74,13 +87,46 @@ public class StatisticsController extends BaseFxmlController {
   private NumberAxis userStatYAxis;
 
   @FXML
-  private ComboBox<ResourceType> userStatResTypeComboBox;
-
-  @FXML
   private TitledPane resourceStatPane;
 
   @FXML
   private ComboBox<ResourceType> resourceStatResTypeComboBox;
+
+  @FXML
+  private Pane popResourcePane;
+
+  @FXML
+  private TableView<?> popularResTableView;
+
+  @FXML
+  private ComboBox<String> resourceStatTimeComboBox;
+
+  @FXML
+  private Pane popBookPane;
+
+  @FXML
+  private ComboBox<String> bookStatTimeComboBox;
+
+  @FXML
+  private TableView<?> popularBookTableView;
+
+  @FXML
+  private PieChart popBookGenrePieChart;
+
+  @FXML
+  private TableView<?> popBookAuthorTableView;
+
+  @FXML
+  private Pane popDvdPane;
+
+  @FXML
+  private ComboBox<String> dvdStatTimeComboBox;
+
+  @FXML
+  private TableView<?> popularDvdTableView;
+
+  @FXML
+  private TableView<?> popDvdDirectorTableView1;
 
   @FXML
   private Pane popLaptopPane;
@@ -95,49 +141,13 @@ public class StatisticsController extends BaseFxmlController {
   private PieChart popularOsPieChart;
 
   @FXML
-  private Pane popDvdPane;
-
-  @FXML
-  private ComboBox<?> dvdStatTimeComboBox;
-
-  @FXML
-  private TableView<?> popularDvdTableView;
-
-  @FXML
-  private TableView<?> popDvdDirectorTableView1;
-
-  @FXML
-  private Pane popBookPane;
-
-  @FXML
-  private ComboBox<?> bookStatTimeComboBox;
-
-  @FXML
-  private TableView<?> popularBookTableView;
-
-  @FXML
-  private PieChart popBookGenrePieChart;
-
-  @FXML
-  private TableView<?> popBookAuthorTableView;
-
-  @FXML
-  private Pane popResourcePane;
-
-  @FXML
-  private TableView<?> popularResTableView;
-
-  @FXML
-  private ComboBox<?> resourceStatTimeComboBox;
-
-  @FXML
   private Pane popVideoGamePane;
 
   @FXML
   private TableView<?> popularVideoGameTableView;
 
   @FXML
-  private ComboBox<?> videoStatTimeComboBox;
+  private ComboBox<String> videoStatTimeComboBox;
 
   @FXML
   private TitledPane fineStatPane;
@@ -152,26 +162,32 @@ public class StatisticsController extends BaseFxmlController {
   private TextField totalFineAmountTextField;
 
   @FXML
+  private BarChart<String, Number> fineStatBarChart;
+
+  private XYChart.Series<String, Number> averageFineStatSeries = new XYChart.Series<>();
+
+  private XYChart.Series<String, Number> totalFineStatSeries = new XYChart.Series<>();
+
+  @FXML
   private ComboBox<ResourceType> fineStatResTypeComboBox;
 
-  private ResourceType[] resourceTypes = {
-      null,
-      ResourceType.BOOK,
-      ResourceType.DVD,
-      ResourceType.LAPTOP,
-      ResourceType.GAME
-
-  };
-
-  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
-      "Day", "Week", "Month");
 
   /**
    * Sets the dynamic fields.
    */
   @Override
   public void refresh() {
+    userStatResTypeComboBox.getItems().addAll(resourceTypes);
+    userStatTimeComboBox.getItems().addAll(timePeriods);
     setExpandedUserStatTitledPane();
+    resourceStatResTypeComboBox.getItems().addAll(resourceTypes);
+    resourceStatTimeComboBox.getItems().addAll(timePeriods);
+    bookStatTimeComboBox.getItems().addAll(timePeriods);
+    dvdStatTimeComboBox.getItems().addAll(timePeriods);
+    laptopStatTimeComboBox.getItems().addAll(timePeriods);
+    videoStatTimeComboBox.getItems().addAll(timePeriods);
+    fineStatResTypeComboBox.getItems().addAll(resourceTypes);
+    fineStatTimeComboBox.getItems().addAll(timePeriods);
 
 
   }
@@ -179,6 +195,7 @@ public class StatisticsController extends BaseFxmlController {
   /**
    * Returns to the user dashboard screen.
    */
+  @Override
   public void back() {
     SceneHelper.setUpScene(this, "UserDashboard");
   }
@@ -188,6 +205,10 @@ public class StatisticsController extends BaseFxmlController {
    */
   @Override
   protected void configureVisibilities() {
+    customerNodes = new Node[]{
+        userLabel,
+        noUserBorrowedTextField
+    };
     librarianNodes = new Node[]{
         fineStatPane
     };
@@ -201,18 +222,16 @@ public class StatisticsController extends BaseFxmlController {
   public void setExpandedUserStatTitledPane() {
     statsContainer.setExpandedPane(userStatPane);
     //Sets default value to first value in time period list.
-    userStatTimeComboBox.setItems(timePeriods);
     userStatTimeComboBox.getSelectionModel().selectFirst();
     //Sets default value to first value in resource types list.
-    userStatResTypeComboBox.getItems().addAll(resourceTypes);
     userStatResTypeComboBox.getSelectionModel().selectFirst();
     userStatComboBoxHandler();
-    userLabel.setVisible(isCustomerLoggedIn());
-    noUserBorrowedTextField.setVisible(isCustomerLoggedIn());
+
   }
 
   /**
-   * Handles the event of the Combo Boxes' value being changed in User Statistics Pane.
+   * Handles the event of the Combo Boxes' value being changed in User Statistics Pane. Populates
+   * the Bar Chart.
    */
   public void userStatComboBoxHandler() {
     ResourceType resourceType = userStatResTypeComboBox.getSelectionModel().getSelectedItem();
@@ -226,12 +245,12 @@ public class StatisticsController extends BaseFxmlController {
           dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
           break;
         case "Week":
-          dates[i] = LocalDateTime.now().minusDays(i * 7).format(formatter);
+          dates[i] = LocalDateTime.now().minusDays((long) i * 7).format(formatter);
           break;
         case "Month":
           dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
           break;
-        default :
+        default:
       }
     }
 
@@ -244,8 +263,9 @@ public class StatisticsController extends BaseFxmlController {
       noUserBorrowedTextField.setText(String.valueOf(specificUserStats[0]));
       specificUserStatSeries.getData().clear();
       for (int count = dates.length; count > 0; count--) {
+
         specificUserStatSeries.getData()
-            .add(new XYChart.Data(dates[count - 1], specificUserStats[count - 1]));
+            .add(new XYChart.Data<>(dates[count - 1], specificUserStats[count - 1]));
       }
       specificUserStatSeries.setName("You");
       userStatBarChart.getData().add(specificUserStatSeries);
@@ -257,9 +277,9 @@ public class StatisticsController extends BaseFxmlController {
     averageUserStatSeries.getData().clear();
     for (int count = dates.length; count > 0; count--) {
       averageUserStatSeries.getData()
-          .add(new XYChart.Data(dates[count - 1], averageUserStats[count - 1]));
+          .add(new XYChart.Data<>(dates[count - 1], averageUserStats[count - 1]));
     }
-    averageUserStatSeries.setName("You");
+    averageUserStatSeries.setName("Average User");
     userStatBarChart.getData().add(averageUserStatSeries);
 
   }
@@ -268,8 +288,88 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Resource Statistics Pane.
    */
   public void setExpandedResourceStatTitledPane() {
+    statsContainer.setExpandedPane(resourceStatPane);
+    //Sets default value to first value in resource types list.
+    fineStatResTypeComboBox.getSelectionModel().selectFirst();
+    resourceStatResTypeComboBoxHandler();
+
   }
 
+  /**
+   * Switches between Panes in Stack Pane based on chosen ResourceType.
+   */
+  public void resourceStatResTypeComboBoxHandler() {
+    ResourceType resourceType = resourceStatResTypeComboBox.getSelectionModel().getSelectedItem();
+    if (resourceType == null) {
+      popResourcePane.setVisible(true);
+      popBookPane.setVisible(false);
+      popDvdPane.setVisible(false);
+      popLaptopPane.setVisible(false);
+      popVideoGamePane.setVisible(false);
+    } else {
+      switch (resourceType) {
+        case BOOK:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(true);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(false);
+          break;
+        case DVD:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(true);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(false);
+          break;
+        case LAPTOP:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(true);
+          popVideoGamePane.setVisible(false);
+          break;
+        case GAME:
+          popResourcePane.setVisible(false);
+          popBookPane.setVisible(false);
+          popDvdPane.setVisible(false);
+          popLaptopPane.setVisible(false);
+          popVideoGamePane.setVisible(true);
+          break;
+        default:
+      }
+    }
+  }
+
+  /**
+   * Initializes nodes in the Popular Resources Pane.
+   */
+  public void setPopResourcePane() {
+  }
+
+  /**
+   * Initializes nodes in the Popular Books Pane.
+   */
+  public void setPopBookPane() {
+  }
+
+  /**
+   * Initializes nodes in the Popular DVDs Pane.
+   */
+  public void setPopDvdPane() {
+  }
+
+  /**
+   * Initializes nodes in the Popular Laptops Pane.
+   */
+  public void setPopLaptopPane() {
+  }
+
+  /**
+   * Initializes nodes in the Popular Video Games Pane.
+   */
+  public void setPopVideoGamePane() {
+  }
 
   /**
    * Initializes nodes in the Fine Statistics Pane.
@@ -277,13 +377,54 @@ public class StatisticsController extends BaseFxmlController {
   public void setExpandedFineStatTitledPane() {
     statsContainer.setExpandedPane(fineStatPane);
     //Sets default value to first value in resource types list.
-    fineStatResTypeComboBox.getItems().addAll(resourceTypes);
     fineStatResTypeComboBox.getSelectionModel().selectFirst();
     //Sets default value to first value in time period list.
-    fineStatTimeComboBox.getItems().addAll(timePeriods);
     fineStatTimeComboBox.getSelectionModel().selectFirst();
+    fineStatComboBoxHandler();
 
+  }
 
+  /**
+   * Handles the event of the Combo Boxes' value being changed in Fine Statistics Pane. Populates
+   * the Bar Chart.
+   */
+  public void fineStatComboBoxHandler() {
+    ResourceType resourceType = fineStatResTypeComboBox.getSelectionModel().getSelectedItem();
+    String timePeriod = fineStatTimeComboBox.getSelectionModel().getSelectedItem();
+    String[] dates = new String[5];
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    for (int i = 0; i < dates.length; i++) {
+      switch (timePeriod) {
+        case "Day":
+          dates[i] = LocalDateTime.now().minusDays(i).format(formatter);
+          break;
+        case "Week":
+          dates[i] = LocalDateTime.now().minusDays((long) i * 7).format(formatter);
+          break;
+        case "Month":
+          dates[i] = LocalDateTime.now().minusMonths(i).getMonth().toString();
+          break;
+        default:
+      }
+    }
+
+    fineStatBarChart.getData().clear();
+
+    int[][] fineStats = StatisticsManager.getFineStatistics(library, resourceType, timePeriod);
+    totalFineAmountTextField.setText(String.valueOf(fineStats[0][0]));
+    aveFineAmountTextField.setText(String.valueOf(fineStats[1][0]));
+    totalFineStatSeries.getData().clear();
+    averageFineStatSeries.getData().clear();
+    for (int count = dates.length; count > 0; count--) {
+      totalFineStatSeries.getData()
+          .add(new XYChart.Data<>(dates[count - 1], fineStats[0][count - 1]));
+      averageFineStatSeries.getData()
+          .add(new XYChart.Data<>(dates[count - 1], fineStats[1][count - 1]));
+    }
+    totalFineStatSeries.setName("Total Fines");
+    averageFineStatSeries.setName("Average Fine");
+    fineStatBarChart.getData().addAll(totalFineStatSeries, averageFineStatSeries);
   }
 
 
