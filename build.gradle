@@ -53,8 +53,7 @@ compileJava {
                 '--add-modules', 'javafx.controls',
                 '--add-modules', 'javafx.fxml',
                 '--add-modules', 'javafx.web',
-                '--add-modules', 'javafx.media',
-                '-Xlint:unchecked','-Xlint:deprecation'
+                '--add-modules', 'javafx.media'
         ]
     }
 }
