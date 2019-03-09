@@ -9,24 +9,17 @@ import com.tawelib.groupfive.manager.RatingManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 
 /**
@@ -39,6 +32,7 @@ public class RatingController extends BaseFxmlController {
 
   private Resource selectedResource;
   private CrudAction crudAction;
+  private DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy mm:HH");
 
   @FXML
   private Label resourceTitle;
@@ -54,12 +48,6 @@ public class RatingController extends BaseFxmlController {
 
   @FXML
   private VBox reviewVerticalBox;
-
-  @FXML
-  private Button backButton;
-
-  @FXML
-  private Button newRatingButton;
 
   /**
    * Sets dynamic fields and populates reviews panel.
@@ -118,7 +106,7 @@ public class RatingController extends BaseFxmlController {
         .getSpecific(review.getRater().getUsername());
 
     Label reviewerAndDate = new Label(reviewer.getFullName()
-        + " - " + review.getDateRated().toString());
+        + " - " + review.getDateRated().format(format));
     reviewPane.setTop(reviewerAndDate);
 
     StringBuilder reviewRating = new StringBuilder();

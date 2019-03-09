@@ -16,12 +16,12 @@
    <top>
       <HBox spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onAction="#back" text="Back">
+            <Button mnemonicParsing="false" onAction="#back" text="Back">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button id="newRatingButton" fx:id="newRatingButton" mnemonicParsing="false" onAction="#newRatingWindow" text="Rate / Review">
+            <Button mnemonicParsing="false" onAction="#newRatingWindow" text="Rate / Review">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
