@@ -1,5 +1,7 @@
 package com.tawelib.groupfive.manager;
 
+import static java.util.Comparator.comparing;
+
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Lease;
@@ -8,6 +10,7 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -277,7 +280,7 @@ public class StatisticsManager {
    */
   private static int[] getSpecificUserStatsWeek(List<Lease> leases) {
     //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+    leases.sort(comparing(Lease::getDateLeased));
 
     //Makes the array that shall be returned
     int[] totalByWeek = new int[5];
@@ -317,7 +320,7 @@ public class StatisticsManager {
    */
   private static int[] getSpecificUserStatsMonth(List<Lease> leases) {
     //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+    leases.sort(comparing(Lease::getDateLeased));
 
     //Makes the array that shall be returned
     int[] totalByMonth = new int[5];
@@ -356,12 +359,17 @@ public class StatisticsManager {
    * @return Array of amount of leases for user for last 5 days
    */
   private static int[] getAverageUserStatsDay(List<Lease> leases) {
+    //Iterate through leases and set it to the start of the day
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
+      lease.setDateLeased(date);
+    }
 
     //Groups all Leases by Borrowing Customer, then by Date Leased.
     //It then filters out any leases that was before 4 days ago.
     Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerDay = leases.stream()
-        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(4)))
-        .collect(Collectors.groupingBy(Lease::getDateLeased,
+        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(5)))
+        .sorted(comparing(Lease::getDateLeased)).collect(Collectors.groupingBy(Lease::getDateLeased,
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
@@ -369,21 +377,21 @@ public class StatisticsManager {
     Object[] dates = leasesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
-    for (int i = 0; i < dates.length; i++) {
+    for (int i = 0; i < dates.length - 1; i++) {
       int totalNoOfLeases = 0;
 
-      Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get(dates[i]);
+      Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get((LocalDateTime) dates[i]);
       Object[] customers = dateMap.keySet().toArray();
       int customerSize = customers.length;
 
       //Iterates through leases per customer and finds number of leases per customer per day
       //Adds it to holder variable
-      for (int k = 0; k < customerSize; k++) {
-        int temp = dateMap.get(customers[k]).size();
+      for (Object key : customers) {
+        int temp = dateMap.get((Customer) key).size();
         //Averages number of Leases based upon no.of Customers
-        totalNoOfLeases = (totalNoOfLeases + temp) / customerSize;
+        totalNoOfLeases = totalNoOfLeases + temp;
       }
-      totalByDate[i] = totalNoOfLeases;
+      totalByDate[i] = totalNoOfLeases / customerSize;
 
     }
 
@@ -397,8 +405,11 @@ public class StatisticsManager {
    * @return Array of amount of leases for user for last 5 weeks
    */
   private static int[] getAverageUserStatsWeek(List<Lease> leases) {
-    //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+    //Iterate through leases and set it to the start of the day
+    /*for (Lease lease: leases){
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+      lease.setDateLeased(date);
+    }*/
 
     //Makes the array that shall be returned
     int[] totalByWeek = new int[5];
@@ -413,7 +424,8 @@ public class StatisticsManager {
       //It then filters out any leases that wasn't between start and end of each week.
       Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerWeek = leases.stream()
           .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased),
+              .isAfter(dateFrom))).sorted(comparing(Lease::getDateLeased))
+          .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
       int totalNoOfLeases = 0;
@@ -450,8 +462,11 @@ public class StatisticsManager {
    * @return Array of amount of leases for user for last 5 months
    */
   private static int[] getAverageUserStatsMonth(List<Lease> leases) {
-    //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+    //Iterate through leases and set it to the start of the day
+    /*for (Lease lease: leases){
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+      lease.setDateLeased(date);
+    }*/
 
     //Makes the array that shall be returned
     int[] totalByMonth = new int[5];
@@ -466,7 +481,8 @@ public class StatisticsManager {
       //It then filters out any leases that wasn't between the start and end of each month.
       Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerMonth = leases.stream()
           .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased),
+              .isAfter(dateFrom))).sorted(comparing(Lease::getDateLeased))
+          .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
       int totalNoOfLeases = 0;
@@ -503,11 +519,19 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 days.
    */
   private static int[][] getFineStatsDay(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
+    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+
     //Groups all Leases by Fined Customer, then by Date Accrued.
     //It then filters out any leases that was before 4 days ago.
     Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerDay = fines.stream()
-        .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(4)))
-        .collect(Collectors.groupingBy(Fine::getDateAccrued,
+        .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(5)))
+        .sorted().collect(Collectors.groupingBy(Fine::getDateAccrued,
             Collectors.groupingBy(Fine::getFinedCustomer)));
 
     //Makes the array that shall be returned
@@ -542,8 +566,14 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 weeks.
    */
   private static int[][] getFineStatsWeek(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
     //Sorts fines in order of Date Accrued.
-    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+    fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
     int[][] totalByWeek = new int[2][5];
@@ -595,8 +625,14 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 months.
    */
   private static int[][] getFineStatsMonth(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
     //Sorts fines in order of Date Accrued.
-    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+    fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
     int[][] totalByMonth = new int[2][5];
@@ -611,7 +647,7 @@ public class StatisticsManager {
       //It then filters out any fines that wasn't between start and end of each month.
       Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerMonth = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Fine::getDateAccrued),
+              .isAfter(dateFrom))).sorted().collect(Collectors.groupingBy((Fine::getDateAccrued),
               Collectors.groupingBy(Fine::getFinedCustomer)));
 
       int[] totalNoOfFines = new int[2];
