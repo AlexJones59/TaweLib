@@ -9,6 +9,11 @@ public class GameTest {
     Game game = createGame();
   }
 
+  /**
+   * Creates a game.
+   *
+   * @return Game.
+   */
   public static Game createGame() {
     return new Game(
         "Supreme Commander: Forged Alliance",
