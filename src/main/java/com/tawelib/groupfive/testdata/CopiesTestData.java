@@ -5,6 +5,12 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.manager.CopyManager;
 import java.util.Random;
 
+/**
+ * Generates test data for copies.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 class CopiesTestData {
 
   private static final int MIN_NUMBER_OF_COPIES = 3;
@@ -15,6 +21,11 @@ class CopiesTestData {
     throw new UnsupportedOperationException();
   }
 
+  /**
+   * Generated a random number of copies for each resource in the library.
+   *
+   * @param library Library.
+   */
   static void generate(Library library) {
     for (Resource resource : library.getResourceRepository().getAll()) {
       int copiesToGenerate = random.nextInt(

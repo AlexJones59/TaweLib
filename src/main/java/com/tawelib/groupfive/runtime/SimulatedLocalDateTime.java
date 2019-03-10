@@ -4,6 +4,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
+/**
+ * Provides simulated current LocalDateTime.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 public class SimulatedLocalDateTime {
 
   private SimulatedLocalDateTime() {

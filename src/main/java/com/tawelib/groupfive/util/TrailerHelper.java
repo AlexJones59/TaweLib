@@ -10,18 +10,25 @@ import javafx.scene.web.WebView;
 
 /**
  * Manages displaying trailers for Resources.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 public class TrailerHelper {
 
+  private TrailerHelper() {
+    throw new UnsupportedOperationException();
+  }
+
   /**
-   * Displays a trailer for a resource. TODO: also display static content
+   * Displays a trailer for a resource.
    *
    * @param resource Resource
    */
   public static void showTrailer(Resource resource) {
     try {
       if (false) {
-        //TODO: check if resource has static content
+        //TODO: check if resource has static content?
       } else if (resource instanceof FetchableTrailer) {
 
         Alert alert = new Alert(AlertType.INFORMATION);

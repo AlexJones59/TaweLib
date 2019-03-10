@@ -3,6 +3,12 @@ package com.tawelib.groupfive.runtime;
 import com.tawelib.groupfive.Main;
 import java.util.Date;
 
+/**
+ * Keeps simulated time. Only allows forward flow.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 public class SimulatedClock {
 
   // in milliseconds
@@ -17,7 +23,7 @@ public class SimulatedClock {
    *
    * @return Current simulated timestamp.
    */
-  public static long getTimestamp() {
+  static long getTimestamp() {
     if (Main.DEV_MODE) {
       return timestamp;
     } else {
