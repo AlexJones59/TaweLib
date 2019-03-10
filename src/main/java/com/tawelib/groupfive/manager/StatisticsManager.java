@@ -179,7 +179,7 @@ public class StatisticsManager {
    * @param resourceType the type of resource you want to find out
    * @return a list of most popular resources
    */
-  public static List<?> getPopularResources(Library library, String timePeriod,
+  public static List<Resource> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
     Predicate<Lease> streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now()
