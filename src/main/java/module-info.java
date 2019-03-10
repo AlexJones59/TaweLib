@@ -18,6 +18,7 @@ module com.tawelib.groupfive {
   opens com.tawelib.groupfive.manager;
   opens com.tawelib.groupfive.repository;
   opens com.tawelib.groupfive.tablewrapper;
+  opens com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
   opens com.tawelib.groupfive.testdata;
   opens com.tawelib.groupfive.util;
   opens com.tawelib.groupfive.view;

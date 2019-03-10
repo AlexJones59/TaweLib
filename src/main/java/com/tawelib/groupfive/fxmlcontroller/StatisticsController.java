@@ -545,7 +545,18 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Popular Resources Pane.
    */
   public void setPopResourcePane() {
-
+    if (!popularResTableView.getItems().isEmpty()) {
+      popularResTableView.getItems().clear();
+    }
+    List<Resource> popularResources = StatisticsManager.getPopularResources(
+        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        resourceStatResTypeComboBox.getSelectionModel().getSelectedItem());
+    for (int rank = 1; rank <= popularResources.size(); rank++) {
+      popularResTableView.getItems().add(
+          new PopularResourcesTableWrapper(rank,
+              RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
   }
 
   /**
