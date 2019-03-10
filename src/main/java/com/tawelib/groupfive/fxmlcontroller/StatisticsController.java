@@ -1,12 +1,22 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.manager.RatingManager;
 import com.tawelib.groupfive.manager.StatisticsManager;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularBookAuthorTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularBookTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularDvdDirectorTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularDvdTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularLaptopTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularResourcesTableWrapper;
+import com.tawelib.groupfive.tablewrapper.statisticstablewrappers.PopularVideoGameTableWrapper;
 import com.tawelib.groupfive.util.SceneHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,9 +30,11 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 
@@ -96,7 +108,22 @@ public class StatisticsController extends BaseFxmlController {
   private Pane popResourcePane;
 
   @FXML
-  private TableView<?> popularResTableView;
+  private TableView<PopularResourcesTableWrapper> popularResTableView;
+
+  @FXML
+  private TableColumn<PopularResourcesTableWrapper, Integer> popResRankColumn;
+
+  @FXML
+  private TableColumn<PopularResourcesTableWrapper, String> popResResourceIdColumn;
+
+  @FXML
+  private TableColumn<PopularResourcesTableWrapper, String> popResTitleColumn;
+
+  @FXML
+  private TableColumn<PopularResourcesTableWrapper, ResourceType> popResTypeColumn;
+
+  @FXML
+  private TableColumn<PopularResourcesTableWrapper, Integer> popResAvgRatingColumn;
 
   @FXML
   private ComboBox<String> resourceStatTimeComboBox;
@@ -108,13 +135,37 @@ public class StatisticsController extends BaseFxmlController {
   private ComboBox<String> bookStatTimeComboBox;
 
   @FXML
-  private TableView<?> popularBookTableView;
+  private TableView<PopularBookTableWrapper> popularBookTableView;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, Integer> popBookRankColumn;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, String> popBookResourceIdColumn;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, String> popBookTitleColumn;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, String> popBookAuthorColumn;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, String> popBookGenreColumn;
+
+  @FXML
+  private TableColumn<PopularBookTableWrapper, Integer> popBookAvgRatingColumn;
 
   @FXML
   private PieChart popBookGenrePieChart;
 
   @FXML
-  private TableView<?> popBookAuthorTableView;
+  private TableView<PopularBookAuthorTableWrapper> popBookAuthorTableView;
+
+  @FXML
+  private TableColumn<PopularBookAuthorTableWrapper, Integer> popAuthorRankColumn;
+
+  @FXML
+  private TableColumn<PopularBookAuthorTableWrapper, String> popAuthorNameColumn;
 
   @FXML
   private Pane popDvdPane;
@@ -123,10 +174,31 @@ public class StatisticsController extends BaseFxmlController {
   private ComboBox<String> dvdStatTimeComboBox;
 
   @FXML
-  private TableView<?> popularDvdTableView;
+  private TableView<PopularDvdTableWrapper> popularDvdTableView;
 
   @FXML
-  private TableView<?> popDvdDirectorTableView1;
+  private TableColumn<PopularDvdTableWrapper, Integer> popDvdRankColumn;
+
+  @FXML
+  private TableColumn<PopularDvdTableWrapper, String> popDvdResourceIdColumn;
+
+  @FXML
+  private TableColumn<PopularDvdTableWrapper, String> popDvdTitleColumn;
+
+  @FXML
+  private TableColumn<PopularDvdTableWrapper, String> popDvdDirectorColumn;
+
+  @FXML
+  private TableColumn<PopularDvdTableWrapper, Integer> popDvdAvgRatingColumn;
+
+  @FXML
+  private TableView<PopularDvdDirectorTableWrapper> popDvdDirectorTableView;
+
+  @FXML
+  private TableColumn<PopularDvdDirectorTableWrapper, Integer> popDirectorsRankColumn;
+
+  @FXML
+  private TableColumn<PopularDvdDirectorTableWrapper, String> popDirectorsNameColumn;
 
   @FXML
   private Pane popLaptopPane;
@@ -135,7 +207,22 @@ public class StatisticsController extends BaseFxmlController {
   private ComboBox<String> laptopStatTimeComboBox;
 
   @FXML
-  private TableView<?> popularLaptopTableView;
+  private TableView<PopularLaptopTableWrapper> popularLaptopTableView;
+
+  @FXML
+  private TableColumn<PopularLaptopTableWrapper, Integer> popLaptopRankColumn;
+
+  @FXML
+  private TableColumn<PopularLaptopTableWrapper, String> popLaptopResourceIdColumn;
+
+  @FXML
+  private TableColumn<PopularLaptopTableWrapper, String> popLaptopTitleColumn;
+
+  @FXML
+  private TableColumn<PopularLaptopTableWrapper, String> popLaptopOsColumn;
+
+  @FXML
+  private TableColumn<PopularLaptopTableWrapper, Integer> popLaptopAvgRatingColumn;
 
   @FXML
   private PieChart popularOsPieChart;
@@ -144,7 +231,28 @@ public class StatisticsController extends BaseFxmlController {
   private Pane popVideoGamePane;
 
   @FXML
-  private TableView<?> popularVideoGameTableView;
+  private TableView<PopularVideoGameTableWrapper> popularVideoGameTableView;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, Integer> popVideogameRankColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, String> popVideogameResourceIdColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, String> popVideogameTitleColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, String> popVideogameGenreColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, String> popVideogameCertRatingColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, Boolean> popVideogameMultiplayerColumn;
+
+  @FXML
+  private TableColumn<PopularVideoGameTableWrapper, Integer> popVideogameAvgRatingColumn;
 
   @FXML
   private ComboBox<String> videoStatTimeComboBox;
@@ -188,8 +296,89 @@ public class StatisticsController extends BaseFxmlController {
     videoStatTimeComboBox.getItems().addAll(timePeriods);
     fineStatResTypeComboBox.getItems().addAll(resourceTypes);
     fineStatTimeComboBox.getItems().addAll(timePeriods);
+    setResourceStatTableViews();
+  }
 
+  private void setResourceStatTableViews(){
+    //Popular Resources Table
+    popResRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("resRank"));
+    popResResourceIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("resResourceId"));
+    popResTitleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("resTitle"));
+    popResTypeColumn.setCellValueFactory(
+        new PropertyValueFactory<>("resType"));
+    popResAvgRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("resAvgRating"));
 
+    //Popular Book Table
+    popBookRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookRank"));
+    popBookResourceIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookResourceId"));
+    popBookTitleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookTitle"));
+    popBookAuthorColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookAuthor"));
+    popBookGenreColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookGenre"));
+    popBookAvgRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("bookAvgRating"));
+
+    //Popular Author Table
+    /*
+    popAuthorRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("authorRank"));
+    popAuthorNameColumn.setCellValueFactory(
+        new PropertyValueFactory<>("authorName"));*/
+
+    //Popular Dvd Table
+    popDvdRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dvdRank"));
+    popDvdResourceIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dvdResourceId"));
+    popDvdTitleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dvdTitle"));
+    popDvdDirectorColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dvdDirector"));
+    popDvdAvgRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("dvdAvgRating"));
+
+    //Popular Director Table
+    /*
+    popDirectorsRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("directorRank"));
+    popDirectorsNameColumn.setCellValueFactory(
+        new PropertyValueFactory<>("directorName"));*/
+
+    //Popular Laptop Table
+    popLaptopRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("laptopRank"));
+    popLaptopResourceIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("laptopResourceId"));
+    popLaptopTitleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("laptopTitle"));
+    popLaptopOsColumn.setCellValueFactory(
+        new PropertyValueFactory<>("laptopOs"));
+    popLaptopAvgRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("laptopAvgRating"));
+
+    //Popular Video Game Table
+    popVideogameRankColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameRank"));
+    popVideogameResourceIdColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameResourceId"));
+    popVideogameTitleColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameTitle"));
+    popVideogameGenreColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameGenre"));
+    popVideogameCertRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameCertRating"));
+    popVideogameMultiplayerColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameMultiPlayer"));
+    popVideogameAvgRatingColumn.setCellValueFactory(
+        new PropertyValueFactory<>("videoGameAvgRating"));
   }
 
   /**
