@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Generates test and showcase data for user interactions.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 class OperationsTestData {
 
   private OperationsTestData() {
@@ -24,7 +30,8 @@ class OperationsTestData {
   private static List<String> borrowedCopyIds = new ArrayList<>();
 
   /**
-   * Generates operations test data.
+   * Generates operations test data. Simulates the users' behaviour by randomly deciding each next
+   * action.
    *
    * @param library Library.
    */
@@ -34,6 +41,9 @@ class OperationsTestData {
 
     int missesCounter = 0;
 
+    // While the simulated time hasn't caught up with the actual current time.
+    // TODO: Refactor into smaller methods.
+    // TODO: Add more operations?
     while (SimulatedLocalDateTime.now().isBefore(LocalDateTime.now())) {
       if (!borrowedCopyIds.isEmpty()
           && random.nextInt(borrowedCopyIds.size()) > targetNumberOfLeases / 2) {
@@ -67,6 +77,12 @@ class OperationsTestData {
     System.out.println("Misses: " + missesCounter);
   }
 
+  /**
+   * Returns a random customer username.
+   *
+   * @param library Library.
+   * @return Username.
+   */
   private static String getRandomCustomerUsername(Library library) {
     List<Customer> customers = library.getCustomerRepository().getAll();
 
@@ -75,6 +91,12 @@ class OperationsTestData {
     return customers.get(randomIndex).getUsername();
   }
 
+  /**
+   * Returns a random copy id of a random resource.
+   *
+   * @param library Library.
+   * @return ID.
+   */
   private static String getRandomCopyId(Library library) {
     List<Copy> copies = library.getCopyRepository().getAll();
 

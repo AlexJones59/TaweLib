@@ -13,7 +13,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Generates users for testing.
+ * Generates resources for testing. These are fictional.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 class ResourcesTestData {
 
@@ -54,6 +57,11 @@ class ResourcesTestData {
     throw new UnsupportedOperationException("Util class.");
   }
 
+  /**
+   * Generates random resources for the library.
+   *
+   * @param library Library.
+   */
   static void generate(Library library) {
     ResourceRepository resourceRepository = library.getResourceRepository();
 
@@ -100,10 +108,15 @@ class ResourcesTestData {
           )
       );
 
-      //TODO: Populate Games
+      //TODO: Populate Games.
     }
   }
 
+  /**
+   * Generates a random list of languages.
+   *
+   * @return Random languages.
+   */
   private static ArrayList<String> randomLanguages() {
     ArrayList<String> languages = new ArrayList<>();
 
@@ -120,6 +133,12 @@ class ResourcesTestData {
     return languages;
   }
 
+  /**
+   * Returns a random element from the provided array.
+   *
+   * @param array Source.
+   * @return Random element.
+   */
   private static String randomFrom(String[] array) {
     int index = random.nextInt(array.length);
 

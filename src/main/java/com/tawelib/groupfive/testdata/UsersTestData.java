@@ -13,7 +13,10 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Generates users for testing.
+ * Generates users for testing and showcase purposes.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 class UsersTestData {
 

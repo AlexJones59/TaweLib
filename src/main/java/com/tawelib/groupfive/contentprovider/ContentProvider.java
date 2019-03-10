@@ -3,7 +3,17 @@ package com.tawelib.groupfive.contentprovider;
 import com.tawelib.groupfive.exception.ContentProviderException;
 import java.io.IOException;
 
+/**
+ * Provides content for resources in the library.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
+ */
 public class ContentProvider {
+
+  private ContentProvider() {
+    throw new UnsupportedOperationException();
+  }
 
   /**
    * Returns URL address for the trailer player.

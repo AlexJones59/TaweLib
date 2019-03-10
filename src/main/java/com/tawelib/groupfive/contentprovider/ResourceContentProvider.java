@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 /**
  * Provides trailers for resources by scraping a video provider website.
+ *
+ * @author Petr Hoffmann
+ * @version 1.0
  */
 class ResourceContentProvider {
 
@@ -18,7 +21,11 @@ class ResourceContentProvider {
       "https://www.youtube.com/results?search_query=%s";
 
   private static final String YOUTUBE_VIDEO_LINK_PATTERN = "href=\"/watch\\?v=([a-zA-Z0-9]*)\"";
-  private static final String YOUTUBE_EMBED_LINK = "https://www.youtube.com/embed/%s";
+  private static final String YOUTUBE_EMBED_LINK_TEMPLATE = "https://www.youtube.com/embed/%s";
+
+  private ResourceContentProvider() {
+    throw new UnsupportedOperationException();
+  }
 
   /**
    * Wraps the trailer fetching functionality. Returns the URL of the trailer.
@@ -42,7 +49,7 @@ class ResourceContentProvider {
     String extractedLink = extractFirstYoutubeVideoLink(websiteContent);
 
     return String.format(
-        YOUTUBE_EMBED_LINK,
+        YOUTUBE_EMBED_LINK_TEMPLATE,
         extractedLink
     );
   }
@@ -57,6 +64,7 @@ class ResourceContentProvider {
   private static String fetchUrl(String requestUrl) throws IOException {
 
     URL url = new URL(requestUrl);
+
     Scanner scanner = new Scanner(
         url.openStream(),
         StandardCharsets.UTF_8.toString()

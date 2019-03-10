@@ -4,9 +4,10 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.runtime.SimulatedClock;
 
 /**
- * Entity Test Data Class is used to populate the library for demonstration purposes.
+ * Generates test and showcase data for the library..
  *
  * @author Petr Hoffmann
+ * @version 1.0
  */
 public class EntityTestData {
 
@@ -20,6 +21,7 @@ public class EntityTestData {
    * @param library Library.
    */
   public static void populateLibrary(Library library) {
+    // Simulated start of the library (10/01/2018)
     SimulatedClock.addSeconds(1515574000);
 
     UsersTestData.generate(library);
