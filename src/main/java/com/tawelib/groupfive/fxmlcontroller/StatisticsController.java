@@ -299,7 +299,7 @@ public class StatisticsController extends BaseFxmlController {
     setResourceStatTableViews();
   }
 
-  private void setResourceStatTableViews(){
+  private void setResourceStatTableViews() {
     //Popular Resources Table
     popResRankColumn.setCellValueFactory(
         new PropertyValueFactory<>("resRank"));
@@ -479,8 +479,9 @@ public class StatisticsController extends BaseFxmlController {
   public void setExpandedResourceStatTitledPane() {
     statsContainer.setExpandedPane(resourceStatPane);
     //Sets default value to first value in resource types list.
-    fineStatResTypeComboBox.getSelectionModel().selectFirst();
+    resourceStatResTypeComboBox.getSelectionModel().selectFirst();
     resourceStatResTypeComboBoxHandler();
+
 
   }
 
@@ -495,6 +496,8 @@ public class StatisticsController extends BaseFxmlController {
       popDvdPane.setVisible(false);
       popLaptopPane.setVisible(false);
       popVideoGamePane.setVisible(false);
+      resourceStatTimeComboBox.getSelectionModel().selectFirst();
+      setPopResourcePane();
     } else {
       switch (resourceType) {
         case BOOK:
@@ -503,6 +506,8 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(false);
+          bookStatTimeComboBox.getSelectionModel().selectFirst();
+          setPopBookPane();
           break;
         case DVD:
           popResourcePane.setVisible(false);
@@ -510,6 +515,8 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(true);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(false);
+          dvdStatTimeComboBox.getSelectionModel().selectFirst();
+          setPopDvdPane();
           break;
         case LAPTOP:
           popResourcePane.setVisible(false);
@@ -517,6 +524,8 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(true);
           popVideoGamePane.setVisible(false);
+          laptopStatTimeComboBox.getSelectionModel().selectFirst();
+          setPopLaptopPane();
           break;
         case GAME:
           popResourcePane.setVisible(false);
@@ -524,6 +533,8 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(true);
+          videoStatTimeComboBox.getSelectionModel().selectFirst();
+          setPopVideoGamePane();
           break;
         default:
       }
@@ -534,30 +545,35 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Popular Resources Pane.
    */
   public void setPopResourcePane() {
+
   }
 
   /**
    * Initializes nodes in the Popular Books Pane.
    */
   public void setPopBookPane() {
+
   }
 
   /**
    * Initializes nodes in the Popular DVDs Pane.
    */
   public void setPopDvdPane() {
+
   }
 
   /**
    * Initializes nodes in the Popular Laptops Pane.
    */
   public void setPopLaptopPane() {
+
   }
 
   /**
    * Initializes nodes in the Popular Video Games Pane.
    */
   public void setPopVideoGamePane() {
+
   }
 
   /**
