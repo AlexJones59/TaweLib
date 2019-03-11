@@ -213,16 +213,16 @@ public class StatisticsManager {
 
     //Fills HashMap with every Resource loaned in time period and No. of times leased.
     for (Lease lease : leases) {
-        //Makes the Resource into a Key to use for HashMap
-        Resource key = lease.getBorrowedCopy().getResource();
-        //Checks if resource has been previously inserted into the map
-        if (map.containsKey(key)) {
-          //Increments counter for Number of Lease of that Resource
-          map.put(key, (map.get(key)) + 1);
-        } else {
-          //Adds Resource to Map if not already added
-          map.put(key, 1);
-        }
+      //Makes the Resource into a Key to use for HashMap
+      Resource key = lease.getBorrowedCopy().getResource();
+      //Checks if resource has been previously inserted into the map
+      if (map.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        map.put(key, (map.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        map.put(key, 1);
+      }
     }
 
     //Changes the HashMap to an ArrayList
