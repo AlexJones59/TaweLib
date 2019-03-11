@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,18 +12,24 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.NewRatingController">
    <children>
-      <VBox prefHeight="352.0" prefWidth="220.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox spacing="10.0">
          <children>
             <HBox spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#back" text="Back" />
+                  <Button id="helpButton" fx:id="helpButton" mnemonicParsing="false" text="?">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
                   <Label id="titleLabel" fx:id="titleLabel" text="New Rating / Review">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
                </children>
             </HBox>
-            <ChoiceBox id="ratingBox" fx:id="ratingBox" prefHeight="25.0" prefWidth="200.0" />
+            <Label id="ratingLabel" fx:id="ratingLabel" text="Rating*:" />
+            <ComboBox id="ratingBox" fx:id="ratingBox" promptText="-- Please Select --" />
             <Label text="Review:" />
             <TextArea id="reviewArea" fx:id="reviewArea" prefHeight="200.0" prefWidth="200.0" promptText="Start typing here..." wrapText="true" />
             <Button mnemonicParsing="false" onAction="#confirm" text="Submit" />
