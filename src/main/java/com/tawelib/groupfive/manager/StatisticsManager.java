@@ -182,38 +182,47 @@ public class StatisticsManager {
   public static List<Resource> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-    Predicate<Lease> streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now()
-        .minusDays(1));
+    LocalDateTime dateFrom = LocalDateTime.now();
+
+    // Gets list of leases of same type that were borrowed within given time period
     switch (timePeriod) {
       case "Day":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        dateFrom.minusDays(1);
         break;
       case "Week":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        dateFrom.minusDays(7);
         break;
       case "Month":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        dateFrom.minusMonths(1);
         break;
       default:
     }
 
-    // Gets list of leases of same type that were borrowed within given time period
-    leases.stream().filter(streamsPredicate).collect(Collectors.toList());
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
     HashMap<Resource, Integer> map = new HashMap<>();
 
     //Fills HashMap with every Resource loaned in time period and No. of times leased.
     for (Lease lease : leases) {
-      //Makes the Resource into a Key to use for HashMap
-      Resource key = lease.getBorrowedCopy().getResource();
-
-      //Checks if resource has been previously inserted into the map
-      if (map.containsKey(key)) {
-        //Increments counter for Number of Lease of that Resource
-        map.put(key, (map.get(key)) + 1);
-      } else {
-        //Adds Resource to Map if not already added
-        map.put(key, 1);
-      }
+        //Makes the Resource into a Key to use for HashMap
+        Resource key = lease.getBorrowedCopy().getResource();
+        //Checks if resource has been previously inserted into the map
+        if (map.containsKey(key)) {
+          //Increments counter for Number of Lease of that Resource
+          map.put(key, (map.get(key)) + 1);
+        } else {
+          //Adds Resource to Map if not already added
+          map.put(key, 1);
+        }
     }
 
     //Changes the HashMap to an ArrayList

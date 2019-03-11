@@ -290,10 +290,15 @@ public class StatisticsController extends BaseFxmlController {
     setExpandedUserStatTitledPane();
     resourceStatResTypeComboBox.getItems().addAll(resourceTypes);
     resourceStatTimeComboBox.getItems().addAll(timePeriods);
+    resourceStatTimeComboBox.getSelectionModel().selectFirst();
     bookStatTimeComboBox.getItems().addAll(timePeriods);
+    bookStatTimeComboBox.getSelectionModel().selectFirst();
     dvdStatTimeComboBox.getItems().addAll(timePeriods);
+    dvdStatTimeComboBox.getSelectionModel().selectFirst();
     laptopStatTimeComboBox.getItems().addAll(timePeriods);
+    laptopStatTimeComboBox.getSelectionModel().selectFirst();
     videoStatTimeComboBox.getItems().addAll(timePeriods);
+    videoStatTimeComboBox.getSelectionModel().selectFirst();
     fineStatResTypeComboBox.getItems().addAll(resourceTypes);
     fineStatTimeComboBox.getItems().addAll(timePeriods);
     setResourceStatTableViews();
@@ -496,7 +501,6 @@ public class StatisticsController extends BaseFxmlController {
       popDvdPane.setVisible(false);
       popLaptopPane.setVisible(false);
       popVideoGamePane.setVisible(false);
-      resourceStatTimeComboBox.getSelectionModel().selectFirst();
       setPopResourcePane();
     } else {
       switch (resourceType) {
@@ -506,7 +510,6 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(false);
-          bookStatTimeComboBox.getSelectionModel().selectFirst();
           setPopBookPane();
           break;
         case DVD:
@@ -515,7 +518,6 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(true);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(false);
-          dvdStatTimeComboBox.getSelectionModel().selectFirst();
           setPopDvdPane();
           break;
         case LAPTOP:
@@ -524,7 +526,6 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(true);
           popVideoGamePane.setVisible(false);
-          laptopStatTimeComboBox.getSelectionModel().selectFirst();
           setPopLaptopPane();
           break;
         case GAME:
@@ -533,7 +534,6 @@ public class StatisticsController extends BaseFxmlController {
           popDvdPane.setVisible(false);
           popLaptopPane.setVisible(false);
           popVideoGamePane.setVisible(true);
-          videoStatTimeComboBox.getSelectionModel().selectFirst();
           setPopVideoGamePane();
           break;
         default:
@@ -550,7 +550,7 @@ public class StatisticsController extends BaseFxmlController {
     }
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
-        resourceStatResTypeComboBox.getSelectionModel().getSelectedItem());
+        null);
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularResTableView.getItems().add(
           new PopularResourcesTableWrapper(rank,
@@ -563,28 +563,74 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Popular Books Pane.
    */
   public void setPopBookPane() {
-
+    if (!popularBookTableView.getItems().isEmpty()) {
+      popularBookTableView.getItems().clear();
+    }
+    List<Resource> popularResources = StatisticsManager.getPopularResources(
+        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        ResourceType.BOOK);
+    for (int rank = 1; rank <= popularResources.size(); rank++) {
+      popularBookTableView.getItems().add(
+          new PopularBookTableWrapper(rank,
+              RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
   }
 
   /**
    * Initializes nodes in the Popular DVDs Pane.
    */
   public void setPopDvdPane() {
-
+    if (!popularDvdTableView.getItems().isEmpty()) {
+      popularDvdTableView.getItems().clear();
+    }
+    List<Resource> popularResources = StatisticsManager.getPopularResources(
+        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        ResourceType.DVD);
+    for (int rank = 1; rank <= popularResources.size(); rank++) {
+      popularDvdTableView.getItems().add(
+          new PopularDvdTableWrapper(rank,
+              RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
   }
 
   /**
    * Initializes nodes in the Popular Laptops Pane.
    */
   public void setPopLaptopPane() {
+    if (!popularLaptopTableView.getItems().isEmpty()) {
+      popularLaptopTableView.getItems().clear();
+    }
 
+    List<Resource> popularResources = StatisticsManager.getPopularResources(
+        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        ResourceType.LAPTOP);
+    for (int rank = 1; rank <= popularResources.size(); rank++) {
+      popularLaptopTableView.getItems().add(
+          new PopularLaptopTableWrapper(rank,
+              RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
   }
 
   /**
    * Initializes nodes in the Popular Video Games Pane.
    */
   public void setPopVideoGamePane() {
+    if (!popularVideoGameTableView.getItems().isEmpty()) {
+      popularVideoGameTableView.getItems().clear();
+    }
 
+    List<Resource> popularResources = StatisticsManager.getPopularResources(
+        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        ResourceType.GAME);
+    for (int rank = 1; rank <= popularResources.size(); rank++) {
+      popularVideoGameTableView.getItems().add(
+          new PopularVideoGameTableWrapper(rank,
+              RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
   }
 
   /**

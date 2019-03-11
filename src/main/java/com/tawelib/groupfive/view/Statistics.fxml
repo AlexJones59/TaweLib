@@ -115,7 +115,7 @@
                                     </TableView>
                                  </children>
                               </Pane>
-                              <Pane fx:id="popBookPane" prefHeight="591.0" prefWidth="690.0">
+                              <Pane fx:id="popBookPane" prefHeight="591.0" prefWidth="690.0" visible="false">
                                  <children>
                                     <ComboBox fx:id="bookStatTimeComboBox" layoutX="509.0" layoutY="14.0" onAction="#setPopBookPane" prefWidth="150.0" />
                                     <Label layoutX="425.0" layoutY="18.0" text="Time Period :" />
@@ -151,7 +151,7 @@
                                     <Label layoutX="348.0" layoutY="256.0" text="Popular Authors:" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="popResourcePane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                              <Pane fx:id="popResourcePane" prefHeight="200.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="28.0" layoutY="19.0" text="Most Popular Resources : ">
                                        <font>
