@@ -656,7 +656,17 @@ public class StatisticsController extends BaseFxmlController {
     setPopularOsPieChart();
   }
 
-  private void setPopularOsPieChart(){
+  private void setPopularOsPieChart() {
+    HashMap<String, Integer> dataMap = StatisticsManager
+        .getPopularLaptopOs(library, laptopStatTimeComboBox.getSelectionModel().getSelectedItem());
+    //Clear data
+    popularOsPieChart.getData().clear();
+    //Changes the HashMap to an ArrayList
+    Object[] keys = dataMap.keySet().toArray();
+    for (int i = 0; i < keys.length; i++) {
+      popularOsPieChart.getData()
+          .add(new PieChart.Data((String) keys[i], dataMap.get(keys[i])));
+    }
 
   }
 
@@ -676,6 +686,22 @@ public class StatisticsController extends BaseFxmlController {
           new PopularVideoGameTableWrapper(rank,
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
       );
+    }
+    setPopVideoGameGenrePieChart();
+  }
+
+  private void setPopVideoGameGenrePieChart() {
+    HashMap<String, Integer> dataMap = StatisticsManager
+        .getPopularVideogameGenre(library,
+            videoStatTimeComboBox.getSelectionModel().getSelectedItem());
+
+    //Clear data
+    popVideoGameGenrePieChart.getData().clear();
+    //Changes the HashMap to an ArrayList
+    Object[] keys = dataMap.keySet().toArray();
+    for (int i = 0; i < keys.length; i++) {
+      popVideoGameGenrePieChart.getData()
+          .add(new PieChart.Data((String) keys[i], dataMap.get(keys[i])));
     }
   }
 

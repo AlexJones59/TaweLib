@@ -6,6 +6,8 @@ import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Fine;
+import com.tawelib.groupfive.entity.Game;
+import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
@@ -452,6 +454,113 @@ public class StatisticsManager {
       //Makes the Resource into a Key to use for HashMap
       Book book = (Book) lease.getBorrowedCopy().getResource();
       String key = book.getGenre();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
+   * Works out the top most popular laptop OS and their frequency loaned within specified time
+   * period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each OS and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularLaptopOs(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.LAPTOP);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Laptop laptop = (Laptop) lease.getBorrowedCopy().getResource();
+      String key = laptop.getInstalledOperatingSystem();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
+   * Works out the top most popular videogame genres and their frequency loaned within specified
+   * time period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each genre and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularVideogameGenre(Library library,
+      String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.GAME);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Game game = (Game) lease.getBorrowedCopy().getResource();
+      String key = game.getGenre();
       //Checks if resource has been previously inserted into the map
       if (freqMap.containsKey(key)) {
         //Increments counter for Number of Lease of that Resource
