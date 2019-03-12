@@ -180,7 +180,8 @@ public class LeaseRepository implements BaseRepository<Lease> {
     ArrayList<Lease> result = new ArrayList<>();
 
     for (Lease lease : leases) {
-      if (lease.getBorrowedCopy().getResource().getType() == resourceType) {
+      if ((resourceType == null) || (lease.getBorrowedCopy().getResource().getType()
+          == resourceType)) {
         result.add(lease);
       }
     }
