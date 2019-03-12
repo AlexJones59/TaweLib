@@ -332,11 +332,10 @@ public class StatisticsController extends BaseFxmlController {
         new PropertyValueFactory<>("bookAvgRating"));
 
     //Popular Author Table
-    /*
     popAuthorRankColumn.setCellValueFactory(
         new PropertyValueFactory<>("authorRank"));
     popAuthorNameColumn.setCellValueFactory(
-        new PropertyValueFactory<>("authorName"));*/
+        new PropertyValueFactory<>("authorName"));
 
     //Popular Dvd Table
     popDvdRankColumn.setCellValueFactory(
@@ -567,12 +566,20 @@ public class StatisticsController extends BaseFxmlController {
       popularBookTableView.getItems().clear();
     }
     List<Resource> popularResources = StatisticsManager.getPopularResources(
-        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        library, bookStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.BOOK);
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularBookTableView.getItems().add(
           new PopularBookTableWrapper(rank,
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
+
+    List<String> popularAuthors = StatisticsManager
+        .getPopularAuthors(library, bookStatTimeComboBox.getSelectionModel().getSelectedItem());
+    for (int rank = 1; rank <= popularAuthors.size(); rank++) {
+      popBookAuthorTableView.getItems().add(
+          new PopularBookAuthorTableWrapper(rank, popularAuthors.get(rank - 1))
       );
     }
   }
@@ -585,7 +592,7 @@ public class StatisticsController extends BaseFxmlController {
       popularDvdTableView.getItems().clear();
     }
     List<Resource> popularResources = StatisticsManager.getPopularResources(
-        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        library, dvdStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.DVD);
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularDvdTableView.getItems().add(
@@ -604,7 +611,7 @@ public class StatisticsController extends BaseFxmlController {
     }
 
     List<Resource> popularResources = StatisticsManager.getPopularResources(
-        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        library, laptopStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.LAPTOP);
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularLaptopTableView.getItems().add(
@@ -623,7 +630,7 @@ public class StatisticsController extends BaseFxmlController {
     }
 
     List<Resource> popularResources = StatisticsManager.getPopularResources(
-        library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
+        library, videoStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.GAME);
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularVideoGameTableView.getItems().add(

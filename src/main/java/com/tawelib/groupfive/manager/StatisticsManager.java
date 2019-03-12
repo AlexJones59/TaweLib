@@ -2,6 +2,7 @@ package com.tawelib.groupfive.manager;
 
 import static java.util.Comparator.comparing;
 
+import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Fine;
 import com.tawelib.groupfive.entity.Lease;
@@ -172,7 +173,7 @@ public class StatisticsManager {
   }
 
   /**
-   * Works out the top 5 most popular resources loaned within specified time period.
+   * Works out the top most popular resources loaned within specified time period.
    *
    * @param library library
    * @param timePeriod "Day", "Week", "Month"
@@ -251,8 +252,85 @@ public class StatisticsManager {
         continue;
       }
     }
-
     return popularResources;
+  }
+
+  /**
+   * Works out the top most popular authors loaned within specified time period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a list of most popular authors
+   */
+  public static List<String> getPopularAuthors(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> map = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Book book = (Book) lease.getBorrowedCopy().getResource();
+      String key = book.getAuthor();
+      //Checks if resource has been previously inserted into the map
+      if (map.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        map.replace(key, (map.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        map.put(key, 1);
+      }
+    }
+
+    //Changes the HashMap to an ArrayList
+    Object[] keys = map.keySet().toArray();
+    ArrayList<Integer> freq = new ArrayList<>();
+    for (int i = 0; i < keys.length; i++) {
+      freq.add(map.get((String) keys[i]));
+    }
+
+    //Sorts Arraylist in descending order
+    Collections.sort(freq);
+    Collections.reverse(freq);
+
+    ArrayList<String> popularAuthors = new ArrayList<>();
+    //Gets the 5 most popular resources
+    for (int i = 0; i < 5; i++) {
+      try {
+        for (Object key : keys) {
+          String author = (String) key;
+          //Checks if it is already in PopularResources
+          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author))) {
+            popularAuthors.add(author);
+          }
+        }
+      } catch (IndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+    return popularAuthors;
   }
 
   /**
