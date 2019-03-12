@@ -413,6 +413,59 @@ public class StatisticsManager {
   }
 
   /**
+   * Works out the top most popular book genres and their frequency loaned within specified time
+   * period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each genre and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularBookGenre(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Book book = (Book) lease.getBorrowedCopy().getResource();
+      String key = book.getGenre();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
    * Works out amount of leases per day for last 5 days.
    *
    * @param leases Records of what users borrowed

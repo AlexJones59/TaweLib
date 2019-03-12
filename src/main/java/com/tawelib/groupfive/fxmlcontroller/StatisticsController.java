@@ -16,6 +16,7 @@ import com.tawelib.groupfive.util.SceneHelper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +26,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -253,6 +255,9 @@ public class StatisticsController extends BaseFxmlController {
 
   @FXML
   private TableColumn<PopularVideoGameTableWrapper, Integer> popVideogameAvgRatingColumn;
+
+  @FXML
+  private PieChart popVideoGameGenrePieChart;
 
   @FXML
   private ComboBox<String> videoStatTimeComboBox;
@@ -584,6 +589,22 @@ public class StatisticsController extends BaseFxmlController {
           new PopularBookAuthorTableWrapper(rank, popularAuthors.get(rank - 1))
       );
     }
+
+    setPopBookGenrePieChart();
+  }
+
+  private void setPopBookGenrePieChart() {
+    HashMap<String, Integer> dataMap = StatisticsManager
+        .getPopularBookGenre(library, bookStatTimeComboBox.getSelectionModel().getSelectedItem());
+
+    //Clear data
+    popBookGenrePieChart.getData().clear();
+    //Changes the HashMap to an ArrayList
+    Object[] keys = dataMap.keySet().toArray();
+    for (int i = 0; i < keys.length; i++) {
+      popBookGenrePieChart.getData()
+          .add(new PieChart.Data((String) keys[i], dataMap.get(keys[i])));
+    }
   }
 
   /**
@@ -632,6 +653,11 @@ public class StatisticsController extends BaseFxmlController {
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
       );
     }
+    setPopularOsPieChart();
+  }
+
+  private void setPopularOsPieChart(){
+
   }
 
   /**
