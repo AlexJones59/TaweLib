@@ -22,16 +22,16 @@ import javafx.scene.control.TextField;
  */
 public class CreateEventController extends BaseFxmlController {
 
-  private final static int NAME_MIN_LENGTH = 2;
-  private final static int NAME_MAX_LENGTH = 50;
-  private final static int MIN_PARTICIPANTS = 1;
+  private static final int NAME_MIN_LENGTH = 2;
+  private static final int NAME_MAX_LENGTH = 50;
+  private static final int MIN_PARTICIPANTS = 1;
 
-  private final static String TIME_INPUT_ERROR = "Enter the time in right bounds";
-  private final static String MIN_PARTICIPANTS_ERROR
+  private static final String TIME_INPUT_ERROR = "Enter the time in right bounds";
+  private static final String MIN_PARTICIPANTS_ERROR
       = "Amount of the participants must be more or equals to " + MIN_PARTICIPANTS;
-  private final static String DATE_CHRONOLOGY_ERROR = "Enter the date after the current time";
-  private final static String TYPE_INPUT_ERROR = "Please provide the information in right format";
-  private final static String NAME_INPUT_ERROR = "Minimum amount fo characters in name is "
+  private static final String DATE_CHRONOLOGY_ERROR = "Enter the date after the current time";
+  private static final String TYPE_INPUT_ERROR = "Please provide the information in right format";
+  private static final String NAME_INPUT_ERROR = "Minimum amount fo characters in name is "
       + NAME_MIN_LENGTH + " and maximum is " + NAME_MAX_LENGTH;
 
 
@@ -78,15 +78,15 @@ public class CreateEventController extends BaseFxmlController {
       AlertHelper.alert(AlertType.WARNING, TYPE_INPUT_ERROR);
     }
 
-    if (passedNumberReading) {//If user entered numbers where needed
-      if (nameCheck(name) && timeCheck(hour, minute)) {//if name and time satisfies the conditions
+    if (passedNumberReading) { //If user entered numbers where needed
+      if (nameCheck(name) && timeCheck(hour, minute)) { //if name and time satisfies the conditions
 
         LocalTime eventTime = LocalTime.of(hour, minute);
         LocalDateTime date = LocalDateTime.of(eventDate, eventTime);
 
         if (date.isAfter(LocalDateTime.now())) { //Checks if the date is after current time
 
-          if (maxPpl >= MIN_PARTICIPANTS) {//If satisfies the max > min amount of participants
+          if (maxPpl >= MIN_PARTICIPANTS) { //If satisfies the max > min amount of participants
             Event event = new Event("", name, date, maxPpl, description);
             EventManager.addEvent(library, event);
             back();
@@ -109,7 +109,7 @@ public class CreateEventController extends BaseFxmlController {
   }
 
   /**
-   * Method checks whether the time is in the right bounds
+   * Method checks whether the time is in the right bounds.
    *
    * @param hour The value of hour
    * @param minute The value of minute
