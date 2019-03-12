@@ -468,7 +468,7 @@ public class StatisticsController extends BaseFxmlController {
       userStatBarChart.getData().add(specificUserStatSeries);
 
     }
-    int[] averageUserStats = StatisticsManager.getAverageUserStatistics(library, resourceType,
+    double[] averageUserStats = StatisticsManager.getAverageUserStatistics(library, resourceType,
         timePeriod);
     noAverageBorrowedTextField.setText(String.valueOf(averageUserStats[0]));
     averageUserStatSeries.getData().clear();

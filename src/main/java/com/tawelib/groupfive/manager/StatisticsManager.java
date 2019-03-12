@@ -91,11 +91,11 @@ public class StatisticsManager {
    * @param timePeriod the time period
    * @return the average user statistics
    */
-  public static int[] getAverageUserStatistics(Library library, ResourceType resourceType,
+  public static double[] getAverageUserStatistics(Library library, ResourceType resourceType,
       String timePeriod) {
 
     List<Lease> leases;
-    int[] result = new int[5];
+    double[] result = new double[5];
     if (resourceType == null) {
       leases = library.getLeaseRepository().getAll();
     } else {
@@ -111,17 +111,17 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(leases);
+    int customerSize = library.getCustomerRepository().getAll().size();
 
     switch (timePeriod) {
       case "Day":
-
-        result = getAverageUserStatsDay(leases);
+        result = getAverageUserStatsDay(leases, customerSize);
         break;
       case "Week":
-        result = getAverageUserStatsWeek(leases);
+        result = getAverageUserStatsWeek(leases, customerSize);
         break;
       case "Month":
-        result = getAverageUserStatsMonth(leases);
+        result = getAverageUserStatsMonth(leases, customerSize);
         break;
       default:
     }
@@ -247,7 +247,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
-          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource))) {
+          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource)) && (
+              popularResources.size() < 5)) {
             popularResources.add(resource);
           }
         }
@@ -325,7 +326,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           String author = (String) key;
           //Checks if it is already in PopularResources
-          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author))) {
+          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author)) && (
+              popularAuthors.size() < 5)) {
             popularAuthors.add(author);
           }
         }
@@ -403,7 +405,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           String director = (String) key;
           //Checks if it is already in PopularResources
-          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director))) {
+          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
+              popularDirectors.size() < 5)) {
             popularDirectors.add(director);
           }
         }
@@ -686,7 +689,7 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 days
    */
-  private static int[] getAverageUserStatsDay(List<Lease> leases) {
+  private static double[] getAverageUserStatsDay(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Lease lease : leases) {
       LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
@@ -701,16 +704,15 @@ public class StatisticsManager {
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
-    int[] totalByDate = new int[5];
+    double[] totalByDate = new double[5];
     Object[] dates = leasesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
     for (int i = 0; i < dates.length - 1; i++) {
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
 
       Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get((LocalDateTime) dates[i]);
       Object[] customers = dateMap.keySet().toArray();
-      int customerSize = customers.length;
 
       //Iterates through leases per customer and finds number of leases per customer per day
       //Adds it to holder variable
@@ -732,15 +734,15 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 weeks
    */
-  private static int[] getAverageUserStatsWeek(List<Lease> leases) {
+  private static double[] getAverageUserStatsWeek(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
-    /*for (Lease lease: leases){
-      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
       lease.setDateLeased(date);
-    }*/
+    }
 
     //Makes the array that shall be returned
-    int[] totalByWeek = new int[5];
+    double[] totalByWeek = new double[5];
 
     //Iterates for 5 weeks
     for (int i = 0; i < 5; i++) {
@@ -756,7 +758,7 @@ public class StatisticsManager {
           .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
       Object[] dates = leasesMappedPerWeek.keySet().toArray();
       int dateSize = dates.length;
 
@@ -764,20 +766,17 @@ public class StatisticsManager {
       for (int j = 0; j < dateSize; j++) {
         Map<Customer, List<Lease>> dateMap = leasesMappedPerWeek.get(dates[j]);
         Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
 
         //Iterates through leases per customer and finds number of leases per customer per day
         //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
+        for (int k = 0; k < customers.length; k++) {
+          double temp = dateMap.get(customers[k]).size();
           totalNoOfLeases = totalNoOfLeases + temp;
         }
 
-        //Averages number of Leases based upon no.of Customers
-        totalNoOfLeases = totalNoOfLeases / customerSize;
       }
-
-      totalByWeek[i] = totalNoOfLeases;
+      //Averages number of Leases based upon no.of Customers
+      totalByWeek[i] = totalNoOfLeases / customerSize;
     }
 
     return totalByWeek;
@@ -789,15 +788,15 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 months
    */
-  private static int[] getAverageUserStatsMonth(List<Lease> leases) {
+  private static double[] getAverageUserStatsMonth(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
-    /*for (Lease lease: leases){
-      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
       lease.setDateLeased(date);
-    }*/
+    }
 
     //Makes the array that shall be returned
-    int[] totalByMonth = new int[5];
+    double[] totalByMonth = new double[5];
 
     //Iterates for 5 months
     for (int i = 0; i < 5; i++) {
@@ -813,7 +812,7 @@ public class StatisticsManager {
           .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
       Object[] dates = leasesMappedPerMonth.keySet().toArray();
       int dateSize = dates.length;
 
@@ -821,22 +820,17 @@ public class StatisticsManager {
       for (int j = 0; j < dateSize; j++) {
         Map<Customer, List<Lease>> dateMap = leasesMappedPerMonth.get(dates[j]);
         Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
 
         //Iterates through leases per customer and finds number of leases per customer per day
         //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
+        for (int k = 0; k < customers.length; k++) {
+          double temp = dateMap.get(customers[k]).size();
           totalNoOfLeases = totalNoOfLeases + temp;
         }
-
-        //Averages total number of Leased by number of customers.
-        totalNoOfLeases = totalNoOfLeases / customerSize;
       }
-
-      totalByMonth[i] = totalNoOfLeases;
+      //Averages total number of Leased by number of customers.
+      totalByMonth[i] = totalNoOfLeases / customerSize;
     }
-
     return totalByMonth;
   }
 
