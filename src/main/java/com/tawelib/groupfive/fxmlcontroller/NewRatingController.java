@@ -11,9 +11,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.util.Duration;
+
 
 /**
  * NewRatingController.java Controls the new window pop up that handles
@@ -32,7 +38,13 @@ public class NewRatingController extends BaseFxmlController {
   private Label titleLabel;
 
   @FXML
-  private ChoiceBox<String> ratingBox;
+  private Label ratingLabel;
+
+  @FXML
+  private Label helpIcon;
+
+  @FXML
+  private ComboBox<String> ratingBox;
 
   @FXML
   private TextArea reviewArea;
@@ -44,11 +56,16 @@ public class NewRatingController extends BaseFxmlController {
   void update() {
     titleLabel.setText(ratedResource.getTitle());
 
-    ratingBox.getItems().add("★");
-    ratingBox.getItems().add("★★");
-    ratingBox.getItems().add("★★★");
-    ratingBox.getItems().add("★★★★");
-    ratingBox.getItems().add("★★★★★");
+
+    Tooltip ratingTooltip = new Tooltip("Here you can leave a rating "
+        + "for the selected resource. \nYou may also leave a review, however"
+        + " it must be \naccompanied by a rating.");
+    ratingTooltip.setShowDelay(Duration.seconds(0.5));
+
+    helpIcon.setTooltip(ratingTooltip);
+
+    ratingBox.getItems().addAll("★","★★","★★★",
+        "★★★★","★★★★★");
 
     ratingBox.getSelectionModel().selectedIndexProperty().addListener(
         new ChangeListener<>() {
@@ -56,6 +73,7 @@ public class NewRatingController extends BaseFxmlController {
           public void changed(ObservableValue<? extends Number> observable,
                               Number oldValue, Number newValue) {
             ratingValue = newValue.intValue() + 1;
+            ratingLabel.setText("Rating*: " + ratingValue);
           }
         });
   }

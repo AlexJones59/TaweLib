@@ -16,8 +16,10 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -44,6 +46,9 @@ public class RatingController extends BaseFxmlController {
   private Label averageRatingStarsLabel;
 
   @FXML
+  private Button helpButton;
+
+  @FXML
   private BarChart<String,Integer> ratingChart;
 
   @FXML
@@ -54,6 +59,12 @@ public class RatingController extends BaseFxmlController {
    */
   public void update() {
     resourceTitle.setText(this.selectedResource.getTitle());
+
+    helpButton.setTooltip(new Tooltip("This is a window showing "
+        + "all reviews and ratings for the selected resource.\n"
+        + "You can leave a rating or review using the 'Rate / Review' "
+        + "button below \n if you have previously leased the "
+        + "resource from the library."));
 
     List<Rating> ratings = getLibrary().getRatingRepository()
         .getResourcesRatings(this.selectedResource);
@@ -147,7 +158,7 @@ public class RatingController extends BaseFxmlController {
    *
    * @throws InvalidRaterException User trying to leave a rating is invalid
    */
-  public void newRatingWindow() throws InvalidRaterException {
+  public void newRatingWindow() {
     try {
       if (!RatingManager.validRater(getLibrary(),(Customer)getLoggedInUser(),
           selectedResource)) {
