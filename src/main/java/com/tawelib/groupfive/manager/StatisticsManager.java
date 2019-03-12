@@ -91,11 +91,11 @@ public class StatisticsManager {
    * @param timePeriod the time period
    * @return the average user statistics
    */
-  public static int[] getAverageUserStatistics(Library library, ResourceType resourceType,
+  public static double[] getAverageUserStatistics(Library library, ResourceType resourceType,
       String timePeriod) {
 
     List<Lease> leases;
-    int[] result = new int[5];
+    double[] result = new double[5];
     if (resourceType == null) {
       leases = library.getLeaseRepository().getAll();
     } else {
@@ -111,17 +111,17 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(leases);
+    int customerSize = library.getCustomerRepository().getAll().size();
 
     switch (timePeriod) {
       case "Day":
-
-        result = getAverageUserStatsDay(leases);
+        result = getAverageUserStatsDay(leases, customerSize);
         break;
       case "Week":
-        result = getAverageUserStatsWeek(leases);
+        result = getAverageUserStatsWeek(leases, customerSize);
         break;
       case "Month":
-        result = getAverageUserStatsMonth(leases);
+        result = getAverageUserStatsMonth(leases, customerSize);
         break;
       default:
     }
@@ -137,11 +137,11 @@ public class StatisticsManager {
    * @param timePeriod the time period
    * @return the average fine statistics
    */
-  public static int[][] getFineStatistics(Library library, ResourceType resourceType,
+  public static double[][] getFineStatistics(Library library, ResourceType resourceType,
       String timePeriod) {
 
     List<Fine> fines;
-    int[][] result = new int[2][5];
+    double[][] result = new double[2][5];
 
     if (resourceType == null) {
       fines = library.getFineRepository().getAll();
@@ -158,16 +158,17 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(fines);
+    int customerSize = library.getCustomerRepository().getAll().size();
 
     switch (timePeriod) {
       case "Day":
-        result = getFineStatsDay(fines);
+        result = getFineStatsDay(fines, customerSize);
         break;
       case "Week":
-        result = getFineStatsWeek(fines);
+        result = getFineStatsWeek(fines, customerSize);
         break;
       case "Month":
-        result = getFineStatsMonth(fines);
+        result = getFineStatsMonth(fines, customerSize);
         break;
       default:
     }
@@ -247,7 +248,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
-          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource))) {
+          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource)) && (
+              popularResources.size() < 5)) {
             popularResources.add(resource);
           }
         }
@@ -325,7 +327,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           String author = (String) key;
           //Checks if it is already in PopularResources
-          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author))) {
+          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author)) && (
+              popularAuthors.size() < 5)) {
             popularAuthors.add(author);
           }
         }
@@ -403,7 +406,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           String director = (String) key;
           //Checks if it is already in PopularResources
-          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director))) {
+          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
+              popularDirectors.size() < 5)) {
             popularDirectors.add(director);
           }
         }
@@ -684,9 +688,10 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 days.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 days
    */
-  private static int[] getAverageUserStatsDay(List<Lease> leases) {
+  private static double[] getAverageUserStatsDay(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Lease lease : leases) {
       LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
@@ -701,16 +706,15 @@ public class StatisticsManager {
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
-    int[] totalByDate = new int[5];
+    double[] totalByDate = new double[5];
     Object[] dates = leasesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
     for (int i = 0; i < dates.length - 1; i++) {
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
 
       Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get((LocalDateTime) dates[i]);
       Object[] customers = dateMap.keySet().toArray();
-      int customerSize = customers.length;
 
       //Iterates through leases per customer and finds number of leases per customer per day
       //Adds it to holder variable
@@ -730,17 +734,18 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 weeks.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 weeks
    */
-  private static int[] getAverageUserStatsWeek(List<Lease> leases) {
+  private static double[] getAverageUserStatsWeek(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
-    /*for (Lease lease: leases){
-      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
       lease.setDateLeased(date);
-    }*/
+    }
 
     //Makes the array that shall be returned
-    int[] totalByWeek = new int[5];
+    double[] totalByWeek = new double[5];
 
     //Iterates for 5 weeks
     for (int i = 0; i < 5; i++) {
@@ -756,7 +761,7 @@ public class StatisticsManager {
           .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
       Object[] dates = leasesMappedPerWeek.keySet().toArray();
       int dateSize = dates.length;
 
@@ -764,20 +769,17 @@ public class StatisticsManager {
       for (int j = 0; j < dateSize; j++) {
         Map<Customer, List<Lease>> dateMap = leasesMappedPerWeek.get(dates[j]);
         Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
 
         //Iterates through leases per customer and finds number of leases per customer per day
         //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
+        for (int k = 0; k < customers.length; k++) {
+          double temp = dateMap.get(customers[k]).size();
           totalNoOfLeases = totalNoOfLeases + temp;
         }
 
-        //Averages number of Leases based upon no.of Customers
-        totalNoOfLeases = totalNoOfLeases / customerSize;
       }
-
-      totalByWeek[i] = totalNoOfLeases;
+      //Averages number of Leases based upon no.of Customers
+      totalByWeek[i] = totalNoOfLeases / customerSize;
     }
 
     return totalByWeek;
@@ -787,17 +789,18 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 months.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 months
    */
-  private static int[] getAverageUserStatsMonth(List<Lease> leases) {
+  private static double[] getAverageUserStatsMonth(List<Lease> leases, int customerSize) {
     //Iterate through leases and set it to the start of the day
-    /*for (Lease lease: leases){
-      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
       lease.setDateLeased(date);
-    }*/
+    }
 
     //Makes the array that shall be returned
-    int[] totalByMonth = new int[5];
+    double[] totalByMonth = new double[5];
 
     //Iterates for 5 months
     for (int i = 0; i < 5; i++) {
@@ -813,7 +816,7 @@ public class StatisticsManager {
           .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
-      int totalNoOfLeases = 0;
+      double totalNoOfLeases = 0;
       Object[] dates = leasesMappedPerMonth.keySet().toArray();
       int dateSize = dates.length;
 
@@ -821,32 +824,28 @@ public class StatisticsManager {
       for (int j = 0; j < dateSize; j++) {
         Map<Customer, List<Lease>> dateMap = leasesMappedPerMonth.get(dates[j]);
         Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
 
         //Iterates through leases per customer and finds number of leases per customer per day
         //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
+        for (int k = 0; k < customers.length; k++) {
+          double temp = dateMap.get(customers[k]).size();
           totalNoOfLeases = totalNoOfLeases + temp;
         }
-
-        //Averages total number of Leased by number of customers.
-        totalNoOfLeases = totalNoOfLeases / customerSize;
       }
-
-      totalByMonth[i] = totalNoOfLeases;
+      //Averages total number of Leased by number of customers.
+      totalByMonth[i] = totalNoOfLeases / customerSize;
     }
-
     return totalByMonth;
   }
 
   /**
-   * Works out amount of fines per User per day for last 5 days.
+   * Works out fine amounts per User per day for last 5 days.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 days.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 days.
    */
-  private static int[][] getFineStatsDay(List<Fine> fines) {
+  private static double[][] getFineStatsDay(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
       LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
@@ -857,43 +856,35 @@ public class StatisticsManager {
 
     //Groups all Leases by Fined Customer, then by Date Accrued.
     //It then filters out any leases that was before 4 days ago.
-    Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerDay = fines.stream()
+    List<Fine> finesFiltered = fines.stream()
         .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(5)))
-        .sorted().collect(Collectors.groupingBy(Fine::getDateAccrued,
-            Collectors.groupingBy(Fine::getFinedCustomer)));
+        .sorted().collect(Collectors.toList());
 
     //Makes the array that shall be returned
-    int[][] totalByDate = new int[2][5];
-    Object[] dates = finesMappedPerDay.keySet().toArray();
+    double[][] totalByDate = new double[2][5];
 
     //Iterates for 5 days
-    for (int i = 0; i < dates.length; i++) {
-      int totalNoOfFines = 0;
-
-      Map<Customer, List<Fine>> dateMap = finesMappedPerDay.get(dates[i]);
-      Object[] customers = dateMap.keySet().toArray();
-      int customerSize = customers.length;
-
-      //Iterates through fines per customer and finds number of fines per customer per day
-      //Adds it to holder variable
-      for (int k = 0; k < customerSize; k++) {
-        int temp = dateMap.get(customers[k]).size();
-        //Averages number of Leases based upon no.of Customers
-        totalNoOfFines = totalNoOfFines + temp;
+    for (int i = 0; i < finesFiltered.size(); i++) {
+      double totalFineAmount = 0;
+      //Gets value of each fine and adds it to cumulative fine amount
+      for (Fine fine : finesFiltered) {
+        totalFineAmount += (double) fine.getAmountInPounds();
       }
-      totalByDate[0][i] = totalNoOfFines;
-      totalByDate[1][i] = totalNoOfFines / customerSize;
+      totalByDate[0][i] = totalFineAmount;
+      //Gets average fine amount.
+      totalByDate[1][i] = totalFineAmount / customerSize;
     }
     return totalByDate;
   }
 
   /**
-   * Works out amount of fines per User per week for last 5 weeks.
+   * Works out fine amounts per User per week for last 5 weeks.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 weeks.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 weeks.
    */
-  private static int[][] getFineStatsWeek(List<Fine> fines) {
+  private static double[][] getFineStatsWeek(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
       LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
@@ -904,7 +895,7 @@ public class StatisticsManager {
     fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
-    int[][] totalByWeek = new int[2][5];
+    double[][] totalByWeek = new double[2][5];
 
     //Iterates for 5 weeks
     for (int i = 0; i < 5; i++) {
@@ -912,47 +903,31 @@ public class StatisticsManager {
       LocalDateTime dateTo = LocalDateTime.now().minusDays(i * 7);
       LocalDateTime dateFrom = LocalDateTime.now().minusDays((i + 1) * 7);
 
-      //Groups all Fines by Fined Customer, then by Date Accrued.
-      //It then filters out any fines that wasn't between start and end of each week.
-      Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerWeek = fines.stream()
+      //It filters out any fines that wasn't between start and end of each week.
+      List<Fine> finesMappedPerWeek = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Fine::getDateAccrued),
-              Collectors.groupingBy(Fine::getFinedCustomer)));
+              .isAfter(dateFrom))).collect(Collectors.toList());
+      double totalFineAmount = 0.0;
 
-      int[] totalNoOfFines = new int[2];
-      Object[] dates = finesMappedPerWeek.keySet().toArray();
-      int dateSize = dates.length;
-
-      // Iterates through the fines for each Day
-      for (int j = 0; j < dateSize; j++) {
-        Map<Customer, List<Fine>> dateMap = finesMappedPerWeek.get(dates[j]);
-        Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
-
-        //Iterates through fines per customer and finds number of fines per customer per day
-        //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
-          totalNoOfFines[0] = totalNoOfFines[0] + temp;
-        }
-        totalNoOfFines[1] = totalNoOfFines[i] + (totalNoOfFines[0] / customerSize);
+      //Gets value of each fine and adds it to cumulative fine amount
+      for (Fine fine : finesMappedPerWeek) {
+        totalFineAmount += (double) fine.getAmountInPounds();
       }
-
-      totalByWeek[0][i] = totalNoOfFines[0];
-      totalByWeek[1][i] = totalNoOfFines[1] / 7;
+      totalByWeek[0][i] = totalFineAmount;
+      //Gets average fine amount.
+      totalByWeek[1][i] = totalFineAmount / customerSize;
     }
-
     return totalByWeek;
-
   }
 
   /**
-   * Works out amount of fines per User per week for last 5 months.
+   * Works out fine amounts per User per week for last 5 months.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 months.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 months.
    */
-  private static int[][] getFineStatsMonth(List<Fine> fines) {
+  private static double[][] getFineStatsMonth(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
       LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
@@ -963,7 +938,7 @@ public class StatisticsManager {
     fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
-    int[][] totalByMonth = new int[2][5];
+    double[][] totalByMonth = new double[2][5];
 
     //Iterates for 5 months
     for (int i = 0; i < 5; i++) {
@@ -973,36 +948,20 @@ public class StatisticsManager {
 
       //Groups all Fines by Fined Customer, then by Date Accrued.
       //It then filters out any fines that wasn't between start and end of each month.
-      Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerMonth = fines.stream()
+      List<Fine> finesMappedPerMonth = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).sorted().collect(Collectors.groupingBy((Fine::getDateAccrued),
-              Collectors.groupingBy(Fine::getFinedCustomer)));
+              .isAfter(dateFrom))).sorted().collect(Collectors.toList());
 
-      int[] totalNoOfFines = new int[2];
-      Object[] dates = finesMappedPerMonth.keySet().toArray();
-      int dateSize = dates.length;
+      double totalFineAmount = 0.0;
 
-      //Iterates through each Date
-      for (int j = 0; j < dateSize; j++) {
-        Map<Customer, List<Fine>> dateMap = finesMappedPerMonth.get(dates[j]);
-        Object[] customers = dateMap.keySet().toArray();
-        int customerSize = customers.length;
-
-        //Iterates through fines per customer and finds number of fines per customer per day
-        //Adds it to holder variable
-        for (int k = 0; k < customerSize; k++) {
-          int temp = dateMap.get(customers[k]).size();
-          totalNoOfFines[0] = totalNoOfFines[0] + temp;
-        }
-        totalNoOfFines[1] = totalNoOfFines[i] + (totalNoOfFines[0] / customerSize);
+      //Gets value of each fine and adds it to cumulative fine amount
+      for (Fine fine : finesMappedPerMonth) {
+        totalFineAmount += (double) fine.getAmountInPounds();
       }
-
-      totalByMonth[0][i] = totalNoOfFines[0];
-      totalByMonth[1][i] = totalNoOfFines[1] / 30;
+      totalByMonth[0][i] = totalFineAmount;
+      //Gets average fine amount.
+      totalByMonth[1][i] = totalFineAmount / customerSize;
     }
-
     return totalByMonth;
   }
-
-
 }

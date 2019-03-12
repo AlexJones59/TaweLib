@@ -468,9 +468,9 @@ public class StatisticsController extends BaseFxmlController {
       userStatBarChart.getData().add(specificUserStatSeries);
 
     }
-    int[] averageUserStats = StatisticsManager.getAverageUserStatistics(library, resourceType,
+    double[] averageUserStats = StatisticsManager.getAverageUserStatistics(library, resourceType,
         timePeriod);
-    noAverageBorrowedTextField.setText(String.valueOf(averageUserStats[0]));
+    noAverageBorrowedTextField.setText(String.format("%.2f",averageUserStats[0]));
     averageUserStatSeries.getData().clear();
     for (int count = dates.length; count > 0; count--) {
       averageUserStatSeries.getData()
@@ -745,9 +745,9 @@ public class StatisticsController extends BaseFxmlController {
 
     fineStatBarChart.getData().clear();
 
-    int[][] fineStats = StatisticsManager.getFineStatistics(library, resourceType, timePeriod);
-    totalFineAmountTextField.setText(String.valueOf(fineStats[0][0]));
-    aveFineAmountTextField.setText(String.valueOf(fineStats[1][0]));
+    double[][] fineStats = StatisticsManager.getFineStatistics(library, resourceType, timePeriod);
+    totalFineAmountTextField.setText("£" + String.format("%.2f", fineStats[0][0]));
+    aveFineAmountTextField.setText("£" + String.format("%.2f", fineStats[1][0]));
     totalFineStatSeries.getData().clear();
     averageFineStatSeries.getData().clear();
     for (int count = dates.length; count > 0; count--) {
@@ -756,8 +756,8 @@ public class StatisticsController extends BaseFxmlController {
       averageFineStatSeries.getData()
           .add(new XYChart.Data<>(dates[count - 1], fineStats[1][count - 1]));
     }
-    totalFineStatSeries.setName("Total Fines");
-    averageFineStatSeries.setName("Average Fine");
+    totalFineStatSeries.setName("Total Fine Amount");
+    averageFineStatSeries.setName("Average Fine Amount");
     fineStatBarChart.getData().addAll(totalFineStatSeries, averageFineStatSeries);
   }
 
