@@ -688,6 +688,7 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 days.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 days
    */
   private static double[] getAverageUserStatsDay(List<Lease> leases, int customerSize) {
@@ -733,6 +734,7 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 weeks.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 weeks
    */
   private static double[] getAverageUserStatsWeek(List<Lease> leases, int customerSize) {
@@ -787,6 +789,7 @@ public class StatisticsManager {
    * Works out amount of leases per User per day for last 5 months.
    *
    * @param leases Records of what users borrowed
+   * @param customerSize number of total customers registered with the library
    * @return Array of amount of leases for user for last 5 months
    */
   private static double[] getAverageUserStatsMonth(List<Lease> leases, int customerSize) {
@@ -836,10 +839,11 @@ public class StatisticsManager {
   }
 
   /**
-   * Works out amount of fines per User per day for last 5 days.
+   * Works out fine amounts per User per day for last 5 days.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 days.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 days.
    */
   private static double[][] getFineStatsDay(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
@@ -874,10 +878,11 @@ public class StatisticsManager {
   }
 
   /**
-   * Works out amount of fines per User per week for last 5 weeks.
+   * Works out fine amounts per User per week for last 5 weeks.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 weeks.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 weeks.
    */
   private static double[][] getFineStatsWeek(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
@@ -916,10 +921,11 @@ public class StatisticsManager {
   }
 
   /**
-   * Works out amount of fines per User per week for last 5 months.
+   * Works out fine amounts per User per week for last 5 months.
    *
    * @param fines Records of User Fines
-   * @return amount of fines per User per day for last 5 months.
+   * @param customerSize number of total customers registered with the library
+   * @return Average and Total fine amounts per User per day for last 5 months.
    */
   private static double[][] getFineStatsMonth(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
