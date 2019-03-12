@@ -173,8 +173,10 @@ public class ResourceCrudController extends BaseFxmlController {
     //sets visibilities based on the above conditions
     showTrailerButton.setVisible(crudAction != CrudAction.CREATE);
     showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
-    showRatingsButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
+
+    showRatingsButton
+        .setVisible(!isLibrarianLoggedIn() && crudAction != CrudAction.CREATE);
 
     createButton
         .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);

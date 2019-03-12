@@ -14,17 +14,17 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.RatingController">
    <top>
-      <HBox spacing="10.0" BorderPane.alignment="CENTER">
+      <HBox nodeOrientation="LEFT_TO_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#back" text="Back">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#newRatingWindow" text="Rate / Review">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
+            <Button id="helpButton" fx:id="helpButton" mnemonicParsing="false" text="?">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Button>
             <Label id="resourceTitle" fx:id="resourceTitle" alignment="CENTER" text="Label">
                <font>
@@ -46,6 +46,9 @@
                </padding>
             </VBox>
          </content>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
       </ScrollPane>
    </center>
    <left>
@@ -53,7 +56,7 @@
          <children>
             <Label id="averageRatingLabel" fx:id="averageRatingLabel" text="Label" />
             <Label id="averageRatingStarsLabel" fx:id="averageRatingStarsLabel" text="Label" />
-            <BarChart id="ratingChart" fx:id="ratingChart" animated="false">
+            <BarChart id="ratingChart" fx:id="ratingChart" animated="false" legendVisible="false" prefHeight="311.0" prefWidth="0.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -67,4 +70,18 @@
          </BorderPane.margin>
       </VBox>
    </left>
+   <bottom>
+      <HBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#newRatingWindow" text="Rate / Review">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
 </BorderPane>
