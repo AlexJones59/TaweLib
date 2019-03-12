@@ -218,7 +218,7 @@ public class StatisticsManager {
       //Checks if resource has been previously inserted into the map
       if (map.containsKey(key)) {
         //Increments counter for Number of Lease of that Resource
-        map.put(key, (map.get(key)) + 1);
+        map.replace(key, (map.get(key)) + 1);
       } else {
         //Adds Resource to Map if not already added
         map.put(key, 1);
@@ -229,7 +229,7 @@ public class StatisticsManager {
     Object[] keys = map.keySet().toArray();
     ArrayList<Integer> freq = new ArrayList<>();
     for (int i = 0; i < keys.length; i++) {
-      freq.add(map.get(keys[i]));
+      freq.add(map.get((Resource) keys[i]));
     }
 
     //Sorts Arraylist in descending order
@@ -243,7 +243,7 @@ public class StatisticsManager {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
-          if ((map.get(resource) == freq.get(i)) && (!popularResources.contains(resource))) {
+          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource))) {
             popularResources.add(resource);
           }
         }
