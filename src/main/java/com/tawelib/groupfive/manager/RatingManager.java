@@ -65,7 +65,7 @@ public class RatingManager {
    * @param resource the resource for which the average ratings are being found
    * @return Rating with average rating as value and customer set to null
    */
-  public Rating getResourceAverageRating(Library library, Resource resource) {
+  public static Rating getResourceAverageRating(Library library, Resource resource) {
     List<Rating> resourcesRatings = library.getRatingRepository()
         .getResourcesRatings(resource);
 

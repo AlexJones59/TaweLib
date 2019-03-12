@@ -1,13 +1,20 @@
 package com.tawelib.groupfive.manager;
 
+import static java.util.Comparator.comparing;
+
+import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Fine;
+import com.tawelib.groupfive.entity.Game;
+import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -42,28 +49,32 @@ public class StatisticsManager {
     List<Lease> customerLeases;
     int[] result = new int[5];
 
-    switch (resourceType) {
-      case BOOK:
-      case DVD:
-      case LAPTOP:
-      case GAME:
-        customerLeases = library.getLeaseRepository()
-            .getCustomerResourceTypeLeases(resourceType, customer);
-        break;
-      default:
-        customerLeases = library.getLeaseRepository().getCustomerLeaseHistory(customer);
+    if (resourceType == null) {
+      customerLeases = library.getLeaseRepository().getCustomerLeaseHistory(customer);
+    } else {
+      switch (resourceType) {
+        case BOOK:
+        case DVD:
+        case LAPTOP:
+        case GAME:
+          customerLeases = library.getLeaseRepository()
+              .getCustomerResourceTypeLeases(resourceType, customer);
+          break;
+        default:
+          customerLeases = library.getLeaseRepository().getCustomerLeaseHistory(customer);
+      }
     }
     Collections.reverse(customerLeases);
 
     switch (timePeriod) {
       case "Day":
-        result = getUserStatsDay(customerLeases);
+        result = getSpecificUserStatsDay(customerLeases);
         break;
       case "Week":
-        result = getUserStatsWeek(customerLeases);
+        result = getSpecificUserStatsWeek(customerLeases);
         break;
       case "Month":
-        result = getUserStatsMonth(customerLeases);
+        result = getSpecificUserStatsMonth(customerLeases);
         break;
       default:
     }
@@ -85,28 +96,32 @@ public class StatisticsManager {
 
     List<Lease> leases;
     int[] result = new int[5];
-    switch (resourceType) {
-      case BOOK:
-      case DVD:
-      case LAPTOP:
-      case GAME:
-        leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-        break;
-      default:
-        leases = library.getLeaseRepository().getAll();
+    if (resourceType == null) {
+      leases = library.getLeaseRepository().getAll();
+    } else {
+      switch (resourceType) {
+        case BOOK:
+        case DVD:
+        case LAPTOP:
+        case GAME:
+          leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
+          break;
+        default:
+          leases = library.getLeaseRepository().getAll();
+      }
     }
     Collections.reverse(leases);
 
     switch (timePeriod) {
       case "Day":
 
-        result = getUserStatsDay(leases);
+        result = getAverageUserStatsDay(leases);
         break;
       case "Week":
-        result = getUserStatsWeek(leases);
+        result = getAverageUserStatsWeek(leases);
         break;
       case "Month":
-        result = getUserStatsMonth(leases);
+        result = getAverageUserStatsMonth(leases);
         break;
       default:
     }
@@ -127,15 +142,20 @@ public class StatisticsManager {
 
     List<Fine> fines;
     int[][] result = new int[2][5];
-    switch (resourceType) {
-      case BOOK:
-      case DVD:
-      case LAPTOP:
-      case GAME:
-        fines = library.getFineRepository().getResourceTypeFines(resourceType);
-        break;
-      default:
-        fines = library.getFineRepository().getAll();
+
+    if (resourceType == null) {
+      fines = library.getFineRepository().getAll();
+    } else {
+      switch (resourceType) {
+        case BOOK:
+        case DVD:
+        case LAPTOP:
+        case GAME:
+          fines = library.getFineRepository().getResourceTypeFines(resourceType);
+          break;
+        default:
+          fines = library.getFineRepository().getAll();
+      }
     }
     Collections.reverse(fines);
 
@@ -156,45 +176,53 @@ public class StatisticsManager {
   }
 
   /**
-   * Works out the top 5 most popular resources loaned within specified time period.
+   * Works out the top most popular resources loaned within specified time period.
    *
    * @param library library
    * @param timePeriod "Day", "Week", "Month"
    * @param resourceType the type of resource you want to find out
    * @return a list of most popular resources
    */
-
-  public static List<?> getPopularResources(Library library, String timePeriod,
+  public static List<Resource> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-    Predicate<Lease> streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now()
-        .minusDays(1)); //to shut up java initializing it
+    LocalDateTime dateFrom = LocalDateTime.now();
+
+    // Gets list of leases of same type that were borrowed within given time period
     switch (timePeriod) {
       case "Day":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        dateFrom.minusDays(1);
         break;
       case "Week":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        dateFrom.minusDays(7);
         break;
       case "Month":
-        streamsPredicate = item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1));
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        dateFrom.minusMonths(1);
         break;
       default:
     }
 
-    // Gets list of leases of same type that were borrowed within given time period
-    leases.stream().filter(streamsPredicate).collect(Collectors.toList());
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
     HashMap<Resource, Integer> map = new HashMap<>();
 
     //Fills HashMap with every Resource loaned in time period and No. of times leased.
     for (Lease lease : leases) {
       //Makes the Resource into a Key to use for HashMap
       Resource key = lease.getBorrowedCopy().getResource();
-
       //Checks if resource has been previously inserted into the map
       if (map.containsKey(key)) {
         //Increments counter for Number of Lease of that Resource
-        map.put(key, (map.get(key)) + 1);
+        map.replace(key, (map.get(key)) + 1);
       } else {
         //Adds Resource to Map if not already added
         map.put(key, 1);
@@ -205,7 +233,7 @@ public class StatisticsManager {
     Object[] keys = map.keySet().toArray();
     ArrayList<Integer> freq = new ArrayList<>();
     for (int i = 0; i < keys.length; i++) {
-      freq.add(map.get(keys[i]));
+      freq.add(map.get((Resource) keys[i]));
     }
 
     //Sorts Arraylist in descending order
@@ -219,7 +247,7 @@ public class StatisticsManager {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
-          if ((map.get(resource) == freq.get(i)) && (!popularResources.contains(resource))) {
+          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource))) {
             popularResources.add(resource);
           }
         }
@@ -227,8 +255,429 @@ public class StatisticsManager {
         continue;
       }
     }
-
     return popularResources;
+  }
+
+  /**
+   * Works out the top most popular authors loaned within specified time period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a list of most popular authors
+   */
+  public static List<String> getPopularAuthors(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> map = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Book book = (Book) lease.getBorrowedCopy().getResource();
+      String key = book.getAuthor();
+      //Checks if resource has been previously inserted into the map
+      if (map.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        map.replace(key, (map.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        map.put(key, 1);
+      }
+    }
+
+    //Changes the HashMap to an ArrayList
+    Object[] keys = map.keySet().toArray();
+    ArrayList<Integer> freq = new ArrayList<>();
+    for (int i = 0; i < keys.length; i++) {
+      freq.add(map.get((String) keys[i]));
+    }
+
+    //Sorts Arraylist in descending order
+    Collections.sort(freq);
+    Collections.reverse(freq);
+
+    ArrayList<String> popularAuthors = new ArrayList<>();
+    //Gets the 5 most popular resources
+    for (int i = 0; i < 5; i++) {
+      try {
+        for (Object key : keys) {
+          String author = (String) key;
+          //Checks if it is already in PopularResources
+          if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author))) {
+            popularAuthors.add(author);
+          }
+        }
+      } catch (IndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+    return popularAuthors;
+  }
+
+  /**
+   * Works out the top most popular directors loaned within specified time period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a list of most popular directors
+   */
+  public static List<String> getPopularDirectors(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.DVD);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> map = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Dvd dvd = (Dvd) lease.getBorrowedCopy().getResource();
+      String key = dvd.getDirector();
+      //Checks if resource has been previously inserted into the map
+      if (map.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        map.replace(key, (map.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        map.put(key, 1);
+      }
+    }
+
+    //Changes the HashMap to an ArrayList
+    Object[] keys = map.keySet().toArray();
+    ArrayList<Integer> freq = new ArrayList<>();
+    for (int i = 0; i < keys.length; i++) {
+      freq.add(map.get((String) keys[i]));
+    }
+
+    //Sorts Arraylist in descending order
+    Collections.sort(freq);
+    Collections.reverse(freq);
+
+    ArrayList<String> popularDirectors = new ArrayList<>();
+    //Gets the 5 most popular resources
+    for (int i = 0; i < 5; i++) {
+      try {
+        for (Object key : keys) {
+          String director = (String) key;
+          //Checks if it is already in PopularResources
+          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director))) {
+            popularDirectors.add(director);
+          }
+        }
+      } catch (IndexOutOfBoundsException e) {
+        continue;
+      }
+    }
+    return popularDirectors;
+  }
+
+  /**
+   * Works out the top most popular book genres and their frequency loaned within specified time
+   * period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each genre and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularBookGenre(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Book book = (Book) lease.getBorrowedCopy().getResource();
+      String key = book.getGenre();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
+   * Works out the top most popular laptop OS and their frequency loaned within specified time
+   * period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each OS and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularLaptopOs(Library library, String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.LAPTOP);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Laptop laptop = (Laptop) lease.getBorrowedCopy().getResource();
+      String key = laptop.getInstalledOperatingSystem();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
+   * Works out the top most popular videogame genres and their frequency loaned within specified
+   * time period.
+   *
+   * @param library library
+   * @param timePeriod "Day", "Week", "Month"
+   * @return a hashmap with each genre and frequency among leases of time period
+   */
+  public static HashMap<String, Integer> getPopularVideogameGenre(Library library,
+      String timePeriod) {
+    List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.GAME);
+
+    // Gets list of leases of same type that were borrowed within given time period
+    switch (timePeriod) {
+      case "Day":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
+            .collect(Collectors.toList());
+        break;
+      case "Week":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
+            .collect(Collectors.toList());
+        break;
+      case "Month":
+        leases = leases.stream()
+            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
+            .collect(Collectors.toList());
+        break;
+      default:
+    }
+
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+    HashMap<String, Integer> freqMap = new HashMap<>();
+
+    //Fills HashMap with every Author of every Book lease in time period and No. of times leased.
+    for (Lease lease : leases) {
+      //Makes the Resource into a Key to use for HashMap
+      Game game = (Game) lease.getBorrowedCopy().getResource();
+      String key = game.getGenre();
+      //Checks if resource has been previously inserted into the map
+      if (freqMap.containsKey(key)) {
+        //Increments counter for Number of Lease of that Resource
+        freqMap.replace(key, (freqMap.get(key)) + 1);
+      } else {
+        //Adds Resource to Map if not already added
+        freqMap.put(key, 1);
+      }
+    }
+
+    return freqMap;
+  }
+
+  /**
+   * Works out amount of leases per day for last 5 days.
+   *
+   * @param leases Records of what users borrowed
+   * @return Array of amount of leases for user for last 5 days
+   */
+  private static int[] getSpecificUserStatsDay(List<Lease> leases) {
+
+    //Groups all Leases by Date Leased.
+    //It then filters out any leases that was before 4 days ago.
+    Map<LocalDateTime, List<Lease>> leasesMappedPerDay = leases.stream()
+        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(4)))
+        .collect(Collectors.groupingBy(Lease::getDateLeased));
+
+    //Makes the array that shall be returned
+    int[] totalByDate = new int[5];
+    Object[] dates = leasesMappedPerDay.keySet().toArray();
+
+    //Iterates for 5 days
+    for (int i = 0; i < dates.length; i++) {
+      totalByDate[i] = leasesMappedPerDay.get(dates[i]).size();
+    }
+
+    return totalByDate;
+  }
+
+  /**
+   * Works out amount of leases per week for last 5 weeks.
+   *
+   * @param leases Records of what users borrowed
+   * @return Array of amount of leases for user for last 5 weeks
+   */
+  private static int[] getSpecificUserStatsWeek(List<Lease> leases) {
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+
+    //Makes the array that shall be returned
+    int[] totalByWeek = new int[5];
+
+    //Iterates for 5 weeks
+    for (int i = 0; i < 5; i++) {
+      //Sets the date range for that week
+      LocalDateTime dateTo = LocalDateTime.now().minusDays(i * 7);
+      LocalDateTime dateFrom = LocalDateTime.now().minusDays((i + 1) * 7);
+
+      //Groups all Leases by Date Leased.
+      //It then filters out any leases that wasn't between start and end of each week.
+      Map<LocalDateTime, List<Lease>> leasesMappedPerWeek = leases.stream()
+          .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
+              .isAfter(dateFrom))).collect(Collectors.groupingBy(Lease::getDateLeased));
+
+      int totalNoOfLeases = 0;
+      Object[] dates = leasesMappedPerWeek.keySet().toArray();
+      int dateSize = dates.length;
+
+      // Iterates through the leases for each Day
+      for (int j = 0; j < dateSize; j++) {
+        totalNoOfLeases = totalNoOfLeases + leasesMappedPerWeek.get(dates[j]).size();
+      }
+
+      totalByWeek[i] = totalNoOfLeases;
+    }
+
+    return totalByWeek;
+  }
+
+  /**
+   * Works out amount of leases per month for last 5 months.
+   *
+   * @param leases Records of what users borrowed
+   * @return Array of amount of leases for user for last 5 months
+   */
+  private static int[] getSpecificUserStatsMonth(List<Lease> leases) {
+    //Sorts leases in order of Date Leased.
+    leases.sort(comparing(Lease::getDateLeased));
+
+    //Makes the array that shall be returned
+    int[] totalByMonth = new int[5];
+
+    //Iterates for 5 months
+    for (int i = 0; i < 5; i++) {
+      //Sets the date range for that month
+      LocalDateTime dateTo = LocalDateTime.now().minusMonths(i);
+      LocalDateTime dateFrom = LocalDateTime.now().minusMonths(i + 1);
+
+      //Groups all Leases by Borrowing Customer, then by Date Leased.
+      //It then filters out any leases that wasn't between the start and end of each month.
+      Map<LocalDateTime, List<Lease>> leasesMappedPerMonth = leases.stream()
+          .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
+              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased)));
+
+      int totalNoOfLeases = 0;
+      Object[] dates = leasesMappedPerMonth.keySet().toArray();
+      int dateSize = dates.length;
+
+      //Iterates through each Date
+      for (int j = 0; j < dateSize; j++) {
+        totalNoOfLeases = totalNoOfLeases + leasesMappedPerMonth.get(dates[j]).size();
+      }
+
+      totalByMonth[i] = totalNoOfLeases;
+    }
+
+    return totalByMonth;
   }
 
   /**
@@ -237,13 +686,18 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 days
    */
-  private static int[] getUserStatsDay(List<Lease> leases) {
+  private static int[] getAverageUserStatsDay(List<Lease> leases) {
+    //Iterate through leases and set it to the start of the day
+    for (Lease lease : leases) {
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0, 0, 0));
+      lease.setDateLeased(date);
+    }
 
     //Groups all Leases by Borrowing Customer, then by Date Leased.
     //It then filters out any leases that was before 4 days ago.
     Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerDay = leases.stream()
-        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(4)))
-        .collect(Collectors.groupingBy(Lease::getDateLeased,
+        .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(5)))
+        .sorted(comparing(Lease::getDateLeased)).collect(Collectors.groupingBy(Lease::getDateLeased,
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
@@ -251,21 +705,21 @@ public class StatisticsManager {
     Object[] dates = leasesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < dates.length - 1; i++) {
       int totalNoOfLeases = 0;
 
-      Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get(dates[i]);
+      Map<Customer, List<Lease>> dateMap = leasesMappedPerDay.get((LocalDateTime) dates[i]);
       Object[] customers = dateMap.keySet().toArray();
       int customerSize = customers.length;
 
       //Iterates through leases per customer and finds number of leases per customer per day
       //Adds it to holder variable
-      for (int k = 0; k < customerSize; k++) {
-        int temp = dateMap.get(customers[k]).size();
+      for (Object key : customers) {
+        int temp = dateMap.get((Customer) key).size();
         //Averages number of Leases based upon no.of Customers
-        totalNoOfLeases = (totalNoOfLeases + temp) / customerSize;
+        totalNoOfLeases = totalNoOfLeases + temp;
       }
-      totalByDate[i] = totalNoOfLeases;
+      totalByDate[i] = totalNoOfLeases / customerSize;
 
     }
 
@@ -278,9 +732,12 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 weeks
    */
-  private static int[] getUserStatsWeek(List<Lease> leases) {
-    //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+  private static int[] getAverageUserStatsWeek(List<Lease> leases) {
+    //Iterate through leases and set it to the start of the day
+    /*for (Lease lease: leases){
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+      lease.setDateLeased(date);
+    }*/
 
     //Makes the array that shall be returned
     int[] totalByWeek = new int[5];
@@ -295,7 +752,8 @@ public class StatisticsManager {
       //It then filters out any leases that wasn't between start and end of each week.
       Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerWeek = leases.stream()
           .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased),
+              .isAfter(dateFrom))).sorted(comparing(Lease::getDateLeased))
+          .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
       int totalNoOfLeases = 0;
@@ -331,9 +789,12 @@ public class StatisticsManager {
    * @param leases Records of what users borrowed
    * @return Array of amount of leases for user for last 5 months
    */
-  private static int[] getUserStatsMonth(List<Lease> leases) {
-    //Sorts leases in order of Date Leased.
-    leases.sort(Comparator.comparing(Lease::getDateLeased));
+  private static int[] getAverageUserStatsMonth(List<Lease> leases) {
+    //Iterate through leases and set it to the start of the day
+    /*for (Lease lease: leases){
+      LocalDateTime date = lease.getDateLeased().toLocalDate().atTime(LocalTime.of(0,0,0));
+      lease.setDateLeased(date);
+    }*/
 
     //Makes the array that shall be returned
     int[] totalByMonth = new int[5];
@@ -348,7 +809,8 @@ public class StatisticsManager {
       //It then filters out any leases that wasn't between the start and end of each month.
       Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerMonth = leases.stream()
           .filter(item -> (item.getDateLeased().isBefore(dateTo)) && (item.getDateLeased()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Lease::getDateLeased),
+              .isAfter(dateFrom))).sorted(comparing(Lease::getDateLeased))
+          .collect(Collectors.groupingBy((Lease::getDateLeased),
               Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
       int totalNoOfLeases = 0;
@@ -385,11 +847,19 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 days.
    */
   private static int[][] getFineStatsDay(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
+    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+
     //Groups all Leases by Fined Customer, then by Date Accrued.
     //It then filters out any leases that was before 4 days ago.
     Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerDay = fines.stream()
-        .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(4)))
-        .collect(Collectors.groupingBy(Fine::getDateAccrued,
+        .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(5)))
+        .sorted().collect(Collectors.groupingBy(Fine::getDateAccrued,
             Collectors.groupingBy(Fine::getFinedCustomer)));
 
     //Makes the array that shall be returned
@@ -397,7 +867,7 @@ public class StatisticsManager {
     Object[] dates = finesMappedPerDay.keySet().toArray();
 
     //Iterates for 5 days
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < dates.length; i++) {
       int totalNoOfFines = 0;
 
       Map<Customer, List<Fine>> dateMap = finesMappedPerDay.get(dates[i]);
@@ -424,8 +894,14 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 weeks.
    */
   private static int[][] getFineStatsWeek(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
     //Sorts fines in order of Date Accrued.
-    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+    fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
     int[][] totalByWeek = new int[2][5];
@@ -477,8 +953,14 @@ public class StatisticsManager {
    * @return amount of fines per User per day for last 5 months.
    */
   private static int[][] getFineStatsMonth(List<Fine> fines) {
+    //Iterate through leases and set it to the start of the day
+    for (Fine fine : fines) {
+      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+          .atTime(LocalTime.of(0, 0, 0));
+      fine.getLease().setDateLeased(date);
+    }
     //Sorts fines in order of Date Accrued.
-    fines.sort(Comparator.comparing(Fine::getDateAccrued));
+    fines.sort(comparing(Fine::getDateAccrued));
 
     //Makes the array that shall be returned
     int[][] totalByMonth = new int[2][5];
@@ -493,7 +975,7 @@ public class StatisticsManager {
       //It then filters out any fines that wasn't between start and end of each month.
       Map<LocalDateTime, Map<Customer, List<Fine>>> finesMappedPerMonth = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).collect(Collectors.groupingBy((Fine::getDateAccrued),
+              .isAfter(dateFrom))).sorted().collect(Collectors.groupingBy((Fine::getDateAccrued),
               Collectors.groupingBy(Fine::getFinedCustomer)));
 
       int[] totalNoOfFines = new int[2];

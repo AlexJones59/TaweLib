@@ -33,6 +33,15 @@ public class Lease implements Serializable {
   }
 
   /**
+   * Set date leased.
+   *
+   * @param dateLeased the date leased
+   */
+  public void setDateLeased(LocalDateTime dateLeased) {
+    this.dateLeased = dateLeased;
+  }
+
+  /**
    * Gets date leased.
    *
    * @return the date leased
