@@ -8,7 +8,6 @@ import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -20,7 +19,7 @@ import javafx.scene.control.ListView;
  */
 public class PastEventsController extends BaseFxmlController {
 
-  private static final double EVENT_CELL_WIDTH = 380.0;
+  private static final double EVENT_CELL_WIDTH = 312.0;
   private static final double EVENT_CELL_HEIGHT = 100.0;
 
   @FXML
@@ -34,18 +33,22 @@ public class PastEventsController extends BaseFxmlController {
   @Override
   public void refresh() {
     ArrayList<Event> allEvents = EventManager.getUserPastEvents(library, loggedInUser);
-    for (int i = 0; i < allEvents.size(); i++) {
-
-      Event e = allEvents.get(i);
-      Button description = new Button(e.getEventDate().toString().substring(0, 10) + "\n"
-          + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName() + "\n");
+    for (Event e : allEvents) {
+      //The main info shown on the button
+      int year = e.getEventDate().getYear();
+      String month = e.getEventDate().getMonth().toString();
+      int day = e.getEventDate().getDayOfMonth();
+      int hour = e.getEventDate().getHour();
+      int min = e.getEventDate().getMinute();
+      Button description = new Button(year + " " + month + " " + day + "\n"
+          + hour + ":" + min + "\n" + e.getEventName() + "\n");
 
       description.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
       eventsListField.getItems().addAll(description);
 
       description.setOnAction(event -> {
-        String aboutEvent = e.getEventDate().toString().substring(0, 10) + "\n"
-            + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName() + "\n" + e
+        String aboutEvent = year + " " + month + " " + day + "\n"
+            + hour + ":" + min + "\n" + e.getEventName() + "\n" + e
             .getDescription();
 
         AlertHelper.eventDescription(INFORMATION, aboutEvent);

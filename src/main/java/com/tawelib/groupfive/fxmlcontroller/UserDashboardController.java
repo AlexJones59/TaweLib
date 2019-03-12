@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
  * system they have permission for, likewise for a customer.
  *
  * @author Petr Hoffmann
- * @version 1.0
+ * @version 1.1
  */
 public class UserDashboardController extends BaseFxmlController {
 
