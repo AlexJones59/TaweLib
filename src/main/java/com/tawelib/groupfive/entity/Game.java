@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 
 /**
  * Encapsulates information about a video game.
+ *
+ * @author Petr Hoffman, Oskars Dervinis
+ * @version 1.0
  */
 public class Game extends Resource implements FetchableTrailer {
 

@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
  * type of a resource using a list provided.
  *
  * @author Petr Hoffman, Nayeem Mohammed
- * @version 1.0
+ * @version 1.1
  */
 public class BrowseResourcesController extends BaseFxmlController {
 

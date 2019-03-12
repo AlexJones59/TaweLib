@@ -4,11 +4,9 @@ import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
 import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
 import com.tawelib.groupfive.entity.Event;
-import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.manager.EventManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.fxml.FXML;
@@ -27,7 +25,7 @@ import javafx.scene.layout.VBox;
  */
 public class EventsController extends BaseFxmlController {
 
-  private static final double EVENT_CELL_WIDTH = 380.0;
+  private static final double EVENT_CELL_WIDTH = 311.0;
   private static final double EVENT_CELL_HEIGHT = 100.0;
   private static final double JOIN_BUTTON_HEIGHT = 10.0;
   private static final String LEAVING_EVENT_CONFIRMATION
@@ -46,7 +44,7 @@ public class EventsController extends BaseFxmlController {
   private ListView<VBox> currentEventsField;
 
   /**
-   * initializes the GUI, adds 2 list views of events.
+   * initializes the GUI, makes the button create visible only for librarian
    */
   @FXML
   public void initialize() {
@@ -55,6 +53,9 @@ public class EventsController extends BaseFxmlController {
     }
   }
 
+  /**
+   * The method clears the ListViews and adds the updated info again.
+   */
   @Override
   public void refresh() {
     upcomingEventsField.getItems().remove(0, upcomingEventsField.getItems().size());
@@ -68,8 +69,8 @@ public class EventsController extends BaseFxmlController {
    */
   private void initUpcomingEvents() {
     ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
-    for (int i = 0; i < allEvents.size(); i++) {
-      upcomingEventsField.getItems().addAll(constructEventCell(allEvents.get(i), false));
+    for (Event allEvent : allEvents) {
+      upcomingEventsField.getItems().addAll(constructEventCell(allEvent, false));
     }
   }
 
@@ -79,8 +80,8 @@ public class EventsController extends BaseFxmlController {
   private void initJoinedEvents() {
     ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, loggedInUser);
 
-    for (int i = 0; i < allEvents.size(); i++) {
-      currentEventsField.getItems().addAll(constructEventCell(allEvents.get(i), true));
+    for (Event allEvent : allEvents) {
+      currentEventsField.getItems().addAll(constructEventCell(allEvent, true));
     }
   }
 
@@ -111,9 +112,15 @@ public class EventsController extends BaseFxmlController {
    */
   private VBox constructEventCell(Event e, boolean isRegistered) {
     VBox box = new VBox();
+    //Shows the main info on the button
+    int year = e.getEventDate().getYear();
+    String month = e.getEventDate().getMonth().toString();
+    int day = e.getEventDate().getDayOfMonth();
+    int hour = e.getEventDate().getHour();
+    int min = e.getEventDate().getMinute();
+    Button showDescrBtn = new Button(year + " " + month + " " + day + "\n"
+        + hour + ":" + min + "\n" + e.getEventName() + "\n");
 
-    Button showDescrBtn = new Button(e.getEventDate().toString().substring(0, 10) + "\n"
-        + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName() + "\n");
     showDescrBtn.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
     Button signUpForEvent = new Button("Join");
     signUpForEvent.setPrefSize(EVENT_CELL_WIDTH, JOIN_BUTTON_HEIGHT);
@@ -122,7 +129,7 @@ public class EventsController extends BaseFxmlController {
     if (isRegistered) {
       signUpForEvent.setText("Leave");
     }
-    /*Checks if there are free slots and person dont participate, if not - disables the button*/
+    /*Checks if there are free slots and person don't participate, if not - disables the button*/
 
     if (!isRegistered && ((EventManager.eventFull(library, e))
         || (library.getParticipationRepository().doesParticipate(e, loggedInUser)))) {
@@ -144,11 +151,15 @@ public class EventsController extends BaseFxmlController {
   private void eventButtonActions(Event e, Button description, Button join, boolean isCurrent) {
 
     description.setOnAction(event -> {
-      String aboutEvent =
-          e.getEventDate().toString().substring(0, 10) + "\n"
-              + e.getEventDate().toString().substring(11, 16) + "\n" + e.getEventName()
-              + "\n" + e.getDescription() + "\nFree slots: "
-              + (e.getCapacity() - library.getParticipationRepository().getNumberOfParticipants(e));
+
+      int year = e.getEventDate().getYear();
+      String month = e.getEventDate().getMonth().toString();
+      int day = e.getEventDate().getDayOfMonth();
+      int hour = e.getEventDate().getHour();
+      int min = e.getEventDate().getMinute();
+      String aboutEvent = year + " " + month + " " + day + "\n" + hour + ":" + min + "\n"
+          + e.getEventName() + "\n" + e.getDescription() + "\nFree slots: "
+          + (e.getCapacity() - library.getParticipationRepository().getNumberOfParticipants(e));
       AlertHelper.eventDescription(INFORMATION, aboutEvent);
     });
 
@@ -160,8 +171,9 @@ public class EventsController extends BaseFxmlController {
         alertConfirm = JOINING_EVENT_CONFIRMATION;
       }
       Alert alert = new Alert(CONFIRMATION, alertConfirm + e.getEventName() + "'?");
+
       Optional<ButtonType> answer = alert.showAndWait();
-      if (answer.get() == ButtonType.OK) {
+      if (answer.isPresent() && answer.get() == ButtonType.OK) {
         if (isCurrent) {
           library.getParticipationRepository().removeParticipation(e, loggedInUser);
           AlertHelper.alert(INFORMATION, LEAVING_EVENT_SUCCESS);

@@ -9,15 +9,15 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="730.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+  prefHeight="694.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
   xmlns:fx="http://javafx.com/fxml/1"
   fx:controller="com.tawelib.groupfive.fxmlcontroller.EventsController">
   <children>
-    <ListView fx:id="currentEventsField" layoutX="444.0" layoutY="65.0" prefHeight="573.0"
-      prefWidth="400.0"/>
+    <ListView fx:id="currentEventsField" layoutX="393.0" layoutY="61.0" prefHeight="573.0"
+      prefWidth="327.0" AnchorPane.rightAnchor="35.0"/>
     <ListView fx:id="upcomingEventsField" cacheShape="false" centerShape="false"
-      focusTraversable="false" layoutX="14.0" layoutY="65.0" prefHeight="573.0" prefWidth="400.0"
-      scaleShape="false">
+      focusTraversable="false" layoutX="32.0" layoutY="61.0" prefHeight="573.0" prefWidth="327.0"
+      scaleShape="false" AnchorPane.leftAnchor="35.0">
       <cursor>
         <Cursor fx:constant="HAND"/>
       </cursor>
@@ -25,20 +25,21 @@
         <Insets/>
       </opaqueInsets>
     </ListView>
-    <Button fx:id="pastEventsBtn" layoutX="445.0" layoutY="669.0" mnemonicParsing="false"
-      onAction="#showPastEvents" prefHeight="31.0" prefWidth="400.0"
+    <Button fx:id="pastEventsBtn" layoutX="442.0" layoutY="649.0" mnemonicParsing="false"
+      onAction="#showPastEvents" prefHeight="31.0" prefWidth="227.0"
       text="Past Participated events"/>
-    <Button fx:id="newEventBtn" layoutX="142.0" layoutY="669.0" mnemonicParsing="false"
-      onAction="#createNewEvent" prefHeight="31.0" prefWidth="149.0" text="create new event"/>
+    <Button fx:id="newEventBtn" layoutX="84.0" layoutY="649.0" mnemonicParsing="false"
+      onAction="#createNewEvent" prefHeight="31.0" prefWidth="227.0" text="Create new event"/>
     <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back"
       text="Back"/>
-    <Label layoutX="145.0" layoutY="35.0" prefHeight="26.0" prefWidth="141.0"
-      text="Upcoming Events">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="34.0" layoutY="35.0"
+      prefHeight="26.0" prefWidth="327.0" text="Upcoming Events">
       <font>
         <Font size="17.0"/>
       </font>
     </Label>
-    <Label layoutX="560.0" layoutY="35.0" text="Current Registered Events">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="35.0"
+      prefHeight="26.0" prefWidth="327.0" text="Current Registered Events" textAlignment="CENTER">
       <font>
         <Font size="17.0"/>
       </font>
