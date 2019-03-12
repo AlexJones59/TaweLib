@@ -195,10 +195,10 @@ public class StatisticsController extends BaseFxmlController {
   private TableView<PopularDvdDirectorTableWrapper> popDvdDirectorTableView;
 
   @FXML
-  private TableColumn<PopularDvdDirectorTableWrapper, Integer> popDirectorsRankColumn;
+  private TableColumn<PopularDvdDirectorTableWrapper, Integer> popDirectorRankColumn;
 
   @FXML
-  private TableColumn<PopularDvdDirectorTableWrapper, String> popDirectorsNameColumn;
+  private TableColumn<PopularDvdDirectorTableWrapper, String> popDirectorNameColumn;
 
   @FXML
   private Pane popLaptopPane;
@@ -350,11 +350,10 @@ public class StatisticsController extends BaseFxmlController {
         new PropertyValueFactory<>("dvdAvgRating"));
 
     //Popular Director Table
-    /*
-    popDirectorsRankColumn.setCellValueFactory(
+    popDirectorRankColumn.setCellValueFactory(
         new PropertyValueFactory<>("directorRank"));
-    popDirectorsNameColumn.setCellValueFactory(
-        new PropertyValueFactory<>("directorName"));*/
+    popDirectorNameColumn.setCellValueFactory(
+        new PropertyValueFactory<>("directorName"));
 
     //Popular Laptop Table
     popLaptopRankColumn.setCellValueFactory(
@@ -574,6 +573,9 @@ public class StatisticsController extends BaseFxmlController {
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
       );
     }
+    if (!popBookAuthorTableView.getItems().isEmpty()) {
+      popBookAuthorTableView.getItems().clear();
+    }
 
     List<String> popularAuthors = StatisticsManager
         .getPopularAuthors(library, bookStatTimeComboBox.getSelectionModel().getSelectedItem());
@@ -598,6 +600,17 @@ public class StatisticsController extends BaseFxmlController {
       popularDvdTableView.getItems().add(
           new PopularDvdTableWrapper(rank,
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
+      );
+    }
+
+    if (!popDvdDirectorTableView.getItems().isEmpty()) {
+      popDvdDirectorTableView.getItems().clear();
+    }
+    List<String> popularDirectors = StatisticsManager
+        .getPopularDirectors(library, dvdStatTimeComboBox.getSelectionModel().getSelectedItem());
+    for (int rank = 1; rank <= popularDirectors.size(); rank++) {
+      popDvdDirectorTableView.getItems().add(
+          new PopularDvdDirectorTableWrapper(rank, popularDirectors.get(rank - 1))
       );
     }
   }
