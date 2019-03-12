@@ -165,7 +165,7 @@ public class StatisticsManager {
         result = getFineStatsDay(fines, customerSize);
         break;
       case "Week":
-        result = getFineStatsWeek(fines,customerSize);
+        result = getFineStatsWeek(fines, customerSize);
         break;
       case "Month":
         result = getFineStatsMonth(fines, customerSize);
