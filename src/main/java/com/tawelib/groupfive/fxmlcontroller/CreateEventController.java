@@ -105,6 +105,7 @@ public class CreateEventController extends BaseFxmlController {
    */
   @FXML
   public void initialize() {
+    datePicker.setValue(LocalDate.now());
     datePicker.getEditor().setDisable(true);
   }
 
