@@ -151,7 +151,7 @@
                                     <Label layoutX="348.0" layoutY="256.0" text="Popular Authors:" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="popResourcePane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                              <Pane fx:id="popResourcePane" prefHeight="200.0" prefWidth="200.0">
                                  <children>
                                     <Label layoutX="28.0" layoutY="19.0" text="Most Popular Resources : ">
                                        <font>
@@ -174,7 +174,7 @@
                                     <Label layoutX="427.0" layoutY="24.0" text="Time Period :" />
                                  </children>
                               </Pane>
-                              <Pane fx:id="popVideoGamePane" prefHeight="548.0" prefWidth="690.0">
+                              <Pane fx:id="popVideoGamePane" prefHeight="548.0" prefWidth="690.0" visible="false">
                                  <children>
                                     <TableView fx:id="popularVideoGameTableView" layoutX="24.0" layoutY="56.0" prefHeight="170.0" prefWidth="630.0">
                                        <columns>
