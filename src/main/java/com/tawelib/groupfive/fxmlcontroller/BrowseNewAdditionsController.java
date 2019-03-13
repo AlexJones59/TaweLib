@@ -53,11 +53,11 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
   private ComboBox<ResourceType> cmbResourceType;
 
   private ResourceType[] resourceTypes = {
-          null,
-          ResourceType.BOOK,
-          ResourceType.DVD,
-          ResourceType.LAPTOP,
-          ResourceType.GAME
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP,
+      ResourceType.GAME
   };
 
   //TABLE----------------------------------------------------------
@@ -82,16 +82,16 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
   @FXML
   public void initialize() {
     idColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, String>("id"));
+        new PropertyValueFactory<ResourceTableWrapper, String>("id"));
 
     titleColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, String>("title"));
+        new PropertyValueFactory<ResourceTableWrapper, String>("title"));
 
     yearColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
+        new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
 
     typeColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
+        new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
   }
 
   /**
@@ -100,13 +100,13 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
   @Override
   public void refresh() {
     cmbResourceType.getItems().addAll(
-            Arrays.asList(resourceTypes)
+        Arrays.asList(resourceTypes)
     );
 
     setTableContents(
-            library.getResourceRepository().getNewAddtions(
-                    lastLogin
-            )
+        library.getResourceRepository().getNewAddtions(
+            lastLogin
+        )
     );
 
     createNewButton.setVisible(isLibrarianLoggedIn());
@@ -120,41 +120,41 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
 
     if (cmbResourceType.getValue() == ResourceType.BOOK) {
       result = new ArrayList<>(
-              library.getResourceRepository().searchBook(
-                      txtSearch.getText(),
-                      lastLogin
-              )
+          library.getResourceRepository().searchBook(
+              txtSearch.getText(),
+              lastLogin
+          )
       );
     } else if (cmbResourceType.getValue() == ResourceType.DVD) {
       result = new ArrayList<>(
-              library.getResourceRepository().searchDvd(
-                      txtSearch.getText(),
-                      lastLogin
-              )
+          library.getResourceRepository().searchDvd(
+              txtSearch.getText(),
+              lastLogin
+          )
       );
     } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
       result = new ArrayList<>(
-              library.getResourceRepository().searchLaptop(
-                      txtSearch.getText(),
-                      lastLogin
-              )
+          library.getResourceRepository().searchLaptop(
+              txtSearch.getText(),
+              lastLogin
+          )
       );
     } else if (cmbResourceType.getValue() == ResourceType.GAME) {
       result = new ArrayList<>(
-              library.getResourceRepository().searchGame(
-                      txtSearch.getText(),
-                      lastLogin
-              )
+          library.getResourceRepository().searchGame(
+              txtSearch.getText(),
+              lastLogin
+          )
       );
     } else {
       result = library.getResourceRepository().searchResource(
-              txtSearch.getText(),
-              lastLogin
+          txtSearch.getText(),
+          lastLogin
       );
     }
 
     setTableContents(
-            result
+        result
     );
   }
 
@@ -189,14 +189,14 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
    */
   private void setUpResourceCrud(CrudAction crudAction) {
     ResourceCrudController newController =
-            (ResourceCrudController) SceneHelper.setUpScene(
-                    this,
-                    "NewAdditionsResourceCrud");
+        (ResourceCrudController) SceneHelper.setUpScene(
+            this,
+            "NewAdditionsResourceCrud");
 
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
       newController.setSelectedResource(
-              tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
-                      .getResource()
+          tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
+              .getResource()
       );
     }
 
@@ -214,7 +214,7 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
 
     for (Resource resource : resources) {
       tblBrowseResourcesTable.getItems().add(
-              new ResourceTableWrapper(resource)
+          new ResourceTableWrapper(resource)
       );
     }
   }

@@ -136,7 +136,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
   private ComboBox<ResourceType> resourceTypeComboBox;
 
   private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
-          ResourceType.LAPTOP, ResourceType.GAME};
+      ResourceType.LAPTOP, ResourceType.GAME};
 
   /**
    * Sets the dynamic fields.
@@ -176,12 +176,12 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
     showRatingsButton
-            .setVisible(!isLibrarianLoggedIn() && crudAction != CrudAction.CREATE);
+        .setVisible(!isLibrarianLoggedIn() && crudAction != CrudAction.CREATE);
 
     createButton
-            .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);
+        .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);
     updateButton
-            .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
+        .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
   }
 
   /**
@@ -192,24 +192,24 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
       switch (resourceTypeComboBox.getValue()) {
         case BOOK:
           ResourceManager.createBook(library, titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  authorTextField.getText(), publisherTextField.getText(),
-                  genreTextField.getText(), isbnTextField.getText(),
-                  languageTextField.getText());
+              Integer.parseInt(yearTextField.getText()), null,
+              authorTextField.getText(), publisherTextField.getText(),
+              genreTextField.getText(), isbnTextField.getText(),
+              languageTextField.getText());
           break;
         case DVD:
           ResourceManager.createDvd(library, titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  directorTextField.getText(),
-                  Integer.parseInt(runtimeTextField.getText()),
-                  ExplosionHelper.explode(audioLanguagesTextArea.getText()),
-                  ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+              Integer.parseInt(yearTextField.getText()), null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
           break;
         case LAPTOP:
           ResourceManager.createLaptop(library, titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  manufacturerTextField.getText(), modelTextField.getText(),
-                  operatingSystemTextField.getText());
+              Integer.parseInt(yearTextField.getText()), null,
+              manufacturerTextField.getText(), modelTextField.getText(),
+              operatingSystemTextField.getText());
           break;
         case GAME:
           boolean mp;
@@ -219,9 +219,9 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
             mp = false;
           }
           ResourceManager.createGame(library, titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  publisherGameTextField.getText(), genreGameTextField.getText(),
-                  ratingTextField.getText(), mp);
+              Integer.parseInt(yearTextField.getText()), null,
+              publisherGameTextField.getText(), genreGameTextField.getText(),
+              ratingTextField.getText(), mp);
           break;
         default:
           break;
@@ -242,28 +242,28 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
       switch (selectedResource.getType()) {
         case BOOK:
           ResourceManager.updateBook(library, selectedResource.getResourceId(),
-                  titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  authorTextField.getText(), publisherTextField.getText(),
-                  genreTextField.getText(), isbnTextField.getText(),
-                  languageTextField.getText());
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              authorTextField.getText(), publisherTextField.getText(),
+              genreTextField.getText(), isbnTextField.getText(),
+              languageTextField.getText());
           break;
         case DVD:
           ResourceManager.updateDvd(library, selectedResource.getResourceId(),
-                  titleTextField.getText(),
-                  Integer.parseInt(yearTextField.getText()), null,
-                  directorTextField.getText(),
-                  Integer.parseInt(runtimeTextField.getText()),
-                  ExplosionHelper.explode(audioLanguagesTextArea.getText()),
-                  ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+              titleTextField.getText(),
+              Integer.parseInt(yearTextField.getText()), null,
+              directorTextField.getText(),
+              Integer.parseInt(runtimeTextField.getText()),
+              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
           break;
         case LAPTOP:
           ResourceManager
-                  .updateLaptop(library, selectedResource.getResourceId(),
-                          titleTextField.getText(),
-                          Integer.parseInt(yearTextField.getText()), null,
-                          manufacturerTextField.getText(), modelTextField.getText(),
-                          operatingSystemTextField.getText());
+              .updateLaptop(library, selectedResource.getResourceId(),
+                  titleTextField.getText(),
+                  Integer.parseInt(yearTextField.getText()), null,
+                  manufacturerTextField.getText(), modelTextField.getText(),
+                  operatingSystemTextField.getText());
           break;
         case GAME:
           boolean mp;
@@ -273,9 +273,9 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
             mp = false;
           }
           ResourceManager.updateGame(library, selectedResource.getResourceId(),
-                  titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
-                  null, publisherGameTextField.getText(), genreGameTextField.getText(),
-                  ratingTextField.getText(), mp);
+              titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
+              null, publisherGameTextField.getText(), genreGameTextField.getText(),
+              ratingTextField.getText(), mp);
           break;
         default:
           break;
@@ -300,7 +300,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
    */
   public void showCopies() {
     ResourceCopiesController newController = (ResourceCopiesController) SceneHelper
-            .setUpScene(this, "NewAdditionsCopies");
+        .setUpScene(this, "NewAdditionsCopies");
 
     newController.setSelectedResource(selectedResource);
     newController.refresh();
@@ -311,7 +311,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
    */
   public void showRatings() {
     RatingController newController = (RatingController) SceneHelper
-            .setUpScene(this, "ResourceRatings");
+        .setUpScene(this, "ResourceRatings");
 
     newController.setSelectedResource(selectedResource);
     newController.setCrudAction(crudAction);
@@ -326,12 +326,12 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
     if (isLibrarianLoggedIn()) {
       FileChooser fileChooser = new FileChooser();
       fileChooser.getExtensionFilters()
-              .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+          .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
       File file = fileChooser.showOpenDialog(getPrimaryStage());
       if (file != null) {
         try {
           File currProfImg = new File(
-                  FileSystemHelper.getResourcePicturePath(selectedResource));
+              FileSystemHelper.getResourcePicturePath(selectedResource));
           BufferedImage tempImg = ImageIO.read(file);
           ImageIO.write(tempImg, "png", currProfImg);
         } catch (IOException e) {
@@ -339,11 +339,11 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
         }
 
         AlertHelper.alert(
-                AlertType.INFORMATION,
-                "Resource image set successfully."
+            AlertType.INFORMATION,
+            "Resource image set successfully."
         );
         resourceImageView.setImage(
-                ResourceHelper.getResourceImage(selectedResource)
+            ResourceHelper.getResourceImage(selectedResource)
         );
       }
     }
@@ -414,7 +414,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
    */
   private void populateResource() {
     resourceImageView.setImage(
-            ResourceHelper.getResourceImage(selectedResource)
+        ResourceHelper.getResourceImage(selectedResource)
     );
     idLabel.setText(selectedResource.getResourceId());
     titleTextField.setText(selectedResource.getTitle());
@@ -464,9 +464,9 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
     directorTextField.setText(selectedDvd.getDirector());
     runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
     audioLanguagesTextArea
-            .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
+        .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
     subtitleLanguagesTextArea
-            .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
+        .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
   }
 
   /**
@@ -478,7 +478,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
     modelTextField.setText(selectedLaptop.getModel());
     manufacturerTextField.setText(selectedLaptop.getModel());
     operatingSystemTextField
-            .setText(selectedLaptop.getInstalledOperatingSystem());
+        .setText(selectedLaptop.getInstalledOperatingSystem());
   }
 
   private void populateGame() {
