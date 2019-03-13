@@ -117,6 +117,9 @@ public class BrowseResourcesController extends BaseFxmlController {
     createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
+  /**
+   * Displays information about a resource when user double clicks on it.
+   */
   public void doubleClick() {
     tblBrowseResourcesTable.setRowFactory(tv -> {
       TableRow<Resource> row = new TableRow<>();
