@@ -293,8 +293,7 @@ public class StatisticsController extends BaseFxmlController {
 
 
   /**
-   * Sets the dynamic fields.
-   * Adds the observable Lists to the comboBoxes and select default
+   * Sets the dynamic fields. Adds the observable Lists to the comboBoxes and select default
    */
   @Override
   public void refresh() {
@@ -520,22 +519,26 @@ public class StatisticsController extends BaseFxmlController {
       setPopResourcePane();
     } else {
       switch (resourceType) {
-        case BOOK: setPopBookPane();
-        break;
-        case DVD: setPopDvdPane();
-        break;
-        case LAPTOP: setPopLaptopPane();
-        break;
-        case GAME: setPopVideoGamePane();
-        break;
+        case BOOK:
+          setPopBookPane();
+          break;
+        case DVD:
+          setPopDvdPane();
+          break;
+        case LAPTOP:
+          setPopLaptopPane();
+          break;
+        case GAME:
+          setPopVideoGamePane();
+          break;
         default:
       }
     }
   }
 
   /**
-   * Initializes nodes in the Popular Resources Pane.
-   * Populates table based upon selected resource type and time period
+   * Initializes nodes in the Popular Resources Pane. Populates table based upon selected resource
+   * type and time period
    */
   public void setPopResourcePane() {
     if (!popularResTableView.getItems().isEmpty()) {
@@ -553,8 +556,8 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Initializes nodes in the Popular Books Pane.
-   * Populates tables based upon selected resource type and time period
+   * Initializes nodes in the Popular Books Pane. Populates tables based upon selected resource type
+   * and time period
    */
   public void setPopBookPane() {
     if (!popularBookTableView.getItems().isEmpty()) {
@@ -585,7 +588,7 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Populates Pie Chart with most popular genres from specified time period
+   * Populates Pie Chart with most popular genres from specified time period.
    */
   private void setPopBookGenrePieChart() {
     HashMap<String, Integer> dataMap = StatisticsManager
@@ -602,8 +605,8 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Initializes nodes in the Popular DVDs Pane.
-   * Populates tables based upon selected resource type and time period
+   * Initializes nodes in the Popular DVDs Pane. Populates tables based upon selected resource type
+   * and time period
    */
   public void setPopDvdPane() {
     if (!popularDvdTableView.getItems().isEmpty()) {
@@ -632,8 +635,8 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Initializes nodes in the Popular Laptops Pane.
-   * Populates table based upon selected resource type and time period
+   * Initializes nodes in the Popular Laptops Pane. Populates table based upon selected resource
+   * type and time period
    */
   public void setPopLaptopPane() {
     if (!popularLaptopTableView.getItems().isEmpty()) {
@@ -653,7 +656,7 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Populates Pie charts with most popular OSs to borrow in time period
+   * Populates Pie charts with most popular OSs to borrow in time period.
    */
   private void setPopularOsPieChart() {
     HashMap<String, Integer> dataMap = StatisticsManager
@@ -670,8 +673,8 @@ public class StatisticsController extends BaseFxmlController {
   }
 
   /**
-   * Initializes nodes in the Popular Video Games Pane.
-   * Populates table based upon selected resource type and time period
+   * Initializes nodes in the Popular Video Games Pane. Populates table based upon selected resource
+   * type and time period
    */
   public void setPopVideoGamePane() {
     if (!popularVideoGameTableView.getItems().isEmpty()) {
