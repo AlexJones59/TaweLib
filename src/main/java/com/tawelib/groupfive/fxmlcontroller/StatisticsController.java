@@ -32,6 +32,7 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -102,6 +103,9 @@ public class StatisticsController extends BaseFxmlController {
 
   @FXML
   private TitledPane resourceStatPane;
+
+  @FXML
+  private SplitPane resourceSplitPane;
 
   @FXML
   private ComboBox<ResourceType> resourceStatResTypeComboBox;
