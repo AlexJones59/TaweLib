@@ -2,15 +2,22 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Controls the user dashboard screen. This is the main screen which a user can access their account
@@ -45,7 +52,7 @@ public class UserDashboardController extends BaseFxmlController {
 
   @FXML
   private Button browseResourceButton;
-  
+
   @FXML
   private Button browseNewAdditionsButton;
 
@@ -76,6 +83,51 @@ public class UserDashboardController extends BaseFxmlController {
   @FXML
   private ImageView profileImageImageView;
 
+  @FXML
+  private TextField txtSearch;
+
+  @FXML
+  private ComboBox<ResourceType> cmbResourceType;
+
+  private ResourceType[] resourceTypes = {
+          null,
+          ResourceType.BOOK,
+          ResourceType.DVD,
+          ResourceType.LAPTOP,
+          ResourceType.GAME
+  };
+
+  //TABLE----------------------------------------------------------
+  @FXML
+  private TableView<ResourceTableWrapper> tblBrowseResourcesTable;
+
+  @FXML
+  private TableColumn<ResourceTableWrapper, String> idColumn;
+
+  @FXML
+  private TableColumn<ResourceTableWrapper, String> titleColumn;
+
+  @FXML
+  private TableColumn<ResourceTableWrapper, Integer> yearColumn;
+
+  @FXML
+  private TableColumn<ResourceTableWrapper, ResourceType> typeColumn;
+
+  @FXML
+  public void initialize() {
+    idColumn.setCellValueFactory(
+            new PropertyValueFactory<ResourceTableWrapper, String>("id"));
+
+    titleColumn.setCellValueFactory(
+            new PropertyValueFactory<ResourceTableWrapper, String>("title"));
+
+    yearColumn.setCellValueFactory(
+            new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
+
+    typeColumn.setCellValueFactory(
+            new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
+  }
+
   public UserDashboardController() {
   }
 
@@ -94,13 +146,6 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
-  /**
-   * Takes the user to the browse resource screen.
-   */
-  public void browseNewAdditions() {
-    SceneHelper.setUpScene(this, "BrowseNewAdditions");
-  }
-  
   /**
    * Takes the user to the account management screen.
    */
@@ -140,6 +185,9 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserList");
   }
 
+  /**
+   * Takes the user to the statistics screen.
+   */
   public void statistics() {
     SceneHelper.setUpScene(this, "Statistics");
   }
@@ -157,6 +205,67 @@ public class UserDashboardController extends BaseFxmlController {
   public void eventsWindow() {
     EventsController c = (EventsController)SceneHelper.setUpScene(this, "Events");
     c.setLibrary(library);
+  }
+
+  /**
+   * Searches for newly added resources by type and displays the result in the table.
+   */
+  public void search() {
+    List<Resource> result;
+
+    if (cmbResourceType.getValue() == ResourceType.BOOK) {
+      result = new ArrayList<>(
+              library.getResourceRepository().searchBook(
+                      txtSearch.getText(),
+                      lastLogin
+              )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.DVD) {
+      result = new ArrayList<>(
+              library.getResourceRepository().searchDvd(
+                      txtSearch.getText(),
+                      lastLogin
+              )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
+      result = new ArrayList<>(
+              library.getResourceRepository().searchLaptop(
+                      txtSearch.getText(),
+                      lastLogin
+              )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.GAME) {
+      result = new ArrayList<>(
+              library.getResourceRepository().searchGame(
+                      txtSearch.getText(),
+                      lastLogin
+              )
+      );
+    } else {
+      result = library.getResourceRepository().searchResource(
+              txtSearch.getText(),
+              lastLogin
+      );
+    }
+
+    setTableContents(
+            result
+    );
+  }
+
+  /**
+   * Populates the table.
+   *
+   * @param resources the resources in the library
+   */
+  private void setTableContents(List<Resource> resources) {
+    tblBrowseResourcesTable.getItems().clear();
+
+    for (Resource resource : resources) {
+      tblBrowseResourcesTable.getItems().add(
+              new ResourceTableWrapper(resource)
+      );
+    }
   }
 
   /**
@@ -208,6 +317,14 @@ public class UserDashboardController extends BaseFxmlController {
     if (profileImage != null) {
       profileImageImageView.setImage(profileImage);
     }
+
+    cmbResourceType.getItems().addAll(
+            Arrays.asList(resourceTypes)
+    );
+
+    setTableContents(
+            library.getResourceRepository().getNewAddtions(lastLogin)
+    );
   }
 
   /**
