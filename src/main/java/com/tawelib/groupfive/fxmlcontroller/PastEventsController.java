@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 /**
  * The class controls PastEvents.fxml file. Allows to see the users past attended events.
@@ -26,33 +27,38 @@ public class PastEventsController extends BaseFxmlController {
   private ListView<Button> eventsListField;
 
   @FXML
-  public void initialize() {
+  private TextField searchField;
 
+  @FXML
+  public void initialize() {
+    searchField.setOnKeyTyped(event -> refresh());
   }
 
   @Override
   public void refresh() {
+    eventsListField.getItems().remove(0, eventsListField.getItems().size());
     ArrayList<Event> allEvents = EventManager.getUserPastEvents(library, loggedInUser);
     for (Event e : allEvents) {
-      //The main info shown on the button
-      int year = e.getEventDate().getYear();
-      String month = e.getEventDate().getMonth().toString();
-      int day = e.getEventDate().getDayOfMonth();
-      int hour = e.getEventDate().getHour();
-      int min = e.getEventDate().getMinute();
-      Button description = new Button(year + " " + month + " " + day + "\n"
-          + hour + ":" + min + "\n" + e.getEventName() + "\n");
+      if (e.getEventName().contains(searchField.getText())) {
+        //The main info shown on the button
+        int year = e.getEventDate().getYear();
+        String month = e.getEventDate().getMonth().toString();
+        int day = e.getEventDate().getDayOfMonth();
 
-      description.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
-      eventsListField.getItems().addAll(description);
+        Button description = new Button(year + " " + month + " " + day + "\n"
+            + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n");
 
-      description.setOnAction(event -> {
-        String aboutEvent = year + " " + month + " " + day + "\n"
-            + hour + ":" + min + "\n" + e.getEventName() + "\n" + e
-            .getDescription();
+        description.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
+        eventsListField.getItems().addAll(description);
 
-        AlertHelper.eventDescription(INFORMATION, aboutEvent);
-      });
+        description.setOnAction(event -> {
+          String aboutEvent = year + " " + month + " " + day + "\n"
+              + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n" + e
+              .getDescription();
+
+          AlertHelper.eventDescription(INFORMATION, aboutEvent);
+        });
+      }
     }
   }
 
