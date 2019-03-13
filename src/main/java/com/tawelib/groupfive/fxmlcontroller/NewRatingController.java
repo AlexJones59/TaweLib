@@ -14,8 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Tooltip;
-import javafx.util.Duration;
 
 
 /**
@@ -38,9 +36,6 @@ public class NewRatingController extends BaseFxmlController {
   private Label ratingLabel;
 
   @FXML
-  private Tooltip helpTooltip;
-
-  @FXML
   private ComboBox<String> ratingBox;
 
   @FXML
@@ -52,11 +47,6 @@ public class NewRatingController extends BaseFxmlController {
    */
   void update() {
     titleLabel.setText(ratedResource.getTitle());
-
-    helpTooltip.setText("Here you can leave a rating "
-        + "for the selected resource. \nYou may also leave a review, however"
-        + " it must be \naccompanied by a rating.");
-    helpTooltip.setShowDelay(Duration.seconds(0.5));
 
     ratingBox.getItems().addAll("★","★★","★★★",
         "★★★★","★★★★★");

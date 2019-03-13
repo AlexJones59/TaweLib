@@ -12,12 +12,9 @@ table and change it's schema depending on what Resource Type is selected.
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 
@@ -39,21 +36,6 @@ table and change it's schema depending on what Resource Type is selected.
                      </font>
                   </Label>
                </center>
-               <right>
-                  <StackPane BorderPane.alignment="CENTER">
-                     <children>
-                        <Circle fill="#c9e4ff" radius="12.5" stroke="#8cc8ff" strokeType="INSIDE" />
-                        <Label id="helpIcon" fx:id="helpIcon" alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="?" textFill="WHITE" StackPane.alignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="16.0" />
-                           </font>
-                           <tooltip>
-                              <Tooltip id="helpTooltip" fx:id="helpTooltip" text="Empty Tooltip" />
-                           </tooltip>
-                        </Label>
-                     </children>
-                  </StackPane>
-               </right>
             </BorderPane>
             <BorderPane>
                <left>
