@@ -16,12 +16,13 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 
 /**
@@ -46,7 +47,7 @@ public class RatingController extends BaseFxmlController {
   private Label averageRatingStarsLabel;
 
   @FXML
-  private Button helpButton;
+  private Tooltip helpTooltip;
 
   @FXML
   private BarChart<String,Integer> ratingChart;
@@ -60,11 +61,12 @@ public class RatingController extends BaseFxmlController {
   public void update() {
     resourceTitle.setText(this.selectedResource.getTitle());
 
-    helpButton.setTooltip(new Tooltip("This is a window showing "
+    helpTooltip.setText("This is a window showing "
         + "all reviews and ratings for the selected resource.\n"
         + "You can leave a rating or review using the 'Rate / Review' "
         + "button below \n if you have previously leased the "
-        + "resource from the library."));
+        + "resource from the library.");
+    helpTooltip.setShowDelay(Duration.seconds(0.5));
 
     List<Rating> ratings = getLibrary().getRatingRepository()
         .getResourcesRatings(this.selectedResource);
@@ -78,6 +80,7 @@ public class RatingController extends BaseFxmlController {
         reviewVerticalBox.getChildren().add(createReviewBox((Review) rating));
       }
     }
+    reviewVerticalBox.setPrefWidth(Region.USE_COMPUTED_SIZE);
 
     XYChart.Series<String,Integer> ratingsData = new XYChart.Series<>();
     for (int i = 1; i < 6; i++) {
@@ -92,8 +95,7 @@ public class RatingController extends BaseFxmlController {
         + (5 * ratingsAmount[5]))) / (ratingsAmount[1] + ratingsAmount[2]
         + ratingsAmount[3] + ratingsAmount[4] + ratingsAmount[5]);
 
-    averageRatingLabel.setText("Average Rating: "
-        + String.format("%.1f",averageRating));
+    averageRatingLabel.setText(String.format("%.1f",averageRating));
 
     StringBuilder averageStars = new StringBuilder();
     for (int i = 1; i <= (int)averageRating; i++) {

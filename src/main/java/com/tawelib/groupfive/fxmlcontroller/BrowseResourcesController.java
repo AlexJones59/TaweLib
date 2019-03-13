@@ -41,9 +41,6 @@ public class BrowseResourcesController extends BaseFxmlController {
   private TextField txtSearch;
 
   @FXML
-  private Label lblSearch;
-
-  @FXML
   private Button btnInfo;
 
   @FXML
