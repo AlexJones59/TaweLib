@@ -26,8 +26,9 @@ public class RequestManager {
    * @param library the library
    * @param customer the customer
    * @param requestedResource the requested resource
-   * @throws OverResourceCapException This exception gets thrown whenever this request and
-   * subsequent lending of an item would exceed this customers resource cap.
+   * @throws OverResourceCapException Thrown whenever this request and
+   *        subsequent lending of an item would exceed this customers resource cap.
+   * @throws CopyAvailableException Thrown when there is a copy available.
    */
   public static void createRequest(Library library, Customer customer,
       Resource requestedResource) throws OverResourceCapException, CopyAvailableException {

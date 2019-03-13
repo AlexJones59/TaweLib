@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * File Name - CopyRepository.java The Copy repository class handles copy
- * details.
+ * File Name - CopyRepository.java The Copy repository class handles copy details.
  *
  * @author Created by Themis, Modified by Shree Desai
  * @version 1.0
@@ -98,11 +97,11 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @param resource the resource
    * @return the list
    */
-  public List<Copy> getAvailableResourceCopies(Resource resource){
+  public List<Copy> getAvailableResourceCopies(Resource resource) {
     ArrayList<Copy> result = new ArrayList<>();
 
-    for (Copy copy : getResourceCopies(resource)){
-      if (copy.getStatus() == CopyStatus.AVAILABLE){
+    for (Copy copy : getResourceCopies(resource)) {
+      if (copy.getStatus() == CopyStatus.AVAILABLE) {
         result.add(copy);
       }
     }
