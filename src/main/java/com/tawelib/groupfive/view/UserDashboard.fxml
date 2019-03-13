@@ -6,7 +6,10 @@ If the user is a Customer, it disables certain boxes and vice-versa.
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,21 +18,17 @@ If the user is a Customer, it disables certain boxes and vice-versa.
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.UserDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tawelib.groupfive.fxmlcontroller.UserDashboardController">
   <children>
     <Text fx:id="lblScreenTitle" layoutX="259.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Dashboard">
       <font>
         <Font size="48.0" />
       </font>
     </Text>
-    <Button fx:id="logOutButton" layoutX="707.0" layoutY="51.0" mnemonicParsing="false" onAction="#logOut" text="Log out" />
-      <VBox layoutX="116.0" layoutY="372.0" prefHeight="344.0" prefWidth="260.0" spacing="10.0" AnchorPane.leftAnchor="116.0" AnchorPane.rightAnchor="482.0">
+    <Button fx:id="logOutButton" layoutX="1000.0" layoutY="51.0" mnemonicParsing="false" onAction="#logOut" text="Log out" />
+      <VBox layoutX="79.0" layoutY="365.0" prefHeight="344.0" prefWidth="260.0" spacing="10.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="761.0">
          <children>
           <Button fx:id="browseResourceButton" mnemonicParsing="false" onAction="#browseResources" prefHeight="70.0" prefWidth="260.0" text="Browse Resources">
-               <font>
-                  <Font size="14.0" />
-               </font></Button>
-          <Button fx:id="browseNewAdditionsButton" mnemonicParsing="false" onAction="#browseNewAdditions" prefHeight="70.0" prefWidth="260.0" text="New Additions">
                <font>
                   <Font size="14.0" />
                </font></Button>
@@ -43,7 +42,7 @@ If the user is a Customer, it disables certain boxes and vice-versa.
                </font></Button>
          </children>
       </VBox>
-      <VBox layoutX="490.0" layoutY="372.0" prefHeight="413.0" prefWidth="260.0" spacing="10.0" AnchorPane.rightAnchor="108.0">
+      <VBox layoutX="399.0" layoutY="365.0" prefHeight="413.0" prefWidth="260.0" spacing="10.0" AnchorPane.rightAnchor="441.0">
          <children>
           <Button fx:id="createNewAccountButton" mnemonicParsing="false" onAction="#createNewAccount" prefHeight="70.0" prefWidth="260.0" text="Create new account">
                <font>
@@ -67,7 +66,7 @@ If the user is a Customer, it disables certain boxes and vice-versa.
                </font></Button>
          </children>
       </VBox>
-      <HBox layoutX="37.0" layoutY="131.0" prefHeight="219.0" prefWidth="792.0" spacing="10.0">
+      <HBox layoutX="37.0" layoutY="131.0" prefHeight="219.0" prefWidth="687.0" spacing="10.0">
          <children>
           <ImageView fx:id="profileImageImageView" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#changeProfileImage" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="219.0" prefWidth="126.0" spacing="5.0">
@@ -92,5 +91,25 @@ If the user is a Customer, it disables certain boxes and vice-versa.
             </VBox>
          </children>
       </HBox>
+      <HBox layoutX="733.0" layoutY="179.0" spacing="5.0">
+         <children>
+            <Label fx:id="lblSearch" prefHeight="25.0" text="Search:" />
+            <TextField fx:id="txtSearch" onAction="#search" onInputMethodTextChanged="#search" prefHeight="31.0" prefWidth="145.0" />
+            <ComboBox fx:id="cmbResourceType" onAction="#search" prefHeight="31.0" prefWidth="150.0" promptText="Resource Type" />
+         </children>
+      </HBox>
+      <TableView fx:id="tblBrowseResourcesTable" layoutX="734.0" layoutY="216.0" prefHeight="411.0" prefWidth="350.0">
+         <columns>
+            <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="titleColumn" prefWidth="185.0" text="Title" />
+            <TableColumn fx:id="yearColumn" prefWidth="55.0" text="Year" />
+            <TableColumn fx:id="typeColumn" prefWidth="70.0" text="Type" />
+         </columns>
+      </TableView>
+      <Text fx:id="lblScreenTitle1" layoutX="734.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Resource Addition" textAlignment="CENTER" wrappingWidth="350.00001043081284">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
   </children>
 </AnchorPane>
