@@ -4,6 +4,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.CopyAvailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.manager.RequestManager;
@@ -130,17 +131,16 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
   public void request() {
     try {
       RequestManager.createRequest(
-              library,
-              (Customer) loggedInUser,
-              selectedResource
+          library,
+          (Customer) loggedInUser,
+          selectedResource
       );
     } catch (OverResourceCapException e) {
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
-              + "An item must be returned before another can be borrowed.");
-    } catch (NullPointerException e) {
-      System.out.println("No such resource!");
+          + "An item must be returned before another can be borrowed.");
+    } catch (CopyAvailableException e) {
+      AlertHelper.alert(AlertType.ERROR, "Copy Available to Borrow! Request not made.");
     }
-
     AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     back();
   }
