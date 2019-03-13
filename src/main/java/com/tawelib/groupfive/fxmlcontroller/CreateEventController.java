@@ -129,7 +129,7 @@ public class CreateEventController extends BaseFxmlController {
   }
 
   /**
-   * Method checks whether the description fits in the maximum length bounds
+   * Method checks whether the description fits in the maximum length bounds.
    *
    * @param description The description string
    * @return True if the conditions are satisfied, false otherwise.

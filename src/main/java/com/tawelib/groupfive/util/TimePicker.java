@@ -34,7 +34,7 @@ public class TimePicker extends HBox {
   }
 
   /**
-   * The method returns the time in LocalTime type by taking the info from focused cells;
+   * The method returns the time in LocalTime type by taking the info from focused cells.
    *
    * @return LocalTime time.
    */
