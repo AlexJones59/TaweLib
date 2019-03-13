@@ -89,7 +89,23 @@ public class CopyRepository implements BaseRepository<Copy> {
         result.add(copy);
       }
     }
+    return result;
+  }
 
+  /**
+   * Get available resource copies list.
+   *
+   * @param resource the resource
+   * @return the list
+   */
+  public List<Copy> getAvailableResourceCopies(Resource resource){
+    ArrayList<Copy> result = new ArrayList<>();
+
+    for (Copy copy : getResourceCopies(resource)){
+      if (copy.getStatus() == CopyStatus.AVAILABLE){
+        result.add(copy);
+      }
+    }
     return result;
   }
 
