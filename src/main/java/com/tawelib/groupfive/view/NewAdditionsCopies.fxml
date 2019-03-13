@@ -22,7 +22,7 @@
                 <Button fx:id="btnDelete" layoutX="365.0" layoutY="102.0" mnemonicParsing="false" text="Delete" visible="false" />
                 <Button fx:id="btnHistory" layoutX="106.0" layoutY="102.0" mnemonicParsing="false" text="History" visible="false" />
                 <Button fx:id="requestCopyButton" layoutX="631.0" layoutY="102.0" mnemonicParsing="false" onAction="#request" text="Request Copy" />
-            <Button fx:id="declareLostButton" layoutX="517.0" layoutY="102.0" mnemonicParsing="false" onAction="#declareLost" text="Declare Lost" />
+                <Button fx:id="declareLostButton" layoutX="517.0" layoutY="102.0" mnemonicParsing="false" onAction="#declareLost" text="Declare Lost" />
             </children>
         </Pane>
     </bottom>
@@ -44,12 +44,12 @@
                         <TableColumn fx:id="dueDateTableColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="94.0" text="Due Date" />
                     </columns>
                 </TableView>
-            <Button fx:id="createCopyButton" layoutX="689.0" layoutY="28.0" mnemonicParsing="false" onAction="#createCopy" text="Create copy" />
-            <Button fx:id="historyButton" layoutX="615.0" layoutY="28.0" mnemonicParsing="false" onAction="#history" text="History" />
-            <Label layoutX="93.0" layoutY="21.0" text="Total copies" />
-            <Label layoutX="93.0" layoutY="45.0" text="Available copies" />
-            <Label fx:id="totalCopiesLabel" layoutX="212.0" layoutY="21.0" text="Label" />
-            <Label fx:id="availableCopiesLabel" layoutX="212.0" layoutY="45.0" text="Label" />
+                <Button fx:id="createCopyButton" layoutX="689.0" layoutY="28.0" mnemonicParsing="false" onAction="#createCopy" text="Create copy" />
+                <Button fx:id="historyButton" layoutX="615.0" layoutY="28.0" mnemonicParsing="false" onAction="#history" text="History" />
+                <Label layoutX="93.0" layoutY="21.0" text="Total copies" />
+                <Label layoutX="93.0" layoutY="45.0" text="Available copies" />
+                <Label fx:id="totalCopiesLabel" layoutX="212.0" layoutY="21.0" text="Label" />
+                <Label fx:id="availableCopiesLabel" layoutX="212.0" layoutY="45.0" text="Label" />
             </children>
         </Pane>
     </top>

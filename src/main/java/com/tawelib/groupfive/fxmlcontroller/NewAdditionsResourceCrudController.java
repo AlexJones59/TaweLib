@@ -2,9 +2,11 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Dvd;
+import com.tawelib.groupfive.entity.Game;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.ResourceNotFoundException;
 import com.tawelib.groupfive.manager.ResourceManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ExplosionHelper;
@@ -12,10 +14,12 @@ import com.tawelib.groupfive.util.FileSystemHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import com.tawelib.groupfive.util.TrailerHelper;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -49,6 +53,9 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
 
   @FXML
   private AnchorPane laptopAnchorPane;
+
+  @FXML
+  private AnchorPane gameAnchorPane;
 
   @FXML
   private Label idLabel;
@@ -90,6 +97,18 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
   private TextField runtimeTextField;
 
   @FXML
+  private TextField publisherGameTextField;
+
+  @FXML
+  private TextField genreGameTextField;
+
+  @FXML
+  private TextField ratingTextField;
+
+  @FXML
+  private ComboBox<String> multiplayerComboBox;
+
+  @FXML
   private TextArea audioLanguagesTextArea;
 
   @FXML
@@ -108,12 +127,16 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
   private Button showCopiesButton;
 
   @FXML
+  private Button showRatingsButton;
+
+  @FXML
   private ImageView resourceImageView;
 
   @FXML
   private ComboBox<ResourceType> resourceTypeComboBox;
 
-  private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD, ResourceType.LAPTOP};
+  private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
+          ResourceType.LAPTOP, ResourceType.GAME};
 
   /**
    * Sets the dynamic fields.
@@ -127,6 +150,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
         resourceTypeComboBox.getItems().addAll(Arrays.asList(resourceTypes));
         resourceTypeComboBox.setValue(ResourceType.BOOK);
       }
+      initMultiplayerComboBox();
 
       switch (resourceTypeComboBox.getValue()) {
         case BOOK:
@@ -138,18 +162,26 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
         case LAPTOP:
           showSubtypePane(laptopAnchorPane);
           break;
+        case GAME:
+          showSubtypePane(gameAnchorPane);
+          break;
         default:
           break;
       }
     }
 
-    // sets visibilities based on the above conditions
+    //sets visibilities based on the above conditions
     showTrailerButton.setVisible(crudAction != CrudAction.CREATE);
     showCopiesButton.setVisible(crudAction != CrudAction.CREATE);
     resourceTypeComboBox.setVisible(crudAction == CrudAction.CREATE);
 
-    createButton.setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);
-    updateButton.setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
+    showRatingsButton
+            .setVisible(!isLibrarianLoggedIn() && crudAction != CrudAction.CREATE);
+
+    createButton
+            .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.CREATE);
+    updateButton
+            .setVisible(isLibrarianLoggedIn() && crudAction == CrudAction.UPDATE);
   }
 
   /**
@@ -160,21 +192,36 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
       switch (resourceTypeComboBox.getValue()) {
         case BOOK:
           ResourceManager.createBook(library, titleTextField.getText(),
-              Integer.parseInt(yearTextField.getText()), null, authorTextField.getText(),
-              publisherTextField.getText(), genreTextField.getText(), isbnTextField.getText(),
-              languageTextField.getText());
+                  Integer.parseInt(yearTextField.getText()), null,
+                  authorTextField.getText(), publisherTextField.getText(),
+                  genreTextField.getText(), isbnTextField.getText(),
+                  languageTextField.getText());
           break;
         case DVD:
           ResourceManager.createDvd(library, titleTextField.getText(),
-              Integer.parseInt(yearTextField.getText()), null, directorTextField.getText(),
-              Integer.parseInt(runtimeTextField.getText()),
-              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
-              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+                  Integer.parseInt(yearTextField.getText()), null,
+                  directorTextField.getText(),
+                  Integer.parseInt(runtimeTextField.getText()),
+                  ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+                  ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
           break;
         case LAPTOP:
           ResourceManager.createLaptop(library, titleTextField.getText(),
-              Integer.parseInt(yearTextField.getText()), null, manufacturerTextField.getText(),
-              modelTextField.getText(), operatingSystemTextField.getText());
+                  Integer.parseInt(yearTextField.getText()), null,
+                  manufacturerTextField.getText(), modelTextField.getText(),
+                  operatingSystemTextField.getText());
+          break;
+        case GAME:
+          boolean mp;
+          if ((multiplayerComboBox.getValue()).equals("Multiplayer")) {
+            mp = true;
+          } else {
+            mp = false;
+          }
+          ResourceManager.createGame(library, titleTextField.getText(),
+                  Integer.parseInt(yearTextField.getText()), null,
+                  publisherGameTextField.getText(), genreGameTextField.getText(),
+                  ratingTextField.getText(), mp);
           break;
         default:
           break;
@@ -195,22 +242,40 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
       switch (selectedResource.getType()) {
         case BOOK:
           ResourceManager.updateBook(library, selectedResource.getResourceId(),
-              titleTextField.getText(), Integer.parseInt(yearTextField.getText()), null,
-              authorTextField.getText(), publisherTextField.getText(), genreTextField.getText(),
-              isbnTextField.getText(), languageTextField.getText());
+                  titleTextField.getText(),
+                  Integer.parseInt(yearTextField.getText()), null,
+                  authorTextField.getText(), publisherTextField.getText(),
+                  genreTextField.getText(), isbnTextField.getText(),
+                  languageTextField.getText());
           break;
         case DVD:
           ResourceManager.updateDvd(library, selectedResource.getResourceId(),
-              titleTextField.getText(), Integer.parseInt(yearTextField.getText()), null,
-              directorTextField.getText(), Integer.parseInt(runtimeTextField.getText()),
-              ExplosionHelper.explode(audioLanguagesTextArea.getText()),
-              ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
+                  titleTextField.getText(),
+                  Integer.parseInt(yearTextField.getText()), null,
+                  directorTextField.getText(),
+                  Integer.parseInt(runtimeTextField.getText()),
+                  ExplosionHelper.explode(audioLanguagesTextArea.getText()),
+                  ExplosionHelper.explode(subtitleLanguagesTextArea.getText()));
           break;
         case LAPTOP:
-          ResourceManager.updateLaptop(library, selectedResource.getResourceId(),
-              titleTextField.getText(), Integer.parseInt(yearTextField.getText()), null,
-              manufacturerTextField.getText(), modelTextField.getText(),
-              operatingSystemTextField.getText());
+          ResourceManager
+                  .updateLaptop(library, selectedResource.getResourceId(),
+                          titleTextField.getText(),
+                          Integer.parseInt(yearTextField.getText()), null,
+                          manufacturerTextField.getText(), modelTextField.getText(),
+                          operatingSystemTextField.getText());
+          break;
+        case GAME:
+          boolean mp;
+          if ((multiplayerComboBox.getValue()).equals("Multiplayer")) {
+            mp = true;
+          } else {
+            mp = false;
+          }
+          ResourceManager.updateGame(library, selectedResource.getResourceId(),
+                  titleTextField.getText(), Integer.parseInt(yearTextField.getText()),
+                  null, publisherGameTextField.getText(), genreGameTextField.getText(),
+                  ratingTextField.getText(), mp);
           break;
         default:
           break;
@@ -218,7 +283,7 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
 
       AlertHelper.alert(AlertType.INFORMATION, "Successfully updated");
       back();
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException | ResourceNotFoundException e) {
       AlertHelper.alert(AlertType.ERROR, e.getMessage());
     }
   }
@@ -234,11 +299,23 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
    * Shows copies available for a resource.
    */
   public void showCopies() {
-    NewAdditionsCopiesController newController =
-        (NewAdditionsCopiesController) SceneHelper.setUpScene(this, "NewAdditionsCopies");
+    ResourceCopiesController newController = (ResourceCopiesController) SceneHelper
+            .setUpScene(this, "NewAdditionsCopies");
 
     newController.setSelectedResource(selectedResource);
     newController.refresh();
+  }
+
+  /**
+   * Shows ratings and reviews for a resource.
+   */
+  public void showRatings() {
+    RatingController newController = (RatingController) SceneHelper
+            .setUpScene(this, "ResourceRatings");
+
+    newController.setSelectedResource(selectedResource);
+    newController.setCrudAction(crudAction);
+    newController.update();
   }
 
   /**
@@ -248,19 +325,26 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
   public void chooseImage() {
     if (isLibrarianLoggedIn()) {
       FileChooser fileChooser = new FileChooser();
-      fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+      fileChooser.getExtensionFilters()
+              .add(new FileChooser.ExtensionFilter("PNG", "*.png"));
       File file = fileChooser.showOpenDialog(getPrimaryStage());
       if (file != null) {
         try {
-          File currProfImg = new File(FileSystemHelper.getResourcePicturePath(selectedResource));
+          File currProfImg = new File(
+                  FileSystemHelper.getResourcePicturePath(selectedResource));
           BufferedImage tempImg = ImageIO.read(file);
           ImageIO.write(tempImg, "png", currProfImg);
         } catch (IOException e) {
           AlertHelper.alert(AlertType.ERROR, "Unable to load image.");
         }
 
-        AlertHelper.alert(AlertType.INFORMATION, "Resource image set successfully.");
-        resourceImageView.setImage(ResourceHelper.getResourceImage(selectedResource));
+        AlertHelper.alert(
+                AlertType.INFORMATION,
+                "Resource image set successfully."
+        );
+        resourceImageView.setImage(
+                ResourceHelper.getResourceImage(selectedResource)
+        );
       }
     }
   }
@@ -321,13 +405,17 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
     dvdAnchorPane.setManaged(dvdAnchorPane == pane);
     laptopAnchorPane.setVisible(laptopAnchorPane == pane);
     laptopAnchorPane.setManaged(laptopAnchorPane == pane);
+    gameAnchorPane.setVisible(gameAnchorPane == pane);
+    gameAnchorPane.setManaged(gameAnchorPane == pane);
   }
 
   /**
    * populates the screen with information about the resource.
    */
   private void populateResource() {
-    resourceImageView.setImage(ResourceHelper.getResourceImage(selectedResource));
+    resourceImageView.setImage(
+            ResourceHelper.getResourceImage(selectedResource)
+    );
     idLabel.setText(selectedResource.getResourceId());
     titleTextField.setText(selectedResource.getTitle());
     yearTextField.setText(Integer.toString(selectedResource.getYear()));
@@ -344,6 +432,10 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
       case LAPTOP:
         populateLaptop();
         showSubtypePane(laptopAnchorPane);
+        break;
+      case GAME:
+        populateGame();
+        showSubtypePane(gameAnchorPane);
         break;
       default:
         break;
@@ -371,8 +463,10 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
 
     directorTextField.setText(selectedDvd.getDirector());
     runtimeTextField.setText(Integer.toString(selectedDvd.getRuntime()));
-    audioLanguagesTextArea.setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
-    subtitleLanguagesTextArea.setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
+    audioLanguagesTextArea
+            .setText(ExplosionHelper.implode(selectedDvd.getLanguages()));
+    subtitleLanguagesTextArea
+            .setText(ExplosionHelper.implode(selectedDvd.getSubtitleLanguages()));
   }
 
   /**
@@ -383,6 +477,33 @@ public class NewAdditionsResourceCrudController extends BaseFxmlController {
 
     modelTextField.setText(selectedLaptop.getModel());
     manufacturerTextField.setText(selectedLaptop.getModel());
-    operatingSystemTextField.setText(selectedLaptop.getInstalledOperatingSystem());
+    operatingSystemTextField
+            .setText(selectedLaptop.getInstalledOperatingSystem());
+  }
+
+  private void populateGame() {
+    Game selectedGame = (Game) selectedResource;
+    initMultiplayerComboBox();
+    publisherGameTextField.setText(selectedGame.getPublisher());
+    genreGameTextField.setText(selectedGame.getGenre());
+    ratingTextField.setText(selectedGame.getRating());
+    boolean mp = ((Game) selectedResource).isMultiplayer();
+    String text;
+    if (mp) {
+      text = "Multiplayer";
+    } else {
+      text = "Singleplayer";
+    }
+    multiplayerComboBox.setValue(text);
+  }
+
+  /**
+   * The method initializes the comboBox for choosing the multiplayer/singleplayer option.
+   */
+  private void initMultiplayerComboBox() {
+    if (multiplayerComboBox.getItems().isEmpty()) {
+      multiplayerComboBox.getItems().addAll("Multiplayer", "Singleplayer");
+      multiplayerComboBox.setValue("Singleplayer");
+    }
   }
 }

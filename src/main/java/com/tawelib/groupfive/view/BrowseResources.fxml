@@ -41,10 +41,10 @@ table and change it's schema depending on what Resource Type is selected.
                     <center>
                         <TableView fx:id="tblBrowseResourcesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                             <columns>
-                                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                                <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-                                <TableColumn fx:id="yearColumn" prefWidth="55.0" text="Year" />
-                                <TableColumn fx:id="typeColumn" prefWidth="82.0" text="Type" />
+                                <TableColumn fx:id="idColumn" prefWidth="80.0" text="ID" />
+                                <TableColumn fx:id="titleColumn" prefWidth="540.0" text="Title" />
+                                <TableColumn fx:id="yearColumn" prefWidth="100.0" text="Year" />
+                                <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Type" />
                                 <TableColumn prefWidth="88.0" text="Image" visible="false" />
                                 <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" visible="false" />
                                 <TableColumn fx:id="publisherColumn" prefWidth="107.0" text="Publisher" visible="false" />
