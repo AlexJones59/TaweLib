@@ -18,6 +18,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -116,6 +117,18 @@ public class BrowseResourcesController extends BaseFxmlController {
     createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
+  public void doubleClick() {
+    tblBrowseResourcesTable.setRowFactory(tv -> {
+      TableRow<Resource> row = new TableRow<>();
+      row.setOnMouseClicked(event -> {
+        if (event.getClickCount() == 2 && (!row.isEmpty())) {
+          setUpResourceCrud(CrudAction.UPDATE);
+        }
+      });
+      return null;
+    });
+  }
+
   /**
    * Searches for resources by type and displays the result in the table.
    */
@@ -180,20 +193,6 @@ public class BrowseResourcesController extends BaseFxmlController {
     setUpResourceCrud(CrudAction.CREATE);
   }
 
-
-  @FXML
-  void mouseClick(ActionEvent event, CrudAction crudAction) {
-    tblBrowseResourcesTable.setOnMousePressed(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-          tblBrowseResourcesTable.getSelectionModel().getSelectedItem();
-          setUpResourceCrud(crudAction.UPDATE);
-        }
-      }
-    });
-  }
-
   /**
    * Goes to resource crud screen for the selected resource.
    *
@@ -229,5 +228,6 @@ public class BrowseResourcesController extends BaseFxmlController {
           new ResourceTableWrapper(resource)
       );
     }
+    doubleClick();
   }
 }
