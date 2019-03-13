@@ -33,7 +33,7 @@
       prefWidth="124.0" AnchorPane.leftAnchor="485.0" AnchorPane.rightAnchor="145.0"/>
     <TextArea fx:id="descriptionField" layoutX="294.0" layoutY="416.0" prefHeight="145.0"
       prefWidth="320.0" AnchorPane.rightAnchor="145.0"/>
-    <Label layoutX="131.0" layoutY="356.0" prefHeight="21.0" prefWidth="395.0"
+    <Label layoutX="131.0" layoutY="356.0" prefHeight="21.0" prefWidth="300.0"
       text="Maximum amount of participants*" AnchorPane.leftAnchor="131.0"
       AnchorPane.rightAnchor="228.0"/>
     <Label layoutX="131.0" layoutY="416.0" text="Event description" AnchorPane.leftAnchor="131.0"/>

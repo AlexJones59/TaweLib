@@ -85,8 +85,7 @@ public class LeaseRepository implements BaseRepository<Lease> {
         }
       }
     }
-
-    throw new RuntimeException("Lease not found.");
+    return null;
   }
 
   /**
