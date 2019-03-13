@@ -76,17 +76,17 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
   @FXML
   public void initialize() {
     idTableColumn.setCellValueFactory(
-            new PropertyValueFactory<CopiesTableWrapper, String>("id"));
+        new PropertyValueFactory<CopiesTableWrapper, String>("id"));
 
     titleTableColumn.setCellValueFactory(
-            new PropertyValueFactory<CopiesTableWrapper, String>("title"));
+        new PropertyValueFactory<CopiesTableWrapper, String>("title"));
 
     availabilityTableColumn.setCellValueFactory(
-            new PropertyValueFactory<CopiesTableWrapper, CopyStatus>(
-                    "status"));
+        new PropertyValueFactory<CopiesTableWrapper, CopyStatus>(
+            "status"));
 
     dueDateTableColumn.setCellValueFactory(
-            new PropertyValueFactory<CopiesTableWrapper, LocalDateTime>("dueDate"));
+        new PropertyValueFactory<CopiesTableWrapper, LocalDateTime>("dueDate"));
   }
 
   /**
@@ -102,12 +102,12 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
     }
 
     for (Copy copy : library.getCopyRepository()
-            .getResourceCopies(selectedResource)
+        .getResourceCopies(selectedResource)
     ) {
       copiesTableView.getItems().add(
-              new CopiesTableWrapper(
-                      copy, library.getLeaseRepository()
-              )
+          new CopiesTableWrapper(
+              copy, library.getLeaseRepository()
+          )
       );
       totalCopies++;
       if (copy.getStatus() == CopyStatus.AVAILABLE) {
@@ -140,8 +140,9 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
           + "An item must be returned before another can be borrowed.");
     } catch (CopyAvailableException e) {
       AlertHelper.alert(AlertType.ERROR, "Copy Available to Borrow! Request not made.");
+    } finally {
+      AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     }
-    AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     back();
   }
 
@@ -159,10 +160,10 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    */
   public void history() {
     CopyHistoryController newController = (CopyHistoryController) SceneHelper
-            .setUpScene(
-                    this,
-                    "CopyHistory"
-            );
+        .setUpScene(
+            this,
+            "CopyHistory"
+        );
 
     Copy copy = copiesTableView.getSelectionModel().getSelectedItem().getCopy();
 
@@ -193,7 +194,7 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    * @param selectedResource the selected resource
    */
   public void setSelectedResource(
-          Resource selectedResource) {
+      Resource selectedResource) {
     this.selectedResource = selectedResource;
   }
 
@@ -202,7 +203,7 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    */
   public void declareLost() {
     CopiesTableWrapper copiesWrapper = copiesTableView.getSelectionModel()
-            .getSelectedItem();
+        .getSelectedItem();
 
     if (copiesWrapper != null) {
       String copyId = copiesWrapper.getCopy().getId();
