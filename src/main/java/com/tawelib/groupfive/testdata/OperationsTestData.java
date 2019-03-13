@@ -29,6 +29,10 @@ class OperationsTestData {
   private static final Random random = new Random();
   private static List<String> borrowedCopyIds = new ArrayList<>();
 
+  private static int missesCounter = 0;
+  private static int borrowsCounter = 0;
+  private static int returnsCounter = 0;
+
   /**
    * Generates operations test data. Simulates the users' behaviour by randomly deciding each next
    * action.
@@ -39,44 +43,14 @@ class OperationsTestData {
     final int targetNumberOfLeases = (int) (library.getCopyRepository().getAll().size()
         * IDEAL_LEASES_CONCENTRATION);
 
-    int missesCounter = 0;
-    int borrowsCounter = 0;
-    int returnsCounter = 0;
-
     // While the simulated time hasn't caught up with the actual current time.
-    // TODO: Refactor into smaller methods.
     // TODO: Add more operations?
     while (SimulatedLocalDateTime.now().isBefore(LocalDateTime.now())) {
       if (!borrowedCopyIds.isEmpty()
           && random.nextInt(borrowedCopyIds.size()) > targetNumberOfLeases / 2) {
-        int randomIndex = random.nextInt(borrowedCopyIds.size());
-
-        CopyManager.returnResourceCopy(
-            library,
-            borrowedCopyIds.get(randomIndex)
-        );
-
-        borrowedCopyIds.remove(randomIndex);
-
-        returnsCounter++;
+        simulateReturn(library);
       } else {
-        String copyIdToBeBorrowed = getRandomCopyId(library);
-
-        try {
-          CopyManager.borrowResourceCopy(
-              library,
-              copyIdToBeBorrowed,
-              getRandomCustomerUsername(library)
-          );
-
-          borrowedCopyIds.add(copyIdToBeBorrowed);
-
-          borrowsCounter++;
-        } catch (CopyUnavailableException e) {
-          missesCounter++;
-        } catch (OverResourceCapException e) {
-          //Return something
-        }
+        simulateLoan(library);
       }
 
       SimulatedClock.addMinutes(random.nextInt(30));
@@ -85,6 +59,39 @@ class OperationsTestData {
     System.out.println("Borrows: " + borrowsCounter);
     System.out.println("Returns: " + returnsCounter);
     System.out.println("Misses: " + missesCounter);
+  }
+
+  private static void simulateLoan(Library library) {
+    String copyIdToBeBorrowed = getRandomCopyId(library);
+
+    try {
+      CopyManager.borrowResourceCopy(
+          library,
+          copyIdToBeBorrowed,
+          getRandomCustomerUsername(library)
+      );
+
+      borrowedCopyIds.add(copyIdToBeBorrowed);
+
+      borrowsCounter++;
+    } catch (CopyUnavailableException e) {
+      missesCounter++;
+    } catch (OverResourceCapException e) {
+      //Return something
+    }
+  }
+
+  private static void simulateReturn(Library library) {
+    int randomIndex = random.nextInt(borrowedCopyIds.size());
+
+    CopyManager.returnResourceCopy(
+        library,
+        borrowedCopyIds.get(randomIndex)
+    );
+
+    borrowedCopyIds.remove(randomIndex);
+
+    returnsCounter++;
   }
 
   /**
