@@ -243,7 +243,9 @@ public class UserManager {
    *
    * @param user User.
    */
-  public static void updateUserlastLogin(User user) {
+  public static void updateUserlastLogin(
+      User user
+  ) {
     user.setLastLogin(LocalDateTime.now());
   }
 }

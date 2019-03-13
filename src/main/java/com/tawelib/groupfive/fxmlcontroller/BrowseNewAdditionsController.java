@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
  * type of a resource using a list provided.
  *
  * @author Petr Hoffman, Nayeem Mohammed
- * @version 1.0
+ * @version 1.1
  */
 public class BrowseNewAdditionsController extends BaseFxmlController {
 
@@ -52,10 +52,15 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
   @FXML
   private ComboBox<ResourceType> cmbResourceType;
 
-  private ResourceType[] resourceTypes =
-      {null, ResourceType.BOOK, ResourceType.DVD, ResourceType.LAPTOP};
+  private ResourceType[] resourceTypes = {
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP,
+      ResourceType.GAME
+  };
 
-  // TABLE----------------------------------------------------------
+  //TABLE----------------------------------------------------------
   @FXML
   private TableView<ResourceTableWrapper> tblBrowseResourcesTable;
 
@@ -76,15 +81,17 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
    */
   @FXML
   public void initialize() {
-    idColumn.setCellValueFactory(new PropertyValueFactory<ResourceTableWrapper, String>("id"));
+    idColumn.setCellValueFactory(
+        new PropertyValueFactory<ResourceTableWrapper, String>("id"));
 
-    titleColumn
-        .setCellValueFactory(new PropertyValueFactory<ResourceTableWrapper, String>("title"));
+    titleColumn.setCellValueFactory(
+        new PropertyValueFactory<ResourceTableWrapper, String>("title"));
 
-    yearColumn.setCellValueFactory(new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
+    yearColumn.setCellValueFactory(
+        new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
 
-    typeColumn
-        .setCellValueFactory(new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
+    typeColumn.setCellValueFactory(
+        new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
   }
 
   /**
@@ -92,9 +99,15 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
    */
   @Override
   public void refresh() {
-    cmbResourceType.getItems().addAll(Arrays.asList(resourceTypes));
+    cmbResourceType.getItems().addAll(
+        Arrays.asList(resourceTypes)
+    );
 
-    setTableContents(library.getResourceRepository().getNewAddtions(lastLogin));
+    setTableContents(
+        library.getResourceRepository().getNewAddtions(
+            lastLogin
+        )
+    );
 
     createNewButton.setVisible(isLibrarianLoggedIn());
   }
@@ -105,22 +118,44 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
   public void search() {
     List<Resource> result;
 
-
-
     if (cmbResourceType.getValue() == ResourceType.BOOK) {
       result = new ArrayList<>(
-          library.getResourceRepository().searchBook(txtSearch.getText(), lastLogin));
+          library.getResourceRepository().searchBook(
+              txtSearch.getText(),
+              lastLogin
+          )
+      );
     } else if (cmbResourceType.getValue() == ResourceType.DVD) {
       result = new ArrayList<>(
-          library.getResourceRepository().searchDvd(txtSearch.getText(), lastLogin));
+          library.getResourceRepository().searchDvd(
+              txtSearch.getText(),
+              lastLogin
+          )
+      );
     } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
       result = new ArrayList<>(
-          library.getResourceRepository().searchLaptop(txtSearch.getText(), lastLogin));
+          library.getResourceRepository().searchLaptop(
+              txtSearch.getText(),
+              lastLogin
+          )
+      );
+    } else if (cmbResourceType.getValue() == ResourceType.GAME) {
+      result = new ArrayList<>(
+          library.getResourceRepository().searchGame(
+              txtSearch.getText(),
+              lastLogin
+          )
+      );
     } else {
-      result = library.getResourceRepository().searchResource(txtSearch.getText(), lastLogin);
+      result = library.getResourceRepository().searchResource(
+          txtSearch.getText(),
+          lastLogin
+      );
     }
 
-    setTableContents(result);
+    setTableContents(
+        result
+    );
   }
 
   /**
@@ -153,13 +188,16 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
    * @param crudAction instance of crudAction
    */
   private void setUpResourceCrud(CrudAction crudAction) {
-    NewAdditionsResourceCrudController newController =
-        (NewAdditionsResourceCrudController) SceneHelper.setUpScene(this,
+    ResourceCrudController newController =
+        (ResourceCrudController) SceneHelper.setUpScene(
+            this,
             "NewAdditionsResourceCrud");
 
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
       newController.setSelectedResource(
-          tblBrowseResourcesTable.getSelectionModel().getSelectedItem().getResource());
+          tblBrowseResourcesTable.getSelectionModel().getSelectedItem()
+              .getResource()
+      );
     }
 
     newController.setCrudAction(crudAction);
@@ -175,7 +213,9 @@ public class BrowseNewAdditionsController extends BaseFxmlController {
     tblBrowseResourcesTable.getItems().clear();
 
     for (Resource resource : resources) {
-      tblBrowseResourcesTable.getItems().add(new ResourceTableWrapper(resource));
+      tblBrowseResourcesTable.getItems().add(
+          new ResourceTableWrapper(resource)
+      );
     }
   }
 }

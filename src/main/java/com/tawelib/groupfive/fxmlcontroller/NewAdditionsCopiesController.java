@@ -20,7 +20,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 /**
  * The type Resource copies controller. This lets a user see the all the information of a specific
  * copy of a resource. They can see the total number of copies and the number of available copies
@@ -75,16 +74,18 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    */
   @FXML
   public void initialize() {
-    idTableColumn.setCellValueFactory(new PropertyValueFactory<CopiesTableWrapper, String>("id"));
+    idTableColumn.setCellValueFactory(
+            new PropertyValueFactory<CopiesTableWrapper, String>("id"));
 
-    titleTableColumn
-        .setCellValueFactory(new PropertyValueFactory<CopiesTableWrapper, String>("title"));
+    titleTableColumn.setCellValueFactory(
+            new PropertyValueFactory<CopiesTableWrapper, String>("title"));
 
-    availabilityTableColumn
-        .setCellValueFactory(new PropertyValueFactory<CopiesTableWrapper, CopyStatus>("status"));
+    availabilityTableColumn.setCellValueFactory(
+            new PropertyValueFactory<CopiesTableWrapper, CopyStatus>(
+                    "status"));
 
     dueDateTableColumn.setCellValueFactory(
-        new PropertyValueFactory<CopiesTableWrapper, LocalDateTime>("dueDate"));
+            new PropertyValueFactory<CopiesTableWrapper, LocalDateTime>("dueDate"));
   }
 
   /**
@@ -99,15 +100,21 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
       copiesTableView.getItems().clear();
     }
 
-    for (Copy copy : library.getCopyRepository().getResourceCopies(selectedResource)) {
-      copiesTableView.getItems().add(new CopiesTableWrapper(copy, library.getLeaseRepository()));
+    for (Copy copy : library.getCopyRepository()
+            .getResourceCopies(selectedResource)
+    ) {
+      copiesTableView.getItems().add(
+              new CopiesTableWrapper(
+                      copy, library.getLeaseRepository()
+              )
+      );
       totalCopies++;
       if (copy.getStatus() == CopyStatus.AVAILABLE) {
         availableCopies++;
       }
     }
 
-    // declares text and visibilities depending on the above conditions
+    //declares text and visibilities depending on the above conditions
     totalCopiesLabel.setText(Integer.toString(totalCopies));
     availableCopiesLabel.setText(Integer.toString(availableCopies));
 
@@ -123,13 +130,13 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
   public void request() {
     try {
       RequestManager.createRequest(
-          library,
-          (Customer) loggedInUser,
-          selectedResource
+              library,
+              (Customer) loggedInUser,
+              selectedResource
       );
     } catch (OverResourceCapException e) {
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
-          + "An item must be returned before another can be borrowed.");
+              + "An item must be returned before another can be borrowed.");
     } catch (NullPointerException e) {
       System.out.println("No such resource!");
     }
@@ -151,8 +158,11 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    * Shows the copy history screen.
    */
   public void history() {
-    CopyHistoryController newController =
-        (CopyHistoryController) SceneHelper.setUpScene(this, "CopyHistory");
+    CopyHistoryController newController = (CopyHistoryController) SceneHelper
+            .setUpScene(
+                    this,
+                    "CopyHistory"
+            );
 
     Copy copy = copiesTableView.getSelectionModel().getSelectedItem().getCopy();
 
@@ -182,7 +192,8 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    *
    * @param selectedResource the selected resource
    */
-  public void setSelectedResource(Resource selectedResource) {
+  public void setSelectedResource(
+          Resource selectedResource) {
     this.selectedResource = selectedResource;
   }
 
@@ -190,7 +201,8 @@ public class NewAdditionsCopiesController extends BaseFxmlController {
    * Declares a copy as lost.
    */
   public void declareLost() {
-    CopiesTableWrapper copiesWrapper = copiesTableView.getSelectionModel().getSelectedItem();
+    CopiesTableWrapper copiesWrapper = copiesTableView.getSelectionModel()
+            .getSelectedItem();
 
     if (copiesWrapper != null) {
       String copyId = copiesWrapper.getCopy().getId();

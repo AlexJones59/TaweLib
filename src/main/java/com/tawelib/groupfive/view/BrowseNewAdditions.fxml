@@ -28,7 +28,7 @@ table and change it's schema depending on what Resource Type is selected.
         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
                 <Label fx:id="lblSearch" layoutX="21.0" layoutY="119.0" prefHeight="36.0" prefWidth="78.0" text="Search" />
-                <Text fx:id="lblScreenTitle" layoutX="270.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Resources">
+                <Text fx:id="lblScreenTitle" layoutX="322.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resources">
                     <font>
                         <Font size="48.0" />
                     </font>
@@ -41,19 +41,25 @@ table and change it's schema depending on what Resource Type is selected.
                     <center>
                         <TableView fx:id="tblBrowseResourcesTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                             <columns>
-                                <TableColumn fx:id="idColumn" prefWidth="75.0" text="ID" />
-                                <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-                                <TableColumn fx:id="yearColumn" prefWidth="55.0" text="Year" />
-                                <TableColumn fx:id="typeColumn" prefWidth="82.0" text="Type" />
+                                <TableColumn fx:id="idColumn" prefWidth="80.0" text="ID" />
+                                <TableColumn fx:id="titleColumn" prefWidth="540.0" text="Title" />
+                                <TableColumn fx:id="yearColumn" prefWidth="100.0" text="Year" />
+                                <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Type" />
                                 <TableColumn prefWidth="88.0" text="Image" visible="false" />
+                                <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" visible="false" />
+                                <TableColumn fx:id="publisherColumn" prefWidth="107.0" text="Publisher" visible="false" />
+                                <TableColumn fx:id="genreColumn" prefWidth="90.0" text="Genre" visible="false" />
+                                <TableColumn fx:id="isbnColumn" minWidth="0.0" prefWidth="66.0" text="ISBN" visible="false" />
+                                <TableColumn fx:id="languageColumn" prefWidth="107.0" text="Language" visible="false" />
                             </columns>
                         </TableView>
                     </center>
                 </BorderPane>
                 <Button fx:id="btnBack" layoutX="18.0" layoutY="23.0" mnemonicParsing="false" onAction="#back" text="Back" />
-            <ComboBox fx:id="cmbResourceType" layoutX="297.0" layoutY="123.0" onAction="#search" prefWidth="150.0" promptText="Resource Type" />
-            <Button fx:id="createNewButton" layoutX="744.0" layoutY="23.0" mnemonicParsing="false" onAction="#createNew" text="Create New" />
+                <ComboBox fx:id="cmbResourceType" layoutX="297.0" layoutY="123.0" onAction="#search" prefWidth="150.0" promptText="Resource Type" />
+                <Button fx:id="createNewButton" layoutX="744.0" layoutY="23.0" mnemonicParsing="false" onAction="#createNew" text="Create New" />
             </children>
         </Pane>
     </center>
 </BorderPane>
+
