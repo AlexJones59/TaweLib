@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,10 +25,13 @@
                         <StackPane>
                            <children>
                               <Circle fill="#c9e4ff" radius="12.5" stroke="#8cc8ff" strokeType="INSIDE" />
-                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="?" textFill="WHITE" StackPane.alignment="CENTER">
+                              <Label id="helpIcon" fx:id="helpIcon" alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="?" textFill="WHITE" StackPane.alignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
+                                 <tooltip>
+                                    <Tooltip id="helpTooltip" fx:id="helpTooltip" text="Empty Tooltip" />
+                                 </tooltip>
                               </Label>
                            </children>
                         </StackPane>
@@ -44,7 +48,7 @@
                <center>
                   <Label id="titleLabel" fx:id="titleLabel" prefHeight="25.0" text="New Rating / Review" BorderPane.alignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="12.0" />
+                        <Font name="System Bold" size="16.0" />
                      </font>
                   </Label>
                </center>
