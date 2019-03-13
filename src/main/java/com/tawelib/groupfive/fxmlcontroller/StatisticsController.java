@@ -44,8 +44,8 @@ import javafx.scene.layout.Pane;
 /**
  * The Statistics controller: A user can view info about borrowing statistics for themselves and an
  * average user. They can also view the most popular resources over different time periods, with
- * specifics given for each resource type. A Librarian will also be able to statistics pertaining to
- * fines issued.
+ * specifics given for each resource type. A Librarian will also be able to view statistics
+ * pertaining to fines issued.
  *
  * @author Shree Desai
  * @version 1.0
@@ -61,8 +61,11 @@ public class StatisticsController extends BaseFxmlController {
 
   };
 
-  private ObservableList<String> timePeriods = FXCollections.observableArrayList(
+  private ObservableList<String> userStatTimePeriods = FXCollections.observableArrayList(
       "Day", "Week", "Month");
+
+  private ObservableList<String> resourceTimePeriods = FXCollections.observableArrayList(
+      "Day", "Week", "All Time");
 
   @FXML
   private Button backButton;
@@ -295,21 +298,21 @@ public class StatisticsController extends BaseFxmlController {
   @Override
   public void refresh() {
     userStatResTypeComboBox.getItems().addAll(resourceTypes);
-    userStatTimeComboBox.getItems().addAll(timePeriods);
+    userStatTimeComboBox.getItems().addAll(userStatTimePeriods);
     setExpandedUserStatTitledPane();
     resourceStatResTypeComboBox.getItems().addAll(resourceTypes);
-    resourceStatTimeComboBox.getItems().addAll(timePeriods);
+    resourceStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     resourceStatTimeComboBox.getSelectionModel().selectFirst();
-    bookStatTimeComboBox.getItems().addAll(timePeriods);
+    bookStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     bookStatTimeComboBox.getSelectionModel().selectFirst();
-    dvdStatTimeComboBox.getItems().addAll(timePeriods);
+    dvdStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     dvdStatTimeComboBox.getSelectionModel().selectFirst();
-    laptopStatTimeComboBox.getItems().addAll(timePeriods);
+    laptopStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     laptopStatTimeComboBox.getSelectionModel().selectFirst();
-    videoStatTimeComboBox.getItems().addAll(timePeriods);
+    videoStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     videoStatTimeComboBox.getSelectionModel().selectFirst();
     fineStatResTypeComboBox.getItems().addAll(resourceTypes);
-    fineStatTimeComboBox.getItems().addAll(timePeriods);
+    fineStatTimeComboBox.getItems().addAll(userStatTimePeriods);
     setResourceStatTableViews();
   }
 
@@ -474,7 +477,7 @@ public class StatisticsController extends BaseFxmlController {
     }
     double[] averageUserStats = StatisticsManager.getAverageUserStatistics(library, resourceType,
         timePeriod);
-    noAverageBorrowedTextField.setText(String.format("%.2f",averageUserStats[0]));
+    noAverageBorrowedTextField.setText(String.format("%.2f", averageUserStats[0]));
     averageUserStatSeries.getData().clear();
     for (int count = dates.length; count > 0; count--) {
       averageUserStatSeries.getData()
