@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.CopyAvailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.util.AlertHelper;
 import java.util.List;
@@ -25,35 +26,39 @@ public class RequestManager {
    * @param library the library
    * @param customer the customer
    * @param requestedResource the requested resource
-   * @throws OverResourceCapException This exception gets thrown whenever this request and
+   * @throws OverResourceCapException Thrown whenever this request and
    *        subsequent lending of an item would exceed this customers resource cap.
+   * @throws CopyAvailableException Thrown when there is a copy available.
    */
   public static void createRequest(Library library, Customer customer,
-      Resource requestedResource) throws OverResourceCapException, NullPointerException {
-    if (ResourceCapManager.isUnderResourceCap(library, customer, requestedResource)) {
+      Resource requestedResource) throws OverResourceCapException, CopyAvailableException {
+    if (library.getCopyRepository().getAvailableResourceCopies(requestedResource).isEmpty()) {
+      if (ResourceCapManager.isUnderResourceCap(library, customer, requestedResource)) {
+        Request newRequest = new Request(customer, requestedResource);
+        library.getRequestRepository().add(newRequest);
+        library.getLeaseRepository().getCustomerCurrentLeases(customer);
+        //Sets Due Date of oldest borrowed copy.
+        List<Copy> resourceCopies = library.getCopyRepository()
+            .getResourceCopies(requestedResource);
+        Copy oldestCopy = resourceCopies.get(0);
+        for (Copy copy : resourceCopies) {
+          if (library.getLeaseRepository().getCopyCurrentLease(copy).getDateLeased()
+              .isBefore(library.getLeaseRepository().getCopyCurrentLease(oldestCopy)
+                  .getDateLeased())
+              && library.getLeaseRepository().getCopyCurrentLease(copy).getDueDate()
+              != null) {
+            oldestCopy = copy;
 
-      Request newRequest = new Request(customer, requestedResource);
-      library.getRequestRepository().add(newRequest);
-      library.getLeaseRepository().getCustomerCurrentLeases(customer);
-      //Sets Due Date of oldest borrowed copy.
-      List<Copy> resourceCopies = library.getCopyRepository()
-          .getResourceCopies(requestedResource);
-      Copy oldestCopy = resourceCopies.get(0);
-      for (Copy copy : resourceCopies) {
-        if (library.getLeaseRepository().getCopyCurrentLease(copy).getDateLeased()
-            .isBefore(library.getLeaseRepository().getCopyCurrentLease(oldestCopy)
-                .getDateLeased())
-            && library.getLeaseRepository().getCopyCurrentLease(copy).getDueDate()
-            != null) {
-          oldestCopy = copy;
-
+          }
         }
+        CopyManager.generateDueDate(
+            library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
+      } else {
+        throw new OverResourceCapException();
       }
-
-      CopyManager.generateDueDate(
-          library.getLeaseRepository().getCopyCurrentLease(oldestCopy));
     } else {
-      throw new OverResourceCapException();
+      throw new CopyAvailableException();
     }
+
   }
 }
