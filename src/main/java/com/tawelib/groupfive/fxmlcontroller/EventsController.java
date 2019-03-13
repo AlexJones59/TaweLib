@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
@@ -37,6 +38,10 @@ public class EventsController extends BaseFxmlController {
 
   @FXML
   private Button newEventBtn;
+
+  @FXML
+  private TextField searchField;
+
   @FXML
   private ListView<VBox> upcomingEventsField;
 
@@ -49,8 +54,10 @@ public class EventsController extends BaseFxmlController {
   @FXML
   public void initialize() {
     if (isCustomerLoggedIn()) {
-      newEventBtn.setVisible(false);//Creation event is not allowed
+      newEventBtn.setVisible(false);//Creation of the event is not allowed
     }
+    /*refreshed after every letter is typed in search box*/
+    searchField.setOnKeyTyped(event -> refresh());
   }
 
   /**
@@ -60,28 +67,35 @@ public class EventsController extends BaseFxmlController {
   public void refresh() {
     upcomingEventsField.getItems().remove(0, upcomingEventsField.getItems().size());
     currentEventsField.getItems().remove(0, currentEventsField.getItems().size());
-    initUpcomingEvents();
-    initJoinedEvents();
+    initUpcomingEvents(searchField.getText());
+    initJoinedEvents(searchField.getText());
   }
 
   /**
    * The method adds upcoming events to the scrolling pane.
+   *
+   * @param filter The string that appears in the event name, searching key
    */
-  private void initUpcomingEvents() {
+  private void initUpcomingEvents(String filter) {
     ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
-    for (Event allEvent : allEvents) {
-      upcomingEventsField.getItems().addAll(constructEventCell(allEvent, false));
+    for (Event oneEvent : allEvents) {
+      if (oneEvent.getEventName().contains(filter)) {
+        upcomingEventsField.getItems().addAll(constructEventCell(oneEvent, false));
+      }
     }
   }
 
   /**
    * The method adds already joined events to the scrolling pane.
+   *
+   * @param filter The string that appears in the event name, searching key
    */
-  private void initJoinedEvents() {
+  private void initJoinedEvents(String filter) {
     ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, loggedInUser);
-
-    for (Event allEvent : allEvents) {
-      currentEventsField.getItems().addAll(constructEventCell(allEvent, true));
+    for (Event oneEvent : allEvents) {
+      if (oneEvent.getEventName().contains(filter)) {
+        currentEventsField.getItems().addAll(constructEventCell(oneEvent, true));
+      }
     }
   }
 
@@ -116,10 +130,9 @@ public class EventsController extends BaseFxmlController {
     int year = e.getEventDate().getYear();
     String month = e.getEventDate().getMonth().toString();
     int day = e.getEventDate().getDayOfMonth();
-    int hour = e.getEventDate().getHour();
-    int min = e.getEventDate().getMinute();
+
     Button showDescrBtn = new Button(year + " " + month + " " + day + "\n"
-        + hour + ":" + min + "\n" + e.getEventName() + "\n");
+        + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n");
 
     showDescrBtn.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
     Button signUpForEvent = new Button("Join");
@@ -155,9 +168,9 @@ public class EventsController extends BaseFxmlController {
       int year = e.getEventDate().getYear();
       String month = e.getEventDate().getMonth().toString();
       int day = e.getEventDate().getDayOfMonth();
-      int hour = e.getEventDate().getHour();
-      int min = e.getEventDate().getMinute();
-      String aboutEvent = year + " " + month + " " + day + "\n" + hour + ":" + min + "\n"
+
+      String aboutEvent = year + " " + month + " " + day + "\n"
+          + e.getEventDate().toLocalTime().toString() + "\n"
           + e.getEventName() + "\n" + e.getDescription() + "\nFree slots: "
           + (e.getCapacity() - library.getParticipationRepository().getNumberOfParticipants(e));
       AlertHelper.eventDescription(INFORMATION, aboutEvent);
