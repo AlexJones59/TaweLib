@@ -301,20 +301,27 @@ public class StatisticsController extends BaseFxmlController {
     userStatResTypeComboBox.getItems().addAll(resourceTypes);
     userStatTimeComboBox.getItems().addAll(userStatTimePeriods);
     setExpandedUserStatTitledPane();
+
     resourceStatResTypeComboBox.getItems().addAll(resourceTypes);
     resourceStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     resourceStatTimeComboBox.getSelectionModel().selectFirst();
+
     bookStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     bookStatTimeComboBox.getSelectionModel().selectFirst();
+
     dvdStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     dvdStatTimeComboBox.getSelectionModel().selectFirst();
+
     laptopStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     laptopStatTimeComboBox.getSelectionModel().selectFirst();
+
     videoStatTimeComboBox.getItems().addAll(resourceTimePeriods);
     videoStatTimeComboBox.getSelectionModel().selectFirst();
+    setResourceStatTableViews();
+
     fineStatResTypeComboBox.getItems().addAll(resourceTypes);
     fineStatTimeComboBox.getItems().addAll(userStatTimePeriods);
-    setResourceStatTableViews();
+
   }
 
   private void setResourceStatTableViews() {
@@ -414,11 +421,10 @@ public class StatisticsController extends BaseFxmlController {
         userLabel,
         noUserBorrowedTextField
     };
+
     librarianNodes = new Node[]{
         fineStatPane
     };
-
-
   }
 
   /**
@@ -426,8 +432,10 @@ public class StatisticsController extends BaseFxmlController {
    */
   public void setExpandedUserStatTitledPane() {
     statsContainer.setExpandedPane(userStatPane);
+
     //Sets default value to first value in time period list.
     userStatTimeComboBox.getSelectionModel().selectFirst();
+
     //Sets default value to first value in resource types list.
     userStatResTypeComboBox.getSelectionModel().selectFirst();
     userStatComboBoxHandler();
@@ -442,6 +450,8 @@ public class StatisticsController extends BaseFxmlController {
     //Gets selected values of resource type and time period from combo boxes
     ResourceType resourceType = userStatResTypeComboBox.getSelectionModel().getSelectedItem();
     String timePeriod = userStatTimeComboBox.getSelectionModel().getSelectedItem();
+
+    //Makes the array fto get dates for x axis
     String[] dates = new String[5];
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -470,6 +480,7 @@ public class StatisticsController extends BaseFxmlController {
               resourceType, timePeriod);
       noUserBorrowedTextField.setText(String.valueOf(specificUserStats[0]));
       specificUserStatSeries.getData().clear();
+
       for (int count = dates.length; count > 0; count--) {
         specificUserStatSeries.getData()
             .add(new XYChart.Data<>(dates[count - 1], specificUserStats[count - 1]));
@@ -483,6 +494,7 @@ public class StatisticsController extends BaseFxmlController {
         timePeriod);
     noAverageBorrowedTextField.setText(String.format("%.2f", averageUserStats[0]));
     averageUserStatSeries.getData().clear();
+
     for (int count = dates.length; count > 0; count--) {
       averageUserStatSeries.getData()
           .add(new XYChart.Data<>(dates[count - 1], averageUserStats[count - 1]));
@@ -497,11 +509,10 @@ public class StatisticsController extends BaseFxmlController {
    */
   public void setExpandedResourceStatTitledPane() {
     statsContainer.setExpandedPane(resourceStatPane);
+
     //Sets default value to first value in resource types list.
     resourceStatResTypeComboBox.getSelectionModel().selectFirst();
     resourceStatResTypeComboBoxHandler();
-
-
   }
 
   /**
@@ -544,9 +555,11 @@ public class StatisticsController extends BaseFxmlController {
     if (!popularResTableView.getItems().isEmpty()) {
       popularResTableView.getItems().clear();
     }
+
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, resourceStatTimeComboBox.getSelectionModel().getSelectedItem(),
         null);
+
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularResTableView.getItems().add(
           new PopularResourcesTableWrapper(rank,
@@ -563,21 +576,25 @@ public class StatisticsController extends BaseFxmlController {
     if (!popularBookTableView.getItems().isEmpty()) {
       popularBookTableView.getItems().clear();
     }
+
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, bookStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.BOOK);
+
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularBookTableView.getItems().add(
           new PopularBookTableWrapper(rank,
               RatingManager.getResourceAverageRating(library, popularResources.get(rank - 1)))
       );
     }
+
     if (!popBookAuthorTableView.getItems().isEmpty()) {
       popBookAuthorTableView.getItems().clear();
     }
 
     List<String> popularAuthors = StatisticsManager
         .getPopularAuthors(library, bookStatTimeComboBox.getSelectionModel().getSelectedItem());
+
     for (int rank = 1; rank <= popularAuthors.size(); rank++) {
       popBookAuthorTableView.getItems().add(
           new PopularBookAuthorTableWrapper(rank, popularAuthors.get(rank - 1))
@@ -598,6 +615,7 @@ public class StatisticsController extends BaseFxmlController {
     popBookGenrePieChart.getData().clear();
     //Changes the HashMap to an ArrayList
     Object[] keys = dataMap.keySet().toArray();
+
     for (int i = 0; i < keys.length; i++) {
       popBookGenrePieChart.getData()
           .add(new PieChart.Data((String) keys[i], dataMap.get(keys[i])));
@@ -612,9 +630,11 @@ public class StatisticsController extends BaseFxmlController {
     if (!popularDvdTableView.getItems().isEmpty()) {
       popularDvdTableView.getItems().clear();
     }
+
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, dvdStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.DVD);
+
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularDvdTableView.getItems().add(
           new PopularDvdTableWrapper(rank,
@@ -627,6 +647,7 @@ public class StatisticsController extends BaseFxmlController {
     }
     List<String> popularDirectors = StatisticsManager
         .getPopularDirectors(library, dvdStatTimeComboBox.getSelectionModel().getSelectedItem());
+
     for (int rank = 1; rank <= popularDirectors.size(); rank++) {
       popDvdDirectorTableView.getItems().add(
           new PopularDvdDirectorTableWrapper(rank, popularDirectors.get(rank - 1))
@@ -646,6 +667,7 @@ public class StatisticsController extends BaseFxmlController {
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, laptopStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.LAPTOP);
+
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularLaptopTableView.getItems().add(
           new PopularLaptopTableWrapper(rank,
@@ -684,6 +706,7 @@ public class StatisticsController extends BaseFxmlController {
     List<Resource> popularResources = StatisticsManager.getPopularResources(
         library, videoStatTimeComboBox.getSelectionModel().getSelectedItem(),
         ResourceType.GAME);
+
     for (int rank = 1; rank <= popularResources.size(); rank++) {
       popularVideoGameTableView.getItems().add(
           new PopularVideoGameTableWrapper(rank,
@@ -703,6 +726,7 @@ public class StatisticsController extends BaseFxmlController {
 
     //Clear data
     popVideoGameGenrePieChart.getData().clear();
+
     //Changes the HashMap to an ArrayList
     Object[] keys = dataMap.keySet().toArray();
     for (int i = 0; i < keys.length; i++) {
@@ -715,9 +739,12 @@ public class StatisticsController extends BaseFxmlController {
    * Initializes nodes in the Fine Statistics Pane.
    */
   public void setExpandedFineStatTitledPane() {
+
     statsContainer.setExpandedPane(fineStatPane);
+
     //Sets default value to first value in resource types list.
     fineStatResTypeComboBox.getSelectionModel().selectFirst();
+
     //Sets default value to first value in time period list.
     fineStatTimeComboBox.getSelectionModel().selectFirst();
     fineStatComboBoxHandler();
@@ -732,6 +759,8 @@ public class StatisticsController extends BaseFxmlController {
     //Gets the selected resource type and time period
     ResourceType resourceType = fineStatResTypeComboBox.getSelectionModel().getSelectedItem();
     String timePeriod = fineStatTimeComboBox.getSelectionModel().getSelectedItem();
+
+    //Makes the dates array to get dates for x axis
     String[] dates = new String[5];
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -757,6 +786,7 @@ public class StatisticsController extends BaseFxmlController {
     double[][] fineStats = StatisticsManager.getFineStatistics(library, resourceType, timePeriod);
     totalFineAmountTextField.setText("£" + String.format("%.2f", fineStats[0][0]));
     aveFineAmountTextField.setText("£" + String.format("%.2f", fineStats[1][0]));
+
     totalFineStatSeries.getData().clear();
     averageFineStatSeries.getData().clear();
 
