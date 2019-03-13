@@ -220,6 +220,8 @@ public class UserDashboardController extends BaseFxmlController {
             ((Librarian) loggedInUser).getStaffNumber()
         )
     );
+    manageAccountButton.setManaged(false);
+    transactionsAndFinesButton.setManaged(false);
   }
 
   /**
@@ -232,5 +234,8 @@ public class UserDashboardController extends BaseFxmlController {
             ((Customer) loggedInUser).getAccountBalanceInPounds()
         )
     );
+    createNewAccountButton.setManaged(false);
+    manageUsersButton.setManaged(false);
+    overdueCopiesButton.setManaged(false);
   }
 }
