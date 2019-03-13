@@ -40,6 +40,8 @@ class OperationsTestData {
         * IDEAL_LEASES_CONCENTRATION);
 
     int missesCounter = 0;
+    int borrowsCounter = 0;
+    int returnsCounter = 0;
 
     // While the simulated time hasn't caught up with the actual current time.
     // TODO: Refactor into smaller methods.
@@ -55,6 +57,8 @@ class OperationsTestData {
         );
 
         borrowedCopyIds.remove(randomIndex);
+
+        returnsCounter++;
       } else {
         String copyIdToBeBorrowed = getRandomCopyId(library);
 
@@ -66,14 +70,20 @@ class OperationsTestData {
           );
 
           borrowedCopyIds.add(copyIdToBeBorrowed);
-        } catch (CopyUnavailableException | OverResourceCapException e) {
+
+          borrowsCounter++;
+        } catch (CopyUnavailableException e) {
           missesCounter++;
+        } catch (OverResourceCapException e) {
+          //Return something
         }
       }
 
-      SimulatedClock.addMinutes(random.nextInt(90));
+      SimulatedClock.addMinutes(random.nextInt(30));
     }
 
+    System.out.println("Borrows: " + borrowsCounter);
+    System.out.println("Returns: " + returnsCounter);
     System.out.println("Misses: " + missesCounter);
   }
 
