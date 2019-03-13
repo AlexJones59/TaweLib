@@ -203,11 +203,7 @@ public class StatisticsManager {
             .collect(Collectors.toList());
         dateFrom.minusDays(7);
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
-        dateFrom.minusMonths(1);
+      case "All Time":
         break;
       default:
     }
@@ -242,14 +238,14 @@ public class StatisticsManager {
     Collections.reverse(freq);
 
     ArrayList<Resource> popularResources = new ArrayList<>();
-    //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    //Gets the 10 most popular resources
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
           if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource)) && (
-              popularResources.size() < 5)) {
+              popularResources.size() < 10)) {
             popularResources.add(resource);
           }
         }
@@ -282,10 +278,7 @@ public class StatisticsManager {
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
+      case "All Time":
         break;
       default:
     }
@@ -322,13 +315,13 @@ public class StatisticsManager {
 
     ArrayList<String> popularAuthors = new ArrayList<>();
     //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           String author = (String) key;
           //Checks if it is already in PopularResources
           if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author)) && (
-              popularAuthors.size() < 5)) {
+              popularAuthors.size() < 10)) {
             popularAuthors.add(author);
           }
         }
@@ -361,10 +354,7 @@ public class StatisticsManager {
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
+      case "All Time":
         break;
       default:
     }
@@ -401,13 +391,13 @@ public class StatisticsManager {
 
     ArrayList<String> popularDirectors = new ArrayList<>();
     //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           String director = (String) key;
           //Checks if it is already in PopularResources
           if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
-              popularDirectors.size() < 5)) {
+              popularDirectors.size() < 10)) {
             popularDirectors.add(director);
           }
         }
