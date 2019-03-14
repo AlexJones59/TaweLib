@@ -2,6 +2,7 @@ package com.tawelib.groupfive.manager;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import com.tawelib.groupfive.Main;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
@@ -280,6 +281,7 @@ public class CopyManager {
     //Checks to see if there are any requests for that resource.
     if (!library.getRequestRepository()
         .getOpenResourceRequests(copy.getResource()).isEmpty()
+        || Main.INSTANT_DUE_DATES
     ) {
       generateDueDate(newLease);
     }
