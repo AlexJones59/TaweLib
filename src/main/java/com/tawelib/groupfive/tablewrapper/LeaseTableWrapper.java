@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * This class wraps information about Copies that is shown in an FXML table.
  *
- * @author  Shree Desai, Petr Hoffmann
+ * @author Shree Desai, Petr Hoffmann
  * @version 1.0
  */
 public class LeaseTableWrapper {
@@ -26,8 +26,7 @@ public class LeaseTableWrapper {
   Customer selectedCustomer;
 
   /**
-   * Instantiates a new Lease table wrapper, while storing what the parameter's
-   * class type is.
+   * Instantiates a new Lease table wrapper, while storing what the parameter's class type is.
    *
    * @param lease the lease
    * @param selectedCustomer the selected customer
@@ -39,8 +38,7 @@ public class LeaseTableWrapper {
   }
 
   /**
-   * Instantiates a new Lease table wrapper, while storing what the parameter's
-   * class type is.
+   * Instantiates a new Lease table wrapper, while storing what the parameter's class type is.
    *
    * @param lease the lease
    */
@@ -50,8 +48,7 @@ public class LeaseTableWrapper {
   }
 
   /**
-   * Instantiates a new Lease table wrapper, while storing what the parameter's
-   * class type is.
+   * Instantiates a new Lease table wrapper, while storing what the parameter's class type is.
    *
    * @param request the request
    */

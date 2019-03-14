@@ -127,7 +127,7 @@ public class RatingController extends BaseFxmlController {
     reviewBodyArea.setEditable(false);
     reviewPane.setBottom(reviewBodyArea);
     reviewBodyArea.setWrapText(true);
-    reviewBodyArea.setPrefSize(415,Region.USE_COMPUTED_SIZE);
+    reviewBodyArea.setPrefSize(500,Region.USE_COMPUTED_SIZE);
     reviewBodyArea.setMaxHeight(60);
 
     BorderPane.setMargin(reviewerAndDate, new Insets(10));
@@ -192,8 +192,8 @@ public class RatingController extends BaseFxmlController {
     ResourceCrudController newController =
         (ResourceCrudController) SceneHelper.setUpScene(
             this,
-            "ResourceCrud");
-
+            lastSceneName);
+    newController.setLastSceneName("BrowseResources");
     newController.setSelectedResource(this.selectedResource);
     newController.setCrudAction(this.crudAction);
     newController.refresh();

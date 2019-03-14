@@ -1,7 +1,7 @@
 Requirements:
 - OpenJDK 11
 - Gradle
-- IntelliJ Idea
+- IntelliJ Idea 2018.3.5
 
 Tested on:
 - Ubuntu 18.04

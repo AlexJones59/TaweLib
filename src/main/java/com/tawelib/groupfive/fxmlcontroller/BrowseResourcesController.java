@@ -3,11 +3,13 @@ package com.tawelib.groupfive.fxmlcontroller;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -161,6 +163,8 @@ public class BrowseResourcesController extends BaseFxmlController {
   public void resourceInformation() {
     if (tblBrowseResourcesTable.getSelectionModel().getSelectedItem() != null) {
       setUpResourceCrud(CrudAction.UPDATE);
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "You have not picked anything.");
     }
   }
 
