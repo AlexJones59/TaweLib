@@ -62,6 +62,10 @@ public class PastEventsController extends BaseFxmlController {
         });
       }
     }
+
+    if (allEvents.size() > 5) {
+      eventsListField.setMinWidth(eventsListField.getPrefWidth() + 14.0);
+    }
   }
 
   @Override

@@ -210,8 +210,13 @@ public class ResourceCopiesController extends BaseFxmlController {
 
     if (copiesWrapper != null) {
       String copyId = copiesWrapper.getCopy().getId();
-      AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
-      CopyManager.lostCopy(library, copyId);
+      try {
+        CopyManager.lostCopy(library, copyId);
+        AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+      } catch (CopyAvailableException e) {
+        AlertHelper.alert(AlertType.ERROR, "This copy can't be declared lost as it is available.");
+      }
+
     }
   }
 }

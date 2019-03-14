@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Request;
+import com.tawelib.groupfive.exception.CopyAvailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
@@ -255,9 +256,13 @@ public class UserInformationController extends BaseFxmlController {
     if (resourceTableView.getSelectionModel().getSelectedItem() != null) {
       String copyId = resourceTableView.getSelectionModel().getSelectedItem()
           .getCopyId();
-      AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
-      CopyManager.lostCopy(library, copyId);
-      refresh();
+      try {
+        CopyManager.lostCopy(library, copyId);
+        AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+        refresh();
+      } catch (CopyAvailableException e) {
+        AlertHelper.alert(AlertType.ERROR, "This copy can't be declared lost as it is available.");
+      }
     } else {
       AlertHelper.alert(AlertType.ERROR, "You have not picked anything.");
     }
