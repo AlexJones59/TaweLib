@@ -275,7 +275,7 @@ public class UserDashboardController extends BaseFxmlController {
       Button oneResource = new Button(resource.getTitle());
       oneResource.setPrefSize(newAdditionsList.getWidth() - 16, LISTVIEW_ONE_ELEM_HEIGHT);
 
-      oneResource.setOnAction(event -> {//Shows the info about the resource
+      oneResource.setOnAction(event -> { //Shows the info about the resource
         ResourceCrudController newController =
             (ResourceCrudController) SceneHelper.setUpScene(this, "ResourceCrud");
         newController.setSelectedResource(resource);
