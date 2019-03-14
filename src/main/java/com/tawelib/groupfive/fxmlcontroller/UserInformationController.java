@@ -11,8 +11,10 @@ import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -132,48 +134,20 @@ public class UserInformationController extends BaseFxmlController {
     //sets the screen up for when a customer is logged in
     if (isCustomerLoggedIn()) {
       Customer loggedInCustomer = (Customer) loggedInUser;
-
-      userProfileImageView
-          .setImage(ResourceHelper.getUserProfileImage(loggedInCustomer));
-      firstNameTextField.setText(loggedInCustomer.getFirstName());
-      lastNameTextField.setText(loggedInCustomer.getLastName());
-      usernameTextField.setText(loggedInCustomer.getUsername());
-      addressTextField.setText(loggedInCustomer.getAddress().toString());
-
-      balanceTextField.setText(String
-          .format("£ %.2f", loggedInCustomer.getAccountBalanceInPounds()));
-
-      setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
-
-      setTableContents(library.getLeaseRepository()
-              .getCustomerLeaseHistory(loggedInCustomer),
-          library.getRequestRepository()
-              .getOpenCustomerRequests(loggedInCustomer),
-          library.getRequestRepository().getCustomerReserved(loggedInCustomer));
+      setUserInformation(loggedInCustomer);
     } else {
       //sets the screen for when a librarian is logged in
-      userProfileImageView
-          .setImage(ResourceHelper.getUserProfileImage(selectedUser));
-      firstNameTextField.setText(selectedUser.getFirstName());
-      lastNameTextField.setText(selectedUser.getLastName());
-      usernameTextField.setText(selectedUser.getUsername());
-      addressTextField.setText(selectedUser.getAddress().toString());
 
       if (selectedUser.getClass().equals(Customer.class)) {
         Customer selectedCustomer = (Customer) selectedUser;
-        balanceTextField.setText(String
-            .format("£ %.2f", selectedCustomer.getAccountBalanceInPounds()));
-
-        setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
-
-        setTableContents(library.getLeaseRepository()
-                .getCustomerLeaseHistory(selectedCustomer),
-            library.getRequestRepository()
-                .getOpenCustomerRequests(selectedCustomer),
-            library.getRequestRepository()
-                .getCustomerReserved(selectedCustomer));
-
+        setUserInformation(selectedCustomer);
       } else {
+        userProfileImageView
+            .setImage(ResourceHelper.getUserProfileImage(selectedUser));
+        firstNameTextField.setText(selectedUser.getFirstName());
+        lastNameTextField.setText(selectedUser.getLastName());
+        usernameTextField.setText(selectedUser.getUsername());
+        addressTextField.setText(selectedUser.getAddress().toString());
         setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, false);
       }
     }
@@ -216,22 +190,25 @@ public class UserInformationController extends BaseFxmlController {
    * Returns a selected copy.
    */
   public void returnCopy() {
-    if (selectedUser.getClass().equals(Customer.class)) {
-      if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
-          .equals("BORROWED")) {
-        CopyManager.returnResourceCopy(library,
-            resourceTableView.getSelectionModel().getSelectedItem()
-                .getCopyId());
+    if (resourceTableView.getSelectionModel().getSelectedItem() != null) {
+      if (selectedUser.getClass().equals(Customer.class)) {
+        if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+            .equals("BORROWED")) {
+          CopyManager.returnResourceCopy(library,
+              resourceTableView.getSelectionModel().getSelectedItem()
+                  .getCopyId());
 
-        AlertHelper.alert(AlertType.INFORMATION, "Returned.");
-
-        refresh();
+          AlertHelper.alert(AlertType.INFORMATION, "Returned.");
+          refresh();
+        } else {
+          AlertHelper.alert(AlertType.ERROR,
+              "This is not a returnable object");
+        }
       } else {
-        AlertHelper.alert(AlertType.ERROR,
-            "Lease selected is not a " + "returnable object");
+        AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
       }
     } else {
-      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+      AlertHelper.alert(AlertType.ERROR, "You have not picked anything to return.");
     }
   }
 
@@ -241,29 +218,33 @@ public class UserInformationController extends BaseFxmlController {
    * @throws OverResourceCapException if No.of resources borrowed exceeds the resource cap
    */
   public void pickUpReserved() throws OverResourceCapException {
-    if (selectedUser.getClass().equals(Customer.class)) {
-      Customer selectedCustomer = (Customer) selectedUser;
-      if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
-          .equals("RESERVED")) {
-        try {
-          CopyManager.pickUpReservedCopy(library,
-              resourceTableView.getSelectionModel().getSelectedItem()
-                  .getResourceId(), selectedCustomer.getUsername());
-          AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
+    if (resourceTableView.getSelectionModel().getSelectedItem() != null) {
+      if (selectedUser.getClass().equals(Customer.class)) {
+        Customer selectedCustomer = (Customer) selectedUser;
+        if (resourceTableView.getSelectionModel().getSelectedItem().getStatus()
+            .equals("RESERVED")) {
+          try {
+            CopyManager.pickUpReservedCopy(library,
+                resourceTableView.getSelectionModel().getSelectedItem()
+                    .getResourceId(), selectedCustomer.getUsername());
+            AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
 
-        } catch (OverResourceCapException e) {
-          AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
-              + "An item must be returned before another can be borrowed.");
+          } catch (OverResourceCapException e) {
+            AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
+                + "An item must be returned before another can be borrowed.");
+          }
+          refresh();
+
+        } else {
+          AlertHelper.alert(AlertType.ERROR,
+              "Lease selected is not " + "of a reserved copy.");
         }
-        refresh();
 
       } else {
-        AlertHelper.alert(AlertType.ERROR,
-            "Lease selected is not " + "of a reserved copy.");
+        AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
       }
-
     } else {
-      AlertHelper.alert(AlertType.WARNING, "User is not a Customer.");
+      AlertHelper.alert(AlertType.ERROR, "You have not picked anything to pick up.");
     }
   }
 
@@ -271,11 +252,15 @@ public class UserInformationController extends BaseFxmlController {
    * Declares a copy as lost.
    */
   public void declareLost() {
-    String copyId = resourceTableView.getSelectionModel().getSelectedItem()
-        .getCopyId();
-    AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
-    CopyManager.lostCopy(library, copyId);
-    refresh();
+    if (resourceTableView.getSelectionModel().getSelectedItem() != null) {
+      String copyId = resourceTableView.getSelectionModel().getSelectedItem()
+          .getCopyId();
+      AlertHelper.alert(AlertType.INFORMATION, "Declaring as lost: " + copyId);
+      CopyManager.lostCopy(library, copyId);
+      refresh();
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "You have not picked anything.");
+    }
   }
 
   /**
@@ -312,5 +297,30 @@ public class UserInformationController extends BaseFxmlController {
     for (Request reserved : customerReserved) {
       resourceTableView.getItems().add(new LeaseTableWrapper(reserved));
     }
+  }
+
+  /**
+   * Sets the text fields  and other views with information about the customer.
+   *
+   * @param customer customer
+   */
+  private void setUserInformation(Customer customer) {
+    userProfileImageView
+        .setImage(ResourceHelper.getUserProfileImage(customer));
+    firstNameTextField.setText(customer.getFirstName());
+    lastNameTextField.setText(customer.getLastName());
+    usernameTextField.setText(customer.getUsername());
+    addressTextField.setText(customer.getAddress().toString());
+
+    balanceTextField.setText(String
+        .format("£ %.2f", customer.getAccountBalanceInPounds()));
+
+    setNodeVisibilities(new Node[]{balanceLabel, balanceTextField}, true);
+
+    setTableContents(library.getLeaseRepository()
+            .getCustomerLeaseHistory(customer),
+        library.getRequestRepository()
+            .getOpenCustomerRequests(customer),
+        library.getRequestRepository().getCustomerReserved(customer));
   }
 }
