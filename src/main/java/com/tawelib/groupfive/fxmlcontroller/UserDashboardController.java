@@ -7,17 +7,20 @@ import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Controls the user dashboard screen. This is the main screen which a user can access their account
@@ -90,16 +93,16 @@ public class UserDashboardController extends BaseFxmlController {
   private ComboBox<ResourceType> cmbResourceType;
 
   private ResourceType[] resourceTypes = {
-          null,
-          ResourceType.BOOK,
-          ResourceType.DVD,
-          ResourceType.LAPTOP,
-          ResourceType.GAME
+      null,
+      ResourceType.BOOK,
+      ResourceType.DVD,
+      ResourceType.LAPTOP,
+      ResourceType.GAME
   };
 
   //TABLE----------------------------------------------------------
   @FXML
-  private TableView<ResourceTableWrapper> tblBrowseResourcesTable;
+  private TableView<ResourceTableWrapper> tblNewAdditionsResourcesTable;
 
   @FXML
   private TableColumn<ResourceTableWrapper, String> idColumn;
@@ -113,6 +116,9 @@ public class UserDashboardController extends BaseFxmlController {
   @FXML
   private TableColumn<ResourceTableWrapper, ResourceType> typeColumn;
 
+  /**
+   * Initializes the new addition table gui.
+   */
   @FXML
   public void initialize() {
     idColumn.setCellValueFactory(
@@ -259,10 +265,10 @@ public class UserDashboardController extends BaseFxmlController {
    * @param resources the resources in the library
    */
   private void setTableContents(List<Resource> resources) {
-    tblBrowseResourcesTable.getItems().clear();
+    tblNewAdditionsResourcesTable.getItems().clear();
 
     for (Resource resource : resources) {
-      tblBrowseResourcesTable.getItems().add(
+      tblNewAdditionsResourcesTable.getItems().add(
               new ResourceTableWrapper(resource)
       );
     }
