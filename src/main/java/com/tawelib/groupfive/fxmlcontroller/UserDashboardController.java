@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 /**
  * Controls the user dashboard screen. This is the main screen which a user can access their account
@@ -95,6 +96,9 @@ public class UserDashboardController extends BaseFxmlController {
 
   @FXML
   private ListView<Button> newAdditionsList;
+
+  @FXML
+  private VBox additionsVBox;
 
   public UserDashboardController() {
   }
@@ -283,6 +287,11 @@ public class UserDashboardController extends BaseFxmlController {
         newController.refresh();
       });
 
+      if (newResources.size() > 8) {
+        newAdditionsList.setPrefWidth(newAdditionsList.getPrefWidth() + 22.5);
+        additionsVBox.setPrefWidth(additionsVBox.getWidth() + 22.5);
+
+      }
       newAdditionsList.getItems().add(oneResource);
     }
 
