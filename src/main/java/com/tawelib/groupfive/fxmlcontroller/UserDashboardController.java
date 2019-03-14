@@ -9,12 +9,14 @@ import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,6 +33,8 @@ import javafx.scene.image.ImageView;
  * @version 1.1
  */
 public class UserDashboardController extends BaseFxmlController {
+
+  private static final int LISTVIEW_ONE_ELEM_HEIGHT = 20;
 
   @FXML
   private Button logOutButton;
@@ -90,49 +94,7 @@ public class UserDashboardController extends BaseFxmlController {
   private TextField txtSearch;
 
   @FXML
-  private ComboBox<ResourceType> cmbResourceType;
-
-  private ResourceType[] resourceTypes = {
-      null,
-      ResourceType.BOOK,
-      ResourceType.DVD,
-      ResourceType.LAPTOP,
-      ResourceType.GAME
-  };
-
-  //TABLE----------------------------------------------------------
-  @FXML
-  private TableView<ResourceTableWrapper> tblNewAdditionsResourcesTable;
-
-  @FXML
-  private TableColumn<ResourceTableWrapper, String> idColumn;
-
-  @FXML
-  private TableColumn<ResourceTableWrapper, String> titleColumn;
-
-  @FXML
-  private TableColumn<ResourceTableWrapper, Integer> yearColumn;
-
-  @FXML
-  private TableColumn<ResourceTableWrapper, ResourceType> typeColumn;
-
-  /**
-   * Initializes the new addition table gui.
-   */
-  @FXML
-  public void initialize() {
-    idColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, String>("id"));
-
-    titleColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, String>("title"));
-
-    yearColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, Integer>("year"));
-
-    typeColumn.setCellValueFactory(
-            new PropertyValueFactory<ResourceTableWrapper, ResourceType>("type"));
-  }
+  private ListView<Button> newAdditionsList;
 
   public UserDashboardController() {
   }
@@ -209,69 +171,8 @@ public class UserDashboardController extends BaseFxmlController {
    * Takes the user to the events screen.
    */
   public void eventsWindow() {
-    EventsController c = (EventsController)SceneHelper.setUpScene(this, "Events");
+    EventsController c = (EventsController) SceneHelper.setUpScene(this, "Events");
     c.setLibrary(library);
-  }
-
-  /**
-   * Searches for newly added resources by type and displays the result in the table.
-   */
-  public void search() {
-    List<Resource> result;
-
-    if (cmbResourceType.getValue() == ResourceType.BOOK) {
-      result = new ArrayList<>(
-              library.getResourceRepository().searchBook(
-                      txtSearch.getText(),
-                      lastLogin
-              )
-      );
-    } else if (cmbResourceType.getValue() == ResourceType.DVD) {
-      result = new ArrayList<>(
-              library.getResourceRepository().searchDvd(
-                      txtSearch.getText(),
-                      lastLogin
-              )
-      );
-    } else if (cmbResourceType.getValue() == ResourceType.LAPTOP) {
-      result = new ArrayList<>(
-              library.getResourceRepository().searchLaptop(
-                      txtSearch.getText(),
-                      lastLogin
-              )
-      );
-    } else if (cmbResourceType.getValue() == ResourceType.GAME) {
-      result = new ArrayList<>(
-              library.getResourceRepository().searchGame(
-                      txtSearch.getText(),
-                      lastLogin
-              )
-      );
-    } else {
-      result = library.getResourceRepository().searchResource(
-              txtSearch.getText(),
-              lastLogin
-      );
-    }
-
-    setTableContents(
-            result
-    );
-  }
-
-  /**
-   * Populates the table.
-   *
-   * @param resources the resources in the library
-   */
-  private void setTableContents(List<Resource> resources) {
-    tblNewAdditionsResourcesTable.getItems().clear();
-
-    for (Resource resource : resources) {
-      tblNewAdditionsResourcesTable.getItems().add(
-              new ResourceTableWrapper(resource)
-      );
-    }
   }
 
   /**
@@ -318,19 +219,12 @@ public class UserDashboardController extends BaseFxmlController {
     //TODO: Format Address nicely.
     addressTextField.setText(loggedInUser.getAddress().toString());
     phoneNumberTextField.setText(loggedInUser.getPhoneNumber());
+    populateListNewAdditions();
 
     Image profileImage = ResourceHelper.getUserProfileImage(loggedInUser);
     if (profileImage != null) {
       profileImageImageView.setImage(profileImage);
     }
-
-    cmbResourceType.getItems().addAll(
-            Arrays.asList(resourceTypes)
-    );
-
-    setTableContents(
-            library.getResourceRepository().getNewAddtions(lastLogin)
-    );
   }
 
   /**
@@ -364,5 +258,33 @@ public class UserDashboardController extends BaseFxmlController {
     createNewAccountButton.setManaged(false);
     manageUsersButton.setManaged(false);
     overdueCopiesButton.setManaged(false);
+  }
+
+  /**
+   * The method populates the listview with the resources using buttons. If the button is pressed,
+   * the scene with resource information is opened. The buttons are sorted as last added will be on
+   * the top.
+   */
+  private void populateListNewAdditions() {
+
+    List<Resource> newResources =
+        library.getResourceRepository().searchResource("", lastLogin);
+    newResources.sort(Comparator.comparing(Resource::getDateAdded).reversed());
+
+    for (Resource resource : newResources) {
+      Button oneResource = new Button(resource.getTitle());
+      oneResource.setPrefSize(newAdditionsList.getWidth() - 16, LISTVIEW_ONE_ELEM_HEIGHT);
+
+      oneResource.setOnAction(event -> {//Shows the info about the resource
+        ResourceCrudController newController =
+            (ResourceCrudController) SceneHelper.setUpScene(this, "ResourceCrud");
+        newController.setSelectedResource(resource);
+        newController.setCrudAction(CrudAction.UPDATE);
+        newController.refresh();
+      });
+
+      newAdditionsList.getItems().add(oneResource);
+    }
+
   }
 }
