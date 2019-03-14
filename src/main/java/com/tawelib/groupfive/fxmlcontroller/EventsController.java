@@ -8,6 +8,7 @@ import com.tawelib.groupfive.manager.EventManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -78,6 +79,7 @@ public class EventsController extends BaseFxmlController {
    */
   private void initUpcomingEvents(String filter) {
     ArrayList<Event> allEvents = library.getEventRepository().getUpcomingEvents();
+    allEvents.sort(Comparator.comparing(Event::getEventDate));
     for (Event oneEvent : allEvents) {
       if (oneEvent.getEventName().contains(filter)) {
         upcomingEventsField.getItems().addAll(constructEventCell(oneEvent, false));
@@ -92,6 +94,7 @@ public class EventsController extends BaseFxmlController {
    */
   private void initJoinedEvents(String filter) {
     ArrayList<Event> allEvents = EventManager.getCurrentParticipations(library, loggedInUser);
+    allEvents.sort(Comparator.comparing(Event::getEventDate));
     for (Event oneEvent : allEvents) {
       if (oneEvent.getEventName().contains(filter)) {
         currentEventsField.getItems().addAll(constructEventCell(oneEvent, true));
@@ -131,12 +134,13 @@ public class EventsController extends BaseFxmlController {
     String month = e.getEventDate().getMonth().toString();
     int day = e.getEventDate().getDayOfMonth();
 
-    Button showDescrBtn = new Button(year + " " + month + " " + day + "\n"
+    Button showDescrBtn = new Button(day + " " + month + " " + year + "\n"
         + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n");
-
     showDescrBtn.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
+
     Button signUpForEvent = new Button("Join");
     signUpForEvent.setPrefSize(EVENT_CELL_WIDTH, JOIN_BUTTON_HEIGHT);
+
     box.getChildren().addAll(showDescrBtn, signUpForEvent);
     eventButtonActions(e, showDescrBtn, signUpForEvent, isRegistered);
     if (isRegistered) {
@@ -169,7 +173,7 @@ public class EventsController extends BaseFxmlController {
       String month = e.getEventDate().getMonth().toString();
       int day = e.getEventDate().getDayOfMonth();
 
-      String aboutEvent = year + " " + month + " " + day + "\n"
+      String aboutEvent = day + " " + month + " " + year + "\n"
           + e.getEventDate().toLocalTime().toString() + "\n"
           + e.getEventName() + "\n" + e.getDescription() + "\nFree slots: "
           + (e.getCapacity() - library.getParticipationRepository().getNumberOfParticipants(e));
