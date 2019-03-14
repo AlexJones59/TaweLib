@@ -6,6 +6,7 @@ import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Librarian;
 import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.exception.CopyAvailableException;
+import com.tawelib.groupfive.exception.EntityNotFoundException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.manager.CopyManager;
 import com.tawelib.groupfive.tablewrapper.LeaseTableWrapper;
@@ -230,7 +231,7 @@ public class UserInformationController extends BaseFxmlController {
                     .getResourceId(), selectedCustomer.getUsername());
             AlertHelper.alert(AlertType.INFORMATION, "Picked up Reserved Copy");
 
-          } catch (OverResourceCapException e) {
+          } catch (OverResourceCapException | EntityNotFoundException e) {
             AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
                 + "An item must be returned before another can be borrowed.");
           }

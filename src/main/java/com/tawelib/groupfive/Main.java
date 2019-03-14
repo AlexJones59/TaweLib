@@ -14,6 +14,7 @@ import com.tawelib.groupfive.view.Library;
 public class Main {
 
   public static final boolean DEV_MODE = true;
+  public static final boolean INSTANT_DUE_DATES = true;
 
   /**
    * This method checks whether the application is activated. In case it is, it
