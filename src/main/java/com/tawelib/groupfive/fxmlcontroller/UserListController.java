@@ -1,8 +1,10 @@
 package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.User;
+import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -83,8 +85,14 @@ public class UserListController extends BaseFxmlController {
    * Takes the user to the user information screen based on what was selected.
    */
   public void manageUser() {
+
     selectedUser = userListTableView.getSelectionModel().getSelectedItem();
-    SceneHelper.setUpScene(this, "UserInformation");
+    if (selectedUser != null) {
+      SceneHelper.setUpScene(this, "UserInformation");
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "User has not been selected");
+    }
+
   }
 
   /**

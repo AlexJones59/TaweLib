@@ -22,26 +22,30 @@ public class SceneHelper {
   }
 
   /**
-   * Sets up a new scene. Saves important references in appropriate controllers.
-   * Returns the new controller.
+   * Sets up a new scene. Saves important references in appropriate controllers. Returns the new
+   * controller.
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
-   * @param sceneName Scene name.
+   * @param nextSceneName The next Scene name.
+   * @param lastSceneName The last scene name.
    * @return New scene controller.
    * @throws IOException When unable to switch scenes.
    */
   public static BaseFxmlController setUpScene(Stage primaryStage,
       Library library,
-
-      String sceneName)
+      String lastSceneName,
+      String nextSceneName)
       throws IOException {
-    URL resourceLocation = ResourceHelper.getViewUrl(sceneName);
+    URL resourceLocation = ResourceHelper.getViewUrl(nextSceneName);
 
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(resourceLocation);
     loader.load();
     BaseFxmlController controller = loader.getController();
+
+    controller.setLastSceneName(lastSceneName);
+    controller.setCurrentSceneName(nextSceneName);
 
     Pane root = loader.getRoot();
     Scene scene = new Scene(root);
@@ -63,8 +67,7 @@ public class SceneHelper {
   }
 
   /**
-   * Overloads the setUpScene(Stage primaryStage, Library library, String
-   * sceneName).
+   * Overloads the setUpScene(Stage primaryStage, Library library, String sceneName).
    *
    * @param controller Controller that initiates the switch.
    * @param sceneName Scene name to switch to.
@@ -76,6 +79,7 @@ public class SceneHelper {
       return setUpScene(
           controller.getPrimaryStage(),
           controller.getLibrary(),
+          controller.getCurrentSceneName(),
           sceneName
 
       );
@@ -84,4 +88,5 @@ public class SceneHelper {
       throw new Error("Could not set up scene.");
     }
   }
+
 }
