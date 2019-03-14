@@ -172,6 +172,7 @@ public class CopyManager {
    *
    * @param library library
    * @param copyId lost copy ID
+   * @throws CopyAvailableException if the respective copy is available
    */
   public static void lostCopy(Library library, String copyId) throws CopyAvailableException {
     //Gets Copy
