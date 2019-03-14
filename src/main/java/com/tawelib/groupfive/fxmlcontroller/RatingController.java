@@ -159,8 +159,6 @@ public class RatingController extends BaseFxmlController {
 
   /**
    * Opens new window where user can enter a new rating or review.
-   *
-   * @throws InvalidRaterException User trying to leave a rating is invalid
    */
   public void newRatingWindow() {
     try {

@@ -9,5 +9,5 @@ package com.tawelib.groupfive.exception;
  * @version 1.0
  */
 
-public class InvalidRaterException extends RuntimeException {
+public class InvalidRaterException extends Exception {
 }

@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.entity;
 
+import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -24,10 +25,14 @@ public class Rating implements Serializable {
    * @param rater the rater
    */
   public Rating(int value, Resource ratedResource, Customer rater) {
+    if (value < 1 || value > 5) {
+      throw new IllegalArgumentException("Rating value has to be between 1 and 5.");
+    }
+
     this.value = value;
     this.ratedResource = ratedResource;
     this.rater = rater;
-    this.dateRated = LocalDateTime.now();
+    this.dateRated = SimulatedLocalDateTime.now();
   }
 
 
