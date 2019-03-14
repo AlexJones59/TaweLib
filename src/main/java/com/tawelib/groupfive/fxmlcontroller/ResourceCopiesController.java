@@ -35,7 +35,7 @@ public class ResourceCopiesController extends BaseFxmlController {
   /**
    * The Selected resource.
    */
-  Resource selectedResource;
+  private Resource selectedResource;
 
   @FXML
   private TableView<CopiesTableWrapper> copiesTableView;
@@ -158,24 +158,28 @@ public class ResourceCopiesController extends BaseFxmlController {
    * Shows the copy history screen.
    */
   public void history() {
-    CopyHistoryController newController = (CopyHistoryController) SceneHelper
-        .setUpScene(
-            this,
-            "CopyHistory"
-        );
 
-    Copy copy = copiesTableView.getSelectionModel().getSelectedItem().getCopy();
+    if (copiesTableView.getSelectionModel().getSelectedItem() != null) {
+      CopyHistoryController newController = (CopyHistoryController) SceneHelper
+          .setUpScene(
+              this,
+              "CopyHistory"
+          );
+      Copy copy = copiesTableView.getSelectionModel().getSelectedItem().getCopy();
+      newController.setSelectedCopy(copy);
+      newController.refresh();
+    } else {
+      AlertHelper.alert(AlertType.ERROR, "Please select the copy to view the history");
+    }
 
-    newController.setSelectedCopy(copy);
-
-    newController.refresh();
   }
 
   /**
    * Returns to the browse resources screen.
    */
   public void back() {
-    SceneHelper.setUpScene(this, "BrowseResources");
+    this.setLastSceneName("BrowseResources");
+    SceneHelper.setUpScene(this, lastSceneName);
   }
 
   /**
