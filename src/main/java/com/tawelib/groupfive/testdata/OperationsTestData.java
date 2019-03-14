@@ -2,6 +2,7 @@ package com.tawelib.groupfive.testdata;
 
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
+import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.exception.CopyUnavailableException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
@@ -25,13 +26,18 @@ class OperationsTestData {
     throw new UnsupportedOperationException();
   }
 
-  private static final double IDEAL_LEASES_CONCENTRATION = 0.5;
+  private static final double IDEAL_LEASES_CONCENTRATION = 0.2;
+  private static final double LATE_RETURNS_CONCENTRATION = 0.075;
+
   private static final Random random = new Random();
   private static List<String> borrowedCopyIds = new ArrayList<>();
+  private static List<String> borrowedCopyIdsForLateReturn = new ArrayList<>();
 
   private static int missesCounter = 0;
+  private static int overCapCounter = 0;
   private static int borrowsCounter = 0;
   private static int returnsCounter = 0;
+  private static int lateReturnsCounter = 0;
 
   /**
    * Generates operations test data. Simulates the users' behaviour by randomly deciding each next
@@ -44,13 +50,20 @@ class OperationsTestData {
         * IDEAL_LEASES_CONCENTRATION);
 
     // While the simulated time hasn't caught up with the actual current time.
-    // TODO: Add more operations?
     while (SimulatedLocalDateTime.now().isBefore(LocalDateTime.now())) {
+
       if (!borrowedCopyIds.isEmpty()
-          && random.nextInt(borrowedCopyIds.size()) > targetNumberOfLeases / 2) {
+          && random.nextInt(borrowedCopyIds.size() + borrowedCopyIdsForLateReturn.size())
+          > targetNumberOfLeases / 2) {
+
+        simulateLateReturn(library);
         simulateReturn(library);
       } else {
-        simulateLoan(library);
+        try {
+          simulateLoan(library);
+        } catch (OverResourceCapException e) {
+          overCapCounter++;
+        }
       }
 
       SimulatedClock.addMinutes(random.nextInt(30));
@@ -58,26 +71,45 @@ class OperationsTestData {
 
     System.out.println("Borrows: " + borrowsCounter);
     System.out.println("Returns: " + returnsCounter);
+    System.out.println("Late Returns: " + lateReturnsCounter);
+    System.out.println("Over Cap:" + overCapCounter);
     System.out.println("Misses: " + missesCounter);
+
+    System.out.println("Simulation finished.");
   }
 
-  private static void simulateLoan(Library library) {
+  private static void simulateLoan(Library library) throws OverResourceCapException {
     String copyIdToBeBorrowed = getRandomCopyId(library);
+    String randomCustomerUsername = getRandomCustomerUsername(library);
 
     try {
       CopyManager.borrowResourceCopy(
           library,
           copyIdToBeBorrowed,
-          getRandomCustomerUsername(library)
+          randomCustomerUsername
       );
 
-      borrowedCopyIds.add(copyIdToBeBorrowed);
+      if (random.nextDouble() < LATE_RETURNS_CONCENTRATION) {
+        borrowedCopyIdsForLateReturn.add(copyIdToBeBorrowed);
+      } else {
+        borrowedCopyIds.add(copyIdToBeBorrowed);
+      }
 
       borrowsCounter++;
     } catch (CopyUnavailableException e) {
-      missesCounter++;
-    } catch (OverResourceCapException e) {
-      //Return something
+//      Customer customer = library.getCustomerRepository().getSpecific(randomCustomerUsername);
+//      Resource resource = library.getCopyRepository().getSpecific(copyIdToBeBorrowed).getResource();
+//
+//      try {
+//        RequestManager.createRequest(
+//            library,
+//            customer,
+//            resource
+//        );
+//        missesCounter++;
+//      } catch (Exception f) {
+//        // Has to handle all the disgusting runtime exceptions thrown by the legacy code.
+//      }
     }
   }
 
@@ -92,6 +124,30 @@ class OperationsTestData {
     borrowedCopyIds.remove(randomIndex);
 
     returnsCounter++;
+  }
+
+  private static void simulateLateReturn(Library library) {
+    if (!borrowedCopyIdsForLateReturn.isEmpty()) {
+      int randomIndex = random.nextInt(borrowedCopyIdsForLateReturn.size());
+
+      String copyId = borrowedCopyIdsForLateReturn.get(randomIndex);
+
+      Copy copy = library.getCopyRepository().getSpecific(copyId);
+      Lease currentLease = library.getLeaseRepository().getCopyCurrentLease(copy);
+
+      LocalDateTime dueDate = currentLease.getDueDate();
+
+      if (dueDate != null && dueDate.isAfter(SimulatedLocalDateTime.now())) {
+        CopyManager.returnResourceCopy(
+            library,
+            copyId
+        );
+
+        borrowedCopyIdsForLateReturn.remove(randomIndex);
+
+        lateReturnsCounter++;
+      }
+    }
   }
 
   /**

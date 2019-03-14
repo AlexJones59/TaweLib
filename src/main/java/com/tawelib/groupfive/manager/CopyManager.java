@@ -14,6 +14,7 @@ import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.exception.CopyAvailableException;
 import com.tawelib.groupfive.exception.CopyUnavailableException;
+import com.tawelib.groupfive.exception.EntityNotFoundException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.LocalDateTime;
@@ -144,14 +145,17 @@ public class CopyManager {
    * @throws OverResourceCapException When over the resource cap.
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
-      String customerUsername) throws OverResourceCapException {
+      String customerUsername) throws OverResourceCapException, EntityNotFoundException {
     //Gets info of copy and customer.
     Resource reservedResource = library.getResourceRepository()
         .getSpecific(resourceId);
+
     Customer customer = library.getCustomerRepository()
         .getSpecific(customerUsername);
+
     Copy reservedCopy = library.getCopyRepository()
         .getSpecificReserved(customer, reservedResource);
+
     if (ResourceCapManager.isUnderResourceCap(library, customer, reservedCopy.getResource())) {
       //Sets Copy to Borrowed
       library.getCopyRepository().getSpecific(reservedCopy.getId())

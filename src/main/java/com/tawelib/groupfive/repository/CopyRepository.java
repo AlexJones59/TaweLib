@@ -4,6 +4,8 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.exception.CopyUnavailableException;
+import com.tawelib.groupfive.exception.EntityNotFoundException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,15 +65,18 @@ public class CopyRepository implements BaseRepository<Copy> {
    * @param customer the customer
    * @param resource the resource
    * @return the specific reserved
+   * @throws EntityNotFoundException When no reserved copy found.
    */
-  public Copy getSpecificReserved(Customer customer, Resource resource) {
+  public Copy getSpecificReserved(Customer customer, Resource resource)
+      throws EntityNotFoundException {
     for (Copy copy : getResourceCopies(resource)) {
       if (copy.getBorrowingCustomer() == customer && copy.getStatus()
           .equals(CopyStatus.RESERVED)) {
         return copy;
       }
     }
-    return null;
+
+    throw new EntityNotFoundException();
   }
 
   /**
