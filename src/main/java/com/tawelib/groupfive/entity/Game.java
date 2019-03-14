@@ -121,7 +121,11 @@ public class Game extends Resource implements FetchableTrailer {
     this.multiplayer = multiplayer;
   }
 
-  //TODO Fill out javadoc for this method
+  /**
+   * Returns a URL for a relevant trailer for the game.
+   *
+   * @return URL of trailer
+   */
   @Override
   public String getTrailerSearchQuery() {
     return String.format(
