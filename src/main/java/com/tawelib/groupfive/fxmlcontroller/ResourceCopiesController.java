@@ -135,15 +135,14 @@ public class ResourceCopiesController extends BaseFxmlController {
           (Customer) loggedInUser,
           selectedResource
       );
+      AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
+      back();
     } catch (OverResourceCapException e) {
       AlertHelper.alert(Alert.AlertType.ERROR, "You have exceeded the resource cap. "
           + "An item must be returned before another can be borrowed.");
     } catch (CopyAvailableException e) {
       AlertHelper.alert(AlertType.ERROR, "Copy Available to Borrow! Request not made.");
-    } finally {
-      AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     }
-    back();
   }
 
   /**
