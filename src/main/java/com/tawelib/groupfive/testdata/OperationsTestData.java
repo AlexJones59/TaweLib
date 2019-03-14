@@ -1,7 +1,6 @@
 package com.tawelib.groupfive.testdata;
 
 import com.tawelib.groupfive.entity.Copy;
-import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.exception.CopyUnavailableException;
@@ -12,7 +11,6 @@ import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Generates test and showcase data for user interactions.
@@ -20,16 +18,12 @@ import java.util.Random;
  * @author Petr Hoffmann
  * @version 1.1
  */
-class OperationsTestData {
-
-  private OperationsTestData() {
-    throw new UnsupportedOperationException();
-  }
+abstract class OperationsTestData extends BaseTestData {
 
   private static final double IDEAL_LEASES_CONCENTRATION = 0.2;
   private static final double LATE_RETURNS_CONCENTRATION = 0.075;
+  private static final double RATING_REVIEW_CONCENTRATION = 0.25;
 
-  private static final Random random = new Random();
   private static List<String> borrowedCopyIds = new ArrayList<>();
   private static List<String> borrowedCopyIdsForLateReturn = new ArrayList<>();
 
@@ -62,6 +56,10 @@ class OperationsTestData {
         simulateLoan(library);
       }
 
+      if (random.nextDouble() < RATING_REVIEW_CONCENTRATION) {
+        RatingTestData.rate(library);
+      }
+
       SimulatedClock.addMinutes(random.nextInt(30));
     }
 
@@ -71,7 +69,7 @@ class OperationsTestData {
     System.out.println("Over Cap:" + overCapCounter);
     System.out.println("Misses: " + missesCounter);
 
-    System.out.println("Simulation finished.");
+    System.out.println("Operations Simulation finished.");
   }
 
   /**
@@ -149,33 +147,5 @@ class OperationsTestData {
         lateReturnsCounter++;
       }
     }
-  }
-
-  /**
-   * Returns a random customer username.
-   *
-   * @param library Library.
-   * @return Username.
-   */
-  private static String getRandomCustomerUsername(Library library) {
-    List<Customer> customers = library.getCustomerRepository().getAll();
-
-    int randomIndex = random.nextInt(customers.size());
-
-    return customers.get(randomIndex).getUsername();
-  }
-
-  /**
-   * Returns a random copy id of a random resource.
-   *
-   * @param library Library.
-   * @return ID.
-   */
-  private static String getRandomCopyId(Library library) {
-    List<Copy> copies = library.getCopyRepository().getAll();
-
-    int randomIndex = random.nextInt(copies.size());
-
-    return copies.get(randomIndex).getId();
   }
 }
