@@ -52,7 +52,7 @@ If the user is a Customer, it disables certain boxes and vice-versa.
       <HBox layoutX="733.0" layoutY="179.0" spacing="5.0" />
       <HBox layoutX="50.0" layoutY="365.0" prefHeight="390.0" prefWidth="760.0" spacing="60.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
          <children>
-            <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+            <VBox fx:id="additionsVBox" prefHeight="200.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="New Resource Addition" textAlignment="CENTER" wrappingWidth="199.99999284744263">
                      <font>
