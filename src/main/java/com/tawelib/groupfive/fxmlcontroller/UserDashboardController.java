@@ -92,6 +92,9 @@ public class UserDashboardController extends BaseFxmlController {
   private ImageView profileImageImageView;
 
   @FXML
+  private Button profileImageButton;
+
+  @FXML
   private TextField txtSearch;
 
   @FXML
@@ -220,7 +223,6 @@ public class UserDashboardController extends BaseFxmlController {
   private void setGuiForUsers() {
     usernameTextField.setText(loggedInUser.getUsername());
     fullNameTextField.setText(loggedInUser.getFullName());
-    //TODO: Format Address nicely.
     addressTextField.setText(loggedInUser.getAddress().toString());
     phoneNumberTextField.setText(loggedInUser.getPhoneNumber());
     populateListNewAdditions();
@@ -288,8 +290,8 @@ public class UserDashboardController extends BaseFxmlController {
       });
 
       if (newResources.size() > 8) {
-        newAdditionsList.setPrefWidth(newAdditionsList.getPrefWidth() + 22.5);
-        additionsVBox.setPrefWidth(additionsVBox.getWidth() + 22.5);
+        newAdditionsList.setPrefWidth(newAdditionsList.getPrefWidth() + 13);
+        additionsVBox.setPrefWidth(additionsVBox.getWidth() + 13);
 
       }
       newAdditionsList.getItems().add(oneResource);
