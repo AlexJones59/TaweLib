@@ -27,7 +27,8 @@ public class SceneHelper {
    *
    * @param primaryStage Primary stage reference.
    * @param library Library reference.
-   * @param nextSceneName Scene name.
+   * @param nextSceneName The next Scene name.
+   * @param lastSceneName The last scene name.
    * @return New scene controller.
    * @throws IOException When unable to switch scenes.
    */
