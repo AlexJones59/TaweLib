@@ -98,7 +98,7 @@ If the user is a Customer, it disables certain boxes and vice-versa.
             <ComboBox fx:id="cmbResourceType" onAction="#search" prefHeight="31.0" prefWidth="150.0" promptText="Resource Type" />
          </children>
       </HBox>
-      <TableView fx:id="tblBrowseResourcesTable" layoutX="734.0" layoutY="216.0" prefHeight="411.0" prefWidth="350.0">
+      <TableView fx:id="tblNewAdditionsResourcesTable" layoutX="734.0" layoutY="216.0" prefHeight="411.0" prefWidth="350.0">
          <columns>
             <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="titleColumn" prefWidth="185.0" text="Title" />
