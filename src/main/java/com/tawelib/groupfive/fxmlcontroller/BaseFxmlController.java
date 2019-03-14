@@ -176,6 +176,9 @@ public abstract class BaseFxmlController {
     }
   }
 
+  /**
+   * Empty method.
+   */
   protected void configureVisibilities() {
   }
 
@@ -199,18 +202,38 @@ public abstract class BaseFxmlController {
   protected void refreshForCustomers() {
   }
 
+  /**
+   * Sets the name of the previous scene for later access.
+   *
+   * @param sceneName Name of the previous scene displayed
+   */
   public void setLastSceneName(String sceneName) {
     this.lastSceneName = sceneName;
   }
 
+  /**
+   * Returns the name of the previous scene.
+   *
+   * @return Name of the previous scene
+   */
   public String getLastSceneName() {
     return lastSceneName;
   }
 
+  /**
+   * Returns the name of the current scene displayed.
+   *
+   * @return Name of the current scene displayed
+   */
   public String getCurrentSceneName() {
     return currentSceneName;
   }
 
+  /**
+   * Sets the name of the current scene.
+   *
+   * @param sceneName Name of the current scene
+   */
   public void setCurrentSceneName(String sceneName) {
     this.currentSceneName = sceneName;
   }

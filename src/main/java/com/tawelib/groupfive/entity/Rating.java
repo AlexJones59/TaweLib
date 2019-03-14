@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * Rating.java A rating given to a resource by a customer that has previously loaned the resource.
+ * Rating.java A rating given to a resource by a customer that has previously leased the resource.
  *
  * @author Alex Jones
  * @version 1.0
@@ -54,7 +54,7 @@ public class Rating implements Serializable {
    *
    * @return reviewer
    */
-  public User getRater() {
+  public Customer getRater() {
     return rater;
   }
 

@@ -128,7 +128,7 @@ public class RatingController extends BaseFxmlController {
     reviewPane.setBottom(reviewBodyArea);
     reviewBodyArea.setWrapText(true);
     reviewBodyArea.setPrefSize(500,Region.USE_COMPUTED_SIZE);
-    reviewBodyArea.setMaxHeight(60);
+    reviewBodyArea.setMaxHeight(100);
 
     BorderPane.setMargin(reviewerAndDate, new Insets(10));
     BorderPane.setMargin(reviewRatingLabel, new Insets(0,10,0,10));

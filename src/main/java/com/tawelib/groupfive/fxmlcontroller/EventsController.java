@@ -51,7 +51,7 @@ public class EventsController extends BaseFxmlController {
   private ListView<VBox> currentEventsField;
 
   /**
-   * initializes the GUI, makes the button create visible only for librarian.
+   * Initializes the GUI, makes the button create visible only for librarian.
    */
   @FXML
   public void initialize() {

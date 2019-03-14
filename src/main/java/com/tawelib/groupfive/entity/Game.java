@@ -49,38 +49,79 @@ public class Game extends Resource implements FetchableTrailer {
     this.multiplayer = multiplayer;
   }
 
+  /**
+   * Returns the publisher of the game.
+   *
+   * @return String, name of publisher
+   */
   public String getPublisher() {
     return publisher;
   }
 
+  /**
+   * Sets the publisher of the game to the given string.
+   *
+   * @param publisher Name of publisher
+   */
   public void setPublisher(String publisher) {
     this.publisher = publisher;
   }
 
+  /**
+   * Returns the genre of the game.
+   *
+   * @return String, genre of the game
+   */
   public String getGenre() {
     return genre;
   }
 
+  /**
+   * Sets the genre of the game.
+   *
+   * @param genre Genre of the game
+   */
   public void setGenre(String genre) {
     this.genre = genre;
   }
 
+  /**
+   * Returns the certificate rating of the game.
+   *
+   * @return String, certificate rating of the game
+   */
   public String getRating() {
     return rating;
   }
 
+  /**
+   * Sets the certificate rating of the game.
+   *
+   * @param rating Certificate rating of the game
+   */
   public void setRating(String rating) {
     this.rating = rating;
   }
 
+  /**
+   * Returns true if the game is multiplayer, false otherwise.
+   *
+   * @return Boolean, true if game is multiplayer, false otherwise
+   */
   public boolean isMultiplayer() {
     return multiplayer;
   }
 
+  /**
+   * Sets boolean value for game; true if game is multiplayer, false otherwise.
+   *
+   * @param multiplayer Boolean, true if game is multiplayer, false otherwise.
+   */
   public void setMultiplayer(boolean multiplayer) {
     this.multiplayer = multiplayer;
   }
 
+  //TODO Fill out javadoc for this method
   @Override
   public String getTrailerSearchQuery() {
     return String.format(

@@ -30,6 +30,9 @@ public class PastEventsController extends BaseFxmlController {
   @FXML
   private TextField searchField;
 
+  /**
+   * Initialises the window and sets logic for automatic searching for events
+   */
   @FXML
   public void initialize() {
     searchField.setOnKeyTyped(event -> refresh());

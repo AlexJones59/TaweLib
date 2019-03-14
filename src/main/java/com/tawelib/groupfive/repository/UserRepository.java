@@ -22,6 +22,12 @@ public interface UserRepository<T> extends BaseRepository<T> {
    */
   T authenticate(String username);
 
+  /**
+   * Given a query term, searches a collection of users for a match.
+   *
+   * @param query Query term used for the search
+   * @return Collection of users that match the given query
+   */
   Collection<? extends User> search(String query);
 
   /**
