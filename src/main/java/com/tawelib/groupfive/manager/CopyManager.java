@@ -144,6 +144,7 @@ public class CopyManager {
    * @param resourceId resourceId
    * @param customerUsername the customer username
    * @throws OverResourceCapException When over the resource cap.
+   * @throws EntityNotFoundException When unable to get a reserved copy with the provided id.
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
       String customerUsername) throws OverResourceCapException, EntityNotFoundException {

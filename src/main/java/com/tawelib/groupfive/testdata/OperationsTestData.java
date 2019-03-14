@@ -18,7 +18,7 @@ import java.util.Random;
  * Generates test and showcase data for user interactions.
  *
  * @author Petr Hoffmann
- * @version 1.0
+ * @version 1.1
  */
 class OperationsTestData {
 
@@ -59,11 +59,7 @@ class OperationsTestData {
         simulateLateReturn(library);
         simulateReturn(library);
       } else {
-        try {
-          simulateLoan(library);
-        } catch (OverResourceCapException e) {
-          overCapCounter++;
-        }
+        simulateLoan(library);
       }
 
       SimulatedClock.addMinutes(random.nextInt(30));
@@ -78,7 +74,12 @@ class OperationsTestData {
     System.out.println("Simulation finished.");
   }
 
-  private static void simulateLoan(Library library) throws OverResourceCapException {
+  /**
+   * Simulates a loan for a random copy of a random resource by a random customer.
+   *
+   * @param library Library.
+   */
+  private static void simulateLoan(Library library) {
     String copyIdToBeBorrowed = getRandomCopyId(library);
     String randomCustomerUsername = getRandomCustomerUsername(library);
 
@@ -97,22 +98,17 @@ class OperationsTestData {
 
       borrowsCounter++;
     } catch (CopyUnavailableException e) {
-//      Customer customer = library.getCustomerRepository().getSpecific(randomCustomerUsername);
-//      Resource resource = library.getCopyRepository().getSpecific(copyIdToBeBorrowed).getResource();
-//
-//      try {
-//        RequestManager.createRequest(
-//            library,
-//            customer,
-//            resource
-//        );
-//        missesCounter++;
-//      } catch (Exception f) {
-//        // Has to handle all the disgusting runtime exceptions thrown by the legacy code.
-//      }
+      missesCounter++;
+    } catch (OverResourceCapException e) {
+      overCapCounter++;
     }
   }
 
+  /**
+   * Simulates a return of a random borrowed copy.
+   *
+   * @param library Library.
+   */
   private static void simulateReturn(Library library) {
     int randomIndex = random.nextInt(borrowedCopyIds.size());
 
@@ -126,6 +122,11 @@ class OperationsTestData {
     returnsCounter++;
   }
 
+  /**
+   * Simulates a late return of one of the copies designated to be returned late.
+   *
+   * @param library Library.
+   */
   private static void simulateLateReturn(Library library) {
     if (!borrowedCopyIdsForLateReturn.isEmpty()) {
       int randomIndex = random.nextInt(borrowedCopyIdsForLateReturn.size());
