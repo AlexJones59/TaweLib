@@ -31,7 +31,7 @@ public class PastEventsController extends BaseFxmlController {
   private TextField searchField;
 
   /**
-   * Initialises the window and sets logic for automatic searching for events
+   * Initialises the window and sets logic for automatic searching for events.
    */
   @FXML
   public void initialize() {
