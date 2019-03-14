@@ -237,6 +237,7 @@ public class UserInformationController extends BaseFxmlController {
 
   /**
    * Allows a user to pick up a copy of a resource they have reserved.
+   *
    * @throws OverResourceCapException if No.of resources borrowed exceeds the resource cap
    */
   public void pickUpReserved() throws OverResourceCapException {
@@ -282,7 +283,7 @@ public class UserInformationController extends BaseFxmlController {
    */
   @Override
   public void back() {
-    if (loggedInUser.getClass().equals(Librarian.class)) {
+    if (isLibrarianLoggedIn()) {
       SceneHelper.setUpScene(this, "UserList");
     } else {
       SceneHelper.setUpScene(this, "UserDashboard");

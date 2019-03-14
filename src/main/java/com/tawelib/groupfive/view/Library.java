@@ -9,9 +9,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
- * This class is the Library application. It loads a library from a file or
- * creates a new one. It shows the GUI and after closing the app windows it
- * saves the library in a file.
+ * This class is the Library application. It loads a library from a file or creates a new one. It
+ * shows the GUI and after closing the app windows it saves the library in a file.
  *
  * @author Petr Hoffmann
  * @version 1.0
@@ -44,8 +43,8 @@ public class Library extends Application {
   }
 
   /**
-   * Loads the library and shows the GUI. If an announcement is to be made, the
-   * announcement is shown and the app terminates.
+   * Loads the library and shows the GUI. If an announcement is to be made, the announcement is
+   * shown and the app terminates.
    */
   @Override
   public void start(Stage primaryStage) {
@@ -55,6 +54,7 @@ public class Library extends Application {
       SceneHelper.setUpScene(
           primaryStage,
           library,
+          null,
           "Login"
       );
     } catch (Exception e) {

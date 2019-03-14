@@ -140,8 +140,9 @@ public class ResourceCopiesController extends BaseFxmlController {
           + "An item must be returned before another can be borrowed.");
     } catch (CopyAvailableException e) {
       AlertHelper.alert(AlertType.ERROR, "Copy Available to Borrow! Request not made.");
+    } finally {
+      AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     }
-    AlertHelper.alert(AlertType.INFORMATION, "Resource requested.");
     back();
   }
 

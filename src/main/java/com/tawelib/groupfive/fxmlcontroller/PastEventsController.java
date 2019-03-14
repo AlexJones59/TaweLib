@@ -7,6 +7,7 @@ import com.tawelib.groupfive.manager.EventManager;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -20,7 +21,7 @@ import javafx.scene.control.TextField;
  */
 public class PastEventsController extends BaseFxmlController {
 
-  private static final double EVENT_CELL_WIDTH = 312.0;
+  private static final double EVENT_CELL_WIDTH = 418.0;
   private static final double EVENT_CELL_HEIGHT = 100.0;
 
   @FXML
@@ -38,6 +39,7 @@ public class PastEventsController extends BaseFxmlController {
   public void refresh() {
     eventsListField.getItems().remove(0, eventsListField.getItems().size());
     ArrayList<Event> allEvents = EventManager.getUserPastEvents(library, loggedInUser);
+    allEvents.sort(Comparator.comparing(Event::getEventDate));
     for (Event e : allEvents) {
       if (e.getEventName().contains(searchField.getText())) {
         //The main info shown on the button
@@ -45,14 +47,14 @@ public class PastEventsController extends BaseFxmlController {
         String month = e.getEventDate().getMonth().toString();
         int day = e.getEventDate().getDayOfMonth();
 
-        Button description = new Button(year + " " + month + " " + day + "\n"
+        Button description = new Button(day + " " + month + " " + year + "\n"
             + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n");
 
         description.setPrefSize(EVENT_CELL_WIDTH, EVENT_CELL_HEIGHT);
         eventsListField.getItems().addAll(description);
 
         description.setOnAction(event -> {
-          String aboutEvent = year + " " + month + " " + day + "\n"
+          String aboutEvent = day + " " + month + " " + year + "\n"
               + e.getEventDate().toLocalTime().toString() + "\n" + e.getEventName() + "\n" + e
               .getDescription();
 

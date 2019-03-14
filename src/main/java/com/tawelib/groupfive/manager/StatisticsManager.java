@@ -49,6 +49,7 @@ public class StatisticsManager {
     List<Lease> customerLeases;
     int[] result = new int[5];
 
+    //Gets a different set of leases based upon resource type
     if (resourceType == null) {
       customerLeases = library.getLeaseRepository().getCustomerLeaseHistory(customer);
     } else {
@@ -66,6 +67,7 @@ public class StatisticsManager {
     }
     Collections.reverse(customerLeases);
 
+    //Calls different methods based upon Time Period
     switch (timePeriod) {
       case "Day":
         result = getSpecificUserStatsDay(customerLeases);
@@ -96,6 +98,8 @@ public class StatisticsManager {
 
     List<Lease> leases;
     double[] result = new double[5];
+
+    //Gets a different set of Leases based upon resource type
     if (resourceType == null) {
       leases = library.getLeaseRepository().getAll();
     } else {
@@ -111,8 +115,10 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(leases);
+    //Total number of customer
     int customerSize = library.getCustomerRepository().getAll().size();
 
+    //Calls different methods to analyze data based upon time periods
     switch (timePeriod) {
       case "Day":
         result = getAverageUserStatsDay(leases, customerSize);
@@ -143,6 +149,7 @@ public class StatisticsManager {
     List<Fine> fines;
     double[][] result = new double[2][5];
 
+    //Gets a different set of Fines based upon Resource type
     if (resourceType == null) {
       fines = library.getFineRepository().getAll();
     } else {
@@ -158,8 +165,10 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(fines);
+    //Total number of customers
     int customerSize = library.getCustomerRepository().getAll().size();
 
+    //Calls different methods based upon time period
     switch (timePeriod) {
       case "Day":
         result = getFineStatsDay(fines, customerSize);
@@ -186,8 +195,8 @@ public class StatisticsManager {
    */
   public static List<Resource> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
+    //Gets all leases pertaining to a certain resource type.
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-    LocalDateTime dateFrom = LocalDateTime.now();
 
     // Gets list of leases of same type that were borrowed within given time period
     switch (timePeriod) {
@@ -195,13 +204,11 @@ public class StatisticsManager {
         leases = leases.stream()
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
             .collect(Collectors.toList());
-        dateFrom.minusDays(1);
         break;
       case "Week":
         leases = leases.stream()
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
-        dateFrom.minusDays(7);
         break;
       case "All Time":
         break;
@@ -314,7 +321,7 @@ public class StatisticsManager {
     Collections.reverse(freq);
 
     ArrayList<String> popularAuthors = new ArrayList<>();
-    //Gets the 5 most popular resources
+    //Gets the 5 most popular authors
     for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
@@ -395,7 +402,7 @@ public class StatisticsManager {
       try {
         for (Object key : keys) {
           String director = (String) key;
-          //Checks if it is already in PopularResources
+          //Checks if it is already in PopularDirectors
           if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
               popularDirectors.size() < 10)) {
             popularDirectors.add(director);
@@ -417,6 +424,7 @@ public class StatisticsManager {
    * @return a hashmap with each genre and frequency among leases of time period
    */
   public static HashMap<String, Integer> getPopularBookGenre(Library library, String timePeriod) {
+    //Get all leases pertaining to books
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
 
     // Gets list of leases of same type that were borrowed within given time period

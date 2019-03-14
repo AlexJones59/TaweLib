@@ -33,7 +33,8 @@ public abstract class Resource implements Serializable {
     this.year = year;
     this.thumbnailImage = thumbnailImage;
     this.type = type;
-    this.dateAdded = SimulatedLocalDateTime.now();
+    //this.dateAdded = SimulatedLocalDateTime.now();
+    this.dateAdded = LocalDateTime.now();
   }
 
   /**

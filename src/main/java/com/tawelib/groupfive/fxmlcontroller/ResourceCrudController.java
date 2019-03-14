@@ -138,6 +138,8 @@ public class ResourceCrudController extends BaseFxmlController {
   private ResourceType[] resourceTypes = {ResourceType.BOOK, ResourceType.DVD,
       ResourceType.LAPTOP, ResourceType.GAME};
 
+  //private String lastSceneName;
+
   /**
    * Sets the dynamic fields.
    */
@@ -311,7 +313,7 @@ public class ResourceCrudController extends BaseFxmlController {
    */
   public void showRatings() {
     RatingController newController = (RatingController) SceneHelper
-            .setUpScene(this, "ResourceRatings");
+        .setUpScene(this, "ResourceRatings");
 
     newController.setSelectedResource(selectedResource);
     newController.setCrudAction(crudAction);
@@ -354,7 +356,7 @@ public class ResourceCrudController extends BaseFxmlController {
    */
   @Override
   public void back() {
-    SceneHelper.setUpScene(this, "BrowseResources");
+    SceneHelper.setUpScene(this, lastSceneName);
   }
 
   /**

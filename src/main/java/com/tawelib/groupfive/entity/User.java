@@ -37,7 +37,8 @@ public class User implements Serializable {
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = new Address(houseNumber, street, city, postCode);
-    this.lastLogin = SimulatedLocalDateTime.now();
+    //this.lastLogin = SimulatedLocalDateTime.now();
+    this.lastLogin = LocalDateTime.now();
   }
 
   /**
