@@ -8,7 +8,6 @@ import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.repository.ResourceRepository;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -19,20 +18,12 @@ import java.util.concurrent.TimeUnit;
  * @author Petr Hoffmann
  * @version 1.0
  */
-class ResourcesTestData {
+class ResourcesTestData extends BaseTestData {
 
   private static final int NUMBER_OF_RESOURCES = 128;
   
   private static final int NUMBER_OF_RESOURCE_TYPES = 4;
-  private static final String[] LANGUAGES = {
-      "English",
-      "Czech",
-      "Bulgarian",
-      "Russian",
-      "French",
-      "German",
-      "Latvian"
-  };
+
   private static final String[] OPERATING_SYSTEMS = {
       "Pop!_OS 18.10",
       "Ubuntu 18.04 LTS",
@@ -85,6 +76,8 @@ class ResourcesTestData {
    */
   static void generate(Library library) {
     ResourceRepository resourceRepository = library.getResourceRepository();
+
+    HardcodedResourcesTestData.create(resourceRepository);
 
     Faker faker = new Faker();
 
@@ -151,38 +144,5 @@ class ResourcesTestData {
           break;
       }
     }
-  }
-
-  /**
-   * Generates a random list of languages.
-   *
-   * @return Random languages.
-   */
-  private static ArrayList<String> randomLanguages() {
-    ArrayList<String> languages = new ArrayList<>();
-
-    for (String language : LANGUAGES) {
-      if (random.nextBoolean()) {
-        languages.add(language);
-      }
-    }
-
-    if (languages.isEmpty()) {
-      languages.add(LANGUAGES[0]);
-    }
-
-    return languages;
-  }
-
-  /**
-   * Returns a random element from the provided array.
-   *
-   * @param array Source.
-   * @return Random element.
-   */
-  private static String randomFrom(String[] array) {
-    int index = random.nextInt(array.length);
-
-    return array[index];
   }
 }
