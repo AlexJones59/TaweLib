@@ -5,6 +5,7 @@ import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -15,6 +16,16 @@ import java.util.Random;
  * @version 1.0
  */
 abstract class BaseTestData {
+
+  static final String[] LANGUAGES = {
+      "English",
+      "Czech",
+      "Bulgarian",
+      "Russian",
+      "French",
+      "German",
+      "Latvian"
+  };
 
   BaseTestData() {
     throw new UnsupportedOperationException();
@@ -73,5 +84,38 @@ abstract class BaseTestData {
     int randomIndex = random.nextInt(copies.size());
 
     return copies.get(randomIndex);
+  }
+
+  /**
+   * Returns a random element from the provided array.
+   *
+   * @param array Source.
+   * @return Random element.
+   */
+  static String randomFrom(String[] array) {
+    int index = random.nextInt(array.length);
+
+    return array[index];
+  }
+
+  /**
+   * Generates a random list of languages.
+   *
+   * @return Random languages.
+   */
+  static ArrayList<String> randomLanguages() {
+    ArrayList<String> languages = new ArrayList<>();
+
+    for (String language : LANGUAGES) {
+      if (random.nextBoolean()) {
+        languages.add(language);
+      }
+    }
+
+    if (languages.isEmpty()) {
+      languages.add(LANGUAGES[0]);
+    }
+
+    return languages;
   }
 }
