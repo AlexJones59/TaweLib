@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
 
+import com.tawelib.groupfive.entity.AverageRating;
 import com.tawelib.groupfive.entity.Rating;
 import com.tawelib.groupfive.entity.ResourceType;
 
@@ -12,7 +13,7 @@ import com.tawelib.groupfive.entity.ResourceType;
 public class PopularResourcesTableWrapper {
 
   private int rank;
-  private Rating avgRating;
+  private AverageRating avgRating;
 
 
   /**
@@ -21,7 +22,7 @@ public class PopularResourcesTableWrapper {
    * @param rank the rank
    * @param avgRating the avg rating
    */
-  public PopularResourcesTableWrapper(int rank, Rating avgRating) {
+  public PopularResourcesTableWrapper(int rank, AverageRating avgRating) {
     this.rank = rank;
     this.avgRating = avgRating;
   }
@@ -41,7 +42,7 @@ public class PopularResourcesTableWrapper {
    * @return the string
    */
   public String getResResourceId() {
-    return avgRating.getRatedResource().getResourceId();
+    return avgRating.getResource().getResourceId();
   }
 
   /**
@@ -50,7 +51,7 @@ public class PopularResourcesTableWrapper {
    * @return the string
    */
   public String getResTitle() {
-    return avgRating.getRatedResource().getTitle();
+    return avgRating.getResource().getTitle();
   }
 
   /**
@@ -59,7 +60,7 @@ public class PopularResourcesTableWrapper {
    * @return the resource type
    */
   public ResourceType getResType() {
-    return avgRating.getRatedResource().getType();
+    return avgRating.getResource().getType();
   }
 
   /**
@@ -67,8 +68,8 @@ public class PopularResourcesTableWrapper {
    *
    * @return the int
    */
-  public int getResAvgRating() {
-    return avgRating.getRatingValue();
+  public String getResAvgRating() {
+    return String.format("%.1f",avgRating.getRating());
   }
 
 }

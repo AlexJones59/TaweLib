@@ -46,7 +46,7 @@ public class RatingController extends BaseFxmlController {
   private Label averageRatingStarsLabel;
 
   @FXML
-  private BarChart<String,Integer> ratingChart;
+  private BarChart<String, Integer> ratingChart;
 
   @FXML
   private VBox reviewVerticalBox;
@@ -79,10 +79,8 @@ public class RatingController extends BaseFxmlController {
 
     ratingChart.getData().add(ratingsData);
 
-    double averageRating = ((double)(ratingsAmount[1] + (2 * ratingsAmount[2])
-        + (3 * ratingsAmount[3]) + (4 * ratingsAmount[4])
-        + (5 * ratingsAmount[5]))) / (ratingsAmount[1] + ratingsAmount[2]
-        + ratingsAmount[3] + ratingsAmount[4] + ratingsAmount[5]);
+    double averageRating = RatingManager.getResourceAverageRating(library, selectedResource)
+        .getRating();
 
     if (ratings.isEmpty()) {
       averageRatingLabel.setText("N/A");
@@ -91,7 +89,7 @@ public class RatingController extends BaseFxmlController {
     }
 
     StringBuilder averageStars = new StringBuilder();
-    for (int i = 1; i <= (int)averageRating; i++) {
+    for (int i = 1; i <= (int) averageRating; i++) {
       averageStars.append("★");
     }
 
@@ -127,11 +125,11 @@ public class RatingController extends BaseFxmlController {
     reviewBodyArea.setEditable(false);
     reviewPane.setBottom(reviewBodyArea);
     reviewBodyArea.setWrapText(true);
-    reviewBodyArea.setPrefSize(500,Region.USE_COMPUTED_SIZE);
+    reviewBodyArea.setPrefSize(500, Region.USE_COMPUTED_SIZE);
     reviewBodyArea.setMaxHeight(60);
 
     BorderPane.setMargin(reviewerAndDate, new Insets(10));
-    BorderPane.setMargin(reviewRatingLabel, new Insets(0,10,0,10));
+    BorderPane.setMargin(reviewRatingLabel, new Insets(0, 10, 0, 10));
     BorderPane.setMargin(reviewBodyArea, new Insets(10));
 
     reviewPane.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
@@ -162,7 +160,7 @@ public class RatingController extends BaseFxmlController {
    */
   public void newRatingWindow() {
     try {
-      if (!RatingManager.validRater(getLibrary(),(Customer)getLoggedInUser(),
+      if (!RatingManager.validRater(getLibrary(), (Customer) getLoggedInUser(),
           selectedResource)) {
         throw new InvalidRaterException();
       }

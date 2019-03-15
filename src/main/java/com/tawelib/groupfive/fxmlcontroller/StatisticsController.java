@@ -132,7 +132,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableColumn<PopularResourcesTableWrapper, ResourceType> popResTypeColumn;
 
   @FXML
-  private TableColumn<PopularResourcesTableWrapper, Integer> popResAvgRatingColumn;
+  private TableColumn<PopularResourcesTableWrapper, String> popResAvgRatingColumn;
 
   @FXML
   private ComboBox<String> resourceStatTimeComboBox;
@@ -162,7 +162,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableColumn<PopularBookTableWrapper, String> popBookGenreColumn;
 
   @FXML
-  private TableColumn<PopularBookTableWrapper, Integer> popBookAvgRatingColumn;
+  private TableColumn<PopularBookTableWrapper, String> popBookAvgRatingColumn;
 
   @FXML
   private PieChart popBookGenrePieChart;
@@ -198,7 +198,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableColumn<PopularDvdTableWrapper, String> popDvdDirectorColumn;
 
   @FXML
-  private TableColumn<PopularDvdTableWrapper, Integer> popDvdAvgRatingColumn;
+  private TableColumn<PopularDvdTableWrapper, String> popDvdAvgRatingColumn;
 
   @FXML
   private TableView<PopularDvdDirectorTableWrapper> popDvdDirectorTableView;
@@ -231,7 +231,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableColumn<PopularLaptopTableWrapper, String> popLaptopOsColumn;
 
   @FXML
-  private TableColumn<PopularLaptopTableWrapper, Integer> popLaptopAvgRatingColumn;
+  private TableColumn<PopularLaptopTableWrapper, String> popLaptopAvgRatingColumn;
 
   @FXML
   private PieChart popularOsPieChart;
@@ -261,7 +261,7 @@ public class StatisticsController extends BaseFxmlController {
   private TableColumn<PopularVideoGameTableWrapper, Boolean> popVideogameMultiplayerColumn;
 
   @FXML
-  private TableColumn<PopularVideoGameTableWrapper, Integer> popVideogameAvgRatingColumn;
+  private TableColumn<PopularVideoGameTableWrapper, String> popVideogameAvgRatingColumn;
 
   @FXML
   private PieChart popVideoGameGenrePieChart;

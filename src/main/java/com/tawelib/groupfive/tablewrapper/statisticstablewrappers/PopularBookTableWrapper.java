@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
 
+import com.tawelib.groupfive.entity.AverageRating;
 import com.tawelib.groupfive.entity.Book;
 import com.tawelib.groupfive.entity.Rating;
 
@@ -12,7 +13,7 @@ import com.tawelib.groupfive.entity.Rating;
 public class PopularBookTableWrapper {
 
   private int rank;
-  private Rating avgRating;
+  private AverageRating avgRating;
   private Book book;
 
 
@@ -22,10 +23,10 @@ public class PopularBookTableWrapper {
    * @param rank the rank
    * @param avgRating the avg rating
    */
-  public PopularBookTableWrapper(int rank, Rating avgRating) {
+  public PopularBookTableWrapper(int rank, AverageRating avgRating) {
     this.rank = rank;
     this.avgRating = avgRating;
-    this.book = (Book) avgRating.getRatedResource();
+    this.book = (Book) avgRating.getResource();
   }
 
   /**
@@ -78,8 +79,8 @@ public class PopularBookTableWrapper {
    *
    * @return the book avg rating
    */
-  public int getBookAvgRating() {
-    return avgRating.getRatingValue();
+  public String getBookAvgRating() {
+    return String.format("%.1f",avgRating.getRating());
   }
 
 }
