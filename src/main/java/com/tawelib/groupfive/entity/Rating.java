@@ -26,7 +26,12 @@ public class Rating implements Serializable {
    */
   public Rating(int value, Resource ratedResource, Customer rater) {
     if (value < 1 || value > 5) {
-      throw new IllegalArgumentException("Rating value has to be between 1 and 5.");
+      throw new IllegalArgumentException(
+          String.format(
+              "Rating value has to be between 1 and 5, %d provided.",
+              value
+          )
+      );
     }
 
     this.value = value;

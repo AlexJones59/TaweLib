@@ -18,7 +18,7 @@ import java.util.List;
  * @author Petr Hoffmann
  * @version 1.1
  */
-abstract class OperationsTestData extends BaseTestData {
+class OperationsTestData extends BaseTestData {
 
   private static final double IDEAL_LEASES_CONCENTRATION = 0.2;
   private static final double LATE_RETURNS_CONCENTRATION = 0.075;
