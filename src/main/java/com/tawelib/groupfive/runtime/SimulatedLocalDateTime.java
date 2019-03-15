@@ -2,6 +2,7 @@ package com.tawelib.groupfive.runtime;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.TimeZone;
 
 /**
@@ -11,6 +12,8 @@ import java.util.TimeZone;
  * @version 1.0
  */
 public class SimulatedLocalDateTime {
+
+  private static final Random random = new Random();
 
   private SimulatedLocalDateTime() {
     throw new UnsupportedOperationException();
@@ -27,6 +30,18 @@ public class SimulatedLocalDateTime {
             SimulatedClock.getTimestamp()
         ),
         TimeZone.getDefault().toZoneId()
+    );
+  }
+
+  /**
+   * Returns a random local date time up to x numbers ago.
+   *
+   * @param x Number of days ago.
+   * @return DateTime randomly up to x days ago.
+   */
+  public static LocalDateTime upToXDaysAgo(int x) {
+    return now().minusDays(
+        random.nextInt(x) + 1L
     );
   }
 }
