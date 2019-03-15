@@ -27,6 +27,11 @@ class UsersTestData {
     throw new UnsupportedOperationException("Util class.");
   }
 
+  /**
+   * Generates users for testing and showcase purposes.
+   *
+   * @param library Library.
+   */
   static void generate(Library library) {
     LibrarianRepository librarianRepository = library.getLibrarianRepository();
     CustomerRepository customerRepository = library.getCustomerRepository();

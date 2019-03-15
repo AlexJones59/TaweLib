@@ -9,7 +9,6 @@ import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.repository.ResourceRepository;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -62,8 +61,6 @@ class ResourcesTestData extends BaseTestData {
       "PEGI 15",
       "PEGI 18"
   };
-
-  private static final Random random = new Random();
 
   private ResourcesTestData() {
     throw new UnsupportedOperationException("Util class.");

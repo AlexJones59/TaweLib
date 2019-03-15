@@ -23,6 +23,7 @@ abstract class OperationsTestData extends BaseTestData {
   private static final double IDEAL_LEASES_CONCENTRATION = 0.2;
   private static final double LATE_RETURNS_CONCENTRATION = 0.075;
   private static final double RATING_REVIEW_CONCENTRATION = 0.25;
+  private static final int TARGET_RETURN_DELAY = 5; // in days
 
   private static List<String> borrowedCopyIds = new ArrayList<>();
   private static List<String> borrowedCopyIdsForLateReturn = new ArrayList<>();
@@ -136,7 +137,9 @@ abstract class OperationsTestData extends BaseTestData {
 
       LocalDateTime dueDate = currentLease.getDueDate();
 
-      if (dueDate != null && dueDate.isAfter(SimulatedLocalDateTime.now())) {
+      if (dueDate != null
+          && dueDate.isAfter(SimulatedLocalDateTime.upToXDaysAgo(TARGET_RETURN_DELAY))
+      ) {
         CopyManager.returnResourceCopy(
             library,
             copyId
