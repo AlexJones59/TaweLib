@@ -117,20 +117,6 @@ public class BrowseResourcesController extends BaseFxmlController {
     createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
-  /**
-   * Displays information about a resource when user double clicks on it.
-   */
-  public void doubleClick() {
-    tblBrowseResourcesTable.setRowFactory(tv -> {
-      TableRow<Resource> row = new TableRow<>();
-      row.setOnMouseClicked(event -> {
-        if (event.getClickCount() == 2 && (!row.isEmpty())) {
-          setUpResourceCrud(CrudAction.UPDATE);
-        }
-      });
-      return null;
-    });
-  }
 
   /**
    * Searches for resources by type and displays the result in the table.
@@ -231,6 +217,5 @@ public class BrowseResourcesController extends BaseFxmlController {
           new ResourceTableWrapper(resource)
       );
     }
-    doubleClick();
   }
 }
