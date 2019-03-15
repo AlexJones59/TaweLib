@@ -12,6 +12,7 @@ import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -846,26 +847,35 @@ public class StatisticsManager {
   private static double[][] getFineStatsDay(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+      LocalDateTime date = fine.getDateAccrued().toLocalDate()
           .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
+      Lease lease = fine.getLease();
+      try {
+        Field dateReturned = lease.getClass().getDeclaredField("dateReturned");
+        dateReturned.setAccessible(true);
+        dateReturned.set(lease, date);
+      } catch (IllegalAccessException | NoSuchFieldException e) {
+        e.printStackTrace();
+      }
     }
     fines.sort(Comparator.comparing(Fine::getDateAccrued));
 
     //Groups all Leases by Fined Customer, then by Date Accrued.
     //It then filters out any leases that was before 4 days ago.
-    List<Fine> finesFiltered = fines.stream()
+
+    Map<LocalDateTime, List<Fine>> finesMappedPerDay = fines.stream()
         .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(5)))
-        .sorted().collect(Collectors.toList());
+        .collect(Collectors.groupingBy(Fine::getDateAccrued));
+    Object[] keyset = finesMappedPerDay.keySet().toArray();
 
     //Makes the array that shall be returned
     double[][] totalByDate = new double[2][5];
 
     //Iterates for 5 days
-    for (int i = 0; i < finesFiltered.size(); i++) {
+    for (int i = 0; i < keyset.length - 1; i++) {
       double totalFineAmount = 0;
       //Gets value of each fine and adds it to cumulative fine amount
-      for (Fine fine : finesFiltered) {
+      for (Fine fine : finesMappedPerDay.get((LocalDateTime) keyset[i])) {
         totalFineAmount += (double) fine.getAmountInPounds();
       }
       totalByDate[0][i] = totalFineAmount;
@@ -883,12 +893,6 @@ public class StatisticsManager {
    * @return Average and Total fine amounts per User per day for last 5 weeks.
    */
   private static double[][] getFineStatsWeek(List<Fine> fines, int customerSize) {
-    //Iterate through leases and set it to the start of the day
-    for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
-          .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
-    }
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -926,12 +930,6 @@ public class StatisticsManager {
    * @return Average and Total fine amounts per User per day for last 5 months.
    */
   private static double[][] getFineStatsMonth(List<Fine> fines, int customerSize) {
-    //Iterate through leases and set it to the start of the day
-    for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
-          .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
-    }
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -948,7 +946,7 @@ public class StatisticsManager {
       //It then filters out any fines that wasn't between start and end of each month.
       List<Fine> finesMappedPerMonth = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).sorted().collect(Collectors.toList());
+              .isAfter(dateFrom))).collect(Collectors.toList());
 
       double totalFineAmount = 0.0;
 
