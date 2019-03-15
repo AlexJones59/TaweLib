@@ -5,19 +5,26 @@ import com.tawelib.groupfive.entity.ResourceType;
 import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
 import com.tawelib.groupfive.util.AlertHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 /**
@@ -109,6 +116,7 @@ public class BrowseResourcesController extends BaseFxmlController {
     createNewButton.setVisible(isLibrarianLoggedIn());
   }
 
+
   /**
    * Searches for resources by type and displays the result in the table.
    */
@@ -174,7 +182,6 @@ public class BrowseResourcesController extends BaseFxmlController {
   public void createNew() {
     setUpResourceCrud(CrudAction.CREATE);
   }
-
 
   /**
    * Goes to resource crud screen for the selected resource.

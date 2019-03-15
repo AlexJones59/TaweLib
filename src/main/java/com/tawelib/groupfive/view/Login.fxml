@@ -10,7 +10,7 @@
     <center>
         <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="usernameTextField" layoutX="302.0" layoutY="366.0" prefHeight="25.0" prefWidth="265.0" />
+                <TextField fx:id="usernameTextField" layoutX="302.0" layoutY="366.0" onAction="#signIn" prefHeight="25.0" prefWidth="265.0" />
                 <Label fx:id="usernameLabel" layoutX="304.0" layoutY="329.0" prefHeight="36.0" prefWidth="262.0" text="Username" />
                 <CheckBox fx:id="librarianCheckBox" layoutX="302.0" layoutY="446.0" mnemonicParsing="false" onAction="#toggleLibrarian" text="Librarian" />
                 <Text fx:id="lblScreenTitle" layoutX="370.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
