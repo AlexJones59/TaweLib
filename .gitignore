@@ -1,6 +1,7 @@
 .idea/
 tawelib.iml
 
+*.log
 build/
 .gradle
 gradle-app.setting
