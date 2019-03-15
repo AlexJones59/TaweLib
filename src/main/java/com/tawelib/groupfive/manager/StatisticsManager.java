@@ -166,19 +166,17 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(fines);
-    //Total number of customers
-    int customerSize = library.getCustomerRepository().getAll().size();
 
     //Calls different methods based upon time period
     switch (timePeriod) {
       case "Day":
-        result = getFineStatsDay(fines, customerSize);
+        result = getFineStatsDay(fines);
         break;
       case "Week":
-        result = getFineStatsWeek(fines, customerSize);
+        result = getFineStatsWeek(fines);
         break;
       case "Month":
-        result = getFineStatsMonth(fines, customerSize);
+        result = getFineStatsMonth(fines);
         break;
       default:
     }
@@ -841,10 +839,9 @@ public class StatisticsManager {
    * Works out fine amounts per User per day for last 5 days.
    *
    * @param fines Records of User Fines
-   * @param customerSize number of total customers registered with the library
    * @return Average and Total fine amounts per User per day for last 5 days.
    */
-  private static double[][] getFineStatsDay(List<Fine> fines, int customerSize) {
+  private static double[][] getFineStatsDay(List<Fine> fines) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
       LocalDateTime date = fine.getDateAccrued().toLocalDate()
@@ -873,6 +870,8 @@ public class StatisticsManager {
 
     //Iterates for 5 days
     for (int i = 0; i < keyset.length - 1; i++) {
+
+      int noOfFines = finesMappedPerDay.get((LocalDateTime) keyset[i]).size();
       double totalFineAmount = 0;
       //Gets value of each fine and adds it to cumulative fine amount
       for (Fine fine : finesMappedPerDay.get((LocalDateTime) keyset[i])) {
@@ -880,7 +879,7 @@ public class StatisticsManager {
       }
       totalByDate[0][i] = totalFineAmount;
       //Gets average fine amount.
-      totalByDate[1][i] = totalFineAmount / customerSize;
+      totalByDate[1][i] = totalFineAmount / noOfFines;
     }
     return totalByDate;
   }
@@ -889,10 +888,9 @@ public class StatisticsManager {
    * Works out fine amounts per User per week for last 5 weeks.
    *
    * @param fines Records of User Fines
-   * @param customerSize number of total customers registered with the library
    * @return Average and Total fine amounts per User per day for last 5 weeks.
    */
-  private static double[][] getFineStatsWeek(List<Fine> fines, int customerSize) {
+  private static double[][] getFineStatsWeek(List<Fine> fines) {
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -909,6 +907,9 @@ public class StatisticsManager {
       List<Fine> finesMappedPerWeek = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
               .isAfter(dateFrom))).collect(Collectors.toList());
+
+      int noOfFines = finesMappedPerWeek.size();
+
       double totalFineAmount = 0.0;
 
       //Gets value of each fine and adds it to cumulative fine amount
@@ -917,7 +918,7 @@ public class StatisticsManager {
       }
       totalByWeek[0][i] = totalFineAmount;
       //Gets average fine amount.
-      totalByWeek[1][i] = totalFineAmount / customerSize;
+      totalByWeek[1][i] = totalFineAmount / noOfFines;
     }
     return totalByWeek;
   }
@@ -926,10 +927,9 @@ public class StatisticsManager {
    * Works out fine amounts per User per week for last 5 months.
    *
    * @param fines Records of User Fines
-   * @param customerSize number of total customers registered with the library
    * @return Average and Total fine amounts per User per day for last 5 months.
    */
-  private static double[][] getFineStatsMonth(List<Fine> fines, int customerSize) {
+  private static double[][] getFineStatsMonth(List<Fine> fines) {
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -948,6 +948,8 @@ public class StatisticsManager {
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
               .isAfter(dateFrom))).collect(Collectors.toList());
 
+      int noOfFines = finesMappedPerMonth.size();
+
       double totalFineAmount = 0.0;
 
       //Gets value of each fine and adds it to cumulative fine amount
@@ -956,7 +958,7 @@ public class StatisticsManager {
       }
       totalByMonth[0][i] = totalFineAmount;
       //Gets average fine amount.
-      totalByMonth[1][i] = totalFineAmount / customerSize;
+      totalByMonth[1][i] = totalFineAmount / noOfFines;
     }
     return totalByMonth;
   }

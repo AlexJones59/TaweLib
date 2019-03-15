@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
 
+import com.tawelib.groupfive.entity.AverageRating;
 import com.tawelib.groupfive.entity.Laptop;
 import com.tawelib.groupfive.entity.Rating;
 
@@ -13,7 +14,7 @@ public class PopularLaptopTableWrapper {
 
 
   private int rank;
-  private Rating avgRating;
+  private AverageRating avgRating;
   private Laptop laptop;
 
 
@@ -23,10 +24,10 @@ public class PopularLaptopTableWrapper {
    * @param rank the rank
    * @param avgRating the avg rating
    */
-  public PopularLaptopTableWrapper(int rank, Rating avgRating) {
+  public PopularLaptopTableWrapper(int rank, AverageRating avgRating) {
     this.rank = rank;
     this.avgRating = avgRating;
-    this.laptop = (Laptop) avgRating.getRatedResource();
+    this.laptop = (Laptop) avgRating.getResource();
   }
 
   /**
@@ -70,8 +71,8 @@ public class PopularLaptopTableWrapper {
    *
    * @return the laptop avg rating
    */
-  public int getLaptopAvgRating() {
-    return avgRating.getRatingValue();
+  public String getLaptopAvgRating() {
+    return String.format("%.1f",avgRating.getRating());
   }
 
 }

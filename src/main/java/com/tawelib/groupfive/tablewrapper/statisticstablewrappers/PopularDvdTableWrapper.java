@@ -1,5 +1,6 @@
 package com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
 
+import com.tawelib.groupfive.entity.AverageRating;
 import com.tawelib.groupfive.entity.Dvd;
 import com.tawelib.groupfive.entity.Rating;
 
@@ -13,7 +14,7 @@ public class PopularDvdTableWrapper {
 
 
   private int rank;
-  private Rating avgRating;
+  private AverageRating avgRating;
   private Dvd dvd;
 
 
@@ -23,10 +24,10 @@ public class PopularDvdTableWrapper {
    * @param rank the rank
    * @param avgRating the avg rating
    */
-  public PopularDvdTableWrapper(int rank, Rating avgRating) {
+  public PopularDvdTableWrapper(int rank, AverageRating avgRating) {
     this.rank = rank;
     this.avgRating = avgRating;
-    this.dvd = (Dvd) avgRating.getRatedResource();
+    this.dvd = (Dvd) avgRating.getResource();
   }
 
   /**
@@ -70,8 +71,8 @@ public class PopularDvdTableWrapper {
    *
    * @return the dvd avg rating
    */
-  public int getDvdAvgRating() {
-    return avgRating.getRatingValue();
+  public String getDvdAvgRating() {
+    return String.format("%.1f",avgRating.getRating());
   }
 
 }
