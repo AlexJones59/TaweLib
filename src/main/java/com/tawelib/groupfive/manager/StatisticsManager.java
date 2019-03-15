@@ -12,6 +12,7 @@ import com.tawelib.groupfive.entity.Lease;
 import com.tawelib.groupfive.entity.Library;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -49,6 +50,7 @@ public class StatisticsManager {
     List<Lease> customerLeases;
     int[] result = new int[5];
 
+    //Gets a different set of leases based upon resource type
     if (resourceType == null) {
       customerLeases = library.getLeaseRepository().getCustomerLeaseHistory(customer);
     } else {
@@ -66,6 +68,7 @@ public class StatisticsManager {
     }
     Collections.reverse(customerLeases);
 
+    //Calls different methods based upon Time Period
     switch (timePeriod) {
       case "Day":
         result = getSpecificUserStatsDay(customerLeases);
@@ -96,6 +99,8 @@ public class StatisticsManager {
 
     List<Lease> leases;
     double[] result = new double[5];
+
+    //Gets a different set of Leases based upon resource type
     if (resourceType == null) {
       leases = library.getLeaseRepository().getAll();
     } else {
@@ -111,8 +116,10 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(leases);
+    //Total number of customer
     int customerSize = library.getCustomerRepository().getAll().size();
 
+    //Calls different methods to analyze data based upon time periods
     switch (timePeriod) {
       case "Day":
         result = getAverageUserStatsDay(leases, customerSize);
@@ -143,6 +150,7 @@ public class StatisticsManager {
     List<Fine> fines;
     double[][] result = new double[2][5];
 
+    //Gets a different set of Fines based upon Resource type
     if (resourceType == null) {
       fines = library.getFineRepository().getAll();
     } else {
@@ -158,8 +166,10 @@ public class StatisticsManager {
       }
     }
     Collections.reverse(fines);
+    //Total number of customers
     int customerSize = library.getCustomerRepository().getAll().size();
 
+    //Calls different methods based upon time period
     switch (timePeriod) {
       case "Day":
         result = getFineStatsDay(fines, customerSize);
@@ -186,8 +196,8 @@ public class StatisticsManager {
    */
   public static List<Resource> getPopularResources(Library library, String timePeriod,
       ResourceType resourceType) {
+    //Gets all leases pertaining to a certain resource type.
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(resourceType);
-    LocalDateTime dateFrom = LocalDateTime.now();
 
     // Gets list of leases of same type that were borrowed within given time period
     switch (timePeriod) {
@@ -195,19 +205,13 @@ public class StatisticsManager {
         leases = leases.stream()
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(1)))
             .collect(Collectors.toList());
-        dateFrom.minusDays(1);
         break;
       case "Week":
         leases = leases.stream()
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
-        dateFrom.minusDays(7);
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
-        dateFrom.minusMonths(1);
+      case "All Time":
         break;
       default:
     }
@@ -242,14 +246,14 @@ public class StatisticsManager {
     Collections.reverse(freq);
 
     ArrayList<Resource> popularResources = new ArrayList<>();
-    //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    //Gets the 10 most popular resources
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           Resource resource = (Resource) key;
           //Checks if it is already in PopularResources
           if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource)) && (
-              popularResources.size() < 5)) {
+              popularResources.size() < 10)) {
             popularResources.add(resource);
           }
         }
@@ -282,10 +286,7 @@ public class StatisticsManager {
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
+      case "All Time":
         break;
       default:
     }
@@ -321,14 +322,14 @@ public class StatisticsManager {
     Collections.reverse(freq);
 
     ArrayList<String> popularAuthors = new ArrayList<>();
-    //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    //Gets the 5 most popular authors
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           String author = (String) key;
           //Checks if it is already in PopularResources
           if ((map.get(author).equals(freq.get(i))) && (!popularAuthors.contains(author)) && (
-              popularAuthors.size() < 5)) {
+              popularAuthors.size() < 10)) {
             popularAuthors.add(author);
           }
         }
@@ -361,10 +362,7 @@ public class StatisticsManager {
             .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(7)))
             .collect(Collectors.toList());
         break;
-      case "Month":
-        leases = leases.stream()
-            .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusMonths(1)))
-            .collect(Collectors.toList());
+      case "All Time":
         break;
       default:
     }
@@ -401,13 +399,13 @@ public class StatisticsManager {
 
     ArrayList<String> popularDirectors = new ArrayList<>();
     //Gets the 5 most popular resources
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 10; i++) {
       try {
         for (Object key : keys) {
           String director = (String) key;
-          //Checks if it is already in PopularResources
+          //Checks if it is already in PopularDirectors
           if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
-              popularDirectors.size() < 5)) {
+              popularDirectors.size() < 10)) {
             popularDirectors.add(director);
           }
         }
@@ -427,6 +425,7 @@ public class StatisticsManager {
    * @return a hashmap with each genre and frequency among leases of time period
    */
   public static HashMap<String, Integer> getPopularBookGenre(Library library, String timePeriod) {
+    //Get all leases pertaining to books
     List<Lease> leases = library.getLeaseRepository().getResourceTypeLeases(ResourceType.BOOK);
 
     // Gets list of leases of same type that were borrowed within given time period
@@ -848,26 +847,35 @@ public class StatisticsManager {
   private static double[][] getFineStatsDay(List<Fine> fines, int customerSize) {
     //Iterate through leases and set it to the start of the day
     for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
+      LocalDateTime date = fine.getDateAccrued().toLocalDate()
           .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
+      Lease lease = fine.getLease();
+      try {
+        Field dateReturned = lease.getClass().getDeclaredField("dateReturned");
+        dateReturned.setAccessible(true);
+        dateReturned.set(lease, date);
+      } catch (IllegalAccessException | NoSuchFieldException e) {
+        e.printStackTrace();
+      }
     }
     fines.sort(Comparator.comparing(Fine::getDateAccrued));
 
     //Groups all Leases by Fined Customer, then by Date Accrued.
     //It then filters out any leases that was before 4 days ago.
-    List<Fine> finesFiltered = fines.stream()
+
+    Map<LocalDateTime, List<Fine>> finesMappedPerDay = fines.stream()
         .filter(item -> item.getDateAccrued().isAfter(LocalDateTime.now().minusDays(5)))
-        .sorted().collect(Collectors.toList());
+        .collect(Collectors.groupingBy(Fine::getDateAccrued));
+    Object[] keyset = finesMappedPerDay.keySet().toArray();
 
     //Makes the array that shall be returned
     double[][] totalByDate = new double[2][5];
 
     //Iterates for 5 days
-    for (int i = 0; i < finesFiltered.size(); i++) {
+    for (int i = 0; i < keyset.length - 1; i++) {
       double totalFineAmount = 0;
       //Gets value of each fine and adds it to cumulative fine amount
-      for (Fine fine : finesFiltered) {
+      for (Fine fine : finesMappedPerDay.get((LocalDateTime) keyset[i])) {
         totalFineAmount += (double) fine.getAmountInPounds();
       }
       totalByDate[0][i] = totalFineAmount;
@@ -885,12 +893,6 @@ public class StatisticsManager {
    * @return Average and Total fine amounts per User per day for last 5 weeks.
    */
   private static double[][] getFineStatsWeek(List<Fine> fines, int customerSize) {
-    //Iterate through leases and set it to the start of the day
-    for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
-          .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
-    }
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -928,12 +930,6 @@ public class StatisticsManager {
    * @return Average and Total fine amounts per User per day for last 5 months.
    */
   private static double[][] getFineStatsMonth(List<Fine> fines, int customerSize) {
-    //Iterate through leases and set it to the start of the day
-    for (Fine fine : fines) {
-      LocalDateTime date = fine.getLease().getDateLeased().toLocalDate()
-          .atTime(LocalTime.of(0, 0, 0));
-      fine.getLease().setDateLeased(date);
-    }
     //Sorts fines in order of Date Accrued.
     fines.sort(comparing(Fine::getDateAccrued));
 
@@ -950,7 +946,7 @@ public class StatisticsManager {
       //It then filters out any fines that wasn't between start and end of each month.
       List<Fine> finesMappedPerMonth = fines.stream()
           .filter(item -> (item.getDateAccrued().isBefore(dateTo)) && (item.getDateAccrued()
-              .isAfter(dateFrom))).sorted().collect(Collectors.toList());
+              .isAfter(dateFrom))).collect(Collectors.toList());
 
       double totalFineAmount = 0.0;
 

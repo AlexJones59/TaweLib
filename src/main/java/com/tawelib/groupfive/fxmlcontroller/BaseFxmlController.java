@@ -31,6 +31,10 @@ public abstract class BaseFxmlController {
 
   protected Node[] customerNodes;
 
+  protected String lastSceneName;
+
+  protected String currentSceneName;
+
   /**
    * Configures the visible nodes and calls the refresh function.
    */
@@ -157,7 +161,8 @@ public abstract class BaseFxmlController {
   /**
    * Returns to the previous screen.
    */
-  public void back() {}
+  public void back() {
+  }
 
   /**
    * Sets node visibilities.
@@ -171,22 +176,42 @@ public abstract class BaseFxmlController {
     }
   }
 
-  protected void configureVisibilities() {}
+  protected void configureVisibilities() {
+  }
 
   /**
    * Performs actions once the new scene is shown and runtime variables are set.
    */
-  protected void refresh() {}
+  protected void refresh() {
+  }
 
   /**
    * Performs actions once the new scene is shown and runtime variables are set in case that a
    * Librarian is logged in.
    */
-  protected void refreshForLibrarians() {}
+  protected void refreshForLibrarians() {
+  }
 
   /**
    * Performs actions once the new scene is shown and runtime variables are set in case that a
    * Customer is logged in.
    */
-  protected void refreshForCustomers() {}
+  protected void refreshForCustomers() {
+  }
+
+  public void setLastSceneName(String sceneName) {
+    this.lastSceneName = sceneName;
+  }
+
+  public String getLastSceneName() {
+    return lastSceneName;
+  }
+
+  public String getCurrentSceneName() {
+    return currentSceneName;
+  }
+
+  public void setCurrentSceneName(String sceneName) {
+    this.currentSceneName = sceneName;
+  }
 }

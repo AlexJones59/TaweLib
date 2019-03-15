@@ -83,4 +83,5 @@ public class Fine implements Serializable {
   public Customer getFinedCustomer() {
     return lease.getBorrowingCustomer();
   }
+
 }

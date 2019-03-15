@@ -46,9 +46,11 @@ public class ResourceRepository implements BaseRepository<Resource> {
     for (Resource searchResource : resources) {
       if (searchResource.getClass().equals(Book.class)) {
         Book searchBook = (Book) searchResource;
-        if (searchBook.getResourceId().contains(query) || searchBook.getTitle().contains(query)
+        if (searchBook.getResourceId().contains(query)
+            || searchBook.getTitle().contains(query)
             || Integer.toString(searchBook.getYear()).contains(query)
-            || searchBook.getAuthor().contains(query) || searchBook.getPublisher().contains(query)
+            || searchBook.getAuthor().contains(query)
+            || searchBook.getPublisher().contains(query)
             || searchBook.getGenre().contains(query)) {
           result.add(searchBook);
         }

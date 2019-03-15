@@ -2,15 +2,28 @@ package com.tawelib.groupfive.fxmlcontroller;
 
 import com.tawelib.groupfive.entity.Customer;
 import com.tawelib.groupfive.entity.Librarian;
+import com.tawelib.groupfive.entity.Resource;
+import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.tablewrapper.ResourceTableWrapper;
 import com.tawelib.groupfive.util.ResourceHelper;
 import com.tawelib.groupfive.util.SceneHelper;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 /**
  * Controls the user dashboard screen. This is the main screen which a user can access their account
@@ -21,6 +34,8 @@ import javafx.scene.image.ImageView;
  * @version 1.1
  */
 public class UserDashboardController extends BaseFxmlController {
+
+  private static final int LISTVIEW_ONE_ELEM_HEIGHT = 20;
 
   @FXML
   private Button logOutButton;
@@ -45,7 +60,7 @@ public class UserDashboardController extends BaseFxmlController {
 
   @FXML
   private Button browseResourceButton;
-  
+
   @FXML
   private Button browseNewAdditionsButton;
 
@@ -76,6 +91,18 @@ public class UserDashboardController extends BaseFxmlController {
   @FXML
   private ImageView profileImageImageView;
 
+  @FXML
+  private Button profileImageButton;
+
+  @FXML
+  private TextField txtSearch;
+
+  @FXML
+  private ListView<Button> newAdditionsList;
+
+  @FXML
+  private VBox additionsVBox;
+
   public UserDashboardController() {
   }
 
@@ -94,13 +121,6 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "BrowseResources");
   }
 
-  /**
-   * Takes the user to the browse resource screen.
-   */
-  public void browseNewAdditions() {
-    SceneHelper.setUpScene(this, "BrowseNewAdditions");
-  }
-  
   /**
    * Takes the user to the account management screen.
    */
@@ -140,6 +160,9 @@ public class UserDashboardController extends BaseFxmlController {
     SceneHelper.setUpScene(this, "UserList");
   }
 
+  /**
+   * Takes the user to the statistics screen.
+   */
   public void statistics() {
     SceneHelper.setUpScene(this, "Statistics");
   }
@@ -155,7 +178,7 @@ public class UserDashboardController extends BaseFxmlController {
    * Takes the user to the events screen.
    */
   public void eventsWindow() {
-    EventsController c = (EventsController)SceneHelper.setUpScene(this, "Events");
+    EventsController c = (EventsController) SceneHelper.setUpScene(this, "Events");
     c.setLibrary(library);
   }
 
@@ -200,9 +223,9 @@ public class UserDashboardController extends BaseFxmlController {
   private void setGuiForUsers() {
     usernameTextField.setText(loggedInUser.getUsername());
     fullNameTextField.setText(loggedInUser.getFullName());
-    //TODO: Format Address nicely.
     addressTextField.setText(loggedInUser.getAddress().toString());
     phoneNumberTextField.setText(loggedInUser.getPhoneNumber());
+    populateListNewAdditions();
 
     Image profileImage = ResourceHelper.getUserProfileImage(loggedInUser);
     if (profileImage != null) {
@@ -220,6 +243,10 @@ public class UserDashboardController extends BaseFxmlController {
             ((Librarian) loggedInUser).getStaffNumber()
         )
     );
+    accountBalanceLabel.setManaged(false);
+    accountBalanceTextField.setManaged(false);
+    manageAccountButton.setManaged(false);
+    transactionsAndFinesButton.setManaged(false);
   }
 
   /**
@@ -232,5 +259,43 @@ public class UserDashboardController extends BaseFxmlController {
             ((Customer) loggedInUser).getAccountBalanceInPounds()
         )
     );
+    staffNumberLabel.setManaged(false);
+    staffNumberTextField.setManaged(false);
+    createNewAccountButton.setManaged(false);
+    manageUsersButton.setManaged(false);
+    overdueCopiesButton.setManaged(false);
+  }
+
+  /**
+   * The method populates the listview with the resources using buttons. If the button is pressed,
+   * the scene with resource information is opened. The buttons are sorted as last added will be on
+   * the top.
+   */
+  private void populateListNewAdditions() {
+
+    List<Resource> newResources =
+        library.getResourceRepository().searchResource("", lastLogin);
+    newResources.sort(Comparator.comparing(Resource::getDateAdded).reversed());
+
+    for (Resource resource : newResources) {
+      Button oneResource = new Button(resource.getTitle());
+      oneResource.setPrefSize(newAdditionsList.getWidth() - 16, LISTVIEW_ONE_ELEM_HEIGHT);
+
+      oneResource.setOnAction(event -> { //Shows the info about the resource
+        ResourceCrudController newController =
+            (ResourceCrudController) SceneHelper.setUpScene(this, "ResourceCrud");
+        newController.setSelectedResource(resource);
+        newController.setCrudAction(CrudAction.UPDATE);
+        newController.refresh();
+      });
+
+      if (newResources.size() > 8) {
+        newAdditionsList.setPrefWidth(newAdditionsList.getPrefWidth() + 13);
+        additionsVBox.setPrefWidth(additionsVBox.getWidth() + 13);
+
+      }
+      newAdditionsList.getItems().add(oneResource);
+    }
+
   }
 }

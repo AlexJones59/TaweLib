@@ -21,10 +21,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * Account Crud controller controls the Account Crud Screen. This is used to to
- * create and update user account info, while having checks for all the fields,
- * to make sure all input are valid, in terms of style needed for the
- * attribute.
+ * Account Crud controller controls the Account Crud Screen. This is used to to create and update
+ * user account info, while having checks for all the fields, to make sure all input are valid, in
+ * terms of style needed for the attribute.
  *
  * @author Shree Desai, Petr Hoffmann
  * @version 1.0
@@ -143,8 +142,8 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * This method resets the scene, and populates the text fields, if a user has
-   * been selected and screen is being use dto update.
+   * This method resets the scene, and populates the text fields, if a user has been selected and
+   * screen is being use dto update.
    */
   @Override
   public void refresh() {
@@ -156,8 +155,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * Changes visibilities of certain things depending on if you are creating a
-   * librarian.
+   * Changes visibilities of certain things depending on if you are creating a librarian.
    */
   public void toggleCreate() {
     if (cbxLibrarian.isSelected()) {
@@ -351,7 +349,7 @@ public class AccountCrudController extends BaseFxmlController {
    * Goes back to the user dashboard screen.
    */
   public void back() {
-    SceneHelper.setUpScene(this, "UserDashboard");
+    SceneHelper.setUpScene(this, lastSceneName);
   }
 
   /**
@@ -373,8 +371,7 @@ public class AccountCrudController extends BaseFxmlController {
   }
 
   /**
-   * Sets all the visibilities of the buttons, based upon what the screen is
-   * being used for.
+   * Sets all the visibilities of the buttons, based upon what the screen is being used for.
    */
   private void setFieldVisibilities() {
     if (crudAction == CrudAction.CREATE) {

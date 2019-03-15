@@ -2,6 +2,7 @@ package com.tawelib.groupfive.manager;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import com.tawelib.groupfive.Main;
 import com.tawelib.groupfive.entity.Copy;
 import com.tawelib.groupfive.entity.CopyStatus;
 import com.tawelib.groupfive.entity.Customer;
@@ -12,7 +13,9 @@ import com.tawelib.groupfive.entity.Request;
 import com.tawelib.groupfive.entity.RequestStatus;
 import com.tawelib.groupfive.entity.Resource;
 import com.tawelib.groupfive.entity.ResourceType;
+import com.tawelib.groupfive.exception.CopyAvailableException;
 import com.tawelib.groupfive.exception.CopyUnavailableException;
+import com.tawelib.groupfive.exception.EntityNotFoundException;
 import com.tawelib.groupfive.exception.OverResourceCapException;
 import com.tawelib.groupfive.runtime.SimulatedLocalDateTime;
 import java.time.LocalDateTime;
@@ -141,16 +144,20 @@ public class CopyManager {
    * @param resourceId resourceId
    * @param customerUsername the customer username
    * @throws OverResourceCapException When over the resource cap.
+   * @throws EntityNotFoundException When unable to get a reserved copy with the provided id.
    */
   public static void pickUpReservedCopy(Library library, String resourceId,
-      String customerUsername) throws OverResourceCapException {
+      String customerUsername) throws OverResourceCapException, EntityNotFoundException {
     //Gets info of copy and customer.
     Resource reservedResource = library.getResourceRepository()
         .getSpecific(resourceId);
+
     Customer customer = library.getCustomerRepository()
         .getSpecific(customerUsername);
+
     Copy reservedCopy = library.getCopyRepository()
         .getSpecificReserved(customer, reservedResource);
+
     if (ResourceCapManager.isUnderResourceCap(library, customer, reservedCopy.getResource())) {
       //Sets Copy to Borrowed
       library.getCopyRepository().getSpecific(reservedCopy.getId())
@@ -171,30 +178,36 @@ public class CopyManager {
    *
    * @param library library
    * @param copyId lost copy ID
+   * @throws CopyAvailableException if the respective copy is available
    */
-  public static void lostCopy(Library library, String copyId) {
+  public static void lostCopy(Library library, String copyId) throws CopyAvailableException {
     //Gets Copy
     Copy lostCopy = library.getCopyRepository().getSpecific(copyId);
-    Lease currentLease = library.getLeaseRepository()
-        .getCopyCurrentLease(lostCopy);
 
-    //Sets  date returned.
-    library.getLeaseRepository().getCopyCurrentLease(lostCopy)
-        .setDateReturned();
+    if (lostCopy.getStatus() == CopyStatus.BORROWED) {
+      Lease currentLease = library.getLeaseRepository()
+          .getCopyCurrentLease(lostCopy);
 
-    /* Creates Fine with max fine amount, and decreases it from Customer's
-    account */
-    int amount = (lostCopy.getResource().getType().getMaxFine()) * 100;
-    Fine newFine = new Fine(currentLease, amount);
-    library.getFineRepository().add(newFine);
-    library.getCustomerRepository()
-        .getSpecific(currentLease.getBorrowingCustomer().getUsername())
-        .decreaseAccountBalance(newFine.getAmount());
+      //Sets  date returned.
+      library.getLeaseRepository().getCopyCurrentLease(lostCopy)
+          .setDateReturned();
 
-    //Sets Copy as Lost.
-    library.getCopyRepository()
-        .getSpecific(currentLease.getBorrowedCopy().getId())
-        .setStatus(CopyStatus.LOST);
+      //Creates Fine with max fine amount, and decreases it from Customer's account
+      int amount = (lostCopy.getResource().getType().getMaxFine()) * 100;
+      Fine newFine = new Fine(currentLease, amount);
+      library.getFineRepository().add(newFine);
+      library.getCustomerRepository()
+          .getSpecific(currentLease.getBorrowingCustomer().getUsername())
+          .decreaseAccountBalance(newFine.getAmount());
+
+      //Sets Copy as Lost.
+      library.getCopyRepository()
+          .getSpecific(currentLease.getBorrowedCopy().getId())
+          .setStatus(CopyStatus.LOST);
+    } else {
+      throw new CopyAvailableException();
+    }
+
   }
 
   /**
@@ -269,6 +282,7 @@ public class CopyManager {
     //Checks to see if there are any requests for that resource.
     if (!library.getRequestRepository()
         .getOpenResourceRequests(copy.getResource()).isEmpty()
+        || Main.INSTANT_DUE_DATES
     ) {
       generateDueDate(newLease);
     }
