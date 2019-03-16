@@ -799,8 +799,8 @@ public class StatisticsController extends BaseFxmlController {
     }
     totalFineStatSeries.setName("Total Fine Amount");
     averageFineStatSeries.setName("Average Fine Amount");
-    fineStatBarChart.getData().addAll(totalFineStatSeries, averageFineStatSeries);
+
+    fineStatBarChart.getData().add(totalFineStatSeries);
+    fineStatBarChart.getData().add(averageFineStatSeries);
   }
-
-
 }
