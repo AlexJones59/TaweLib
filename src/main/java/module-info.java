@@ -11,12 +11,14 @@ module com.tawelib.groupfive {
 
  // requires kotlin.stdlib;
   opens com.tawelib.groupfive;
+  opens com.tawelib.groupfive.contentprovider;
   opens com.tawelib.groupfive.draw;
   opens com.tawelib.groupfive.entity;
   opens com.tawelib.groupfive.exception;
   opens com.tawelib.groupfive.fxmlcontroller;
   opens com.tawelib.groupfive.manager;
   opens com.tawelib.groupfive.repository;
+  opens com.tawelib.groupfive.runtime;
   opens com.tawelib.groupfive.tablewrapper;
   opens com.tawelib.groupfive.tablewrapper.statisticstablewrappers;
   opens com.tawelib.groupfive.testdata;
