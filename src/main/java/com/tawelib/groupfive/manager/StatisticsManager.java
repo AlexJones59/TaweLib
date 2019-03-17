@@ -36,6 +36,8 @@ import java.util.stream.Collectors;
  */
 public class StatisticsManager {
 
+  private static final int NUMBER_OF_POPULAR_RESOURCES = 10;
+
   /**
    * Gets specific user statistics.
    *
@@ -243,20 +245,24 @@ public class StatisticsManager {
     Collections.sort(freq);
     Collections.reverse(freq);
 
+    int loop;
+    if (freq.size() > NUMBER_OF_POPULAR_RESOURCES) {
+      loop = NUMBER_OF_POPULAR_RESOURCES;
+    } else {
+      loop = freq.size();
+    }
+
     ArrayList<Resource> popularResources = new ArrayList<>();
     //Gets the 10 most popular resources
-    for (int i = 0; i < 10; i++) {
-      try {
-        for (Object key : keys) {
-          Resource resource = (Resource) key;
-          //Checks if it is already in PopularResources
-          if ((map.get(resource).equals(freq.get(i))) && (!popularResources.contains(resource)) && (
-              popularResources.size() < 10)) {
-            popularResources.add(resource);
-          }
+    for (int i = 0; i < loop; i++) {
+      for (Object key : keys) {
+        Resource resource = (Resource) key;
+        //Checks if it is already in PopularResources
+        if ((map.get(resource).equals(freq.get(i))) && (!popularResources
+            .contains(resource)) && (
+            popularResources.size() < NUMBER_OF_POPULAR_RESOURCES)) {
+          popularResources.add(resource);
         }
-      } catch (IndexOutOfBoundsException e) {
-        continue;
       }
     }
     return popularResources;
@@ -402,7 +408,8 @@ public class StatisticsManager {
         for (Object key : keys) {
           String director = (String) key;
           //Checks if it is already in PopularDirectors
-          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director)) && (
+          if ((map.get(director).equals(freq.get(i))) && (!popularDirectors.contains(director))
+              && (
               popularDirectors.size() < 10)) {
             popularDirectors.add(director);
           }
@@ -699,7 +706,8 @@ public class StatisticsManager {
     //It then filters out any leases that was before 4 days ago.
     Map<LocalDateTime, Map<Customer, List<Lease>>> leasesMappedPerDay = leases.stream()
         .filter(item -> item.getDateLeased().isAfter(LocalDateTime.now().minusDays(5)))
-        .sorted(comparing(Lease::getDateLeased)).collect(Collectors.groupingBy(Lease::getDateLeased,
+        .sorted(comparing(Lease::getDateLeased))
+        .collect(Collectors.groupingBy(Lease::getDateLeased,
             Collectors.groupingBy(Lease::getBorrowingCustomer)));
 
     //Makes the array that shall be returned
